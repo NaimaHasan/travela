@@ -9,8 +9,8 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => Container(color:Colors.blue),
-      tablet: (BuildContext context) => Container(color:Colors.yellow),
+      mobile: (BuildContext context) => const SearchScreenDesktop(),
+      tablet: (BuildContext context) => const SearchScreenDesktop(),
       desktop: (BuildContext context) => const SearchScreenDesktop(),
     );
   }

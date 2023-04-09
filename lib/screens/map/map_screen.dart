@@ -9,8 +9,8 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => Container(color:Colors.blue),
-      tablet: (BuildContext context) => Container(color:Colors.yellow),
+      mobile: (BuildContext context) => const MapScreenDesktop(),
+      tablet: (BuildContext context) => const MapScreenDesktop(),
       desktop: (BuildContext context) => const MapScreenDesktop(),
     );
   }

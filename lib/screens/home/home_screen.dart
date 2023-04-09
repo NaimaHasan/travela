@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => Container(color:Colors.blue),
-      tablet: (BuildContext context) => Container(color:Colors.yellow),
+      mobile: (BuildContext context) => const HomeScreenDesktop(),
+      tablet: (BuildContext context) => const HomeScreenDesktop(),
       desktop: (BuildContext context) => const HomeScreenDesktop(),
     );
   }

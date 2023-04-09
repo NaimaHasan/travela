@@ -9,8 +9,8 @@ class DestinationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => Container(color:Colors.blue),
-      tablet: (BuildContext context) => Container(color:Colors.yellow),
+      mobile: (BuildContext context) => const DestinationScreenDesktop(),
+      tablet: (BuildContext context) => const DestinationScreenDesktop(),
       desktop: (BuildContext context) => const DestinationScreenDesktop(),
     );
   }
