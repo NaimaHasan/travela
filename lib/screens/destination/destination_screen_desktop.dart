@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:travela/widgets/destination/image.dart';
-import 'package:travela/widgets/destination/nearby.dart';
+import 'package:travela/screens/destination/widgets/image.dart';
+import 'package:travela/screens/destination/widgets/nearby.dart';
 
-class DestinationScreen extends StatelessWidget {
-  const DestinationScreen({Key? key}) : super(key: key);
-  static const String routeName = '/destination';
+class DestinationScreenDesktop extends StatelessWidget {
+  const DestinationScreenDesktop({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DestinationScreen extends StatelessWidget {
             const DestinationImage(),
             const Padding(
               padding:
-                  EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
+              EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
               child: Text(
                 'Description',
                 style: TextStyle(

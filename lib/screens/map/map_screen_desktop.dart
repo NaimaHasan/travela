@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MapScreen extends StatelessWidget {
-  const MapScreen({Key? key}) : super(key: key);
-  static const String routeName = '/map';
+class MapScreenDesktop extends StatelessWidget {
+  const MapScreenDesktop({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

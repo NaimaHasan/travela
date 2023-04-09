@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:travela/widgets/homescreen/home_carousel.dart';
-import 'package:travela/widgets/homescreen/home_pill.dart';
+import 'package:travela/screens/home/widgets/home_carousel.dart';
+import 'package:travela/screens/home/widgets/home_pill.dart';
 
-class HomePageScreen extends StatelessWidget {
-  const HomePageScreen({Key? key}) : super(key: key);
-  static const String routeName = '/home';
+class HomeScreenDesktop extends StatelessWidget {
+  const HomeScreenDesktop({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class HomePageScreen extends StatelessWidget {
             ),
             const Padding(
               padding:
-                  EdgeInsets.only(bottom: 20, left: 15, right: 15, top: 30),
+              EdgeInsets.only(bottom: 20, left: 15, right: 15, top: 30),
               child: Text(
                 'Hot Destinations',
                 style: TextStyle(fontSize: 20),
@@ -91,7 +92,7 @@ class HomePageScreen extends StatelessWidget {
             const HomeCarousel(),
             const Padding(
               padding:
-                  EdgeInsets.only(top: 30, bottom: 20, left: 15, right: 15),
+              EdgeInsets.only(top: 30, bottom: 20, left: 15, right: 15),
               child: Text(
                 'Amsterdam',
                 style: TextStyle(fontSize: 20),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travela/screens/map.dart';
-import 'package:travela/screens/search.dart';
-import 'package:travela/screens/destination.dart';
-import 'package:travela/screens/homepage.dart';
+import 'package:travela/screens/map/map_screen.dart';
+import 'package:travela/screens/search/search_screen.dart';
+import 'package:travela/screens/destination/destination_screen.dart';
+import 'package:travela/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
       ),
-      initialRoute: HomePageScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
-        HomePageScreen.routeName: (ctx) => const HomePageScreen(),
+        HomeScreen.routeName: (ctx) => const HomeScreen(),
         SearchScreen.routeName: (ctx) => const SearchScreen(),
         MapScreen.routeName: (ctx) => const MapScreen(),
         DestinationScreen.routeName: (ctx) => const DestinationScreen(),
