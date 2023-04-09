@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../widgets/common/top_navigation_bar.dart';
+
 class AccountScreenDesktop extends StatelessWidget {
   const AccountScreenDesktop({
     super.key,
@@ -8,7 +10,15 @@ class AccountScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(
+          hasSearch: false,
+          hasAccount: false,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 500, right: 500, top: 90),

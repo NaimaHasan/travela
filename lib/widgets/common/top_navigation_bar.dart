@@ -3,7 +3,12 @@ import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
 class TopNavigationBar extends StatelessWidget {
-  const TopNavigationBar({Key? key}) : super(key: key);
+  const TopNavigationBar(
+      {Key? key, this.hasSearch = true, this.hasAccount = true})
+      : super(key: key);
+
+  final bool hasSearch;
+  final bool hasAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +34,29 @@ class TopNavigationBar extends StatelessWidget {
               horizontalSpaceSmall,
               TopNavigationBarItem(text: "Trips"),
               horizontalSpaceSmall,
-              SizedBox(
+              Visibility(
+                visible: hasSearch,
+                child: SizedBox(
                 width: 0.25 * screenSize.width,
                 child: TextField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-              ),
+              ),),
             ],
           ),
           SizedBox(
             width: marginHorizontal,
-            child: Icon(Icons.account_circle),
+            child: Visibility(
+              visible: hasAccount,
+              child: Icon(Icons.account_circle),
+            ),
           ),
         ],
       ),
