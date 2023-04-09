@@ -21,7 +21,7 @@ class AccountScreenDesktop extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 500, right: 500, top: 90),
+          padding: const EdgeInsets.only(left: 500, right: 500, top: 30),
           child: Column(
             children: [
               Row(
