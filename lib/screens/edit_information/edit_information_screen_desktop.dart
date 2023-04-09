@@ -39,7 +39,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
                           Icons.edit,
                         ),
                       ),
-                      labelText: 'Enter your E-mail',
+                      labelText: 'Name',
                       labelStyle: const TextStyle(
                         fontSize: 15,
                       ),
@@ -56,7 +56,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 350,
-                  child: TextField(
+                  child: TextFormField(
                     style: const TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
@@ -65,7 +65,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
                           Icons.edit,
                         ),
                       ),
-                      labelText: 'Enter password',
+                      labelText: 'Password',
                       labelStyle: const TextStyle(
                         fontSize: 15,
                       ),
