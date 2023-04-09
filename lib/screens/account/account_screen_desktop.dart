@@ -78,6 +78,35 @@ class AccountScreenDesktop extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 1000,
                 color: Colors.black45,
               ),
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 30, left: 10, bottom: 30),
+                  child: Text(
+                    'Trips',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Container(
+                height: 1000,
+                child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 50,
+                    mainAxisSpacing: 50,
+                  ),
+                  itemCount: 300,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      color: Colors.blueGrey,
+                      child: Center(child: Text('$index')),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
