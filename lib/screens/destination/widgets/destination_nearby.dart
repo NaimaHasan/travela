@@ -56,21 +56,25 @@ final List<Widget> imageSliders = [1, 2, 3, 4, 5]
     )
     .toList();
 
-class NearbyPlaces extends StatelessWidget {
-  const NearbyPlaces({Key? key}) : super(key: key);
+class DestinationNearbyPlaces extends StatelessWidget {
+  const DestinationNearbyPlaces({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-          autoPlay: false,
-          aspectRatio: 1.1,
-          enlargeCenterPage: true,
-          enlargeStrategy: CenterPageEnlargeStrategy.height,
-          viewportFraction: 0.92,
-          //height: 355,
-          initialPage: 5),
-      items: imageSliders,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: CarouselSlider(
+        options: CarouselOptions(
+            autoPlay: false,
+            aspectRatio: 4,
+            enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.height,
+            enlargeFactor: 0.1,
+            viewportFraction: 0.335,
+            //height: 355,
+            initialPage: 5),
+        items: imageSliders,
+      ),
     );
   }
 }
