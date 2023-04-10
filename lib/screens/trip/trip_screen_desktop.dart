@@ -21,7 +21,7 @@ class TripScreenDesktop extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 200, right: 200, top: 30),
+          padding: const EdgeInsets.only(left: 250, right: 250, top: 30),
           child: Column(
             children: [
               Row(
@@ -29,7 +29,7 @@ class TripScreenDesktop extends StatelessWidget {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30, left: 10, bottom: 30),
+                      padding: EdgeInsets.only(top: 20, bottom: 30),
                       child: Text(
                         'Your Trips',
                         style: TextStyle(
@@ -42,10 +42,14 @@ class TripScreenDesktop extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding:
-                            EdgeInsets.only(top: 30, right: 10, bottom: 30),
+                            EdgeInsets.only(top: 30, bottom: 30),
                         child: IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.add),
+                          icon: const Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
+                          splashRadius: 18,
                         ),
                       ),
                     ),
@@ -53,13 +57,13 @@ class TripScreenDesktop extends StatelessWidget {
                 ],
               ),
               Container(
-                height: 400,
+                height: 500,
                 child: GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 100,
+                    crossAxisSpacing: 80,
                     mainAxisSpacing: 50,
                     childAspectRatio: 2.2,
                   ),
@@ -70,24 +74,132 @@ class TripScreenDesktop extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 15),
+                            padding: EdgeInsets.only(left: 10),
                             child: Container(
-                              height: 165,
-                              width: 165,
+                              height: 160,
+                              width: 160,
                               color: Colors.tealAccent,
                             ),
                           ),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const Text('Madeira Trip'),
-                                const Text('23rd March - 28th March'),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.share),
-                                ),
-                              ],
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 25, bottom: 10),
+                                    child: Text(
+                                      'Madeira Trip',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 45),
+                                    child: Text(
+                                      '23rd March - 28th March',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.share),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Row(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 20, bottom: 30),
+                      child: Text(
+                        'Your Group Trips',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(top: 30, bottom: 30),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
+                          splashRadius: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 500,
+                child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 80,
+                    mainAxisSpacing: 50,
+                    childAspectRatio: 2.2,
+                  ),
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      elevation: 5,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Container(
+                              height: 160,
+                              width: 160,
+                              color: Colors.tealAccent,
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 25, bottom: 10),
+                                    child: Text(
+                                      'Madeira Trip',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 45),
+                                    child: Text(
+                                      '23rd March - 28th March',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.share),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
