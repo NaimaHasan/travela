@@ -4,6 +4,7 @@ import 'package:travela/screens/edit_information/widgets/edit_information_passwo
 import 'package:dotted_border/dotted_border.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
+import '../account/account_screen.dart';
 
 class EditInformationScreenDesktop extends StatelessWidget {
   const EditInformationScreenDesktop({
@@ -88,7 +89,9 @@ class EditInformationScreenDesktop extends StatelessWidget {
                   width: 250,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AccountScreen.routeName);
+                    },
                     child: const Text(
                       'Done',
                       style: TextStyle(),
