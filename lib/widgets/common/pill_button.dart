@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class PillButton extends StatelessWidget {
-  const PillButton({Key? key, required this.child, required this.padding}) : super(key: key);
+  const PillButton({Key? key, required this.child, required this.padding, required this.onPress}) : super(key: key);
 
   final Widget child;
   final EdgeInsetsGeometry padding;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPress,
       child: Padding(
         padding: padding,
         child: child,

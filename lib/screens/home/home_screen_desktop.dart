@@ -32,6 +32,7 @@ class HomeScreenDesktop extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 13),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                  onPress: (){},
                 ),
                 horizontalSpaceSmall,
                 PillButton(
@@ -40,6 +41,7 @@ class HomeScreenDesktop extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 13),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                  onPress: (){},
                 ),
                 horizontalSpaceSmall,
                 PillButton(
@@ -48,6 +50,7 @@ class HomeScreenDesktop extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 13),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                  onPress: (){},
                 ),
               ],
             ),

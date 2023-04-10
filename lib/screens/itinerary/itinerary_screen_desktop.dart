@@ -71,6 +71,7 @@ class ItineraryScreenDesktop extends StatelessWidget {
                     ],
                   ),
                   padding: EdgeInsets.all(10),
+                  onPress: (){},
                 ),
               ],
             ),
