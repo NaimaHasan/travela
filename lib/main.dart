@@ -11,7 +11,7 @@ import 'package:travela/screens/destination/destination_screen.dart';
 import 'package:travela/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';\
+import 'firebase_options.dart';
 import 'package:travela/screens/trip/trip_screen.dart';
 
 void main() async {
