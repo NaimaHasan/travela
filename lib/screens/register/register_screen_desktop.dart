@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
+import '../account/account_screen.dart';
+import '../login/login_screen.dart';
 
 class RegisterScreenDesktop extends StatelessWidget {
   const RegisterScreenDesktop({
@@ -116,7 +118,9 @@ class RegisterScreenDesktop extends StatelessWidget {
               width: 300,
               height: 60,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AccountScreen.routeName);
+                },
                 child: const Text(
                   'Register',
                   style: TextStyle(),
@@ -137,7 +141,9 @@ class RegisterScreenDesktop extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(LogInScreen.routeName);
+                  },
                   child: Text('Log In'),
                 )
               ],

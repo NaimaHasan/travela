@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/common/top_navigation_bar.dart';
+import '../account/account_screen.dart';
+import '../register/register_screen.dart';
 
 class LogInScreenDesktop extends StatefulWidget {
   const LogInScreenDesktop({Key? key}) : super(key: key);
@@ -103,7 +105,9 @@ class _LogInScreenDesktopState extends State<LogInScreenDesktop> {
               width: 300,
               height: 60,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AccountScreen.routeName);
+                },
                 child: const Text(
                   'Log In',
                   style: TextStyle(),
@@ -124,7 +128,9 @@ class _LogInScreenDesktopState extends State<LogInScreenDesktop> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                  },
                   child: Text('Register'),
                 )
               ],
