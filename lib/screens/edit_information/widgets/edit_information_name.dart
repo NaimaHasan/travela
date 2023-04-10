@@ -29,36 +29,39 @@ class _EditInformationNameState extends State<EditInformationName> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: fieldData,
-      enabled: isEnabled,
-      decoration: InputDecoration(
-        labelText: widget.title,
-        labelStyle: const TextStyle(
-          fontSize: 18,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        suffixIcon: IconButton(
-          color: icon == Icons.check ? Colors.green : null,
-          onPressed: () {
-            setState(
-              () {
-                isEnabled = !isEnabled;
-                if (icon == Icons.edit)
-                  icon = Icons.check;
-                else {
-                  icon = Icons.edit;
-                }
-              },
-            );
-          },
-          icon: Icon(icon),
-          iconSize: 18,
-          splashRadius: 18,
+    return SizedBox(
+      width: 350,
+      child: TextFormField(
+        controller: fieldData,
+        enabled: isEnabled,
+        decoration: InputDecoration(
+          labelText: widget.title,
+          labelStyle: const TextStyle(
+            fontSize: 18,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          suffixIcon: IconButton(
+            color: icon == Icons.check ? Colors.green : null,
+            onPressed: () {
+              setState(
+                () {
+                  isEnabled = !isEnabled;
+                  if (icon == Icons.edit)
+                    icon = Icons.check;
+                  else {
+                    icon = Icons.edit;
+                  }
+                },
+              );
+            },
+            icon: Icon(icon),
+            iconSize: 18,
+            splashRadius: 18,
+          ),
         ),
       ),
     );

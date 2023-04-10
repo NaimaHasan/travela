@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/edit_information/widgets/edit_information_name.dart';
 import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class EditInformationScreenDesktop extends StatelessWidget {
   const EditInformationScreenDesktop({
@@ -13,7 +14,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height - 120,
-          width: 450,
+          width: 420,
           child: Card(
             elevation: 5,
             //color: Colors.black12,
@@ -30,23 +31,52 @@ class EditInformationScreenDesktop extends StatelessWidget {
                 Container(
                   height: 60,
                 ),
-                SizedBox(
-                  width: 350,
-                  child: EditInformationName(title: 'Name', data: 'John Doe'),
-                ),
+                EditInformationName(title: 'Name', data: 'John Doe'),
                 Container(
                   height: 30,
                 ),
-                SizedBox(
-                  width: 350,
-                  child: EditInformationPassword(title: 'Password', data: '********')
+                EditInformationPassword(title: 'Password', data: '********'),
+                const Padding(
+                  padding: EdgeInsets.only(left: 50, top: 30, bottom: 30),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Image',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(6),
+                  color: Colors.black,
+                  dashPattern: [8, 4],
+                  strokeWidth: 0.5,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(6),
+                    ),
+                    child: Container(
+                      height: 300,
+                      width: 340,
+                      child: Center(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add_photo_alternate_outlined),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   height: 60,
                 ),
                 SizedBox(
-                  width: 300,
-                  height: 60,
+                  width: 250,
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: () {},
                     child: const Text(

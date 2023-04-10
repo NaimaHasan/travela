@@ -7,7 +7,8 @@ class EditInformationPassword extends StatefulWidget {
   final String title;
   final String data;
   @override
-  _EditInformationPasswordState createState() => _EditInformationPasswordState();
+  _EditInformationPasswordState createState() =>
+      _EditInformationPasswordState();
 }
 
 class _EditInformationPasswordState extends State<EditInformationPassword> {
@@ -29,36 +30,39 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: fieldData,
-      enabled: isEnabled,
-      decoration: InputDecoration(
-        labelText: widget.title,
-        labelStyle: const TextStyle(
-          fontSize: 18,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        contentPadding:
-        const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        suffixIcon: IconButton(
-          color: icon == Icons.check ? Colors.green : null,
-          onPressed: () {
-            setState(
-                  () {
-                isEnabled = !isEnabled;
-                if (icon == Icons.edit)
-                  icon = Icons.check;
-                else {
-                  icon = Icons.edit;
-                }
-              },
-            );
-          },
-          icon: Icon(icon),
-          iconSize: 18,
-          splashRadius: 18,
+    return SizedBox(
+      width: 350,
+      child: TextFormField(
+        controller: fieldData,
+        enabled: isEnabled,
+        decoration: InputDecoration(
+          labelText: widget.title,
+          labelStyle: const TextStyle(
+            fontSize: 18,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          suffixIcon: IconButton(
+            color: icon == Icons.check ? Colors.green : null,
+            onPressed: () {
+              setState(
+                () {
+                  isEnabled = !isEnabled;
+                  if (icon == Icons.edit) {
+                    icon = Icons.check;
+                  } else {
+                    icon = Icons.edit;
+                  }
+                },
+              );
+            },
+            icon: Icon(icon),
+            iconSize: 18,
+            splashRadius: 18,
+          ),
         ),
       ),
     );
