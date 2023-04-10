@@ -27,17 +27,26 @@ class HomeScreenDesktop extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PillButton(
-                  text: "Destinations",
+                  child: Text(
+                    "Destinations",
+                    style: TextStyle(color: Colors.black, fontSize: 13),
+                  ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                 ),
                 horizontalSpaceSmall,
                 PillButton(
-                  text: "Hotels",
+                  child: Text(
+                    "Hotels",
+                    style: TextStyle(color: Colors.black, fontSize: 13),
+                  ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                 ),
                 horizontalSpaceSmall,
                 PillButton(
-                  text: "Restaurants",
+                  child: Text(
+                    "Restaurants",
+                    style: TextStyle(color: Colors.black, fontSize: 13),
+                  ),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                 ),
               ],
