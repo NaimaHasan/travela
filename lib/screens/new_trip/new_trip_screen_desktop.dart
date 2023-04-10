@@ -3,10 +3,11 @@ import 'package:travela/screens/edit_information/widgets/edit_information_name.d
 import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_date.dart';
+import 'package:travela/screens/new_trip/widgets/new_trip_location.dart';
 
 class NewTripScreenDesktop extends StatelessWidget {
   const NewTripScreenDesktop({
-  super.key,
+    super.key,
   });
 
   @override
@@ -18,7 +19,6 @@ class NewTripScreenDesktop extends StatelessWidget {
           width: 420,
           child: Card(
             elevation: 5,
-            //color: Colors.black12,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -26,23 +26,27 @@ class NewTripScreenDesktop extends StatelessWidget {
                   'New Trip',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 22,
+                    fontSize: 24,
                   ),
                 ),
-                Container(
-                  height: 30,
-                ),
                 NewTripDate(title: 'Start Date', data: 'Mar 19, 2023'),
-                Container(
-                  height: 30,
-                ),
                 NewTripDate(title: 'End Date', data: 'Mar 23, 2023'),
-                Container(
-                  height: 30,
-                ),
-                EditInformationPassword(title: 'Password', data: '********'),
                 const Padding(
-                  padding: EdgeInsets.only(left: 50, top: 30, bottom: 30),
+                  padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Location',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                NewTripLocation(data: 'Madeira'),
+                const Padding(
+                  padding: EdgeInsets.only(left: 30, top: 25, bottom: 15),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -77,7 +81,7 @@ class NewTripScreenDesktop extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 60,
+                  height: 40,
                 ),
                 SizedBox(
                   width: 250,
