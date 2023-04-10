@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/account/account_screen.dart';
 import 'package:travela/screens/edit_information/edit_information_screen.dart';
+import 'package:travela/screens/itinerary/itinerary_screen.dart';
 import 'package:travela/screens/login/login_screen.dart';
 import 'package:travela/screens/map/map_screen.dart';
 import 'package:travela/screens/new_trip/new_trip_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         AccountScreen.routeName: (ctx) => const AccountScreen(),
         EditInformationScreen.routeName: (ctx) => const EditInformationScreen(),
         NewTripScreen.routeName: (ctx) => const NewTripScreen(),
+        ItineraryScreen.routeName: (ctx) => const ItineraryScreen(),
       },
     );
   }

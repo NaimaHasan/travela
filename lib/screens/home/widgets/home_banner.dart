@@ -69,7 +69,10 @@ class HomeBanner extends StatelessWidget {
                     child: Container(),
                   ),
                   PillButton(
-                    text: "Plan a trip now",
+                    child: Text(
+                      "Plan a trip now",
+                      style: TextStyle(color: Colors.black, fontSize: 13),
+                    ),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                   ),
                   horizontalSpaceMedium,

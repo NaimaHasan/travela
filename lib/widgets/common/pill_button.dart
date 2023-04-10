@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PillButton extends StatelessWidget {
-  const PillButton({Key? key, required this.text, required this.padding}) : super(key: key);
+  const PillButton({Key? key, required this.child, required this.padding}) : super(key: key);
 
-  final String text;
+  final Widget child;
   final EdgeInsetsGeometry padding;
 
   @override
@@ -12,10 +12,7 @@ class PillButton extends StatelessWidget {
       onPressed: () {},
       child: Padding(
         padding: padding,
-        child: Text(
-          text,
-          style: TextStyle(color: Colors.black, fontSize: 13),
-        ),
+        child: child,
       ),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
