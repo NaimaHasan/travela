@@ -9,6 +9,7 @@ import 'package:travela/screens/search/search_screen.dart';
 import 'package:travela/screens/destination/destination_screen.dart';
 import 'package:travela/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travela/screens/trip/trip_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         AccountScreen.routeName: (ctx) => const AccountScreen(),
         EditInformationScreen.routeName: (ctx) => const EditInformationScreen(),
         NewTripScreen.routeName: (ctx) => const NewTripScreen(),
+        TripScreen.routeName: (ctx) => const TripScreen(),
       },
     );
   }
