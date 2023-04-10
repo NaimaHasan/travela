@@ -3,6 +3,8 @@ import 'package:travela/screens/edit_information/widgets/edit_information_name.d
 import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import '../../widgets/common/top_navigation_bar.dart';
+
 class EditInformationScreenDesktop extends StatelessWidget {
   const EditInformationScreenDesktop({
     super.key,
@@ -10,7 +12,15 @@ class EditInformationScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(
+          hasSearch: false,
+          hasAccount: false,
+        ),
+      ),
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height - 120,

@@ -5,6 +5,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_date.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_location.dart';
 
+import '../../widgets/common/top_navigation_bar.dart';
+
 class NewTripScreenDesktop extends StatelessWidget {
   const NewTripScreenDesktop({
     super.key,
@@ -12,7 +14,14 @@ class NewTripScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(
+          hasSearch: false,
+        ),
+      ),
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height - 120,
