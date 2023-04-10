@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660530278090",
+    "project_id": "travela-d3bd4",
+    "storage_bucket": "travela-d3bd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660530278090:android:02f33ab32a54f0006a0e33",
+        "android_client_info": {
+          "package_name": "com.example.travela"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660530278090-6ap3gb0q69417ggaku4dde097m47d4vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbQWViDRkWH9j0ocHGgl2O4-MWgdG23-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660530278090-6ap3gb0q69417ggaku4dde097m47d4vv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
