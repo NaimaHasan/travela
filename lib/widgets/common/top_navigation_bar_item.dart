@@ -13,7 +13,9 @@ class TopNavigationBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.of(context).pushNamed(route);
+        if(!text.contains("Near Me")) {
+          Navigator.of(context).pushNamed(route);
+        }
       },
       child: Text(
         text,
