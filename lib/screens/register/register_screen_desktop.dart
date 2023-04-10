@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-class RegisterScreenDesktop extends StatefulWidget {
-  const RegisterScreenDesktop({Key? key}) : super(key: key);
+import '../../widgets/common/top_navigation_bar.dart';
 
-  @override
-  _RegisterScreenDesktopState createState() => _RegisterScreenDesktopState();
-}
-
-class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
-  bool isObscured = true;
-  var changeIcon = Icons.visibility_off_outlined;
-  void initState() {
-    isObscured = true;
-    changeIcon = Icons.visibility_off_outlined;
-    super.initState();
-  }
+class RegisterScreenDesktop extends StatelessWidget {
+  const RegisterScreenDesktop({
+  super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(
+          hasSearch: false,
+          hasAccount: false,
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +43,7 @@ class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
                   ),
                   isDense: true,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5)),
                 ),
@@ -64,7 +63,7 @@ class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
                   ),
                   isDense: true,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5)),
                 ),
@@ -84,28 +83,10 @@ class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
                   ),
                   isDense: true,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          isObscured = !isObscured;
-                          if (changeIcon == Icons.visibility_outlined) {
-                            changeIcon = Icons.visibility_off_outlined;
-                          } else {
-                            changeIcon = Icons.visibility_outlined;
-                          }
-                        },
-                      );
-                    },
-                    icon: Icon(changeIcon),
-                    iconSize: 16,
-                  ),
+                      borderRadius: BorderRadius.circular(5)),
                 ),
-                obscureText: isObscured,
               ),
             ),
             Container(
@@ -122,28 +103,10 @@ class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
                   ),
                   isDense: true,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          isObscured = !isObscured;
-                          if (changeIcon == Icons.visibility_outlined) {
-                            changeIcon = Icons.visibility_off_outlined;
-                          } else {
-                            changeIcon = Icons.visibility_outlined;
-                          }
-                        },
-                      );
-                    },
-                    icon: Icon(changeIcon),
-                    iconSize: 16,
-                  ),
+                      borderRadius: BorderRadius.circular(5)),
                 ),
-                obscureText: isObscured,
               ),
             ),
             Container(

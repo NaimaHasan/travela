@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/home/widgets/home_banner.dart';
 import 'package:travela/screens/home/widgets/home_carousel.dart';
-import 'package:travela/screens/home/widgets/home_pill.dart';
+import 'package:travela/widgets/common/pill_button.dart';
+import 'package:travela/widgets/common/spacing.dart';
+import 'package:travela/widgets/common/top_navigation_bar.dart';
 
 class HomeScreenDesktop extends StatelessWidget {
   const HomeScreenDesktop({
@@ -9,103 +12,74 @@ class HomeScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(),
+      ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).padding.top,
-            ),
-            Container(
-              color: Color.fromARGB(255, 200, 200, 200),
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 20, top: 20),
-                    child: Text(
-                      'Travela',
-                      style: TextStyle(fontSize: 26),
-                    ),
-                  ),
-                  const SizedBox(width: 30),
-                  Expanded(
-                    child: Container(),
-                  ),
-                  SizedBox(
-                    width: 400,
-                    child: SizedBox(
-                      height: 38,
-                      child: TextField(
-                        style: const TextStyle(fontSize: 16),
-                        // textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.search),
-                            iconSize: 24,
-                            splashRadius: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            HomeBanner(),
+            verticalSpaceSmall,
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                HomePill(title: 'Destinations'),
-                SizedBox(width: 12),
-                HomePill(title: 'Hotels'),
-                SizedBox(width: 12),
-                HomePill(title: 'Restaurants'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PillButton(
+                  text: "Destinations",
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                ),
+                horizontalSpaceSmall,
+                PillButton(
+                  text: "Hotels",
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                ),
+                horizontalSpaceSmall,
+                PillButton(
+                  text: "Restaurants",
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                ),
               ],
             ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                HomePill(title: 'Hospitals'),
-                SizedBox(width: 12),
-                HomePill(title: 'Public Washrooms'),
-              ],
-            ),
-            const Padding(
-              padding:
-              EdgeInsets.only(bottom: 20, left: 15, right: 15, top: 30),
-              child: Text(
-                'Hot Destinations',
-                style: TextStyle(fontSize: 20),
+            verticalSpaceSmall,
+            Align(
+              child: Padding(
+                padding: EdgeInsets.only(left: marginHorizontal),
+                child: Text(
+                  "Hot Destinations",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
               ),
+              alignment: Alignment.centerLeft,
             ),
-            const HomeCarousel(),
-            const Padding(
-              padding:
-              EdgeInsets.only(top: 30, bottom: 20, left: 15, right: 15),
-              child: Text(
-                'Amsterdam',
-                style: TextStyle(fontSize: 20),
+            verticalSpaceSmall,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+              child: HomeCarousel(),
+            ),
+            verticalSpaceMedium,
+            Align(
+              child: Padding(
+                padding: EdgeInsets.only(left: marginHorizontal),
+                child: Text(
+                  "Location of the Day: Venice",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
               ),
+              alignment: Alignment.centerLeft,
             ),
-            const HomeCarousel(),
-            const SizedBox(height: 50),
+            verticalSpaceSmall,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+              child: HomeCarousel(),
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.map),
       ),
     );
   }

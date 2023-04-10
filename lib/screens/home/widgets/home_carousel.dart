@@ -11,36 +11,32 @@ final List<String> imgList = [
 ];
 
 final List<Widget> imageSliders = imgList
-    .map((item) => Container(
-  margin: const EdgeInsets.symmetric(horizontal: 6.0),
-  child: ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-      child: Stack(
-        children: <Widget>[
-          Image.network(item, fit: BoxFit.cover, width: 1500.0),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(50, 0, 0, 0),
-                    Color.fromARGB(0, 0, 0, 0)
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+    .map(
+      (item) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          child: Stack(
+            children: [
+              Image.network(item, fit: BoxFit.cover, height: 400),
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(50, 0, 0, 0),
+                      Color.fromARGB(0, 0, 0, 0)
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
                 ),
+                child: Container(),
               ),
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0),
-              child: Container(),
-            ),
+            ],
           ),
-        ],
-      )),
-))
+        ),
+      ),
+    )
     .toList();
 
 class HomeCarousel extends StatelessWidget {
@@ -51,12 +47,12 @@ class HomeCarousel extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: false,
-        aspectRatio: 1.0,
         enlargeCenterPage: true,
         enlargeStrategy: CenterPageEnlargeStrategy.height,
-        viewportFraction: 1.2,
-        height: MediaQuery.of(context).size.height * 0.6,
-        initialPage: 5
+        enlargeFactor: 0.1,
+        viewportFraction: 0.335,
+        height: 400,
+        initialPage: 5,
       ),
       items: imageSliders,
     );
