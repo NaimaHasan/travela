@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/destination/destination_screen.dart';
+import 'package:travela/screens/home/home_screen.dart';
+import 'package:travela/screens/trip/trip_screen.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
@@ -21,6 +24,7 @@ class TopNavigationBar extends StatelessWidget {
           TopNavigationBarItem(
             text: "Travela",
             size: 28,
+            route: HomeScreen.routeName,
           ),
           Expanded(
             child: Container(),
@@ -28,11 +32,11 @@ class TopNavigationBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TopNavigationBarItem(text: "Home"),
+              TopNavigationBarItem(text: "Home", route: HomeScreen.routeName,),
               horizontalSpaceSmall,
-              TopNavigationBarItem(text: "Near Me"),
+              TopNavigationBarItem(text: "Near Me", route: DestinationScreen.routeName,),
               horizontalSpaceSmall,
-              TopNavigationBarItem(text: "Trips"),
+              TopNavigationBarItem(text: "Trips", route: TripScreen.routeName,),
               horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
