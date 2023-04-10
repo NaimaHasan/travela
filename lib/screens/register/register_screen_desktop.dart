@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
-class RegisterScreenDesktop extends StatelessWidget {
-  const RegisterScreenDesktop({
-  super.key,
-  });
+class RegisterScreenDesktop extends StatefulWidget {
+  const RegisterScreenDesktop({Key? key}) : super(key: key);
+
+  @override
+  _RegisterScreenDesktopState createState() => _RegisterScreenDesktopState();
+}
+
+class _RegisterScreenDesktopState extends State<RegisterScreenDesktop> {
+  bool isObscured = true;
+  var changeIcon = Icons.visibility_off_outlined;
+  void initState() {
+    isObscured = true;
+    changeIcon = Icons.visibility_off_outlined;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class RegisterScreenDesktop extends StatelessWidget {
                   ),
                   isDense: true,
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5)),
                 ),
@@ -53,7 +64,7 @@ class RegisterScreenDesktop extends StatelessWidget {
                   ),
                   isDense: true,
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5)),
                 ),
@@ -73,10 +84,28 @@ class RegisterScreenDesktop extends StatelessWidget {
                   ),
                   isDense: true,
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(
+                        () {
+                          isObscured = !isObscured;
+                          if (changeIcon == Icons.visibility_outlined) {
+                            changeIcon = Icons.visibility_off_outlined;
+                          } else {
+                            changeIcon = Icons.visibility_outlined;
+                          }
+                        },
+                      );
+                    },
+                    icon: Icon(changeIcon),
+                    iconSize: 16,
+                  ),
                 ),
+                obscureText: isObscured,
               ),
             ),
             Container(
@@ -93,10 +122,28 @@ class RegisterScreenDesktop extends StatelessWidget {
                   ),
                   isDense: true,
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(
+                        () {
+                          isObscured = !isObscured;
+                          if (changeIcon == Icons.visibility_outlined) {
+                            changeIcon = Icons.visibility_off_outlined;
+                          } else {
+                            changeIcon = Icons.visibility_outlined;
+                          }
+                        },
+                      );
+                    },
+                    icon: Icon(changeIcon),
+                    iconSize: 16,
+                  ),
                 ),
+                obscureText: isObscured,
               ),
             ),
             Container(

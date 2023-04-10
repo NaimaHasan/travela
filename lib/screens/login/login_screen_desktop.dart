@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
-class LogInScreenDesktop extends StatelessWidget {
-  const LogInScreenDesktop({
-    super.key,
-  });
+class LogInScreenDesktop extends StatefulWidget {
+  const LogInScreenDesktop({Key? key}) : super(key: key);
+
+  @override
+  _LogInScreenDesktopState createState() => _LogInScreenDesktopState();
+}
+
+class _LogInScreenDesktopState extends State<LogInScreenDesktop> {
+  bool isObscured = true;
+  var changeIcon = Icons.visibility_off_outlined;
+  void initState() {
+    isObscured = true;
+    changeIcon = Icons.visibility_off_outlined;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +67,24 @@ class LogInScreenDesktop extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5)),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(
+                        () {
+                          isObscured = !isObscured;
+                          if (changeIcon == Icons.visibility_outlined) {
+                            changeIcon = Icons.visibility_off_outlined;
+                          } else {
+                            changeIcon = Icons.visibility_outlined;
+                          }
+                        },
+                      );
+                    },
+                    icon: Icon(changeIcon),
+                    iconSize: 16,
+                  ),
                 ),
+                obscureText: isObscured,
               ),
             ),
             Container(

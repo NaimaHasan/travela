@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/edit_information/widgets/edit_information_name.dart';
+import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
 
 class EditInformationScreenDesktop extends StatelessWidget {
   const EditInformationScreenDesktop({
@@ -30,52 +32,14 @@ class EditInformationScreenDesktop extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 350,
-                  child: TextField(
-                    style: const TextStyle(fontSize: 16),
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.edit,
-                        ),
-                      ),
-                      labelText: 'Name',
-                      labelStyle: const TextStyle(
-                        fontSize: 15,
-                      ),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                    ),
-                  ),
+                  child: EditInformationName(title: 'Name', data: 'John Doe'),
                 ),
                 Container(
                   height: 30,
                 ),
                 SizedBox(
                   width: 350,
-                  child: TextFormField(
-                    style: const TextStyle(fontSize: 16),
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.edit,
-                        ),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: const TextStyle(
-                        fontSize: 15,
-                      ),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                    ),
-                  ),
+                  child: EditInformationPassword(title: 'Password', data: '********')
                 ),
                 Container(
                   height: 60,
