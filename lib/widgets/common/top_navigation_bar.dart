@@ -55,7 +55,7 @@ class TopNavigationBar extends StatelessWidget {
             width: marginHorizontal,
             child: Visibility(
               visible: hasAccount,
-              child: Icon(Icons.account_circle),
+              child: Icon(Icons.account_circle, size: 30,),
             ),
           ),
         ],
