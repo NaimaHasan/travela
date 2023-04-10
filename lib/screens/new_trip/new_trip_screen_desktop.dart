@@ -4,6 +4,7 @@ import 'package:travela/screens/edit_information/widgets/edit_information_passwo
 import 'package:dotted_border/dotted_border.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_date.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_location.dart';
+import 'package:travela/screens/trip/trip_screen.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 
@@ -96,7 +97,9 @@ class NewTripScreenDesktop extends StatelessWidget {
                   width: 250,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(TripScreen.routeName);
+                    },
                     child: const Text(
                       'Done',
                       style: TextStyle(),

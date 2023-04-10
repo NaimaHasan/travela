@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
+import '../edit_information/edit_information_screen.dart';
 
 class AccountScreenDesktop extends StatelessWidget {
   const AccountScreenDesktop({
@@ -53,7 +54,9 @@ class AccountScreenDesktop extends StatelessWidget {
                         width: 140,
                         height: 30,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(EditInformationScreen.routeName);
+                          },
                           child: const Text(
                             'Edit Information',
                             style: TextStyle(fontSize: 13),

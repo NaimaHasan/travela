@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 
 import '../../../widgets/common/spacing.dart';
+import '../../new_trip/new_trip_screen.dart';
 
 class HomeBanner extends StatelessWidget {
   const HomeBanner({Key? key}) : super(key: key);
@@ -74,6 +75,9 @@ class HomeBanner extends StatelessWidget {
                       style: TextStyle(color: Colors.black, fontSize: 13),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    onPress: (){
+                      Navigator.of(context).pushNamed(NewTripScreen.routeName);
+                    },
                   ),
                   horizontalSpaceMedium,
                 ],

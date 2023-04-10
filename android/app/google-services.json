@@ -29,6 +29,13 @@
             {
               "client_id": "660530278090-6ap3gb0q69417ggaku4dde097m47d4vv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "660530278090-hckml9iqhmu073amk4nncvn1ds85a90h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.travela"
+              }
             }
           ]
         }
