@@ -1,42 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:travela/widgets/common/auth_form_field.dart';
 
+import '../../../widgets/common/auth_form_field.dart';
 import '../../account/account_screen.dart';
-import '../../login/login_screen.dart';
+import '../../register/register_screen.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({Key? key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _controller = TextEditingController();
+class _LoginFormState extends State<LoginForm> {
   final _auth = FirebaseAuth.instance;
-
+  var _isLoading = false;
   var _userEmail = '';
-  var _userName = '';
   var _userPassword = '';
+  final _formKey = GlobalKey<FormState>();
 
-  bool _isLoading = false;
-
-  Future<void> _trySubmit() async {
+  void _trySubmit() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
       _formKey.currentState!.save();
-      UserCredential authResult;
-
       try {
         setState(() {
           _isLoading = true;
         });
 
-        authResult = await _auth.createUserWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
           email: _userEmail,
           password: _userPassword,
         );
@@ -79,7 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Welcome Onboard!',
+            'Welcome Back!',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 22,
@@ -87,21 +81,6 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           Container(
             height: 60,
-          ),
-          AuthFormField(
-            text: 'Enter your full name',
-            validatorFn: (value) {
-              if (value!.isEmpty || value.length < 4) {
-                return 'Please enter at least 4 characters';
-              }
-              return null;
-            },
-            savedFn: (value) {
-              _userName = value!;
-            },
-          ),
-          Container(
-            height: 30,
           ),
           AuthFormField(
             text: 'Enter your E-mail',
@@ -129,24 +108,6 @@ class _RegisterFormState extends State<RegisterForm> {
             savedFn: (value) {
               _userPassword = value!;
             },
-            controller: _controller,
-            isObscurable: true,
-          ),
-          Container(
-            height: 30,
-          ),
-          AuthFormField(
-            text: 'Confirm Password',
-            validatorFn: (value) {
-              if (value!.isEmpty || value.length < 5) {
-                return 'Password is too short!';
-              }
-              if (value != _controller.text) {
-                return 'Passwords do not match!';
-              }
-              return null;
-            },
-            savedFn: (value) {},
             isObscurable: true,
           ),
           Container(
@@ -160,7 +121,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _trySubmit();
               },
               child: const Text(
-                'Register',
+                'Log In',
                 style: TextStyle(),
               ),
             ),
@@ -172,7 +133,7 @@ class _RegisterFormState extends State<RegisterForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Already have an account?',
+                'Don\'t have an account?',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -180,9 +141,9 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(LogInScreen.routeName);
+                  Navigator.of(context).pushNamed(RegisterScreen.routeName);
                 },
-                child: Text('Log In'),
+                child: const Text('Register'),
               )
             ],
           ),
