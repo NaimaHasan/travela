@@ -5,6 +5,8 @@ import 'package:travela/widgets/common/auth_form_field.dart';
 import '../../account/account_screen.dart';
 import '../../login/login_screen.dart';
 
+import 'package:http/http.dart' as http;
+
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
 
@@ -23,7 +25,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   bool _isLoading = false;
 
-  Future<void> _trySubmit() async {
+
+  Future<void> _trySubmit(BuildContext context) async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -39,6 +42,14 @@ class _RegisterFormState extends State<RegisterForm> {
         authResult = await _auth.createUserWithEmailAndPassword(
           email: _userEmail,
           password: _userPassword,
+        );
+
+        await http.post(
+          Uri.http('127.0.0.1:8000', 'users/'),
+          body: {
+            'userID': _auth.currentUser!.uid,
+            'userName': _userName
+          },
         );
 
         if (context.mounted) {
@@ -157,7 +168,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 60,
             child: ElevatedButton(
               onPressed: () {
-                _trySubmit();
+                _trySubmit(context);
               },
               child: const Text(
                 'Register',
