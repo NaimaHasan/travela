@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/authentication.dart';
 import 'package:travela/widgets/common/auth_form_field.dart';
 
-import '../../account/account_screen.dart';
 import '../../login/login_screen.dart';
-
-import 'package:http/http.dart' as http;
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -17,70 +14,12 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
-  final _auth = FirebaseAuth.instance;
 
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
 
   bool _isLoading = false;
-
-
-  Future<void> _trySubmit(BuildContext context) async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-      UserCredential authResult;
-
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-
-        authResult = await _auth.createUserWithEmailAndPassword(
-          email: _userEmail,
-          password: _userPassword,
-        );
-
-        await http.post(
-          Uri.http('127.0.0.1:8000', 'users/'),
-          body: {
-            'userID': _auth.currentUser!.uid,
-            'userName': _userName
-          },
-        );
-
-        if (context.mounted) {
-          Navigator.of(context).pushNamed(AccountScreen.routeName);
-        }
-      } on FirebaseAuthException catch (err) {
-        var message = 'An error occurred, please check your credentials!';
-
-        if (err.message != null) {
-          message = err.message!;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-          ),
-        );
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      } catch (err) {
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +106,22 @@ class _RegisterFormState extends State<RegisterForm> {
             width: 300,
             height: 60,
             child: ElevatedButton(
-              onPressed: () {
-                _trySubmit(context);
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+
+                await Authentication.register(
+                  context,
+                  _formKey,
+                  _userName,
+                  _userEmail,
+                  _userPassword
+                );
+
+                setState(() {
+                  _isLoading = false;
+                });
               },
               child: const Text(
                 'Register',
