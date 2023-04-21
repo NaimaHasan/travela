@@ -112,21 +112,18 @@ class _RegisterFormState extends State<RegisterForm> {
                 });
 
                 await Authentication.register(
-                  context,
-                  _formKey,
-                  _userName,
-                  _userEmail,
-                  _userPassword
-                );
+                    context, _formKey, _userName, _userEmail, _userPassword);
 
                 setState(() {
                   _isLoading = false;
                 });
               },
-              child: const Text(
-                'Register',
-                style: TextStyle(),
-              ),
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : const Text(
+                      'Register',
+                      style: TextStyle(),
+                    ),
             ),
           ),
           Container(

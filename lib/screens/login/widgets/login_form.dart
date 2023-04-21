@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/authentication.dart';
 
 import '../../../widgets/common/auth_form_field.dart';
-import '../../account/account_screen.dart';
 import '../../register/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -13,57 +12,10 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _auth = FirebaseAuth.instance;
   var _isLoading = false;
   var _userEmail = '';
   var _userPassword = '';
   final _formKey = GlobalKey<FormState>();
-
-  void _trySubmit() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-
-        await _auth.signInWithEmailAndPassword(
-          email: _userEmail,
-          password: _userPassword,
-        );
-
-        if (context.mounted) {
-          Navigator.of(context).pushNamed(AccountScreen.routeName);
-        }
-      } on FirebaseAuthException catch (err) {
-        var message = 'An error occurred, please check your credentials!';
-
-        if (err.message != null) {
-          message = err.message!;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-          ),
-        );
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      } catch (err) {
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,13 +69,28 @@ class _LoginFormState extends State<LoginForm> {
             width: 300,
             height: 60,
             child: ElevatedButton(
-              onPressed: () {
-                _trySubmit();
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+
+                await Authentication.login(
+                  context,
+                  _formKey,
+                  _userEmail,
+                  _userPassword,
+                );
+
+                setState(() {
+                  _isLoading = false;
+                });
               },
-              child: const Text(
-                'Log In',
-                style: TextStyle(),
-              ),
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : const Text(
+                      'Log In',
+                      style: TextStyle(),
+                    ),
             ),
           ),
           Container(

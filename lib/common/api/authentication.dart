@@ -53,4 +53,40 @@ class Authentication{
       }
     }
   }
+
+  static Future<void> login(BuildContext context, GlobalKey<FormState> formKey, String userEmail, String userPassword) async {
+    final isValid = formKey.currentState!.validate();
+    final auth = FirebaseAuth.instance;
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      formKey.currentState!.save();
+      try {
+        await auth.signInWithEmailAndPassword(
+          email: userEmail,
+          password: userPassword,
+        );
+
+        if (context.mounted) {
+          Navigator.of(context).pushNamed(AccountScreen.routeName);
+        }
+      } on FirebaseAuthException catch (err) {
+        var message = 'An error occurred, please check your credentials!';
+
+        if (err.message != null) {
+          message = err.message!;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      } catch (err) {
+        if (kDebugMode) {
+          print(err);
+        }
+      }
+    }
+  }
 }

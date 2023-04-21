@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/login/widgets/login_form.dart';
-import 'package:travela/widgets/common/auth_form_field.dart';
 import '../../widgets/common/top_navigation_bar.dart';
-import '../account/account_screen.dart';
-import '../register/register_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LogInScreenDesktop extends StatefulWidget {
   const LogInScreenDesktop({Key? key}) : super(key: key);
