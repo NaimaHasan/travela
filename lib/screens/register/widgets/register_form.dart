@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/authentication.dart';
+import 'package:travela/common/api/authenticationController.dart';
 import 'package:travela/widgets/common/auth_form_field.dart';
 
 import '../../login/login_screen.dart';

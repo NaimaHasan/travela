@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:travela/screens/itinerary/itinerary_screen.dart';
 import 'package:travela/screens/new_trip/new_trip_screen.dart';
+import 'package:travela/screens/trip/widgets/trip_grid.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 
@@ -60,72 +61,7 @@ class TripScreenDesktop extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                height: 500,
-                child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 80,
-                    mainAxisSpacing: 50,
-                    childAspectRatio: 2.2,
-                  ),
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ItineraryScreen.routeName);
-                      },
-                      child: Card(
-                        elevation: 5,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Container(
-                                height: 160,
-                                width: 160,
-                                color: Colors.tealAccent,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 25, bottom: 10),
-                                      child: Text(
-                                        'Madeira Trip',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(bottom: 45),
-                                      child: Text(
-                                        '23rd March - 28th March',
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.share),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              TripGrid(),
               Row(
                 children: [
                   const Align(
@@ -160,72 +96,7 @@ class TripScreenDesktop extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                height: 500,
-                child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 80,
-                    mainAxisSpacing: 50,
-                    childAspectRatio: 2.2,
-                  ),
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ItineraryScreen.routeName);
-                      },
-                      child: Card(
-                        elevation: 5,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Container(
-                                height: 160,
-                                width: 160,
-                                color: Colors.tealAccent,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 25, bottom: 10),
-                                      child: Text(
-                                        'Madeira Trip',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(bottom: 45),
-                                      child: Text(
-                                        '23rd March - 28th March',
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.share),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              TripGrid(),
             ],
           ),
         ),
