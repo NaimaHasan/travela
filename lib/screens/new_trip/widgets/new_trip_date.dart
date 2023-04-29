@@ -3,8 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewTripDate extends StatefulWidget {
-  NewTripDate({required this.title, Key? key}) : super(key: key);
+  NewTripDate({required this.title, Key? key, required this.onSaved}) : super(key: key);
   final String title;
+  final Function(String?) onSaved;
+
   @override
   _NewTripDateState createState() => _NewTripDateState();
 }
@@ -47,6 +49,7 @@ class _NewTripDateState extends State<NewTripDate> {
             border: InputBorder.none,
           ),
           readOnly: true,
+          onSaved: widget.onSaved,
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
               context: context,

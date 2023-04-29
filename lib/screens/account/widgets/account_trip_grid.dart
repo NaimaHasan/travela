@@ -82,7 +82,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                               ),
                             ),
                             Text(
-                              '${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
+                              '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].startDate))}',
                               style: TextStyle(fontSize: 16),
                             ),
                             Expanded(
