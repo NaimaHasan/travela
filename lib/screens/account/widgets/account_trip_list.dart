@@ -73,7 +73,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                 ),
                               ),
                               Text(
-                                '${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
+                                '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
                                 style: TextStyle(fontSize: 14),
                               ),
                             ],
