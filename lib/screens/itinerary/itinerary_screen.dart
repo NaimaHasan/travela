@@ -13,7 +13,7 @@ class ItineraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) => const ItineraryScreenMobile(),
-      tablet: (BuildContext context) => const ItineraryScreenDesktop(),
+      tablet: (BuildContext context) => const ItineraryScreenMobile(),
       desktop: (BuildContext context) => const ItineraryScreenDesktop(),
     );
   }

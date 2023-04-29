@@ -35,15 +35,13 @@ class _ItineraryTopMobileState extends State<ItineraryTopMobile> {
     //     }
     return Padding(
       padding: EdgeInsets.only(left: 25, right: 25, bottom: 20),
-      child: Container(
-        height: 90,
-        child: Row(
+      child:  Row(
           children: [
             Padding(
               padding: EdgeInsets.only(left: 10),
               child: Container(
-                height: 60,
-                width: 60,
+                height: 70,
+                width: 70,
                 color: Colors.tealAccent,
               ),
             ),
@@ -53,7 +51,7 @@ class _ItineraryTopMobileState extends State<ItineraryTopMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 5),
+                    padding: EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(
                       'lalalalal', //futureResult.data![index].tripName,
                       style:
@@ -73,7 +71,7 @@ class _ItineraryTopMobileState extends State<ItineraryTopMobile> {
               icon: Icon(Icons.share),
             ),
           ],
-        ),
+
       ),
     );
     //},
