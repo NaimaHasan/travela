@@ -6,14 +6,14 @@ import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
 
-class TripGrid extends StatefulWidget {
-  const TripGrid({Key? key}) : super(key: key);
+class AccountTripGrid extends StatefulWidget {
+  const AccountTripGrid({Key? key}) : super(key: key);
 
   @override
-  State<TripGrid> createState() => _TripGridState();
+  State<AccountTripGrid> createState() => _AccountTripGridState();
 }
 
-class _TripGridState extends State<TripGrid> {
+class _AccountTripGridState extends State<AccountTripGrid> {
   late Future<List<Trip>> _getTrips;
 
   @override
@@ -27,10 +27,10 @@ class _TripGridState extends State<TripGrid> {
     return FutureBuilder(
       future: _getTrips,
       builder: (context, futureResult) {
-        if( futureResult.connectionState == ConnectionState.waiting ){
+        if (futureResult.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        if( !futureResult.hasData || futureResult.data!.isEmpty ){
+        if (!futureResult.hasData || futureResult.data!.isEmpty) {
           return Text("No Trips Yet");
         }
         return GridView.builder(
@@ -39,9 +39,9 @@ class _TripGridState extends State<TripGrid> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 80,
-            mainAxisSpacing: 50,
-            childAspectRatio: 2.2,
+            crossAxisSpacing: 70,
+            mainAxisSpacing: 30,
+            childAspectRatio: 2.1,
           ),
           itemCount: futureResult.data!.length,
           itemBuilder: (BuildContext context, int index) {
@@ -56,8 +56,14 @@ class _TripGridState extends State<TripGrid> {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Container(
-                        height: 160,
-                        width: 160,
+                        height:
+                            (MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70,
+                        width:
+                            (MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70,
                         color: Colors.tealAccent,
                       ),
                     ),
@@ -71,19 +77,19 @@ class _TripGridState extends State<TripGrid> {
                               padding: EdgeInsets.only(top: 25, bottom: 10),
                               child: Text(
                                 futureResult.data![index].tripName,
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 45),
-                              child: Text(
-                                '${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
-                                style: TextStyle(fontSize: 16),
-                              ),
+                            Text(
+                              '${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
+                              style: TextStyle(fontSize: 16),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.share),
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.share),
+                              ),
                             ),
                           ],
                         ),

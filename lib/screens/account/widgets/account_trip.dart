@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:travela/screens/itinerary/itinerary_screen.dart';
+import 'package:travela/screens/account/widgets/account_trip_grid.dart';
 import 'package:travela/screens/new_trip/new_trip_screen.dart';
-import 'package:travela/screens/trip/widgets/trip_grid.dart';
 
-import '../../widgets/common/top_navigation_bar.dart';
 
-class TripScreenDesktop extends StatelessWidget {
-  const TripScreenDesktop({
-    super.key,
+
+class AccountTrip extends StatelessWidget {
+  const AccountTrip({
+  super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(screenSize.width, 80),
-        child: const TopNavigationBar(
-          hasSearch: false,
-          hasAccount: false,
-        ),
-      ),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 250, right: 250, top: 30),
+          padding: const EdgeInsets.only(left: 5, right: 5),
           child: Column(
             children: [
               Row(
@@ -32,7 +22,23 @@ class TripScreenDesktop extends StatelessWidget {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 20, bottom: 30),
+                      padding: EdgeInsets.only(top: 40, bottom: 30),
+                      child: Text(
+                        'Pending Trip requests',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              AccountTripGrid(),
+              Row(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 40, bottom: 30),
                       child: Text(
                         'Your Trips',
                         style: TextStyle(
@@ -44,7 +50,7 @@ class TripScreenDesktop extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 30, bottom: 30),
+                        padding: EdgeInsets.only(top: 40, bottom: 30),
                         child: IconButton(
                           onPressed: () {
                             Navigator.of(context)
@@ -61,7 +67,7 @@ class TripScreenDesktop extends StatelessWidget {
                   ),
                 ],
               ),
-              TripGrid(),
+              AccountTripGrid(),
               Row(
                 children: [
                   const Align(
@@ -96,11 +102,10 @@ class TripScreenDesktop extends StatelessWidget {
                   ),
                 ],
               ),
-              TripGrid(),
+              AccountTripGrid(),
             ],
           ),
         ),
-      ),
     );
   }
 }
