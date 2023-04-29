@@ -26,82 +26,88 @@ class EditInformationScreenDesktop extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height - 120,
           width: 420,
-          child: Card(
-            elevation: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Edit Information',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
+          child: SingleChildScrollView(
+            child: Card(
+              elevation: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 30,
                   ),
-                ),
-                Container(
-                  height: 30,
-                ),
-                EditInformationName(title: 'Name', data: 'John Doe'),
-                Container(
-                  height: 30,
-                ),
-                EditInformationPassword(title: 'Password', data: '********'),
-                const Padding(
-                  padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Image',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  const Text(
+                    'Edit Information',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
                   ),
-                ),
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(6),
-                  color: Colors.black38,
-                  dashPattern: [8, 4],
-                  strokeWidth: 0.5,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(6),
-                    ),
-                    child: Container(
-                      height: 300,
-                      width: 340,
-                      child: Center(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.add_photo_alternate_outlined),
-                          color: Colors.black54,
+                  Container(
+                    height: 30,
+                  ),
+                  EditInformationName(title: 'Name', data: 'John Doe'),
+                  Container(
+                    height: 30,
+                  ),
+                  EditInformationPassword(title: 'Password', data: '********'),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Image',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  height: 60,
-                ),
-                SizedBox(
-                  width: 250,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(AccountScreen.routeName);
-                    },
-                    child: const Text(
-                      'Done',
-                      style: TextStyle(),
+                  DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(6),
+                    color: Colors.black38,
+                    dashPattern: [8, 4],
+                    strokeWidth: 0.5,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(6),
+                      ),
+                      child: Container(
+                        height: 300,
+                        width: 340,
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.add_photo_alternate_outlined),
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  height: 30,
-                ),
-              ],
+                  Container(
+                    height: 60,
+                  ),
+                  SizedBox(
+                    width: 250,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(AccountScreen.routeName);
+                      },
+                      child: const Text(
+                        'Done',
+                        style: TextStyle(),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'edit_information_screen_desktop.dart';
-
 class EditInformationScreen extends StatelessWidget {
   const EditInformationScreen({Key? key}) : super(key: key);
   static const String routeName = '/edit_information';

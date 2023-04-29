@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'account_screen_desktop.dart';
+import 'account_screen_mobile.dart';
 
 
 
@@ -12,7 +13,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const AccountScreenDesktop(),
+      mobile: (BuildContext context) => const AccountScreenMobile(),
       tablet: (BuildContext context) => const AccountScreenDesktop(),
       desktop: (BuildContext context) => const AccountScreenDesktop(),
     );

@@ -22,6 +22,7 @@ class _NewTripFormState extends State<NewTripForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(height: 30),
           const Text(
             'New Trip',
             style: TextStyle(
