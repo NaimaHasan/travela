@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:travela/screens/home/home_screen_mobile.dart';
 import 'package:travela/screens/home/home_screen_desktop.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const HomeScreenDesktop(),
+      mobile: (BuildContext context) => const HomeScreenMobile(),
       tablet: (BuildContext context) => const HomeScreenDesktop(),
       desktop: (BuildContext context) => const HomeScreenDesktop(),
     );
