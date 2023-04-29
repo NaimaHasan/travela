@@ -20,7 +20,7 @@ class Trip {
 
   final String owner;
   final String tripName;
-  final String tripImageUrl;
+  final String? tripImageUrl;
   final String startDate;
   final String endDate;
   final List<String> pendingUsers;

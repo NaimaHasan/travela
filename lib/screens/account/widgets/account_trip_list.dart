@@ -30,8 +30,11 @@ class _AccountTripListState extends State<AccountTripList> {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        if (!futureResult.hasData || futureResult.data!.isEmpty) {
-          return Text("No Trips Yet");
+        if (!futureResult.hasData) {
+          return Text("No Trips Yet (No Data)");
+        }
+        if(futureResult.data!.isEmpty) {
+          return Text("No Trips Yet (Data is Empty)");
         }
         return ListView.builder(
           scrollDirection: Axis.vertical,
