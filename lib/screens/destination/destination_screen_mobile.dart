@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:travela/screens/destination/widgets/destination_image.dart';
+import 'package:travela/screens/destination/widgets/destination_image_mobile.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby.dart';
+import 'package:travela/screens/destination/widgets/destination_nearby_mobile.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 
@@ -24,7 +26,7 @@ class DestinationScreenMobile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DestinationImage(),
+            const DestinationImageMobile(),
             const Padding(
               padding:
               EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
@@ -116,7 +118,7 @@ class DestinationScreenMobile extends StatelessWidget {
                 ],
               ),
             ),
-            const DestinationNearbyPlaces(),
+            const DestinationNearbyPlacesMobile(),
             Padding(
               padding: const EdgeInsets.only(
                   left: 15, right: 15, bottom: 10, top: 40),
@@ -138,7 +140,7 @@ class DestinationScreenMobile extends StatelessWidget {
                 ],
               ),
             ),
-            const DestinationNearbyPlaces(),
+            const DestinationNearbyPlacesMobile(),
           ],
         ),
       ),

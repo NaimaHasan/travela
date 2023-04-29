@@ -34,7 +34,7 @@ SizedBox get horizontalSpaceMargin => SizedBox(
   width: marginHorizontal,
 );
 
-double get marginHorizontalMobile => 40;
+double get marginHorizontalMobile => 25;
 
 SizedBox get horizontalSpaceMarginMobile => SizedBox(
   width: marginHorizontalMobile,
