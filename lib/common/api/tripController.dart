@@ -25,13 +25,14 @@ class TripController {
     return allTrips;
   }
 
-  static void postTrip(Trip trip) async {
+  static Future<void> postTrip(Trip trip) async {
     await http.post(
       Uri.http('127.0.0.1:8000', 'users/lalala/trips/'),
       body: {
         'owner': trip.owner,
         'tripName': trip.tripName,
-
+        'startDate' : trip.startDate,
+        'endDate' : trip.endDate,
       },
     );
   }

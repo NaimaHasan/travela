@@ -1,7 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:travela/common/api/tripController.dart';
+import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/account/account_screen.dart';
+import 'package:travela/screens/new_trip/widgets/new_trip_name.dart';
 
 import 'new_trip_date.dart';
 import 'new_trip_location.dart';
@@ -16,9 +18,14 @@ class NewTripForm extends StatefulWidget {
 class _NewTripFormState extends State<NewTripForm> {
   final _formKey = GlobalKey<FormState>();
 
+  String _name = "";
+  String _startDate = "";
+  String _endDate = "";
+
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,8 +37,21 @@ class _NewTripFormState extends State<NewTripForm> {
               fontSize: 24,
             ),
           ),
-          NewTripDate(title: 'Start Date'),
-          NewTripDate(title: 'End Date'),
+          NewTripName(onSaved: (value) {
+            _name = value!;
+          }),
+          NewTripDate(
+            title: 'Start Date',
+            onSaved: (value) {
+              _startDate = value!;
+            },
+          ),
+          NewTripDate(
+            title: 'End Date',
+            onSaved: (value) {
+              _endDate = value!;
+            },
+          ),
           const Padding(
             padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),
             child: Align(
@@ -88,7 +108,18 @@ class _NewTripFormState extends State<NewTripForm> {
             width: 250,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                _formKey.currentState!.save();
+
+                await TripController.postTrip(
+                  Trip(
+                    owner: "lalala",
+                    tripName: _name,
+                    startDate: _startDate,
+                    endDate: _endDate,
+                  ),
+                );
+
                 Navigator.of(context).pushNamed(AccountScreen.routeName);
               },
               child: const Text(
