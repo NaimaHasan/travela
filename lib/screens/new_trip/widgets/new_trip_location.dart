@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:travela/screens/new_trip/widgets/location_picker.dart';
+import 'package:latlong2/latlong.dart';
 
 class NewTripLocation extends StatefulWidget {
-  NewTripLocation({required this.data, Key? key})
-      : super(key: key);
-  final String data;
+  NewTripLocation({Key? key}) : super(key: key);
   @override
   _NewTripLocationState createState() => _NewTripLocationState();
 }
 
 class _NewTripLocationState extends State<NewTripLocation> {
-  bool isEnabled = false;
-  IconData icon = Icons.edit;
-  TextEditingController fieldData = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  LatLng defaultLatLng = LatLng(51, 0);
+  // String defaultLocation = "";
 
   @override
   void initState() {
-    fieldData.text = widget.data;
+    locationController.text =
+        formattedLatLng(defaultLatLng); //set the initial value of text field
     super.initState();
   }
 
   @override
   void dispose() {
-    fieldData.dispose();
+    locationController.dispose();
     super.dispose();
   }
 
@@ -30,40 +33,56 @@ class _NewTripLocationState extends State<NewTripLocation> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12),
-          borderRadius: BorderRadius.all(Radius.circular(6))),
+        border: Border.all(color: Colors.black12),
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
       width: 350,
-      height: 50,
-      child: Row(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.map_outlined),
-                iconSize: 24,
-                splashRadius: 12,
-                color: Colors.black54,
-              ),
+      height: 60,
+      child: Center(
+        child: TextFormField(
+          controller: locationController,
+          decoration: const InputDecoration(
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.map_outlined),
             ),
+            border: InputBorder.none,
           ),
-          SizedBox(
-            height: 25,
-            width: 250,
-            child: TextFormField(
-              controller: fieldData,
-              enabled: isEnabled,
-              style: TextStyle(fontSize: 15),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 0, left: 10, bottom: 15),
-              ),
-            ),
-          ),
-        ],
+          readOnly: true,
+          onTap: () async {
+            var result = await showDialog(
+              context: context,
+              builder: (ctx) {
+                return LocationPicker(
+                  ctx: ctx,
+                  initialPos: defaultLatLng,
+                );
+              },
+            );
+
+            locationController.text = formattedLatLng(result);
+          },
+        ),
       ),
     );
   }
+}
+
+String formattedLatLng(LatLng input) {
+  return "${convertToDms(input.latitude, false)} ${convertToDms(input.longitude, true)}";
+}
+
+String convertToDms(double dd, bool isLng) {
+  var dir = dd < 0
+      ? isLng ? 'W' : 'S'
+      : isLng ? 'E' : 'N';
+
+  var absDd = dd.abs();
+  var deg = absDd.floor();
+  var frac = absDd - deg;
+  var min = (frac * 60).floor();
+  var sec = frac * 3600 - min * 60;
+  // Round it to 2 decimal points.
+  sec = (sec * 100).round() / 100;
+  return "$deg°$min\"$sec' $dir";
 }

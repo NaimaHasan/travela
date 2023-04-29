@@ -20,8 +20,19 @@ class TripController {
       allTrips.add(Trip.fromJson(tripEntry));
     }
 
-    // allTrips.forEach((element) {print(element);});
+    allTrips.forEach((element) {print(element);});
 
     return allTrips;
+  }
+
+  static void postTrip(Trip trip) async {
+    await http.post(
+      Uri.http('127.0.0.1:8000', 'users/lalala/trips/'),
+      body: {
+        'owner': trip.owner,
+        'tripName': trip.tripName,
+
+      },
+    );
   }
 }

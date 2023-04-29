@@ -11,9 +11,9 @@ class NewTripScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const NewTripScreenDesktop(),
-      tablet: (BuildContext context) => const NewTripScreenDesktop(),
-      desktop: (BuildContext context) => const NewTripScreenDesktop(),
+      mobile: (BuildContext context) => NewTripScreenDesktop(),
+      tablet: (BuildContext context) => NewTripScreenDesktop(),
+      desktop: (BuildContext context) => NewTripScreenDesktop(),
     );
   }
 }
