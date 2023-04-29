@@ -14,7 +14,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) => const AccountScreenMobile(),
-      tablet: (BuildContext context) => const AccountScreenDesktop(),
+      tablet: (BuildContext context) => const AccountScreenMobile(),
       desktop: (BuildContext context) => const AccountScreenDesktop(),
     );
   }

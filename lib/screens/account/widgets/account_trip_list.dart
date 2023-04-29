@@ -37,53 +37,61 @@ class _AccountTripListState extends State<AccountTripList> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      itemCount: 5, //futureResult.data!.length,
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      itemCount: 3, //futureResult.data!.length,
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
             Navigator.of(context).pushNamed(ItineraryScreen.routeName);
           },
-          child: Card(
-            elevation: 5,
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    color: Colors.tealAccent,
-                  ),
+          child: Column(
+            children: [
+              Container(
+                height: 90,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        color: Colors.tealAccent,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 25, bottom: 5),
+                            child: Text(
+                              'lalalalal', //futureResult.data![index].tripName,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Text(
+                            'lalalal ssegwewewt', //'${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(child: Container()),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.share),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 25, bottom: 10),
-                        child: Text(
-                          'lalalalal', //futureResult.data![index].tripName,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Text(
-                        'lalalal', //'${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Expanded(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.share),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+              Container(
+                height: 1,
+                width: MediaQuery.of(context).size.width - 40,
+                color: Colors.black45,
+              ),
+            ],
           ),
         );
       },
