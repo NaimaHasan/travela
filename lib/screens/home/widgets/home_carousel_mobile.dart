@@ -20,14 +20,12 @@ class HomeCarouselMobile extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: false,
-        aspectRatio: 1.0,
         enlargeCenterPage: true,
         enlargeStrategy: CenterPageEnlargeStrategy.height,
-        viewportFraction: 1.2,
-        height: MediaQuery.of(context).size.height * 0.6,
+        viewportFraction: 0.9,
+        height: 400,
         initialPage: 5,
         enlargeFactor: 0.1,
-
       ),
       items: imgList
           .map(

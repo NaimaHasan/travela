@@ -21,7 +21,7 @@ class TopNavigationBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: Row(
         children: [
-          horizontalSpaceMargin,
+          MediaQuery.of(context).size.width < 600 ? horizontalSpaceMarginMobile : horizontalSpaceMargin,
           TopNavigationBarItem(
             text: "Travela",
             size: 28,
@@ -33,39 +33,56 @@ class TopNavigationBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TopNavigationBarItem(text: "Home", route: HomeScreen.routeName,),
-              horizontalSpaceSmall,
-              TopNavigationBarItem(text: "Near Me", route: DestinationScreen.routeName,),
-              horizontalSpaceSmall,
+              TopNavigationBarItem(
+                text: "Home",
+                route: HomeScreen.routeName,
+              ),
+              MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
+              TopNavigationBarItem(
+                text: "Near Me",
+                route: DestinationScreen.routeName,
+              ),
+              MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
                 child: SizedBox(
-                width: 0.25 * screenSize.width,
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  width: 0.25 * screenSize.width,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),
-              ),),
+              ),
             ],
           ),
           SizedBox(
-            width: marginHorizontal,
+            width: MediaQuery.of(context).size.width < 600 ? marginHorizontalMobile : marginHorizontal,
             child: Visibility(
               visible: hasAccount,
               child: IconButton(
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pushNamed(LogInScreen.routeName);
                 },
-                icon: Icon(Icons.account_circle, size: 30,),
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.zero,
+                splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
+                icon: Icon(
+                  Icons.account_circle,
+                  size: 30,
+                ),
               ),
             ),
           ),
+          Visibility(
+            child: horizontalSpaceMarginMobile,
+            visible: MediaQuery.of(context).size.width < 600,
+          )
         ],
       ),
     );

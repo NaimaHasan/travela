@@ -4,6 +4,10 @@ SizedBox get horizontalSpaceSmall => const SizedBox(
   width: 20,
 );
 
+SizedBox get horizontalSpaceSmallMobile => const SizedBox(
+  width: 10,
+);
+
 SizedBox get horizontalSpaceMedium => const SizedBox(
   width: 40,
 );
@@ -28,4 +32,10 @@ double get marginHorizontal => 80;
 
 SizedBox get horizontalSpaceMargin => SizedBox(
   width: marginHorizontal,
+);
+
+double get marginHorizontalMobile => 40;
+
+SizedBox get horizontalSpaceMarginMobile => SizedBox(
+  width: marginHorizontalMobile,
 );

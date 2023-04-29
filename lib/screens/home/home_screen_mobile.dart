@@ -25,7 +25,7 @@ class HomeScreenMobile extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              width: 0.85 * screenSize.width,
+              width: screenSize.width - 2 * marginHorizontalMobile,
               height: 35,
               child: TextField(
                 decoration: InputDecoration(
@@ -84,10 +84,7 @@ class HomeScreenMobile extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             verticalSpaceSmall,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: HomeCarouselMobile(),
-            ),
+            HomeCarouselMobile(),
             verticalSpaceMedium,
             Align(
               child: Padding(
@@ -102,10 +99,7 @@ class HomeScreenMobile extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             verticalSpaceSmall,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: HomeCarouselMobile(),
-            ),
+            HomeCarouselMobile(),
           ],
         ),
       ),
