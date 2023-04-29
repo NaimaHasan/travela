@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:travela/screens/itinerary/itinerary_screen_mobile.dart';
 
 import 'itinerary_screen_desktop.dart';
 
@@ -11,7 +12,7 @@ class ItineraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const ItineraryScreenDesktop(),
+      mobile: (BuildContext context) => const ItineraryScreenMobile(),
       tablet: (BuildContext context) => const ItineraryScreenDesktop(),
       desktop: (BuildContext context) => const ItineraryScreenDesktop(),
     );
