@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:travela/common/enums.dart';
 import 'package:travela/screens/account/widgets/account_trip_grid.dart';
 import 'package:travela/screens/account/widgets/account_trip_list.dart';
 import 'package:travela/screens/new_trip/new_trip_screen.dart';
@@ -33,8 +34,8 @@ class AccountTrip extends StatelessWidget {
               ),
             ),
             MediaQuery.of(context).size.width < tabWidth
-                ? AccountTripList()
-                : AccountTripGrid(),
+                ? AccountTripList(group: TripGroup.pending)
+                : AccountTripGrid(group: TripGroup.pending),
             Padding(
               padding: EdgeInsets.only(
                   top: 40,
@@ -71,8 +72,8 @@ class AccountTrip extends StatelessWidget {
               ),
             ),
             MediaQuery.of(context).size.width < tabWidth
-                ? AccountTripList()
-                : AccountTripGrid(),
+                ? AccountTripList(group: TripGroup.personal)
+                : AccountTripGrid(group: TripGroup.personal),
             Padding(
               padding: EdgeInsets.only(
                   top: 40,
@@ -109,8 +110,8 @@ class AccountTrip extends StatelessWidget {
               ),
             ),
             MediaQuery.of(context).size.width < tabWidth
-                ? AccountTripList()
-                : AccountTripGrid(),
+                ? AccountTripList(group: TripGroup.group)
+                : AccountTripGrid(group: TripGroup.group),
           ],
         ),
       ),

@@ -10,15 +10,11 @@ class TripController {
   static Future<List<Trip>> getAllTrips() async {
     List<Trip> allTrips = [];
 
-    print("ho");
-
     var response = await http.get(
       Uri.http('127.0.0.1:8000', 'users/lalala/trips/'),
     );
 
     var data = jsonDecode(response.body);
-
-    print(data);
 
     try {
       for (Map<String, dynamic> tripEntry in data) {
@@ -28,11 +24,35 @@ class TripController {
       print(err);
     }
 
-    print(allTrips);
-
-    allTrips.forEach((element) {print(element);});
-
     return allTrips;
+  }
+
+  static Future<List<Trip>> getPersonalTrips() async {
+    List<Trip> allTrips = await getAllTrips();
+
+    List<Trip> personalTrips = [];
+
+    for(Trip trip in allTrips){
+      if(trip.sharedUsers.isNotEmpty) {
+        personalTrips.add(trip);
+      }
+    }
+
+    return personalTrips;
+  }
+
+  static Future<List<Trip>> getGroupTrips() async {
+    List<Trip> allTrips = await getAllTrips();
+
+    List<Trip> groupTrips = [];
+
+    for(Trip trip in allTrips){
+      if(trip.sharedUsers.isEmpty) {
+        groupTrips.add(trip);
+      }
+    }
+
+    return groupTrips;
   }
 
   static Future<void> postTrip(Trip trip) async {

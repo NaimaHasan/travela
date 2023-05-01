@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
+import 'package:travela/common/enums.dart';
 
 import '../../../common/models/trip.dart';
 import '../../itinerary/itinerary_screen.dart';
@@ -7,7 +8,9 @@ import '../../itinerary/itinerary_screen.dart';
 import 'package:intl/intl.dart';
 
 class AccountTripList extends StatefulWidget {
-  const AccountTripList({Key? key}) : super(key: key);
+  const AccountTripList({Key? key, required this.group}) : super(key: key);
+
+  final TripGroup group;
 
   @override
   State<AccountTripList> createState() => _AccountTripListState();
@@ -18,7 +21,17 @@ class _AccountTripListState extends State<AccountTripList> {
 
   @override
   void initState() {
-    _getTrips = TripController.getAllTrips();
+    switch(widget.group){
+      case TripGroup.pending:
+        _getTrips = TripController.getAllTrips();
+        break;
+      case TripGroup.personal:
+        _getTrips = TripController.getPersonalTrips();
+        break;
+      case TripGroup.group:
+        _getTrips = TripController.getGroupTrips();
+        break;
+    }
     super.initState();
   }
 

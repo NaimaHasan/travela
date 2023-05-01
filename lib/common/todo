@@ -10,7 +10,7 @@ Must
 - Destination
     M arrow on carousel
 - Account
-	M Add filtering for personal/group trips
+	* Implement filtering for personal/group trips at django
 	M New pending trip card
 	M Implement backend for sharing, accepting and rejecting pending
 	M Implement log out
