@@ -19,7 +19,6 @@ Must
 	M Implement backend
 - Itinerary
 	M Implement sharing
-	N Implement floating button for adding itinerary item
 	M Implement editing itinerary item
 Optional
 - Snackbar or show error to user

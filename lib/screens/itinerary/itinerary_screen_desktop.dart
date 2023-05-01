@@ -71,7 +71,7 @@ class ItineraryScreenDesktop extends StatelessWidget {
                     ],
                   ),
                   padding: EdgeInsets.all(10),
-                  onPress: (){},
+                  onPress: () {},
                 ),
               ],
             ),
@@ -80,7 +80,25 @@ class ItineraryScreenDesktop extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: ItineraryColumn(),
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height -
+                            kToolbarHeight -
+                            MediaQuery.of(context).padding.top -
+                            kBottomNavigationBarHeight,
+                        child: ItineraryColumn(),
+                      ),
+                      Positioned(
+                        bottom: 20,
+                        right: 20,
+                        child: FloatingActionButton(
+                          onPressed: () {},
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
