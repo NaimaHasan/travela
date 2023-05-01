@@ -1,21 +1,26 @@
-class User {
-  const User({
-    required this.userID,
-    required this.userName,
-    required this.userImageUrl,
-  });
+class TravelaUser {
+  const TravelaUser(
+      {required this.userEmail,
+      required this.userName,
+      this.userImageUrl,
+      this.pendingRequests,
+      this.acceptedRequests});
 
-  User.fromJson(Map<String, dynamic> json)
-      : userID = json['userID'],
+  TravelaUser.fromJson(Map<String, dynamic> json)
+      : userEmail = json['userEmail'],
         userName = json['userName'],
-        userImageUrl = json['userImageUrl'];
+        userImageUrl = json['userImage'],
+        pendingRequests = List<int>.from(json['pendingRequests']),
+        acceptedRequests = List<int>.from(json['acceptedRequests']);
 
-  final String userID;
+  final String userEmail;
   final String userName;
-  final String userImageUrl;
+  final String? userImageUrl;
+  final List<int>? pendingRequests;
+  final List<int>? acceptedRequests;
 
   @override
   String toString() {
-    return "$userID $userName \"$userImageUrl\"";
+    return "$userEmail $userName \"$userImageUrl\"";
   }
 }

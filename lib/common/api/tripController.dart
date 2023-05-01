@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/userController.dart';
 
 import '../models/trip.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/user.dart';
 
 class TripController {
   static Future<List<Trip>> getAllTrips() async {
@@ -18,7 +21,27 @@ class TripController {
 
     var data = jsonDecode(response.body);
 
-    // print(data);
+    try {
+      for (Map<String, dynamic> tripEntry in data) {
+        allTrips.add(Trip.fromJson(tripEntry));
+      }
+    } catch (err) {
+      print(err);
+    }
+
+    return allTrips;
+  }
+
+  static Future<List<Trip>> getPendingTrips() async {
+    final auth = FirebaseAuth.instance;
+
+    List<Trip> allTrips = [];
+
+    var response = await http.get(
+      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/pendingTrips/'),
+    );
+
+    var data = jsonDecode(response.body);
 
     try {
       for (Map<String, dynamic> tripEntry in data) {
@@ -37,7 +60,7 @@ class TripController {
     List<Trip> personalTrips = [];
 
     for (Trip trip in allTrips) {
-      if (trip.sharedUsers.isNotEmpty) {
+      if (trip.sharedUsers.isEmpty) {
         personalTrips.add(trip);
       }
     }
@@ -51,7 +74,7 @@ class TripController {
     List<Trip> groupTrips = [];
 
     for (Trip trip in allTrips) {
-      if (trip.sharedUsers.isEmpty) {
+      if (trip.sharedUsers.isNotEmpty) {
         groupTrips.add(trip);
       }
     }
@@ -82,20 +105,15 @@ class TripController {
       },
     );
 
-    // List<String> pendingList = trip.pendingUsers..add(result);
-    // String pendingString = jsonEncode(pendingList);
-    
-    Map<String, dynamic> body = {
-      'owner': trip.owner,
-      'tripName': trip.tripName,
-      'startDate': trip.startDate,
-      'endDate': trip.endDate,
-      'pendingUsers': ["abdullah99@gmail.com", "malimran99@gmail.com"],
-    };
-
-    final auth = FirebaseAuth.instance;
-
     try {
+      Map<String, dynamic> body = {
+        'owner': trip.owner,
+        'tripName': trip.tripName,
+        'startDate': trip.startDate,
+        'endDate': trip.endDate,
+        'pendingUsers': trip.pendingUsers..add(result),
+      };
+
       await http.put(
         Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
         headers: {
@@ -106,12 +124,11 @@ class TripController {
     } catch (err) {
       print(err);
     }
-
-    // Add "trip" to the pending trips list of "user"
-
   }
 
-  // acceptTrip, removes trip from pending trips list, remove from pending list, add to shared list
+  // acceptTrip, remove user from pending list, add to shared list
+
+  // declineTrip, remove user from pending list
 }
 
 class _ShareDialog extends StatefulWidget {

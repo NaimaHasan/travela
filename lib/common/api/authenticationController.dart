@@ -20,7 +20,10 @@ class Authentication {
 
       await http.post(
         Uri.http('127.0.0.1:8000', 'users/'),
-        body: {'userEmail': userEmail.trim(), 'userName': userName},
+        body: {
+          'userEmail': userEmail.trim(),
+          'userName': userName,
+        },
       );
 
       if (context.mounted) {

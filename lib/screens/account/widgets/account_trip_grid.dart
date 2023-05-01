@@ -23,7 +23,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
   void initState() {
     switch (widget.group) {
       case TripGroup.pending:
-        _getTrips = TripController.getAllTrips();
+        _getTrips = TripController.getPendingTrips();
         break;
       case TripGroup.personal:
         _getTrips = TripController.getPersonalTrips();
