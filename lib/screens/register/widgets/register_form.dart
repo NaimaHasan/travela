@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/authenticationController.dart';
 import 'package:travela/widgets/common/auth_form_field.dart';
@@ -115,8 +116,20 @@ class _RegisterFormState extends State<RegisterForm> {
                   _isLoading = true;
                 });
 
-                await Authentication.register(
-                    context, _formKey, _userName, _userEmail, _userPassword);
+                final isValid = _formKey.currentState!.validate();
+
+                FocusScope.of(context).unfocus();
+
+                if (isValid) {
+                  _formKey.currentState!.save();
+
+                  await Authentication.register(
+                    context,
+                    _userName,
+                    _userEmail,
+                    _userPassword,
+                  );
+                }
 
                 setState(() {
                   _isLoading = false;

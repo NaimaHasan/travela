@@ -11,7 +11,6 @@ Must
     M arrow on carousel
 - Account
 	* Implement filtering for personal/group trips at django
-	M New pending trip card
 	M Implement backend for sharing, accepting and rejecting pending
 - Edit Information
 	M Implement backend

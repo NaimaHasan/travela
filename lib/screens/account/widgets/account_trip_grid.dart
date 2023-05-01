@@ -21,7 +21,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
 
   @override
   void initState() {
-    switch(widget.group){
+    switch (widget.group) {
       case TripGroup.pending:
         _getTrips = TripController.getAllTrips();
         break;
@@ -69,14 +69,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Container(
-                        height:
-                            (MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70,
-                        width:
-                            (MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70,
+                        height: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
+                        width: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
                         color: Colors.tealAccent,
                       ),
                     ),
@@ -95,14 +89,61 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                               ),
                             ),
                             Text(
-                              '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].startDate))}',
+                              '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
                               style: TextStyle(fontSize: 16),
                             ),
-                            Expanded(
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.share),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Visibility(
+                              child: Text(
+                                'Shared by: ${futureResult.data![index].owner}',
+                                style: TextStyle(fontSize: 16),
                               ),
+                              visible: widget.group == TripGroup.pending,
+                            ),
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 25),
+                              child: widget.group == TripGroup.pending
+                                  ? Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.check),
+                                          splashRadius: 18,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                          color: Colors.green,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: Text(
+                                            'X',
+                                            style: TextStyle(
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          splashRadius: 18,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                        ),
+                                      ],
+                                    )
+                                  : IconButton(
+                                      onPressed: () async {
+                                        await TripController.shareTrip(futureResult.data![index], context);
+                                      },
+                                      icon: Icon(Icons.share),
+                                      splashRadius: 18,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                    ),
                             ),
                           ],
                         ),
