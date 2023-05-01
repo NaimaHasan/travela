@@ -3,12 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:travela/screens/login/login_screen.dart';
 
 import '../../screens/account/account_screen.dart';
 
-
-class Authentication{
-  static Future<void> register(BuildContext context, GlobalKey<FormState> formKey, String userName, String userEmail, String userPassword) async {
+class Authentication {
+  static Future<void> register(
+      BuildContext context,
+      GlobalKey<FormState> formKey,
+      String userName,
+      String userEmail,
+      String userPassword) async {
     final isValid = formKey.currentState!.validate();
     final auth = FirebaseAuth.instance;
 
@@ -25,10 +30,7 @@ class Authentication{
 
         await http.post(
           Uri.http('127.0.0.1:8000', 'users/'),
-          body: {
-            'userID': auth.currentUser!.uid,
-            'userName': userName
-          },
+          body: {'userID': auth.currentUser!.uid, 'userName': userName},
         );
 
         if (context.mounted) {
@@ -54,7 +56,8 @@ class Authentication{
     }
   }
 
-  static Future<void> login(BuildContext context, GlobalKey<FormState> formKey, String userEmail, String userPassword) async {
+  static Future<void> login(BuildContext context, GlobalKey<FormState> formKey,
+      String userEmail, String userPassword) async {
     final isValid = formKey.currentState!.validate();
     final auth = FirebaseAuth.instance;
     FocusScope.of(context).unfocus();
@@ -88,5 +91,21 @@ class Authentication{
         }
       }
     }
+  }
+
+  static Future<void> logout(BuildContext context) async {
+    final auth = FirebaseAuth.instance;
+    FocusScope.of(context).unfocus();
+    auth.signOut();
+
+    if (context.mounted) {
+      Navigator.of(context).pushNamed(LogInScreen.routeName);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Logged out successfully'),
+      ),
+    );
   }
 }

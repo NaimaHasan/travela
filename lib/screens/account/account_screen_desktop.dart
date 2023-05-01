@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:travela/screens/account/widgets/account_trip.dart';
 
+import '../../common/api/authenticationController.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import '../edit_information/edit_information_screen.dart';
 
@@ -51,7 +52,7 @@ class AccountScreenDesktop extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(height: 10),
-                       Text(
+                        Text(
                           'John Doe',
                           style: TextStyle(fontSize: screenSize.width * 0.018),
                         ),
@@ -68,7 +69,8 @@ class AccountScreenDesktop extends StatelessWidget {
                             },
                             child: Text(
                               'Edit Information',
-                              style: TextStyle(fontSize:  screenSize.width * 0.0075),
+                              style: TextStyle(
+                                  fontSize: screenSize.width * 0.0075),
                             ),
                           ),
                         ),
@@ -82,11 +84,16 @@ class AccountScreenDesktop extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 15, right: 12),
                             child: IconButton(
                               visualDensity: VisualDensity.compact,
-                              onPressed: () {},
+                              onPressed: () {
+                                Authentication.logout(
+                                  context,
+                                );
+                              },
                               icon: const Icon(
                                 Icons.logout,
                                 size: 35,
                               ),
+                              splashRadius: 25,
                             ),
                           ),
                           const Text(

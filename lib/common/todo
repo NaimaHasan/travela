@@ -13,7 +13,6 @@ Must
 	* Implement filtering for personal/group trips at django
 	M New pending trip card
 	M Implement backend for sharing, accepting and rejecting pending
-	M Implement log out
 	M Show login/register only if logged out (cookies kibhabe manage kore dekhte hobe)
 - Edit Information
 	M Implement backend
