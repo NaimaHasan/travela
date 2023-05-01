@@ -4,7 +4,7 @@ import 'package:travela/screens/map/map_screen_desktop.dart';
 
 class MapScreen extends StatelessWidget {
   const MapScreen({Key? key}) : super(key: key);
-  static const String routeName = '/map';
+  static const String routeName = '/near-me';
 
   @override
   Widget build(BuildContext context) {

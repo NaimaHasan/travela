@@ -1,41 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:travela/screens/login/widgets/login_form.dart';
+import '../../widgets/common/top_navigation_bar.dart';
 
 class MapScreenDesktop extends StatelessWidget {
-  const MapScreenDesktop({
-    super.key,
-  });
+  const MapScreenDesktop({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).padding.top,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            child: SizedBox(
-              height: 38,
-              child: TextField(
-                style: const TextStyle(fontSize: 16),
-                // textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  prefixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.search),
-                    iconSize: 24,
-                    splashRadius: 18,
-                  ),
-                ),
-              ),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        child: const TopNavigationBar(
+          hasSearch: false,
+          hasAccount: true,
+        ),
+      ),
+      body: Center(
+        child: FlutterMap(
+          options: MapOptions(),
+          children: [
+            TileLayer(
+              urlTemplate:
+              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName:
+              'dev.fleaflet.flutter_map.example',
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

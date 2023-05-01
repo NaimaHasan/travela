@@ -3,6 +3,7 @@ import 'package:travela/screens/account/account_screen.dart';
 import 'package:travela/screens/destination/destination_screen.dart';
 import 'package:travela/screens/home/home_screen.dart';
 import 'package:travela/screens/login/login_screen.dart';
+import 'package:travela/screens/map/map_screen.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
@@ -40,7 +41,7 @@ class TopNavigationBar extends StatelessWidget {
               MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
               TopNavigationBarItem(
                 text: "Near Me",
-                route: DestinationScreen.routeName,
+                route: MapScreen.routeName,
               ),
               MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
               Visibility(

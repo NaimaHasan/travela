@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:travela/screens/destination/widgets/destination_image.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby.dart';
 
@@ -119,10 +120,16 @@ class DestinationScreenDesktop extends StatelessWidget {
                         verticalSpaceSmall,
                         SizedBox(
                           height: 400,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                            ),
+                          child: FlutterMap(
+                            options: MapOptions(),
+                            children: [
+                              TileLayer(
+                                urlTemplate:
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                userAgentPackageName:
+                                'dev.fleaflet.flutter_map.example',
+                              ),
+                            ],
                           ),
                         ),
                       ],
