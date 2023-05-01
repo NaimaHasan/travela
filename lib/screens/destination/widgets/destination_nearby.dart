@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../destination_screen.dart';
+
 final List<Widget> imageSliders = [1, 2, 3, 4, 5]
     .map(
       (item) => Padding(
@@ -16,17 +18,16 @@ final List<Widget> imageSliders = [1, 2, 3, 4, 5]
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(7),
-                    child: Image.asset(
-                      'lib/assets/dummy.jpg',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: Image.asset(
+                    'lib/assets/dummy.jpg',
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
+              ),
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 15),
@@ -63,17 +64,22 @@ class DestinationNearbyPlaces extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
-      child: CarouselSlider(
-        options: CarouselOptions(
-            autoPlay: false,
-            aspectRatio: 4,
-            enlargeCenterPage: true,
-            enlargeStrategy: CenterPageEnlargeStrategy.height,
-            enlargeFactor: 0.1,
-            viewportFraction: 0.335,
-            //height: 355,
-            initialPage: 5),
-        items: imageSliders,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(DestinationScreen.routeName);
+        },
+        child: CarouselSlider(
+          options: CarouselOptions(
+              autoPlay: false,
+              aspectRatio: 4,
+              enlargeCenterPage: true,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+              enlargeFactor: 0.1,
+              viewportFraction: 0.335,
+              //height: 355,
+              initialPage: 5),
+          items: imageSliders,
+        ),
       ),
     );
   }

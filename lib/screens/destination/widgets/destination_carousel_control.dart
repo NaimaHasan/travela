@@ -20,7 +20,6 @@ class _DestinationCarouselControlState
     return SizedBox(
       height: 25,
       child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: totalPages,
