@@ -1,6 +1,5 @@
 Must
 - Home screen
-	N Go to destination page when clicking on image and card
 	* Destination/Hotel/Restaurants filtering
 	* Destination
 - Near Me
@@ -9,8 +8,6 @@ Must
 	* All left
 	* Can only be done after destination is done
 - Destination
-	N Use card for new trip
-	M Add arrow for carousel
 	N Clickable nearby places
 - Account
 	M Add filtering for personal/group trips

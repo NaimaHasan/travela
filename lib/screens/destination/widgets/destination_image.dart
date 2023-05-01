@@ -34,7 +34,7 @@ class DestinationImage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
           ],
         ),
@@ -87,7 +87,7 @@ class DestinationImage extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 110,
           child: DestinationCarouselControl(
             controller: buttonCarouselController,
           ),
