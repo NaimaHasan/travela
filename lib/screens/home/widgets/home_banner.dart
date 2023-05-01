@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 
 import '../../../widgets/common/spacing.dart';
+import '../../destination/destination_screen.dart';
 import '../../new_trip/new_trip_screen.dart';
 
 class HomeBanner extends StatelessWidget {
@@ -22,10 +23,18 @@ class HomeBanner extends StatelessWidget {
                   child: SizedBox(
                     height: 0.65 * screenSize.height,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomLeft: Radius.circular(5.0)),
-                      child: Image.asset(
-                        'lib/assets/mock_1.jpg',
-                        fit: BoxFit.fitWidth,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(5.0),
+                          bottomLeft: Radius.circular(5.0)),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(DestinationScreen.routeName);
+                        },
+                        child: Image.asset(
+                          'lib/assets/mock_1.jpg',
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
@@ -75,7 +84,7 @@ class HomeBanner extends StatelessWidget {
                       style: TextStyle(color: Colors.black, fontSize: 13),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    onPress: (){
+                    onPress: () {
                       Navigator.of(context).pushNamed(NewTripScreen.routeName);
                     },
                   ),
