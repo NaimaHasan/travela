@@ -1,33 +1,32 @@
 Must
 - Home screen
-	- Go to destination page when clicking on image and card
-	- Destination/Hotel/Restaurants flitering
-	- Destination
+	N Go to destination page when clicking on image and card
+	* Destination/Hotel/Restaurants filtering
+	* Destination
 - Near Me
-	- All left
+	M All left
 - Search
-	- All left
-	- Can only be done after destination is done
+	* All left
+	* Can only be done after destination is done
 - Destination
-	- Add "new trip" button
-	- Add map to map
-	- Use card for new trip
-	- Add arrow for carousel
-	- Clickable nearby places
+	M Add map to map
+	N Use card for new trip
+	M Add arrow for carousel
+	N Clickable nearby places
 - Account
-	- Add filtering for personal/group trips
-	- New pending trip card
-	- Implement backend for sharing, accepting and rejecting pending
-	- Implement log out
-	- Show login/register only if logged out (cookies kibhabe manage kore dekhte hobe)
+	M Add filtering for personal/group trips
+	M New pending trip card
+	M Implement backend for sharing, accepting and rejecting pending
+	M Implement log out
+	M Show login/register only if logged out (cookies kibhabe manage kore dekhte hobe)
 - Edit Information
-	- Make editable
-	- 3 fields for password
-	- Implement backend
+	N Make editable
+	N 3 fields for password
+	M Implement backend
 - Itinerary
-	- Implement sharing
-	- Implement floating button for adding itinerary item
-	- Implement editing itinerary item
+	M Implement sharing
+	N Implement floating button for adding itinerary item
+	M Implement editing itinerary item
 Optional
 - Snackbar or show error to user
 - Allow editing trip info
