@@ -67,31 +67,39 @@ class TopNavigationBar extends StatelessWidget {
             width: MediaQuery.of(context).size.width < 600 ? marginHorizontalMobile : marginHorizontal,
             child: Visibility(
               visible: hasAccount,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>  StreamBuilder(
-                      stream: FirebaseAuth.instance.authStateChanges(),
-                      builder: (ctx, userSnapshot) {
-                        if (userSnapshot.hasData) {
-                          return AccountScreen();
-                        }
-                        if (userSnapshot.connectionState == ConnectionState.waiting)
-                          return CircularProgressIndicator();
-                        return LogInScreen();
+              child: StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (ctx, userSnapshot) {
+                  if (userSnapshot.hasData) {
+                    return IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AccountScreen.routeName);
                       },
-                    )),
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
+                      icon: Icon(
+                        Icons.account_circle,
+                        size: 30,
+                      ),
+                    );
+                  }
+                  if (userSnapshot.connectionState == ConnectionState.waiting)
+                    return CircularProgressIndicator();
+                  return IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(LogInScreen.routeName);
+                    },
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
+                    icon: Icon(
+                      Icons.account_circle,
+                      size: 30,
+                    ),
                   );
                 },
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
-                icon: Icon(
-                  Icons.account_circle,
-                  size: 30,
-                ),
-              ),
+              )
             ),
           ),
           Visibility(

@@ -97,7 +97,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                             ),
                             Visibility(
                               child: Text(
-                                'Shared by: ${futureResult.data![index].owner}',
+                                'Shared by:\n${futureResult.data![index].owner}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               visible: widget.group == TripGroup.pending,
