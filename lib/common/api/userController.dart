@@ -21,4 +21,5 @@ class UserController {
 
     return allUsers;
   }
+
 }

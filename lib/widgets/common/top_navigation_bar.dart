@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/screens/account/account_screen.dart';
 import 'package:travela/screens/destination/destination_screen.dart';
@@ -68,7 +69,20 @@ class TopNavigationBar extends StatelessWidget {
               visible: hasAccount,
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(LogInScreen.routeName);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  StreamBuilder(
+                      stream: FirebaseAuth.instance.authStateChanges(),
+                      builder: (ctx, userSnapshot) {
+                        if (userSnapshot.hasData) {
+                          return AccountScreen();
+                        }
+                        if (userSnapshot.connectionState == ConnectionState.waiting)
+                          return CircularProgressIndicator();
+                        return LogInScreen();
+                      },
+                    )),
+                  );
                 },
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.zero,
