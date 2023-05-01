@@ -6,11 +6,13 @@ class AuthFormField extends StatefulWidget {
       required this.text,
       required this.validatorFn,
       required this.savedFn,
+      required this.width,
       this.controller,
       this.isObscurable = false})
       : super(key: key);
 
   final String text;
+  final width;
   final void Function(String? value) savedFn;
   final String? Function(String? value) validatorFn;
   final TextEditingController? controller;
@@ -33,7 +35,7 @@ class _AuthFormFieldState extends State<AuthFormField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 400,
+      width: widget.width,
       child: TextFormField(
         controller: widget.controller,
         style: const TextStyle(fontSize: 16),

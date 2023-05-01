@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/rendering.dart';
+
+import '../../../widgets/common/auth_form_field.dart';
 
 class EditInformationPassword extends StatefulWidget {
-  EditInformationPassword({required this.title, required this.data, Key? key})
-      : super(key: key);
-  final String title;
+  EditInformationPassword({required this.data, Key? key}) : super(key: key);
   final String data;
   @override
   _EditInformationPasswordState createState() =>
@@ -12,6 +12,11 @@ class EditInformationPassword extends StatefulWidget {
 }
 
 class _EditInformationPasswordState extends State<EditInformationPassword> {
+  final _formKey = GlobalKey<FormState>();
+
+  var _userOldPassword = '';
+  var _userNewPassword = '';
+  var _userConfirmNewPassword = '';
   bool isEnabled = false;
   IconData icon = Icons.edit;
   TextEditingController fieldData = TextEditingController();
@@ -30,73 +35,114 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12),
-          borderRadius: BorderRadius.all(Radius.circular(6))),
-      width: 350,
-      height: 80,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 25,
-            width: 350,
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 15, top: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.title,
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
+    return Column(
+      children: [
+        SizedBox(
+          width: 350,
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Change Password?',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      color:
-                          icon == Icons.check ? Colors.green : Colors.black54,
-                      onPressed: () {
-                        setState(
-                          () {
-                            isEnabled = !isEnabled;
-                            if (icon == Icons.edit_outlined)
-                              icon = Icons.check;
-                            else {
-                              icon = Icons.edit;
-                            }
-                          },
-                        );
-                      },
-                      icon: Icon(icon),
-                      iconSize: 18,
-                      splashRadius: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-            width: 350,
-            child: TextFormField(
-              controller: fieldData,
-              enabled: isEnabled,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 15),
               ),
-            ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    color: icon == Icons.check ? Colors.green : Colors.black54,
+                    onPressed: () {
+                      setState(
+                        () {
+                          isEnabled = !isEnabled;
+                          if (icon == Icons.edit)
+                            icon = Icons.check;
+                          else {
+                            icon = Icons.edit;
+                          }
+                        },
+                      );
+                    },
+                    icon: Icon(icon),
+                    iconSize: 16,
+                    splashRadius: 12,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+
+        Visibility(
+          visible: isEnabled,
+          child: Column(
+            children: [
+              Container(
+                height: 20,
+              ),
+              AuthFormField(
+                text: 'Old Password',
+                width: 350,
+                validatorFn: (value) {
+                  if (value!.isEmpty || value.length < 5) {
+                    return 'Password is too short!';
+                  }
+                  if (value != fieldData.text) {
+                    return 'Passwords do not match!';
+                  }
+                  return null;
+                },
+                savedFn: (value) {},
+                isObscurable: true,
+              ),
+              Container(
+                height: 20,
+              ),
+              AuthFormField(
+                text: 'New Password',
+                width: 350,
+                validatorFn: (value) {
+                  if (value!.isEmpty || value.length < 5) {
+                    return 'Password is too short!';
+                  }
+                  if (value != fieldData.text) {
+                    return 'Passwords do not match!';
+                  }
+                  return null;
+                },
+                savedFn: (value) {},
+                isObscurable: true,
+              ),
+              Container(
+                height: 20,
+              ),
+              AuthFormField(
+                text: 'Confirm New Password',
+                width: 350,
+                validatorFn: (value) {
+                  if (value!.isEmpty || value.length < 5) {
+                    return 'Password is too short!';
+                  }
+                  if (value != fieldData.text) {
+                    return 'Passwords do not match!';
+                  }
+                  return null;
+                },
+                savedFn: (value) {},
+                isObscurable: true,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

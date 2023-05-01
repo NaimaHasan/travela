@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditInformationName extends StatefulWidget {
-  EditInformationName({required this.title, required this.data, Key? key})
-      : super(key: key);
-  final String title;
+  EditInformationName({required this.data, Key? key}) : super(key: key);
   final String data;
   @override
   _EditInformationNameState createState() => _EditInformationNameState();
@@ -47,7 +45,7 @@ class _EditInformationNameState extends State<EditInformationName> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      widget.title,
+                      'Name',
                       style: const TextStyle(
                         fontSize: 14,
                       ),
@@ -64,7 +62,7 @@ class _EditInformationNameState extends State<EditInformationName> {
                         setState(
                           () {
                             isEnabled = !isEnabled;
-                            if (icon == Icons.edit_outlined)
+                            if (icon == Icons.edit)
                               icon = Icons.check;
                             else {
                               icon = Icons.edit;
@@ -73,7 +71,7 @@ class _EditInformationNameState extends State<EditInformationName> {
                         );
                       },
                       icon: Icon(icon),
-                      iconSize: 18,
+                      iconSize: 16,
                       splashRadius: 12,
                     ),
                   ),
@@ -87,13 +85,21 @@ class _EditInformationNameState extends State<EditInformationName> {
             child: TextFormField(
               controller: fieldData,
               enabled: isEnabled,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 0, horizontal: 15),
               ),
             ),
           ),
+          SizedBox(height: 4),
+          Visibility(
+            visible: isEnabled,
+              child: Container(
+            height: 1,
+            width: 320,
+            color: Colors.blueAccent,
+          ))
         ],
       ),
     );

@@ -45,11 +45,11 @@ class EditInformationScreenDesktop extends StatelessWidget {
                   Container(
                     height: 30,
                   ),
-                  EditInformationName(title: 'Name', data: 'John Doe'),
+                  EditInformationName(data: 'John Doe'),
                   Container(
-                    height: 30,
+                    height: 10,
                   ),
-                  EditInformationPassword(title: 'Password', data: '********'),
+                  EditInformationPassword(data: '********'),
                   const Padding(
                     padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
                     child: Align(

@@ -40,6 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           AuthFormField(
             text: 'Enter your full name',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 4) {
                 return 'Please enter at least 4 characters';
@@ -55,6 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           AuthFormField(
             text: 'Enter your E-mail',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || !value.contains('@')) {
                 return 'Invalid email!';
@@ -70,6 +72,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           AuthFormField(
             text: 'Enter password',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 5) {
                 return 'Password is too short!';
@@ -87,6 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           AuthFormField(
             text: 'Confirm Password',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 5) {
                 return 'Password is too short!';

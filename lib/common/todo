@@ -16,8 +16,6 @@ Must
 	M Implement log out
 	M Show login/register only if logged out (cookies kibhabe manage kore dekhte hobe)
 - Edit Information
-	N Make editable
-	N 3 fields for password
 	M Implement backend
 - Itinerary
 	M Implement sharing

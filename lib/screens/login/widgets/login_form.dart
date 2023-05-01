@@ -36,6 +36,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           AuthFormField(
             text: 'Enter your E-mail',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || !value.contains('@')) {
                 return 'Invalid email!';
@@ -51,6 +52,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           AuthFormField(
             text: 'Enter password',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 5) {
                 return 'Password is too short!';
