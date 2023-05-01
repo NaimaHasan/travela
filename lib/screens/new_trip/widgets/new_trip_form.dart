@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 import 'package:travela/common/models/trip.dart';
@@ -110,10 +111,11 @@ class _NewTripFormState extends State<NewTripForm> {
             child: ElevatedButton(
               onPressed: () async {
                 _formKey.currentState!.save();
+                final auth = FirebaseAuth.instance;
 
                 await TripController.postTrip(
                   Trip(
-                    owner: "lalala",
+                    owner: "${auth.currentUser!.email}",
                     tripName: _name,
                     startDate: _startDate,
                     endDate: _endDate,

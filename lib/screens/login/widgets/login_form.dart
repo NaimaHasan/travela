@@ -76,12 +76,19 @@ class _LoginFormState extends State<LoginForm> {
                   _isLoading = true;
                 });
 
-                await Authentication.login(
-                  context,
-                  _formKey,
-                  _userEmail,
-                  _userPassword,
-                );
+                final isValid = _formKey.currentState!.validate();
+                FocusScope.of(context).unfocus();
+
+                if (isValid) {
+                  _formKey.currentState!.save();
+
+                  await Authentication.login(
+                    context,
+                    _formKey,
+                    _userEmail,
+                    _userPassword,
+                  );
+                }
 
                 setState(() {
                   _isLoading = false;

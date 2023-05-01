@@ -1,5 +1,6 @@
 class Trip {
   const Trip({
+    this.tripID,
     required this.owner,
     required this.tripName,
     this.tripImageUrl = "",
@@ -10,7 +11,8 @@ class Trip {
   });
 
   Trip.fromJson(Map<String, dynamic> json)
-      : owner = json['owner'],
+      : tripID = json['id'],
+        owner = json['owner'],
         tripName = json['tripName'],
         tripImageUrl = json['tripImage'],
         startDate = json['startDate'],
@@ -18,6 +20,7 @@ class Trip {
         pendingUsers = List<String>.from(json['pendingUsers']),
         sharedUsers = List<String>.from(json['sharedUsers']);
 
+  final int? tripID;
   final String owner;
   final String tripName;
   final String? tripImageUrl;
