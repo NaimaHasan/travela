@@ -22,12 +22,30 @@ class ItineraryScreenMobile extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            ItineraryTopMobile(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: ItineraryColumn(),
+            Container(
+              height: MediaQuery.of(context).size.height -
+                  kToolbarHeight -
+                  MediaQuery.of(context).padding.top -
+                  kBottomNavigationBarHeight,
+              child: Column(
+                children: [
+                  ItineraryTopMobile(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: ItineraryColumn(),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 20,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.add),
+              ),
             ),
           ],
         ),
