@@ -12,7 +12,7 @@ class AccountTrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tabWidth = 950;
+    var tabWidth = 1150;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),

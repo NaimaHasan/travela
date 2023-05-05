@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 
@@ -69,44 +70,43 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Container(
-                        height: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
-                        width: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
+                        height:
+                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70),
+                        width:
+                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70),
                         color: Colors.tealAccent,
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(right: 15),
+                        padding: EdgeInsets.only(right: 15, left: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(top: 25, bottom: 10),
+                              padding: EdgeInsets.only(top: 15, bottom: 5),
                               child: Text(
                                 futureResult.data![index].tripName,
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                    fontSize: MediaQuery.of(context).size.width/1450 * 14, fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
                               '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: MediaQuery.of(context).size.width/1450 * 12),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Visibility(
-                              child: Text(
-                                'Shared by:\n${futureResult.data![index].owner}',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              visible: widget.group == TripGroup.pending,
-                            ),
+
                             Expanded(
                               child: Container(),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(bottom: 25),
+                              padding: EdgeInsets.only(bottom: 5),
                               child: widget.group == TripGroup.pending
                                   ? Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -114,22 +114,23 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                         IconButton(
                                           onPressed: () {},
                                           icon: Icon(Icons.check),
-                                          splashRadius: 18,
+                                          splashRadius: MediaQuery.of(context).size.width/1450 * 15,
                                           padding: EdgeInsets.zero,
                                           visualDensity: VisualDensity.compact,
                                           color: Colors.green,
+                                          iconSize: MediaQuery.of(context).size.width/1450 * 15,
                                         ),
                                         IconButton(
                                           onPressed: () {},
                                           icon: Text(
                                             'X',
                                             style: TextStyle(
-                                              fontSize: 19,
+                                              fontSize: MediaQuery.of(context).size.width/1450 * 13,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
                                             ),
                                           ),
-                                          splashRadius: 18,
+                                          splashRadius: MediaQuery.of(context).size.width/1450 * 14,
                                           padding: EdgeInsets.zero,
                                           visualDensity: VisualDensity.compact,
                                         ),
@@ -137,12 +138,14 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                     )
                                   : IconButton(
                                       onPressed: () async {
-                                        await TripController.shareTrip(futureResult.data![index], context);
+                                        await TripController.shareTrip(
+                                            futureResult.data![index], context);
                                       },
                                       icon: Icon(Icons.share),
-                                      splashRadius: 18,
+                                      splashRadius: MediaQuery.of(context).size.width/1450 * 14,
                                       padding: EdgeInsets.zero,
                                       visualDensity: VisualDensity.compact,
+                                      iconSize: MediaQuery.of(context).size.width/1450 * 14,
                                     ),
                             ),
                           ],

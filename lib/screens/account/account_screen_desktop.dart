@@ -61,8 +61,8 @@ class AccountScreenDesktop extends StatelessWidget {
                           height: screenSize.height * 0.03,
                         ),
                         SizedBox(
-                          width: screenSize.width * 0.082,
-                          height: 35,
+                          width: MediaQuery.of(context).size.width/950 * 100,
+                          height: MediaQuery.of(context).size.width/950 * 24,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context)
@@ -71,7 +71,7 @@ class AccountScreenDesktop extends StatelessWidget {
                             child: Text(
                               'Edit Information',
                               style: TextStyle(
-                                  fontSize: screenSize.width * 0.0075),
+                                  fontSize:  MediaQuery.of(context).size.width/950 * 9),
                             ),
                           ),
                         ),
