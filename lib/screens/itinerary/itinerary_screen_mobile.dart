@@ -4,12 +4,16 @@ import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_top_mobile.dart';
 
+import '../../common/api/tripController.dart';
+import '../../common/models/trip.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class ItineraryScreenMobile extends StatelessWidget {
-  const ItineraryScreenMobile({super.key});
+  const ItineraryScreenMobile({super.key, required this.trip});
+
+  final int trip;
 
   @override
   Widget build(BuildContext context) {
@@ -21,34 +25,45 @@ class ItineraryScreenMobile extends StatelessWidget {
           hasSearch: false,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height -
-                  kToolbarHeight -
-                  MediaQuery.of(context).padding.top -
-                  kBottomNavigationBarHeight,
-              child: Column(
-                children: [
-                  ItineraryTopMobile(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: ItineraryColumn(),
+      body: FutureBuilder(
+        future: TripController.getTripDetails(trip),
+        builder: (ctx, futureResults) {
+          if (futureResults.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+          var data = futureResults.data!;
+          return SingleChildScrollView(
+            child: Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height -
+                      kToolbarHeight -
+                      MediaQuery.of(context).padding.top -
+                      kBottomNavigationBarHeight,
+                  child: Column(
+                    children: [
+                      ItineraryTopMobile(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: ItineraryColumn(
+                          trip: data,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 20,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              bottom: 10,
-              right: 20,
-              child: FloatingActionButton(
-                onPressed: () {},
-                child: Icon(Icons.add),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

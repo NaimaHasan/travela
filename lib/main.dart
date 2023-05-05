@@ -42,7 +42,19 @@ class MyApp extends StatelessWidget {
         AccountScreen.routeName: (ctx) => const AccountScreen(),
         EditInformationScreen.routeName: (ctx) => const EditInformationScreen(),
         NewTripScreen.routeName: (ctx) => const NewTripScreen(),
-        ItineraryScreen.routeName: (ctx) => const ItineraryScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name!.startsWith('/itinerary/')) {
+          final dynamicValue = int.parse(settings.name!.split('/').last);
+          return MaterialPageRoute(
+            builder: (context) => ItineraryScreen(trip: dynamicValue),
+            settings: settings,
+          );
+        }
+        return MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+          settings: settings,
+        );
       },
     );
   }

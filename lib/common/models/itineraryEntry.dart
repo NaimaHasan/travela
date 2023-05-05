@@ -11,7 +11,7 @@ class ItineraryEntry {
       : trip = json['trip'],
         dateTime = DateTime.parse(json['dateTime']),
         description = json['description'],
-        location = LatLng(json['location_latitude'], json['location_longitude']);
+        location = LatLng(double.parse(json['location_latitude']), double.parse(json['location_longitude']));
 
   final int trip;
   final DateTime dateTime;

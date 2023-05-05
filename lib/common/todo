@@ -1,6 +1,4 @@
 Must
-- General
-    N Check all sizes, see what breaks
 - Home screen
 	* Destination/Hotel/Restaurants filtering
 	* Destination
@@ -14,7 +12,6 @@ Must
     N arrow on carousel design
     M arrow implementation
 - Itinerary
-	M Implement sharing
 	M New itinerary item
 	M Implement editing itinerary item
 - Image

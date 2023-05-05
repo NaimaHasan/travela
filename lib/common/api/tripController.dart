@@ -11,18 +11,35 @@ import '../models/user.dart';
 import 'package:latlong2/latlong.dart';
 
 class TripController {
+  static Future<Trip?> getTripDetails(int tripID) async {
+    Trip? trip;
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
+      );
+
+      var data = jsonDecode(response.body);
+      trip = Trip.fromJson(data);
+    } catch (err) {
+      print(err);
+    }
+
+    return trip;
+  }
+
   static Future<List<Trip>> getAllTrips() async {
     final auth = FirebaseAuth.instance;
 
     List<Trip> allTrips = [];
 
-    var response = await http.get(
-      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
-    );
-
-    var data = jsonDecode(response.body);
-
     try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
+      );
+
+      var data = jsonDecode(response.body);
+
       for (Map<String, dynamic> tripEntry in data) {
         allTrips.add(Trip.fromJson(tripEntry));
       }
@@ -137,7 +154,7 @@ class TripController {
         body: {
           'trip': data["id"].toString(),
           'dateTime': endDateTime.toIso8601String(),
-          'description': "Start of Trip",
+          'description': "End of Trip",
           'location_latitude': location.latitude.toString(),
           'location_longitude': location.longitude.toString(),
         },
