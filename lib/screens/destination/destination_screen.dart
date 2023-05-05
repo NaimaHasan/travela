@@ -11,7 +11,7 @@ class DestinationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) => const DestinationScreenMobile(),
-      tablet: (BuildContext context) => const DestinationScreenDesktop(),
+      tablet: (BuildContext context) => const DestinationScreenMobile(),
       desktop: (BuildContext context) => const DestinationScreenDesktop(),
     );
   }

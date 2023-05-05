@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:travela/screens/account/widgets/account_trip.dart';
 
+import '../../common/api/authenticationController.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import '../edit_information/edit_information_screen.dart';
 
@@ -48,11 +49,16 @@ class AccountScreenMobile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5, top: 25, right: 5),
+                            padding:
+                                EdgeInsets.only(bottom: 5, top: 25, right: 5),
                             child: IconButton(
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
-                              onPressed: () {},
+                              onPressed: () {
+                                Authentication.logout(
+                                  context,
+                                );
+                              },
                               icon: const Icon(
                                 Icons.logout,
                                 size: 28,
