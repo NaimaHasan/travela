@@ -19,11 +19,10 @@ class NewTripScreenDesktop extends StatelessWidget {
           hasSearch: false,
         ),
       ),
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height - 120,
-          width: 420,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            width: 420,
             child: Card(
               elevation: 5,
               child: NewTripForm(),
