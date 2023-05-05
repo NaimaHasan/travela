@@ -21,9 +21,9 @@ class _AccountTripListState extends State<AccountTripList> {
 
   @override
   void initState() {
-    switch(widget.group){
+    switch (widget.group) {
       case TripGroup.pending:
-        _getTrips = TripController.getAllTrips();
+        _getTrips = TripController.getPendingTrips();
         break;
       case TripGroup.personal:
         _getTrips = TripController.getPersonalTrips();
@@ -44,10 +44,10 @@ class _AccountTripListState extends State<AccountTripList> {
           return CircularProgressIndicator();
         }
         if (!futureResult.hasData) {
-          return Text("No Trips Yet (No Data)");
+          return Text("No Trips Yet");
         }
         if(futureResult.data!.isEmpty) {
-          return Text("No Trips Yet (Data is Empty)");
+          return Text("No Trips Yet");
         }
         return ListView.builder(
           scrollDirection: Axis.vertical,
@@ -96,9 +96,45 @@ class _AccountTripListState extends State<AccountTripList> {
                           ),
                         ),
                         Expanded(child: Container()),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.share),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 25),
+                          child: widget.group == TripGroup.pending
+                              ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.check),
+                                splashRadius: 18,
+                                padding: EdgeInsets.zero,
+                                visualDensity: VisualDensity.compact,
+                                color: Colors.green,
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Text(
+                                  'X',
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                splashRadius: 18,
+                                padding: EdgeInsets.zero,
+                                visualDensity: VisualDensity.compact,
+                              ),
+                            ],
+                          )
+                              : IconButton(
+                            onPressed: () async {
+                              await TripController.shareTrip(futureResult.data![index], context);
+                            },
+                            icon: Icon(Icons.share),
+                            splashRadius: 18,
+                            padding: EdgeInsets.zero,
+                            visualDensity: VisualDensity.compact,
+                          ),
                         ),
                       ],
                     ),

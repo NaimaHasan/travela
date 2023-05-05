@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:travela/screens/destination/widgets/destination_image.dart';
 import 'package:travela/screens/destination/widgets/destination_image_mobile.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby.dart';
@@ -41,7 +42,12 @@ class DestinationScreenMobile extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(left: 15, right: 15),
               child: Text(
-                'daoiholwfh awdbwak ldbqlwd awdsn;owa bfwoabfiwua lhfqiwsba ADHAWJD KBAWHIBD DABNAJKSBF JAKBFJA',
+                "Lorem ipsum dolor sit amet consectetur. Quis lectus sit vel sagittis. "
+                    "Ac fusce auctor orci laoreet sed. At nec id eget facilisi non quisque in mollis cursus. "
+                    "Tortor elit feugiat tempus interdum aliquam faucibus pellentesque. Ornare orci turpis sed "
+                    "viverra adipiscing tristique. Convallis nunc duis sollicitudin sit aliquam adipiscing lorem. "
+                    "Odio mi vulputate ipsum auctor consectetur sem viverra. Est viverra vivamus tellus justo tellus "
+                    "enim laoreet eleifend. Pellentesque in sem maecenas mauris mauris eget ipsum. Interdum dui adipiscing ",
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -72,9 +78,16 @@ class DestinationScreenMobile extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width / 2,
-              child: Image.asset(
-                'lib/assets/dummy.jpg',
-                fit: BoxFit.cover,
+              child: FlutterMap(
+                options: MapOptions(),
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName:
+                    'dev.fleaflet.flutter_map.example',
+                  ),
+                ],
               ),
             ),
             const Padding(
@@ -104,7 +117,7 @@ class DestinationScreenMobile extends StatelessWidget {
                 children: [
                   const Expanded(
                     child: Text(
-                      'Nearby Hotels',
+                      'Nearby Places',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
@@ -113,28 +126,6 @@ class DestinationScreenMobile extends StatelessWidget {
                   ),
                   Icon(
                     Icons.maps_home_work_outlined,
-                    color: Colors.yellow[700],
-                  )
-                ],
-              ),
-            ),
-            const DestinationNearbyPlacesMobile(),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15, right: 15, bottom: 10, top: 40),
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Nearby Restaurants',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.restaurant_menu,
                     color: Colors.yellow[700],
                   )
                 ],

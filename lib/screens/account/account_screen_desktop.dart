@@ -41,6 +41,7 @@ class AccountScreenDesktop extends StatelessWidget {
                       height: screenSize.width * 0.09,
                       child: IconButton(
                         onPressed: () {},
+                        splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.account_circle,
                           size: screenSize.width * 0.09,
@@ -84,6 +85,7 @@ class AccountScreenDesktop extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 15, right: 12),
                             child: IconButton(
                               visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
                               onPressed: () {
                                 Authentication.logout(
                                   context,

@@ -64,22 +64,25 @@ class DestinationNearbyPlaces extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed(DestinationScreen.routeName);
-        },
-        child: CarouselSlider(
-          options: CarouselOptions(
-              autoPlay: false,
-              aspectRatio: 4,
-              enlargeCenterPage: true,
-              enlargeStrategy: CenterPageEnlargeStrategy.height,
-              enlargeFactor: 0.1,
-              viewportFraction: 0.335,
-              //height: 355,
-              initialPage: 5),
-          items: imageSliders,
-        ),
+      child: CarouselSlider(
+        options: CarouselOptions(
+            autoPlay: false,
+            aspectRatio: 4,
+            enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.height,
+            enlargeFactor: 0.1,
+            viewportFraction: 0.335,
+            //height: 355,
+            initialPage: 5),
+        items: [
+          for (var element in imageSliders)
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(DestinationScreen.routeName);
+              },
+              child: element,
+            ),
+        ],
       ),
     );
   }

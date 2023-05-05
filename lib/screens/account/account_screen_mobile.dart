@@ -51,6 +51,7 @@ class AccountScreenMobile extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 5, top: 25, right: 5),
                             child: IconButton(
                               visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
                               onPressed: () {},
                               icon: const Icon(
                                 Icons.logout,

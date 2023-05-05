@@ -4,6 +4,7 @@ Must
 	* Destination
 - Near Me
 	* Get user current location
+	* show destinations on screen
 - Search
 	* All left
 	* Can only be done after destination is done
@@ -17,6 +18,15 @@ Must
 - Itinerary
 	M Implement sharing
 	M Implement editing itinerary item
+-  New Trip
+    - Make full scrollable
+- Image
+    - Give default image upon account creation
+    - Show image on account screen
+    - Upload
+        - Edit info
+        - new trip
+            - auto-fetch image
 Optional
 - Snackbar or show error to user
 - Allow editing trip info

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
@@ -107,9 +108,16 @@ class ItineraryScreenDesktop extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(
-                    'lib/assets/mock_1.jpg',
-                    fit: BoxFit.fitHeight,
+                  child: FlutterMap(
+                    options: MapOptions(),
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        userAgentPackageName:
+                        'dev.fleaflet.flutter_map.example',
+                      ),
+                    ],
                   ),
                 ),
               ],
