@@ -1,4 +1,6 @@
 Must
+- General
+    N Check all sizes, see what breaks
 - Home screen
 	* Destination/Hotel/Restaurants filtering
 	* Destination
@@ -9,17 +11,19 @@ Must
 	* All left
 	* Can only be done after destination is done
 - Destination
-    M arrow on carousel
+    N arrow on carousel design
+    M arrow implementation
 - Account
-	* Implement filtering for personal/group trips at django
+	M Implement filtering for personal/group trips at django
 	M Implement backend for sharing, accepting and rejecting pending
 - Edit Information
 	M Implement backend
 - Itinerary
 	M Implement sharing
+	M New itinerary item
 	M Implement editing itinerary item
 -  New Trip
-    - Make full scrollable
+    N Make full scrollable
 - Image
     - Give default image upon account creation
     - Show image on account screen
