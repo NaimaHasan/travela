@@ -17,8 +17,6 @@ Must
 	M Implement sharing
 	M New itinerary item
 	M Implement editing itinerary item
--  New Trip and other Cards
-    N Make full scrollable
 - Image
     - Give default image upon account creation
     - Show image on account screen

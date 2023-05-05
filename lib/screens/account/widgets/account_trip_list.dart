@@ -19,8 +19,7 @@ class AccountTripList extends StatefulWidget {
 class _AccountTripListState extends State<AccountTripList> {
   late Future<List<Trip>> _getTrips;
 
-  @override
-  void initState() {
+  void setFutures() {
     switch (widget.group) {
       case TripGroup.pending:
         _getTrips = TripController.getPendingTrips();
@@ -32,6 +31,11 @@ class _AccountTripListState extends State<AccountTripList> {
         _getTrips = TripController.getGroupTrips();
         break;
     }
+  }
+
+  @override
+  void initState() {
+    setFutures();
     super.initState();
   }
 
@@ -43,10 +47,7 @@ class _AccountTripListState extends State<AccountTripList> {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        if (!futureResult.hasData) {
-          return Text("No Trips Yet");
-        }
-        if(futureResult.data!.isEmpty) {
+        if (!futureResult.hasData || futureResult.data!.isEmpty) {
           return Text("No Trips Yet");
         }
         return ListView.builder(
@@ -58,7 +59,8 @@ class _AccountTripListState extends State<AccountTripList> {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(ItineraryScreen.routeName);
+                Navigator.of(context).pushNamed(ItineraryScreen.routeName,
+                    arguments: futureResult.data![index]);
               },
               child: Column(
                 children: [
@@ -89,7 +91,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                 ),
                               ),
                               Text(
-                                '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
+                                '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
                                 style: TextStyle(fontSize: 14),
                               ),
                             ],
@@ -100,41 +102,57 @@ class _AccountTripListState extends State<AccountTripList> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: widget.group == TripGroup.pending
                               ? Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.check),
-                                splashRadius: 18,
-                                padding: EdgeInsets.zero,
-                                visualDensity: VisualDensity.compact,
-                                color: Colors.green,
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Text(
-                                  'X',
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                splashRadius: 18,
-                                padding: EdgeInsets.zero,
-                                visualDensity: VisualDensity.compact,
-                              ),
-                            ],
-                          )
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () async {
+                                        await TripController.acceptTrip(
+                                            futureResult.data![index]);
+                                        setState(() {
+                                          setFutures();
+                                        });
+                                      },
+                                      icon: Icon(Icons.check),
+                                      splashRadius: 18,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                      color: Colors.green,
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        await TripController.declineTrip(
+                                            futureResult.data![index]);
+                                        setState(() {
+                                          setFutures();
+                                        });
+                                      },
+                                      icon: Text(
+                                        'X',
+                                        style: TextStyle(
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      splashRadius: 18,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                    ),
+                                  ],
+                                )
                               : IconButton(
-                            onPressed: () async {
-                              await TripController.shareTrip(futureResult.data![index], context);
-                            },
-                            icon: Icon(Icons.share),
-                            splashRadius: 18,
-                            padding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                          ),
+                                  onPressed: () async {
+                                    await TripController.shareTrip(
+                                        futureResult.data![index], context);
+                                    setState(() {
+                                      setFutures();
+                                    });
+                                  },
+                                  icon: Icon(Icons.share),
+                                  splashRadius: 18,
+                                  padding: EdgeInsets.zero,
+                                  visualDensity: VisualDensity.compact,
+                                ),
                         ),
                       ],
                     ),
