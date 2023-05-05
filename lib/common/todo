@@ -13,16 +13,11 @@ Must
 - Destination
     N arrow on carousel design
     M arrow implementation
-- Account
-	M Implement filtering for personal/group trips at django
-	M Implement backend for sharing, accepting and rejecting pending
-- Edit Information
-	M Implement backend
 - Itinerary
 	M Implement sharing
 	M New itinerary item
 	M Implement editing itinerary item
--  New Trip
+-  New Trip and other Cards
     N Make full scrollable
 - Image
     - Give default image upon account creation

@@ -95,4 +95,47 @@ class Authentication {
       ),
     );
   }
+
+  static Future<void> changePassword(BuildContext context, String oldPassword, String newPassword) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    try {
+      AuthCredential credentials =
+      EmailAuthProvider.credential(
+          email: user!.email!, password: oldPassword);
+
+      await FirebaseAuth.instance.currentUser!
+          .reauthenticateWithCredential(credentials);
+      await user.updatePassword(newPassword);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password updated successfully.'),
+        ),
+      );
+    } on FirebaseAuthException catch (err) {
+      print(err.code);
+
+      var message =
+          'An error occurred, please check your credentials!';
+
+      if (err.message != null) {
+        message = err.message!;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+    } catch (err) {
+      print(err);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(err.toString()),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+    }
+  }
 }
