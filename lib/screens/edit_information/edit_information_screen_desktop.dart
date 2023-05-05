@@ -20,7 +20,6 @@ class EditInformationScreenDesktop extends StatelessWidget {
         preferredSize: Size(screenSize.width, 80),
         child: const TopNavigationBar(
           hasSearch: false,
-          hasAccount: false,
         ),
       ),
       body: SingleChildScrollView(
