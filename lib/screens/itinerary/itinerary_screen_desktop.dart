@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:intl/intl.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
@@ -46,14 +47,14 @@ class ItineraryScreenDesktop extends StatelessWidget {
                 ),
                 verticalSpaceSmall,
                 Text(
-                  "Madeira Trip",
+                  trip.tripName,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "23rd March - 28th March",
+                  '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(

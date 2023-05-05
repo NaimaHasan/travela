@@ -8,6 +8,7 @@ import '../models/trip.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/user.dart';
+import 'package:latlong2/latlong.dart';
 
 class TripController {
   static Future<List<Trip>> getAllTrips() async {
@@ -98,18 +99,53 @@ class TripController {
     return groupTrips;
   }
 
-  static Future<void> postTrip(Trip trip) async {
+  static Future<void> postTrip(Trip trip, LatLng location) async {
     final auth = FirebaseAuth.instance;
 
-    await http.post(
-      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
-      body: {
-        'owner': trip.owner,
-        'tripName': trip.tripName,
-        'startDate': trip.startDate,
-        'endDate': trip.endDate,
-      },
-    );
+    try {
+      var response = await http.post(
+        Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
+        body: {
+          'owner': trip.owner,
+          'tripName': trip.tripName,
+          'startDate': trip.startDate,
+          'endDate': trip.endDate,
+        },
+      );
+
+      var data = jsonDecode(response.body);
+
+      var startDateTime = DateTime.parse(trip.startDate);
+      startDateTime = startDateTime.add(Duration(hours: 6));
+
+      var endDateTime = DateTime.parse(trip.startDate);
+      endDateTime = endDateTime.add(Duration(hours: 18));
+
+      await http.post(
+        Uri.http('127.0.0.1:8000', 'trips/${data["id"]}/itineraryEntry/'),
+        body: {
+          'trip': data["id"].toString(),
+          'dateTime': startDateTime.toIso8601String(),
+          'description': "Start of Trip",
+          'location_latitude': location.latitude.toString(),
+          'location_longitude': location.longitude.toString(),
+        },
+      );
+
+      await http.post(
+        Uri.http('127.0.0.1:8000', 'trips/${data["id"]}/itineraryEntry/'),
+        body: {
+          'trip': data["id"].toString(),
+          'dateTime': endDateTime.toIso8601String(),
+          'description': "Start of Trip",
+          'location_latitude': location.latitude.toString(),
+          'location_longitude': location.longitude.toString(),
+        },
+      );
+    }
+    catch (err){
+      print(err);
+    }
   }
 
   static Future<void> shareTrip(

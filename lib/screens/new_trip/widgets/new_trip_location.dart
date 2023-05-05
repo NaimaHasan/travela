@@ -6,20 +6,23 @@ import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 
 class NewTripLocation extends StatefulWidget {
-  NewTripLocation({Key? key}) : super(key: key);
+  NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng}) : super(key: key);
+
+  final LatLng defaultLatLng;
+  final Function(LatLng value) setLocation;
+
   @override
   _NewTripLocationState createState() => _NewTripLocationState();
 }
 
 class _NewTripLocationState extends State<NewTripLocation> {
   TextEditingController locationController = TextEditingController();
-  LatLng defaultLatLng = LatLng(51, 0);
   // String defaultLocation = "";
 
   @override
   void initState() {
     locationController.text =
-        formattedLatLng(defaultLatLng); //set the initial value of text field
+        formattedLatLng(widget.defaultLatLng); //set the initial value of text field
     super.initState();
   }
 
@@ -55,12 +58,13 @@ class _NewTripLocationState extends State<NewTripLocation> {
               builder: (ctx) {
                 return LocationPicker(
                   ctx: ctx,
-                  initialPos: defaultLatLng,
+                  initialPos: widget.defaultLatLng,
                 );
               },
             );
 
             locationController.text = formattedLatLng(result);
+            widget.setLocation(result);
           },
         ),
       ),

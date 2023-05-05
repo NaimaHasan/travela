@@ -8,6 +8,7 @@ import 'package:travela/screens/new_trip/widgets/new_trip_name.dart';
 
 import 'new_trip_date.dart';
 import 'new_trip_location.dart';
+import 'package:latlong2/latlong.dart';
 
 class NewTripForm extends StatefulWidget {
   const NewTripForm({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class NewTripForm extends StatefulWidget {
 
 class _NewTripFormState extends State<NewTripForm> {
   final _formKey = GlobalKey<FormState>();
+  LatLng _location = LatLng(51, 0);
 
   String _name = "";
   String _startDate = "";
@@ -66,7 +68,12 @@ class _NewTripFormState extends State<NewTripForm> {
               ),
             ),
           ),
-          NewTripLocation(),
+          NewTripLocation(
+            defaultLatLng: _location,
+            setLocation: (value) {
+              _location = value;
+            },
+          ),
           const Padding(
             padding: EdgeInsets.only(left: 30, top: 25, bottom: 15),
             child: Align(
@@ -120,6 +127,7 @@ class _NewTripFormState extends State<NewTripForm> {
                     startDate: _startDate,
                     endDate: _endDate,
                   ),
+                  _location,
                 );
 
                 Navigator.of(context).pushNamed(AccountScreen.routeName);
