@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travela/common/api/userController.dart';
 
 class EditInformationName extends StatefulWidget {
   EditInformationName({required this.data, Key? key}) : super(key: key);
@@ -36,12 +37,15 @@ class _EditInformationNameState extends State<EditInformationName> {
       child: Column(
         children: [
           SizedBox(
+            height: 5,
+          ),
+          SizedBox(
             height: 25,
             width: 350,
             child: Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 15, top: 10),
+                  padding: EdgeInsets.only(left: 15),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -58,14 +62,17 @@ class _EditInformationNameState extends State<EditInformationName> {
                     child: IconButton(
                       color:
                           icon == Icons.check ? Colors.green : Colors.black54,
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
                       onPressed: () {
                         setState(
                           () {
                             isEnabled = !isEnabled;
-                            if (icon == Icons.edit)
+                            if (icon == Icons.edit) {
                               icon = Icons.check;
-                            else {
+                            } else {
                               icon = Icons.edit;
+                              UserController.setUserName(fieldData.text);
                             }
                           },
                         );
@@ -95,11 +102,12 @@ class _EditInformationNameState extends State<EditInformationName> {
           SizedBox(height: 4),
           Visibility(
             visible: isEnabled,
-              child: Container(
-            height: 1,
-            width: 320,
-            color: Colors.blueAccent,
-          ))
+            child: Container(
+              height: 1,
+              width: 320,
+              color: Colors.blueAccent,
+            ),
+          ),
         ],
       ),
     );

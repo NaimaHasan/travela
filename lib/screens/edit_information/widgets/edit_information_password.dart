@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../../common/api/authenticationController.dart';
 import '../../../widgets/common/auth_form_field.dart';
 
 class EditInformationPassword extends StatefulWidget {
-  EditInformationPassword({required this.data, Key? key}) : super(key: key);
-  final String data;
+  EditInformationPassword({Key? key}) : super(key: key);
   @override
   _EditInformationPasswordState createState() =>
       _EditInformationPasswordState();
@@ -17,13 +17,13 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
   var _userOldPassword = '';
   var _userNewPassword = '';
   var _userConfirmNewPassword = '';
+  var _invalidText;
   bool isEnabled = false;
   IconData icon = Icons.edit;
   TextEditingController fieldData = TextEditingController();
 
   @override
   void initState() {
-    fieldData.text = widget.data;
     super.initState();
   }
 
@@ -59,17 +59,38 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                   alignment: Alignment.centerRight,
                   child: IconButton(
                     color: icon == Icons.check ? Colors.green : Colors.black54,
-                    onPressed: () {
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    onPressed: () async {
                       setState(
                         () {
                           isEnabled = !isEnabled;
-                          if (icon == Icons.edit)
+                          if (icon == Icons.edit) {
                             icon = Icons.check;
-                          else {
+                          }else {
                             icon = Icons.edit;
                           }
                         },
                       );
+                      if (icon == Icons.edit) {
+                        final isValid = _formKey.currentState!.validate();
+                        FocusScope.of(context).unfocus();
+
+                        if (isValid) {
+                          _formKey.currentState!.save();
+
+                          await Authentication.changePassword(context, _userOldPassword, _userNewPassword);
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(_invalidText),
+                              backgroundColor: Theme.of(context).colorScheme.error,
+                            ),
+                          );
+                        }
+                        fieldData.text = "";
+                      }
                     },
                     icon: Icon(icon),
                     iconSize: 16,
@@ -80,66 +101,73 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
             ],
           ),
         ),
-
         Visibility(
           visible: isEnabled,
-          child: Column(
-            children: [
-              Container(
-                height: 20,
-              ),
-              AuthFormField(
-                text: 'Old Password',
-                width: 350,
-                validatorFn: (value) {
-                  if (value!.isEmpty || value.length < 5) {
-                    return 'Password is too short!';
-                  }
-                  if (value != fieldData.text) {
-                    return 'Passwords do not match!';
-                  }
-                  return null;
-                },
-                savedFn: (value) {},
-                isObscurable: true,
-              ),
-              Container(
-                height: 20,
-              ),
-              AuthFormField(
-                text: 'New Password',
-                width: 350,
-                validatorFn: (value) {
-                  if (value!.isEmpty || value.length < 5) {
-                    return 'Password is too short!';
-                  }
-                  if (value != fieldData.text) {
-                    return 'Passwords do not match!';
-                  }
-                  return null;
-                },
-                savedFn: (value) {},
-                isObscurable: true,
-              ),
-              Container(
-                height: 20,
-              ),
-              AuthFormField(
-                text: 'Confirm New Password',
-                width: 350,
-                validatorFn: (value) {
-                  if (value!.isEmpty || value.length < 5) {
-                    return 'Password is too short!';
-                  }
-                  if (value != fieldData.text) {
-                    return 'Passwords do not match!';
-                  }
-                  return null;
-                },
-                savedFn: (value) {},
-                isObscurable: true,
-              ),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Container(
+                  height: 20,
+                ),
+                AuthFormField(
+                  text: 'Old Password',
+                  width: 350,
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 5) {
+                      _invalidText = 'Password is too short!';
+                      return 'Password is too short!';
+                    }
+                    return null;
+                  },
+                  savedFn: (value) {
+                    _userOldPassword = value!;
+                  },
+                  isObscurable: true,
+                ),
+                Container(
+                  height: 20,
+                ),
+                AuthFormField(
+                  text: 'New Password',
+                  controller: fieldData,
+                  width: 350,
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 5) {
+                      _invalidText = 'Password is too short!';
+                      return 'Password is too short!';
+                    }
+                    return null;
+                  },
+                  savedFn: (value) {
+                    _userNewPassword = value!;
+                  },
+                  isObscurable: true,
+                ),
+                Container(
+                  height: 20,
+                ),
+                AuthFormField(
+                  text: 'Confirm New Password',
+                  width: 350,
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 5) {
+                      _invalidText = 'Password is too short!';
+                      return 'Password is too short!';
+                    }
+                    if (value != fieldData.text) {
+                      _invalidText = 'Passwords do not match!';
+                      return 'Passwords do not match!';
+                    }
+                    return null;
+                  },
+                  savedFn: (value) {
+                    _userConfirmNewPassword = value!;
+                  },
+                  isObscurable: true,
+                ),
+              ],
+            ),
           ),
         ),
       ],

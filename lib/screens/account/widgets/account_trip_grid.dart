@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 
@@ -20,8 +19,7 @@ class AccountTripGrid extends StatefulWidget {
 class _AccountTripGridState extends State<AccountTripGrid> {
   late Future<List<Trip>> _getTrips;
 
-  @override
-  void initState() {
+  void setFutures(){
     switch (widget.group) {
       case TripGroup.pending:
         _getTrips = TripController.getPendingTrips();
@@ -33,6 +31,11 @@ class _AccountTripGridState extends State<AccountTripGrid> {
         _getTrips = TripController.getGroupTrips();
         break;
     }
+  }
+
+  @override
+  void initState() {
+    setFutures();
     super.initState();
   }
 
@@ -70,14 +73,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Container(
-                        height:
-                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70),
-                        width:
-                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70),
+                        height: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
+                        width: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
                         color: Colors.tealAccent,
                       ),
                     ),
@@ -112,7 +109,12 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await TripController.acceptTrip(futureResult.data![index]);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
                                           icon: Icon(Icons.check),
                                           splashRadius: MediaQuery.of(context).size.width/1450 * 15,
                                           padding: EdgeInsets.zero,
@@ -121,7 +123,12 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                           iconSize: MediaQuery.of(context).size.width/1450 * 15,
                                         ),
                                         IconButton(
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await TripController.declineTrip(futureResult.data![index]);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
                                           icon: Text(
                                             'X',
                                             style: TextStyle(
@@ -138,8 +145,10 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                     )
                                   : IconButton(
                                       onPressed: () async {
-                                        await TripController.shareTrip(
-                                            futureResult.data![index], context);
+                                        await TripController.shareTrip(futureResult.data![index], context);
+                                        setState(() {
+                                          setFutures();
+                                        });
                                       },
                                       icon: Icon(Icons.share),
                                       splashRadius: MediaQuery.of(context).size.width/1450 * 14,

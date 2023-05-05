@@ -55,28 +55,44 @@ class TripController {
   }
 
   static Future<List<Trip>> getPersonalTrips() async {
-    List<Trip> allTrips = await getAllTrips();
+    final auth = FirebaseAuth.instance;
 
     List<Trip> personalTrips = [];
 
-    for (Trip trip in allTrips) {
-      if (trip.sharedUsers.isEmpty) {
-        personalTrips.add(trip);
+    var response = await http.get(
+      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/personalTrips/'),
+    );
+
+    var data = jsonDecode(response.body);
+
+    try {
+      for (Map<String, dynamic> tripEntry in data) {
+        personalTrips.add(Trip.fromJson(tripEntry));
       }
+    } catch (err) {
+      print(err);
     }
 
     return personalTrips;
   }
 
   static Future<List<Trip>> getGroupTrips() async {
-    List<Trip> allTrips = await getAllTrips();
+    final auth = FirebaseAuth.instance;
 
     List<Trip> groupTrips = [];
 
-    for (Trip trip in allTrips) {
-      if (trip.sharedUsers.isNotEmpty) {
-        groupTrips.add(trip);
+    var response = await http.get(
+      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/groupTrips/'),
+    );
+
+    var data = jsonDecode(response.body);
+
+    try {
+      for (Map<String, dynamic> tripEntry in data) {
+        groupTrips.add(Trip.fromJson(tripEntry));
       }
+    } catch (err) {
+      print(err);
     }
 
     return groupTrips;
@@ -101,9 +117,49 @@ class TripController {
     String result = await showDialog(
       context: context,
       builder: (ctx) {
-        return _ShareDialog(ctx: ctx, name: trip.tripName,);
+        return _ShareDialog(ctx: ctx, name: trip.tripName);
       },
     );
+    final auth = FirebaseAuth.instance;
+
+    if( !(trip.pendingUsers.contains(result) || trip.sharedUsers.contains(result) || trip.owner == result || result == auth.currentUser!.email) ) {
+      try {
+        Map<String, dynamic> body = {
+          'owner': trip.owner,
+          'tripName': trip.tripName,
+          'startDate': trip.startDate,
+          'endDate': trip.endDate,
+          'pendingUsers': trip.pendingUsers..add(result),
+          'sharedUsers': trip.sharedUsers,
+        };
+
+        await http.put(
+          Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
+          headers: {'content-type': 'application/json'},
+          body: jsonEncode(body),
+        );
+      } catch (err) {
+        print(err);
+      }
+    }
+    else {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                trip.pendingUsers.contains(result)? "User already pending."
+                    : trip.sharedUsers.contains(result)? "User already shared."
+                    : trip.owner == result? "Can't share to the owner.":"Can't share to yourself."
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+  // acceptTrip, remove user from pending list, add to shared list
+  static Future<void> acceptTrip(Trip trip) async {
+    final auth = FirebaseAuth.instance;
 
     try {
       Map<String, dynamic> body = {
@@ -111,7 +167,8 @@ class TripController {
         'tripName': trip.tripName,
         'startDate': trip.startDate,
         'endDate': trip.endDate,
-        'pendingUsers': trip.pendingUsers..add(result),
+        'pendingUsers': trip.pendingUsers..remove(auth.currentUser!.email),
+        'sharedUsers': trip.sharedUsers..add(auth.currentUser!.email!),
       };
 
       await http.put(
@@ -126,9 +183,31 @@ class TripController {
     }
   }
 
-  // acceptTrip, remove user from pending list, add to shared list
-
   // declineTrip, remove user from pending list
+  static Future<void> declineTrip(Trip trip) async {
+    final auth = FirebaseAuth.instance;
+
+    try {
+      Map<String, dynamic> body = {
+        'owner': trip.owner,
+        'tripName': trip.tripName,
+        'startDate': trip.startDate,
+        'endDate': trip.endDate,
+        'pendingUsers': trip.pendingUsers..remove(auth.currentUser!.email),
+        'sharedUsers': trip.sharedUsers,
+      };
+
+      await http.put(
+        Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: jsonEncode(body),
+      );
+    } catch (err) {
+      print(err);
+    }
+  }
 }
 
 class _ShareDialog extends StatefulWidget {

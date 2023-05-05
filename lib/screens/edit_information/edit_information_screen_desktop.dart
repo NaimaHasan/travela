@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/userController.dart';
+import 'package:travela/screens/edit_information/widgets/edit_information_fields.dart';
 import 'package:travela/screens/edit_information/widgets/edit_information_name.dart';
 import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 import '../account/account_screen.dart';
@@ -42,50 +43,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  Container(
-                    height: 30,
-                  ),
-                  EditInformationName(data: 'John Doe'),
-                  Container(
-                    height: 10,
-                  ),
-                  EditInformationPassword(data: '********'),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Image',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: Radius.circular(6),
-                    color: Colors.black38,
-                    dashPattern: [8, 4],
-                    strokeWidth: 0.5,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(6),
-                      ),
-                      child: Container(
-                        height: 300,
-                        width: 340,
-                        child: Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.add_photo_alternate_outlined),
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  EditInformationFields(),
                   Container(
                     height: 60,
                   ),
