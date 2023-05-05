@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 
+import '../../common/api/tripController.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class ItineraryScreenDesktop extends StatelessWidget {
-  const ItineraryScreenDesktop({super.key});
+  const ItineraryScreenDesktop({super.key, required this.trip});
+
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,9 @@ class ItineraryScreenDesktop extends StatelessWidget {
                     ],
                   ),
                   padding: EdgeInsets.all(10),
-                  onPress: () {},
+                  onPress: () async {
+                    // await TripController.shareTrip(futureResult.data![index], context);
+                  },
                 ),
               ],
             ),

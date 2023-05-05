@@ -39,7 +39,7 @@ class ItineraryItem extends StatelessWidget {
                     time,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width > tabwidth
-                          ? MediaQuery.of(context).size.width / tabwidth * 11
+                          ? MediaQuery.of(context).size.width / tabwidth * 8
                           : 16,
                     ),
                   ),
@@ -57,7 +57,7 @@ class ItineraryItem extends StatelessWidget {
                     description,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width > tabwidth
-                          ? MediaQuery.of(context).size.width / tabwidth * 11
+                          ? MediaQuery.of(context).size.width / tabwidth * 8
                           : 16,
                     ),
                     overflow: TextOverflow.ellipsis,

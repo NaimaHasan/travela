@@ -18,7 +18,7 @@ class ItineraryHeader extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             height: MediaQuery.of(context).size.width > tabwidth
-                ? MediaQuery.of(context).size.width / tabwidth * 25
+                ? MediaQuery.of(context).size.width / tabwidth * 20
                 : 37,
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -34,7 +34,7 @@ class ItineraryHeader extends StatelessWidget {
                 text,
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 11
+                      ? MediaQuery.of(context).size.width / tabwidth * 8
                       : 18,
                 ),
               ),

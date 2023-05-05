@@ -64,7 +64,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(ItineraryScreen.routeName);
+                Navigator.of(context).pushNamed(ItineraryScreen.routeName, arguments: futureResult.data![index]);
               },
               child: Card(
                 elevation: 5,
