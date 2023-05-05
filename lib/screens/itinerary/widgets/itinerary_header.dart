@@ -9,6 +9,7 @@ class ItineraryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tabwidth = 945;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -16,8 +17,15 @@ class ItineraryHeader extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: SizedBox(
             width: double.infinity,
+            height: MediaQuery.of(context).size.width > tabwidth
+                ? MediaQuery.of(context).size.width / tabwidth * 25
+                : 37,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 7, horizontal: 20),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.width > tabwidth
+                      ? MediaQuery.of(context).size.width / tabwidth * 5
+                      : 7,
+                  horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(5),
@@ -25,7 +33,9 @@ class ItineraryHeader extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.width > tabwidth
+                      ? MediaQuery.of(context).size.width / tabwidth * 11
+                      : 18,
                 ),
               ),
             ),
@@ -34,9 +44,13 @@ class ItineraryHeader extends StatelessWidget {
         Visibility(
           visible: isMiddle,
           child: Positioned(
-            left: 231,
+            left: MediaQuery.of(context).size.width > tabwidth
+                ? MediaQuery.of(context).size.width / tabwidth * 125
+                : 225,
             child: Container(
-              height: 37,
+              height: MediaQuery.of(context).size.width > tabwidth
+                  ? MediaQuery.of(context).size.width / tabwidth * 25
+                  : 37,
               width: 8,
               decoration: BoxDecoration(
                 color: Colors.lightBlue,

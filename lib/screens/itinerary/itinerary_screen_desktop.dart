@@ -14,6 +14,7 @@ class ItineraryScreenDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    var tabwidth = 945;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
@@ -24,7 +25,8 @@ class ItineraryScreenDesktop extends StatelessWidget {
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/tabwidth * 45),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
