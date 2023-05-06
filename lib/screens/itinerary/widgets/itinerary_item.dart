@@ -70,6 +70,9 @@ class ItineraryItem extends StatelessWidget {
                   iconSize: MediaQuery.of(context).size.width > tabwidth
                       ? MediaQuery.of(context).size.width / tabwidth * 14
                       : 18,
+                  splashRadius: ((MediaQuery.of(context).size.width > tabwidth
+                      ? MediaQuery.of(context).size.width / tabwidth * 14
+                      : 18)/2) + 5,
                 ),
               ],
             ),

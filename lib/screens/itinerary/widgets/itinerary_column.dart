@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:travela/common/api/itineraryController.dart';
+import 'package:travela/common/models/itineraryEntry.dart';
 
 import '../../../common/models/trip.dart';
 import 'itinerary_header.dart';
 import 'itinerary_item.dart';
 
-class ItineraryColumn extends StatelessWidget {
+class ItineraryColumn extends StatefulWidget {
   const ItineraryColumn({Key? key, required this.trip}) : super(key: key);
 
   final Trip trip;
 
   @override
+  State<ItineraryColumn> createState() => _ItineraryColumnState();
+}
+
+class _ItineraryColumnState extends State<ItineraryColumn> {
+  late Future<List<ItineraryEntry>> _future;
+
+  @override
+  void initState() {
+    _future = ItineraryController.getAllEntries(widget.trip.tripID!);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: FutureBuilder(
-        future: ItineraryController.getAllEntries(trip.tripID!),
+        future: _future,
         builder: (ctx, futureResult) {
           if (futureResult.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
@@ -56,13 +70,3 @@ class ItineraryColumn extends StatelessWidget {
     );
   }
 }
-
-// ItineraryHeader(
-//   text: "Sun, 19th March",
-// ),
-// ItineraryItem(time: "6:00 AM", description: "Start of Trip", isStart: true,),
-// ItineraryHeader(
-//   text: "Thu, 23rd March",
-//   isMiddle: true,
-// ),
-// ItineraryItem(time: "6:00 AM", description: "End of Trip", isEnd: true),

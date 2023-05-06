@@ -25,46 +25,73 @@ class ItineraryScreenMobile extends StatelessWidget {
           hasSearch: false,
         ),
       ),
-      body: FutureBuilder(
-        future: TripController.getTripDetails(trip),
-        builder: (ctx, futureResults) {
-          if (futureResults.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-          var data = futureResults.data!;
-          return SingleChildScrollView(
-            child: Stack(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height -
-                      kToolbarHeight -
-                      MediaQuery.of(context).padding.top -
-                      kBottomNavigationBarHeight,
-                  child: Column(
-                    children: [
-                      ItineraryTopMobile(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: ItineraryColumn(
-                          trip: data,
-                        ),
+      body: MainScreen(trip: trip),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({
+    super.key,
+    required this.trip,
+  });
+
+  final int trip;
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  late Future<Trip?> _future;
+
+  @override
+  void initState() {
+    _future = TripController.getTripDetails(widget.trip);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _future,
+      builder: (ctx, futureResults) {
+        if (futureResults.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        var data = futureResults.data!;
+        return SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height -
+                    kToolbarHeight -
+                    MediaQuery.of(context).padding.top -
+                    kBottomNavigationBarHeight,
+                child: Column(
+                  children: [
+                    ItineraryTopMobile(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: ItineraryColumn(
+                        trip: data,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  bottom: 10,
-                  right: 20,
-                  child: FloatingActionButton(
-                    onPressed: () {},
-                    child: Icon(Icons.add),
-                  ),
+              ),
+              Positioned(
+                bottom: 10,
+                right: 20,
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(Icons.add),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
