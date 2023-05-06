@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewTripName extends StatefulWidget {
-  NewTripName({Key? key, required this.onSaved}) : super(key: key);
+  NewTripName({Key? key, required this.onSaved, required this.label}) : super(key: key);
   
   final Function(String?) onSaved;
+  final String label;
   
   @override
   _NewTripNameState createState() => _NewTripNameState();
@@ -42,7 +43,7 @@ class _NewTripNameState extends State<NewTripName> {
           child: TextFormField(
             controller: dateController,
             decoration: InputDecoration(
-              labelText: "Name",
+              labelText: widget.label,
               border: InputBorder.none,
             ),
             onSaved: widget.onSaved,

@@ -53,10 +53,10 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                       text: "${DateFormat.E().format(data.dateTime)}, ${DateFormat.MMMd().format(data.dateTime)}",
                       isMiddle: index != 0,
                     ),
-                    visible: index == 0 ? true : futureResult.data![index].dateTime.difference(futureResult.data![index-1].dateTime).inDays >= 1,
+                    visible: index == 0 ? true : (futureResult.data![index].dateTime.day - futureResult.data![index-1].dateTime.day).abs() != 0,
                   ),
                   ItineraryItem(
-                    time: DateFormat.Hm().format(data.dateTime),
+                    time: DateFormat('h:mm a').format(data.dateTime),
                     description: data.description,
                     isStart: index == 0,
                     isEnd: index == futureResult.data!.length - 1,

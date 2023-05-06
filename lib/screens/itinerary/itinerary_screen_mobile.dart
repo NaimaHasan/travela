@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_top_mobile.dart';
 
+import '../../common/api/itineraryController.dart';
 import '../../common/api/tripController.dart';
 import '../../common/models/trip.dart';
 import '../../widgets/common/pill_button.dart';
@@ -70,7 +72,10 @@ class _MainScreenState extends State<MainScreen> {
                     kBottomNavigationBarHeight,
                 child: Column(
                   children: [
-                    ItineraryTopMobile(),
+                    ItineraryTopMobile(
+                      tripName: futureResults.data!.tripName,
+                      tripDate: '${DateFormat.MMMMd().format(DateTime.parse(futureResults.data!.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResults.data!.endDate))}',
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: ItineraryColumn(
@@ -84,7 +89,9 @@ class _MainScreenState extends State<MainScreen> {
                 bottom: 10,
                 right: 20,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await ItineraryController.newEntry(context, widget.trip);
+                  },
                   child: Icon(Icons.add),
                 ),
               ),

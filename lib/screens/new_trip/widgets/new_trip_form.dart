@@ -40,9 +40,12 @@ class _NewTripFormState extends State<NewTripForm> {
               fontSize: 24,
             ),
           ),
-          NewTripName(onSaved: (value) {
-            _name = value!;
-          }),
+          NewTripName(
+            onSaved: (value) {
+              _name = value!;
+            },
+            label: "Name",
+          ),
           NewTripDate(
             title: 'Start Date',
             onSaved: (value) {

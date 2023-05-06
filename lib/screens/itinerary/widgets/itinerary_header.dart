@@ -22,7 +22,7 @@ class ItineraryHeader extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             height: screenwidth > tabwidth
-                ? factor * 28
+                ? 30
                 : 37,
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -38,7 +38,7 @@ class ItineraryHeader extends StatelessWidget {
                 text,
                 style: TextStyle(
                   fontSize: screenwidth > tabwidth
-                      ? factor * 12
+                      ? 16
                       : 18,
                 ),
               ),

@@ -36,8 +36,7 @@ class ItineraryItem extends StatelessWidget {
                   child: Text(
                     time,
                     style: TextStyle(
-                      fontSize:
-                          screenwidth > tabwidth ? factor * 12 : 16,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -48,17 +47,17 @@ class ItineraryItem extends StatelessWidget {
                 ),
                 SizedBox(
                   width: screenwidth > tabwidth
-                      ? factor * 80
+                      ? factor * 100
                       : screenwidth / 450 * 90,
                   child: Text(
                     description,
                     style: TextStyle(
-                      fontSize: screenwidth > tabwidth ? factor * 12 : 16,
+                      fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                SizedBox(width: 5),
+                Expanded(child: Container()),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.edit),

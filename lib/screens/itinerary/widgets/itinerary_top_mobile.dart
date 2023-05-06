@@ -6,33 +6,14 @@ import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
 
-class ItineraryTopMobile extends StatefulWidget {
-  const ItineraryTopMobile({Key? key}) : super(key: key);
+class ItineraryTopMobile extends StatelessWidget {
+  const ItineraryTopMobile({Key? key, required this.tripName, required this.tripDate}) : super(key: key);
 
-  @override
-  State<ItineraryTopMobile> createState() => _ItineraryTopMobileState();
-}
-
-class _ItineraryTopMobileState extends State<ItineraryTopMobile> {
-  late Future<List<Trip>> _getTrips;
-
-  @override
-  void initState() {
-    _getTrips = TripController.getAllTrips();
-    super.initState();
-  }
+  final String tripName;
+  final String tripDate;
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: _getTrips,
-    //   builder: (context, futureResult) {
-    //     if (futureResult.connectionState == ConnectionState.waiting) {
-    //       return CircularProgressIndicator();
-    //     }
-    //     if (!futureResult.hasData || futureResult.data!.isEmpty) {
-    //       return Text("No Trips Yet");
-    //     }
     return Padding(
       padding: EdgeInsets.only(left: 25, right: 25, bottom: 20),
       child:  Row(
@@ -53,13 +34,13 @@ class _ItineraryTopMobileState extends State<ItineraryTopMobile> {
                   Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(
-                      'lalalalal', //futureResult.data![index].tripName,
+                      tripName,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
-                    'lalalal ssegwewewt', //'${DateFormat.MMMMd().format(futureResult.data![index].startDate)}  - ${DateFormat.yMMMMd().format(futureResult.data![index].endDate)}',
+                    tripDate,
                     style: TextStyle(fontSize: 14),
                   ),
                 ],

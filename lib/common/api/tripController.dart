@@ -44,6 +44,7 @@ class TripController {
         allTrips.add(Trip.fromJson(tripEntry));
       }
     } catch (err) {
+      print("hij");
       print(err);
     }
 

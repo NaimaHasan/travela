@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
+import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
@@ -145,7 +146,12 @@ class _MainScreenState extends State<MainScreen> {
                           bottom: 20,
                           right: 20,
                           child: FloatingActionButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await ItineraryController.newEntry(context, widget.trip);
+                              setState(() {
+                                _future = TripController.getTripDetails(widget.trip);
+                              });
+                            },
                             child: Icon(Icons.add),
                           ),
                         ),
