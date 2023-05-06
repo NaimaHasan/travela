@@ -27,7 +27,7 @@ class ItineraryHeader extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(
                   vertical: screenwidth > tabwidth
-                      ? factor * 3
+                      ? factor * 5
                       : 7,
                   horizontal: 20),
               decoration: BoxDecoration(
