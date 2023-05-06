@@ -9,7 +9,7 @@ class ItineraryItem extends StatelessWidget {
       required this.time,
       required this.description,
       this.isStart = false,
-      this.isEnd = false, required this.entry})
+      this.isEnd = false, required this.entry, required this.refresh})
       : super(key: key);
 
   final String time;
@@ -17,6 +17,7 @@ class ItineraryItem extends StatelessWidget {
   final bool isStart;
   final bool isEnd;
   final ItineraryEntry entry;
+  final VoidCallback refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +63,9 @@ class ItineraryItem extends StatelessWidget {
                 ),
                 Expanded(child: Container()),
                 IconButton(
-                  onPressed: () {
-                    ItineraryController.editEntry(context, entry);
+                  onPressed: () async {
+                    await ItineraryController.editEntry(context, entry);
+                    refresh();
                   },
                   icon: Icon(Icons.edit),
                   iconSize: screenwidth > tabwidth ? factor * 14 : 18,

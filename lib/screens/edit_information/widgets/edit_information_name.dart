@@ -64,7 +64,10 @@ class _EditInformationNameState extends State<EditInformationName> {
                           icon == Icons.check ? Colors.green : Colors.black54,
                       padding: EdgeInsets.zero,
                       visualDensity: VisualDensity.compact,
-                      onPressed: () {
+                      onPressed: () async {
+                        if(icon == Icons.check){
+                          await UserController.setUserName(fieldData.text);
+                        }
                         setState(
                           () {
                             isEnabled = !isEnabled;
@@ -72,7 +75,6 @@ class _EditInformationNameState extends State<EditInformationName> {
                               icon = Icons.check;
                             } else {
                               icon = Icons.edit;
-                              UserController.setUserName(fieldData.text);
                             }
                           },
                         );

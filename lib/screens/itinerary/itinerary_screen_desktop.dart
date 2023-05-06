@@ -130,35 +130,8 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height -
-                              kToolbarHeight -
-                              MediaQuery.of(context).padding.top -
-                              kBottomNavigationBarHeight,
-                          child: ItineraryColumn(trip: data),
-                        ),
-                        Positioned(
-                          bottom: 20,
-                          right: 20,
-                          child: FloatingActionButton(
-                            onPressed: () async {
-                              await ItineraryController.newEntry(context, widget.trip);
-                              setState(() {
-                                _future = TripController.getTripDetails(widget.trip);
-                              });
-                            },
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: ItineraryColumn(
+                trip: futureResults.data!,
               ),
             ),
             Expanded(

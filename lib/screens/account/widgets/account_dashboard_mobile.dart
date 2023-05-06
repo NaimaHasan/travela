@@ -30,9 +30,11 @@ class AccountDashboardMobile extends StatelessWidget {
                     height: 90,
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: futureResult.data!.userImageUrl == null ? Icon(
                         Icons.account_circle,
                         size: 90,
+                      ) : ClipOval(
+                        child: Image.network("http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
                       ),
                     ),
                   ),

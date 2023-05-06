@@ -27,9 +27,11 @@ class AccountDashboard extends StatelessWidget {
               SizedBox(
                 width: screenSize.width * 0.09,
                 height: screenSize.width * 0.09,
-                child: Icon(
+                child: futureResult.data!.userImageUrl == null ? Icon(
                   Icons.account_circle,
                   size: screenSize.width * 0.09,
+                ) : ClipOval(
+                  child: Image.network("http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
                 ),
               ),
               Container(width: 35),

@@ -74,15 +74,18 @@ class _NewDialog extends StatefulWidget {
 
 class _NewDialogState extends State<_NewDialog> {
   final _formKey = GlobalKey<FormState>();
-  late LatLng _location;
 
-  String _description = "";
-  String _startDate = "";
-  DateTime? _startTime;
+  late LatLng _location;
+  late String _description;
+  late DateTime _startDate;
+  late DateTime _startTime;
 
   @override
   void initState() {
     _location = widget.isEditable ? widget.entry!.location : LatLng(51, 0);
+    _description = widget.isEditable ? widget.entry!.description : "Default Name";
+    _startDate = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
+    _startTime = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
     super.initState();
   }
 
@@ -106,9 +109,7 @@ class _NewDialogState extends State<_NewDialog> {
                 ),
               ),
               _NameField(
-                initalText: widget.isEditable
-                    ? widget.entry!.description
-                    : "Default Name",
+                initalText: _description,
                 onSaved: (value) {
                   _description = value!;
                 },
@@ -116,15 +117,13 @@ class _NewDialogState extends State<_NewDialog> {
               ),
               _DateField(
                 title: 'Date',
-                initialTime:
-                    widget.isEditable ? widget.entry!.dateTime : DateTime.now(),
+                initialTime: _startDate,
                 onSaved: (value) {
-                  _startDate = value!;
+                  _startDate = value;
                 },
               ),
               _TimeField(
-                initialTime:
-                    widget.isEditable ? widget.entry!.dateTime : DateTime.now(),
+                initialTime: _startTime,
                 onSaved: (value) {
                   _startTime = value;
                 },
@@ -158,13 +157,14 @@ class _NewDialogState extends State<_NewDialog> {
                   onPressed: () async {
                     _formKey.currentState!.save();
                     final auth = FirebaseAuth.instance;
+                    var initialDate = _startDate;
 
-                    var initialDate = DateTime.parse(_startDate);
+                    initialDate = initialDate.copyWith(hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
 
                     initialDate = initialDate.add(Duration(
-                      hours: _startTime!.hour,
-                      minutes: _startTime!.minute,
-                      seconds: _startTime!.second,
+                      hours: _startTime.hour,
+                      minutes: _startTime.minute,
+                      seconds: _startTime.second,
                     ));
 
                     if (!widget.isEditable) {
@@ -180,9 +180,18 @@ class _NewDialogState extends State<_NewDialog> {
                         },
                       );
                     }
-
                     else{
-                      print("hi");
+                      await http.put(
+                        Uri.http('127.0.0.1:8000',
+                            'trips/${widget.tripID}/itineraryEntry/${widget.entry!.id}/'),
+                        body: {
+                          'trip': "${widget.tripID}",
+                          'dateTime': initialDate.toIso8601String(),
+                          'description': _description,
+                          'location_latitude': _location.latitude.toStringAsFixed(20),
+                          'location_longitude': _location.longitude.toStringAsFixed(20),
+                        },
+                      );
                     }
 
                     Navigator.pop(widget.ctx);
@@ -271,7 +280,7 @@ class _DateField extends StatefulWidget {
       required this.initialTime})
       : super(key: key);
   final String title;
-  final Function(String?) onSaved;
+  final Function(DateTime) onSaved;
   final DateTime initialTime;
 
   @override
@@ -318,7 +327,9 @@ class _DateFieldState extends State<_DateField> {
             border: InputBorder.none,
           ),
           readOnly: true,
-          onSaved: widget.onSaved,
+          onSaved: (value) {
+            widget.onSaved(storedDateTime);
+          },
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
               context: context,

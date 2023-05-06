@@ -62,17 +62,7 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                     padding: EdgeInsets.zero,
                     visualDensity: VisualDensity.compact,
                     onPressed: () async {
-                      setState(
-                        () {
-                          isEnabled = !isEnabled;
-                          if (icon == Icons.edit) {
-                            icon = Icons.check;
-                          }else {
-                            icon = Icons.edit;
-                          }
-                        },
-                      );
-                      if (icon == Icons.edit) {
+                      if (icon == Icons.check) {
                         final isValid = _formKey.currentState!.validate();
                         FocusScope.of(context).unfocus();
 
@@ -91,6 +81,16 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                         }
                         fieldData.text = "";
                       }
+                      setState(
+                        () {
+                          isEnabled = !isEnabled;
+                          if (icon == Icons.edit) {
+                            icon = Icons.check;
+                          }else {
+                            icon = Icons.edit;
+                          }
+                        },
+                      );
                     },
                     icon: Icon(icon),
                     iconSize: 16,

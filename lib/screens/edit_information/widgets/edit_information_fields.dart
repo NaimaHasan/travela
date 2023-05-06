@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -19,38 +17,6 @@ class EditInformationFields extends StatefulWidget {
 class _EditInformationFieldsState extends State<EditInformationFields> {
   bool isLoading = false;
 
-  _imgFromGallery(BuildContext ctx) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    PickedFile? image = (await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50)) as PickedFile?;
-    var firebaseUser = FirebaseAuth.instance.currentUser;
-
-    File imageFile = File(image!.path as List<Object>, 'name');
-
-    try {
-      setState(() {
-        isLoading = false;
-      });
-    } on FirebaseException catch (err) {
-      if (err.code == 'object-not-found') {
-
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-      ScaffoldMessenger.of(ctx).showSnackBar(
-        SnackBar(
-          content: Text(err.toString()),
-          backgroundColor: Colors.teal[100],
-        ),
-      );
-      print(err);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,9 +105,12 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                   width: 340,
                   child: Center(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await UserController.setUserImage();
+                      },
                       icon: Icon(
-                          Icons.add_photo_alternate_outlined),
+                          Icons.add_photo_alternate_outlined
+                      ),
                       color: Colors.black54,
                     ),
                   ),
