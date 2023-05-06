@@ -45,7 +45,7 @@ class AccountDashboard extends StatelessWidget {
                     height: screenSize.height * 0.03,
                   ),
                   SizedBox(
-                    width: screenSize.width * 0.082,
+                    width: 130,
                     height: 35,
                     child: ElevatedButton(
                       onPressed: () {
@@ -54,7 +54,7 @@ class AccountDashboard extends StatelessWidget {
                       },
                       child: Text(
                         'Edit Information',
-                        style: TextStyle(fontSize: screenSize.width * 0.0075),
+                        style: TextStyle(fontSize: 12.5),
                       ),
                     ),
                   ),
