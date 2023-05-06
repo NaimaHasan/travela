@@ -60,6 +60,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                     description: data.description,
                     isStart: index == 0,
                     isEnd: index == futureResult.data!.length - 1,
+                    entry: futureResult.data![index],
                   ),
                 ],
               );

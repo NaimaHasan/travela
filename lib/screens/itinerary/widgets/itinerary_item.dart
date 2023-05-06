@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/itineraryController.dart';
+import 'package:travela/common/models/itineraryEntry.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
 class ItineraryItem extends StatelessWidget {
@@ -7,13 +9,14 @@ class ItineraryItem extends StatelessWidget {
       required this.time,
       required this.description,
       this.isStart = false,
-      this.isEnd = false})
+      this.isEnd = false, required this.entry})
       : super(key: key);
 
   final String time;
   final String description;
   final bool isStart;
   final bool isEnd;
+  final ItineraryEntry entry;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,9 @@ class ItineraryItem extends StatelessWidget {
                 ),
                 Expanded(child: Container()),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ItineraryController.editEntry(context, entry);
+                  },
                   icon: Icon(Icons.edit),
                   iconSize: screenwidth > tabwidth ? factor * 14 : 18,
                   splashRadius:

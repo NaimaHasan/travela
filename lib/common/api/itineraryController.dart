@@ -26,7 +26,6 @@ class ItineraryController {
       for (Map<String, dynamic> entry in data) {
         allEntries.add(ItineraryEntry.fromJson(entry));
       }
-
     } catch (err) {
       print(err);
     }
@@ -42,10 +41,26 @@ class ItineraryController {
       },
     );
   }
+
+  static Future<void> editEntry(
+      BuildContext context, ItineraryEntry entry) async {
+    await showDialog(
+      context: context,
+      builder: (ctx) {
+        return _NewDialog(
+            ctx: ctx, tripID: entry.trip, isEditable: true, entry: entry);
+      },
+    );
+  }
 }
 
 class _NewDialog extends StatefulWidget {
-  const _NewDialog({Key? key, required this.ctx, required this.tripID, this.isEditable = false, this.entry})
+  const _NewDialog(
+      {Key? key,
+      required this.ctx,
+      required this.tripID,
+      this.isEditable = false,
+      this.entry})
       : super(key: key);
 
   final BuildContext ctx;
@@ -59,11 +74,17 @@ class _NewDialog extends StatefulWidget {
 
 class _NewDialogState extends State<_NewDialog> {
   final _formKey = GlobalKey<FormState>();
-  LatLng _location = LatLng(51, 0);
+  late LatLng _location;
 
   String _description = "";
   String _startDate = "";
   DateTime? _startTime;
+
+  @override
+  void initState() {
+    _location = widget.isEditable ? widget.entry!.location : LatLng(51, 0);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,28 +98,37 @@ class _NewDialogState extends State<_NewDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(height: 20),
-              const Text(
-                'New Entry',
+              Text(
+                widget.isEditable ? 'Edit Entry' : 'New Entry',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              NewTripName(
+              _NameField(
+                initalText: widget.isEditable
+                    ? widget.entry!.description
+                    : "Default Name",
                 onSaved: (value) {
                   _description = value!;
                 },
                 label: "Description",
               ),
-              NewTripDate(
+              _DateField(
                 title: 'Date',
+                initialTime:
+                    widget.isEditable ? widget.entry!.dateTime : DateTime.now(),
                 onSaved: (value) {
                   _startDate = value!;
                 },
               ),
-              _TimeField(onSaved: (value) {
-                _startTime = value;
-              }),
+              _TimeField(
+                initialTime:
+                    widget.isEditable ? widget.entry!.dateTime : DateTime.now(),
+                onSaved: (value) {
+                  _startTime = value;
+                },
+              ),
               const Padding(
                 padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),
                 child: Align(
@@ -137,17 +167,23 @@ class _NewDialogState extends State<_NewDialog> {
                       seconds: _startTime!.second,
                     ));
 
+                    if (!widget.isEditable) {
+                      await http.post(
+                        Uri.http('127.0.0.1:8000',
+                            'trips/${widget.tripID}/itineraryEntry/'),
+                        body: {
+                          'trip': "${widget.tripID}",
+                          'dateTime': initialDate.toIso8601String(),
+                          'description': _description,
+                          'location_latitude': _location.latitude.toStringAsFixed(20),
+                          'location_longitude': _location.longitude.toStringAsFixed(20),
+                        },
+                      );
+                    }
 
-                    await http.post(
-                      Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/itineraryEntry/'),
-                      body: {
-                        'trip': "${widget.tripID}",
-                        'dateTime': initialDate.toIso8601String(),
-                        'description': _description,
-                        'location_latitude': _location.latitude.toString(),
-                        'location_longitude': _location.longitude.toString(),
-                      },
-                    );
+                    else{
+                      print("hi");
+                    }
 
                     Navigator.pop(widget.ctx);
                   },
@@ -168,9 +204,148 @@ class _NewDialogState extends State<_NewDialog> {
   }
 }
 
+class _NameField extends StatefulWidget {
+  const _NameField(
+      {Key? key,
+      required this.onSaved,
+      required this.label,
+      required this.initalText})
+      : super(key: key);
+
+  final Function(String?) onSaved;
+  final String label;
+  final String initalText;
+
+  @override
+  _NameFieldState createState() => _NameFieldState();
+}
+
+class _NameFieldState extends State<_NameField> {
+  TextEditingController dateController = TextEditingController();
+
+  @override
+  void initState() {
+    dateController.text =
+        widget.initalText; //set the initial value of text field
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black12),
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
+      width: 350,
+      height: 60,
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: TextFormField(
+            controller: dateController,
+            decoration: InputDecoration(
+              labelText: widget.label,
+              border: InputBorder.none,
+            ),
+            onSaved: widget.onSaved,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DateField extends StatefulWidget {
+  const _DateField(
+      {required this.title,
+      Key? key,
+      required this.onSaved,
+      required this.initialTime})
+      : super(key: key);
+  final String title;
+  final Function(String?) onSaved;
+  final DateTime initialTime;
+
+  @override
+  _DateFieldState createState() => _DateFieldState();
+}
+
+class _DateFieldState extends State<_DateField> {
+  TextEditingController dateController = TextEditingController();
+  late DateTime storedDateTime;
+
+  @override
+  void initState() {
+    dateController.text = DateFormat('yyyy-MM-dd')
+        .format(widget.initialTime); //set the initial value of text field
+    storedDateTime = widget.initialTime;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black12),
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
+      width: 350,
+      height: 60,
+      child: Center(
+        child: TextFormField(
+          controller: dateController,
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.calendar_today),
+            ),
+            labelText: widget.title,
+            border: InputBorder.none,
+          ),
+          readOnly: true,
+          onSaved: widget.onSaved,
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+              context: context,
+              initialDate: storedDateTime,
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2101),
+            );
+            if (pickedDate != null) {
+              String formattedDate =
+                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              setState(() {
+                dateController.text = formattedDate;
+                storedDateTime = pickedDate;
+              });
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
 class _TimeField extends StatefulWidget {
-  const _TimeField({Key? key, required this.onSaved}) : super(key: key);
+  const _TimeField({Key? key, required this.onSaved, required this.initialTime})
+      : super(key: key);
   final Function(DateTime) onSaved;
+  final DateTime initialTime;
 
   @override
   _TimeFieldState createState() => _TimeFieldState();
@@ -183,8 +358,8 @@ class _TimeFieldState extends State<_TimeField> {
   @override
   void initState() {
     timeController.text = DateFormat('h:mm a')
-        .format(DateTime.now()); //set the initial value of text field
-    storedDateTime = DateTime.now();
+        .format(widget.initialTime); //set the initial value of text field
+    storedDateTime = widget.initialTime;
     super.initState();
   }
 

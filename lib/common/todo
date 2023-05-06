@@ -12,8 +12,8 @@ Must
     N arrow on carousel design
     M arrow implementation
 - Itinerary
-	M New itinerary item
-	M Implement editing itinerary item
+    M Show tracker on map
+    M Center map to trip location
 - Image
     - Give default image upon account creation
     - Show image on account screen
