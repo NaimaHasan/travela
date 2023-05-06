@@ -21,14 +21,10 @@ class ItineraryHeader extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: SizedBox(
             width: double.infinity,
-            height: screenwidth > tabwidth
-                ? 30
-                : 37,
+            height: 37,
             child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: screenwidth > tabwidth
-                      ? factor * 5
-                      : 7,
+                  vertical: 7,
                   horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.grey,
@@ -52,9 +48,7 @@ class ItineraryHeader extends StatelessWidget {
                 ? factor * 125
                 : 225,
             child: Container(
-              height: screenwidth > tabwidth
-                  ?  factor * 28
-                  : 37,
+              height: 37,
               width: 8,
               decoration: BoxDecoration(
                 color: Colors.lightBlue,

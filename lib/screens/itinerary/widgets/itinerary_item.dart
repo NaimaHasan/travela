@@ -80,7 +80,7 @@ class ItineraryItem extends StatelessWidget {
           left: screenwidth > tabwidth ? factor * 125 : 225,
           top: isStart ? 30 : 0,
           child: Container(
-            height: isStart || isEnd ? (screenwidth > tabwidth ? factor * 22 : 40)  : 70,
+            height: isStart || isEnd ? (screenwidth > tabwidth ? 30 : 40)  : 70,
             width: 8,
             decoration: BoxDecoration(
               color: Colors.lightBlue,
