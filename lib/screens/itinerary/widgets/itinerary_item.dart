@@ -18,47 +18,42 @@ class ItineraryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tabwidth = 945;
+    var screenwidth = MediaQuery.of(context).size.width;
+    var factor = (screenwidth / tabwidth) * 0.8;
     return Stack(
       alignment: Alignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.width > tabwidth
-                  ? MediaQuery.of(context).size.width / tabwidth * 5
-                  : 15,
+              vertical: screenwidth > tabwidth ? factor * 4 : 15,
               horizontal: 25),
           child: SizedBox(
             width: double.infinity,
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 115
-                      : 190,
+                  width: screenwidth > tabwidth ? factor * 115 : 190,
                   child: Text(
                     time,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width > tabwidth
-                          ? MediaQuery.of(context).size.width / tabwidth * 8
-                          : 16,
+                      fontSize:
+                          screenwidth > tabwidth ? factor * 12 : 16,
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 45
-                      : MediaQuery.of(context).size.width / 450 * 60,
+                  width: screenwidth > tabwidth
+                      ? factor * 45
+                      : screenwidth / 450 * 60,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 80
-                      : MediaQuery.of(context).size.width / 450 * 90,
+                  width: screenwidth > tabwidth
+                      ? factor * 80
+                      : screenwidth / 450 * 90,
                   child: Text(
                     description,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width > tabwidth
-                          ? MediaQuery.of(context).size.width / tabwidth * 8
-                          : 16,
+                      fontSize: screenwidth > tabwidth ? factor * 12 : 16,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -67,33 +62,26 @@ class ItineraryItem extends StatelessWidget {
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.edit),
-                  iconSize: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 14
-                      : 18,
-                  splashRadius: ((MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 14
-                      : 18)/2) + 5,
+                  iconSize: screenwidth > tabwidth ? factor * 14 : 18,
+                  splashRadius:
+                      ((screenwidth > tabwidth ? factor * 14 : 18) / 2) + 5,
                 ),
               ],
             ),
           ),
         ),
         Positioned(
-          left: MediaQuery.of(context).size.width > tabwidth
-              ? MediaQuery.of(context).size.width / tabwidth * 125 - 6.25
-              : 225 - 6.25,
+          left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
           child: CircleAvatar(
             radius: 10,
             backgroundColor: Colors.lightBlue,
           ),
         ),
         Positioned(
-          left: MediaQuery.of(context).size.width > tabwidth
-              ? MediaQuery.of(context).size.width / tabwidth * 125
-              : 225,
-          top: isStart ? 35 : 0,
+          left: screenwidth > tabwidth ? factor * 125 : 225,
+          top: isStart ? 30 : 0,
           child: Container(
-            height: isStart || isEnd ? 35 : 70,
+            height: isStart || isEnd ? (screenwidth > tabwidth ? factor * 22 : 40)  : 70,
             width: 8,
             decoration: BoxDecoration(
               color: Colors.lightBlue,

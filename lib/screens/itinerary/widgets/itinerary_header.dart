@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ItineraryHeader extends StatelessWidget {
@@ -10,6 +12,8 @@ class ItineraryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tabwidth = 945;
+    var screenwidth = MediaQuery.of(context).size.width;
+    var factor =  (screenwidth / tabwidth) * 0.8;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -17,13 +21,13 @@ class ItineraryHeader extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: SizedBox(
             width: double.infinity,
-            height: MediaQuery.of(context).size.width > tabwidth
-                ? MediaQuery.of(context).size.width / tabwidth * 20
+            height: screenwidth > tabwidth
+                ? factor * 28
                 : 37,
             child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 5
+                  vertical: screenwidth > tabwidth
+                      ? factor * 3
                       : 7,
                   horizontal: 20),
               decoration: BoxDecoration(
@@ -33,8 +37,8 @@ class ItineraryHeader extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > tabwidth
-                      ? MediaQuery.of(context).size.width / tabwidth * 8
+                  fontSize: screenwidth > tabwidth
+                      ? factor * 12
                       : 18,
                 ),
               ),
@@ -44,12 +48,12 @@ class ItineraryHeader extends StatelessWidget {
         Visibility(
           visible: isMiddle,
           child: Positioned(
-            left: MediaQuery.of(context).size.width > tabwidth
-                ? MediaQuery.of(context).size.width / tabwidth * 125
+            left: screenwidth > tabwidth
+                ? factor * 125
                 : 225,
             child: Container(
-              height: MediaQuery.of(context).size.width > tabwidth
-                  ? MediaQuery.of(context).size.width / tabwidth * 25
+              height: screenwidth > tabwidth
+                  ?  factor * 28
                   : 37,
               width: 8,
               decoration: BoxDecoration(
