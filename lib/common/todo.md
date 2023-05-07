@@ -35,8 +35,6 @@ Must
     M Show tracker on map
     M Center map to trip location
 - Image
-    - Give default image upon account creation
-    - Show image on account screen
     - Upload
         - Edit info
         - new trip
