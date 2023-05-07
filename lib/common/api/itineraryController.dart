@@ -167,31 +167,35 @@ class _NewDialogState extends State<_NewDialog> {
                       seconds: _startTime.second,
                     ));
 
-                    if (!widget.isEditable) {
-                      await http.post(
-                        Uri.http('127.0.0.1:8000',
-                            'trips/${widget.tripID}/itineraryEntry/'),
-                        body: {
-                          'trip': "${widget.tripID}",
-                          'dateTime': initialDate.toIso8601String(),
-                          'description': _description,
-                          'location_latitude': _location.latitude.toStringAsFixed(20),
-                          'location_longitude': _location.longitude.toStringAsFixed(20),
-                        },
-                      );
-                    }
-                    else{
-                      await http.put(
-                        Uri.http('127.0.0.1:8000',
-                            'trips/${widget.tripID}/itineraryEntry/${widget.entry!.id}/'),
-                        body: {
-                          'trip': "${widget.tripID}",
-                          'dateTime': initialDate.toIso8601String(),
-                          'description': _description,
-                          'location_latitude': _location.latitude.toStringAsFixed(20),
-                          'location_longitude': _location.longitude.toStringAsFixed(20),
-                        },
-                      );
+                    try{
+                      if (!widget.isEditable) {
+                        await http.post(
+                          Uri.http('127.0.0.1:8000',
+                              'trips/${widget.tripID}/itineraryEntry/'),
+                          body: {
+                            'trip': "${widget.tripID}",
+                            'dateTime': initialDate.toIso8601String(),
+                            'description': _description,
+                            'location_latitude': _location.latitude.toStringAsFixed(20),
+                            'location_longitude': _location.longitude.toStringAsFixed(20),
+                          },
+                        );
+                      }
+                      else{
+                        await http.put(
+                          Uri.http('127.0.0.1:8000',
+                              'trips/${widget.tripID}/itineraryEntry/${widget.entry!.id}/'),
+                          body: {
+                            'trip': "${widget.tripID}",
+                            'dateTime': initialDate.toIso8601String(),
+                            'description': _description,
+                            'location_latitude': _location.latitude.toStringAsFixed(20),
+                            'location_longitude': _location.longitude.toStringAsFixed(20),
+                          },
+                        );
+                      }
+                    }catch(err){
+                      print(err);
                     }
 
                     Navigator.pop(widget.ctx);

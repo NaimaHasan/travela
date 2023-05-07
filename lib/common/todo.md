@@ -35,6 +35,8 @@ Must
 - Itinerary
     - Allow editing trip info
     - Show image of trip
+    - Add map to mobile screen
+    - Add next step indicator
     M Show tracker on map
     M Center map to trip location
 - Image
