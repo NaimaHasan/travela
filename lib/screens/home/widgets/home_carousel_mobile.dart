@@ -54,6 +54,14 @@ class HomeCarouselMobile extends StatelessWidget {
                     ),
                     child: Container(),
                   ),
+                  Positioned(
+                    bottom: 15,
+                    left: 15,
+                    child: Text(
+                      'Puerto Rico',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ),

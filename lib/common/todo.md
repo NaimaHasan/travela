@@ -5,8 +5,6 @@ Must
 - Home screen
 	* Destination/Hotel/Restaurants filtering
 	* Destination
-    * Show Destination name on carousel
-    - carousel should be same as destination carousel
 - Destination
   - arrow on carousel design 
   - arrow implementation
