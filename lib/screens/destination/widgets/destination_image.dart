@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/screens/destination/widgets/destination_carousel.dart';
-import 'package:travela/screens/destination/widgets/destination_carousel_control.dart';
 
 import '../../../widgets/common/pill_button.dart';
 import '../../../widgets/common/spacing.dart';
@@ -89,8 +88,29 @@ class DestinationImage extends StatelessWidget {
         Positioned(
           bottom: 0.3 * screenSize.height,
           right: 10,
-          child: DestinationCarouselControl(
-            controller: buttonCarouselController,
+          child: IconButton(
+            onPressed: () {
+              buttonCarouselController.nextPage();
+            },
+            visualDensity: VisualDensity.compact,
+            padding: EdgeInsets.zero,
+            icon: Icon(Icons.arrow_forward_ios_outlined),
+            color: Colors.white,
+            iconSize: 35,
+          ),
+        ),
+        Positioned(
+          bottom: 0.3 * screenSize.height,
+          left: 100,
+          child: IconButton(
+            onPressed: () {
+              buttonCarouselController.previousPage();
+            },
+            visualDensity: VisualDensity.compact,
+            padding: EdgeInsets.zero,
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.white,
+            iconSize: 35,
           ),
         ),
       ],
