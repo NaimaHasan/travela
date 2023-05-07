@@ -8,6 +8,8 @@ import 'package:travela/screens/map/map_screen.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
+import '../../common/api/userController.dart';
+
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar(
       {Key? key, this.hasSearch = true, this.hasAccount = true})
@@ -23,7 +25,9 @@ class TopNavigationBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: Row(
         children: [
-          MediaQuery.of(context).size.width < 600 ? horizontalSpaceMarginMobile : horizontalSpaceMargin,
+          MediaQuery.of(context).size.width < 600
+              ? horizontalSpaceMarginMobile
+              : horizontalSpaceMargin,
           TopNavigationBarItem(
             text: "Travela",
             size: 28,
@@ -39,12 +43,16 @@ class TopNavigationBar extends StatelessWidget {
                 text: "Home",
                 route: HomeScreen.routeName,
               ),
-              MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
+              MediaQuery.of(context).size.width < 600
+                  ? horizontalSpaceSmallMobile
+                  : horizontalSpaceSmall,
               TopNavigationBarItem(
                 text: "Near Me",
                 route: MapScreen.routeName,
               ),
-              MediaQuery.of(context).size.width < 600 ? horizontalSpaceSmallMobile : horizontalSpaceSmall,
+              MediaQuery.of(context).size.width < 600
+                  ? horizontalSpaceSmallMobile
+                  : horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
                 child: SizedBox(
@@ -64,42 +72,83 @@ class TopNavigationBar extends StatelessWidget {
             ],
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width < 600 ? marginHorizontalMobile : marginHorizontal,
+            width: MediaQuery.of(context).size.width < 600
+                ? marginHorizontalMobile
+                : marginHorizontal,
             child: Visibility(
               visible: hasAccount,
               child: StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
-                  if (userSnapshot.hasData) {
-                    return IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AccountScreen.routeName);
-                      },
-                      visualDensity: VisualDensity.compact,
-                      padding: EdgeInsets.zero,
-                      splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
-                      icon: Icon(
-                        Icons.account_circle,
-                        size: 30,
+                  if (userSnapshot.connectionState == ConnectionState.waiting)
+                    return SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                        color: Colors.grey,
                       ),
                     );
+                  if (userSnapshot.hasData) {
+                    return FutureBuilder(
+                      future: UserController.getUser(),
+                      builder: (ctx, futureResult) {
+                        if (futureResult.connectionState ==
+                            ConnectionState.waiting)
+                          return SizedBox(
+                            height: 15,
+                            width: 15,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1,
+                              color: Colors.grey,
+                            ),
+                          );
+                        if (futureResult.data!.userImageUrl == null) {
+                          return IconButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(AccountScreen.routeName);
+                            },
+                            visualDensity: VisualDensity.compact,
+                            padding: EdgeInsets.zero,
+                            splashRadius:
+                                MediaQuery.of(context).size.width < 600
+                                    ? 25
+                                    : null,
+                            icon: Icon(
+                              Icons.account_circle,
+                              size: 30,
+                            ),
+                          );
+                        }
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(AccountScreen.routeName);
+                          },
+                          child: ClipOval(
+                            child: Image.network(
+                                "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                          ),
+                        );
+                      },
+                    );
                   }
-                  if (userSnapshot.connectionState == ConnectionState.waiting)
-                    return CircularProgressIndicator();
                   return IconButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(LogInScreen.routeName);
                     },
                     visualDensity: VisualDensity.compact,
                     padding: EdgeInsets.zero,
-                    splashRadius: MediaQuery.of(context).size.width < 600 ? 25 : null,
+                    splashRadius:
+                        MediaQuery.of(context).size.width < 600 ? 25 : null,
                     icon: Icon(
                       Icons.account_circle,
                       size: 30,
                     ),
                   );
                 },
-              )
+              ),
             ),
           ),
           Visibility(
