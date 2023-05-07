@@ -22,8 +22,6 @@ Must
 - Account
   - Fix future builder rebuilding everytime
   - Add suggestions to share dialog
-- Edit Information Screen
-  - Show indicator that name/password/image is being updated
 - Itinerary
     - Allow editing trip info
     - Show image of trip

@@ -13,12 +13,12 @@ class EditInformationPassword extends StatefulWidget {
 
 class _EditInformationPasswordState extends State<EditInformationPassword> {
   final _formKey = GlobalKey<FormState>();
-
   var _userOldPassword = '';
   var _userNewPassword = '';
   var _userConfirmNewPassword = '';
   var _invalidText;
   bool isEnabled = false;
+  bool isLoading = false;
   IconData icon = Icons.edit;
   TextEditingController fieldData = TextEditingController();
 
@@ -61,38 +61,58 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                     color: icon == Icons.check ? Colors.green : Colors.black54,
                     padding: EdgeInsets.zero,
                     visualDensity: VisualDensity.compact,
-                    onPressed: () async {
-                      if (icon == Icons.check) {
-                        final isValid = _formKey.currentState!.validate();
-                        FocusScope.of(context).unfocus();
+                    onPressed: isLoading == false
+                        ? () async {
+                            if (icon == Icons.check) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              final isValid = _formKey.currentState!.validate();
+                              FocusScope.of(context).unfocus();
 
-                        if (isValid) {
-                          _formKey.currentState!.save();
+                              if (isValid) {
+                                _formKey.currentState!.save();
 
-                          await Authentication.changePassword(context, _userOldPassword, _userNewPassword);
-                        }
-                        else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(_invalidText),
-                              backgroundColor: Theme.of(context).colorScheme.error,
-                            ),
-                          );
-                        }
-                        fieldData.text = "";
-                      }
-                      setState(
-                        () {
-                          isEnabled = !isEnabled;
-                          if (icon == Icons.edit) {
-                            icon = Icons.check;
-                          }else {
-                            icon = Icons.edit;
+                                await Authentication.changePassword(context,
+                                    _userOldPassword, _userNewPassword);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(_invalidText),
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.error,
+                                  ),
+                                );
+                              }
+                              setState(() {
+                                isLoading = false;
+                              });
+                              fieldData.text = "";
+                            }
+                            setState(
+                              () {
+                                isEnabled = !isEnabled;
+                                if (icon == Icons.edit) {
+                                  icon = Icons.check;
+                                } else {
+                                  icon = Icons.edit;
+                                }
+                              },
+                            );
                           }
-                        },
-                      );
-                    },
-                    icon: Icon(icon),
+                        : null,
+                    icon: isLoading == false
+                        ? Icon(icon)
+                        : Center(
+                            child: SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
                     iconSize: 16,
                     splashRadius: 12,
                   ),

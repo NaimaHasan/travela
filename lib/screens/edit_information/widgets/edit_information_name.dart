@@ -11,6 +11,7 @@ class EditInformationName extends StatefulWidget {
 
 class _EditInformationNameState extends State<EditInformationName> {
   bool isEnabled = false;
+  bool isLoading = false;
   IconData icon = Icons.edit;
   TextEditingController fieldData = TextEditingController();
 
@@ -64,22 +65,42 @@ class _EditInformationNameState extends State<EditInformationName> {
                           icon == Icons.check ? Colors.green : Colors.black54,
                       padding: EdgeInsets.zero,
                       visualDensity: VisualDensity.compact,
-                      onPressed: () async {
-                        if(icon == Icons.check){
-                          await UserController.setUserName(fieldData.text);
-                        }
-                        setState(
-                          () {
-                            isEnabled = !isEnabled;
-                            if (icon == Icons.edit) {
-                              icon = Icons.check;
-                            } else {
-                              icon = Icons.edit;
+                      onPressed: isLoading == false
+                          ? () async {
+                              if (icon == Icons.check) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await UserController.setUserName(
+                                    fieldData.text);
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                              setState(
+                                () {
+                                  isEnabled = !isEnabled;
+                                  if (icon == Icons.edit) {
+                                    icon = Icons.check;
+                                  } else {
+                                    icon = Icons.edit;
+                                  }
+                                },
+                              );
                             }
-                          },
-                        );
-                      },
-                      icon: Icon(icon),
+                          : null,
+                      icon: isLoading == false
+                          ? Icon(icon)
+                          : SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
                       iconSize: 16,
                       splashRadius: 12,
                     ),
