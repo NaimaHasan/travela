@@ -80,58 +80,48 @@ class TopNavigationBar extends StatelessWidget {
               child: StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
-                  if (userSnapshot.connectionState == ConnectionState.waiting)
-                    return SizedBox(
-                      height: 15,
-                      width: 15,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1,
-                        color: Colors.grey,
-                      ),
-                    );
+                  if (userSnapshot.connectionState == ConnectionState.waiting) {
+                    return Container();
+                  }
                   if (userSnapshot.hasData) {
-                    return FutureBuilder(
-                      future: UserController.getUser(),
-                      builder: (ctx, futureResult) {
-                        if (futureResult.connectionState ==
-                            ConnectionState.waiting)
-                          return SizedBox(
-                            height: 15,
-                            width: 15,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                              color: Colors.grey,
-                            ),
-                          );
-                        if (futureResult.data!.userImageUrl == null) {
-                          return IconButton(
-                            onPressed: () {
+                    return Center(
+                      child: FutureBuilder(
+                        future: UserController.getUser(),
+                        builder: (ctx, futureResult) {
+                          if (futureResult.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container();
+                          }
+                          if (futureResult.data!.userImageUrl == null) {
+                            return IconButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(AccountScreen.routeName);
+                              },
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                              splashRadius:
+                              MediaQuery.of(context).size.width < 600
+                                  ? 25
+                                  : null,
+                              icon: Icon(
+                                Icons.account_circle,
+                                size: 30,
+                              ),
+                            );
+                          }
+                          return InkWell(
+                            onTap: () {
                               Navigator.of(context)
                                   .pushNamed(AccountScreen.routeName);
                             },
-                            visualDensity: VisualDensity.compact,
-                            padding: EdgeInsets.zero,
-                            splashRadius:
-                                MediaQuery.of(context).size.width < 600
-                                    ? 25
-                                    : null,
-                            icon: Icon(
-                              Icons.account_circle,
-                              size: 30,
+                            child: ClipOval(
+                              child: Image.network(
+                                  "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
                             ),
                           );
-                        }
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(AccountScreen.routeName);
-                          },
-                          child: ClipOval(
-                            child: Image.network(
-                                "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
-                          ),
-                        );
-                      },
+                        },
+                      ),
                     );
                   }
                   return IconButton(

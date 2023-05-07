@@ -41,3 +41,24 @@ Must
         - Edit info
         - new trip
             - auto-fetch image
+
+
+Destination
+- name
+- image (google koreo ana jae/ bing images api)
+- location
+- nearby (hotels and stuff)
+- description
+  - Shob bhalo thakle ja pabo tai
+  - ar na thakle google kore description
+
+Kon kon anbo
+- Hand picked destinations for banner and home carousels (shob data django te thakbe)
+- search results from scraper
+  - Initial results (done)
+  - Get type of establishment (done)
+  - Clicked results
+    - Description (done)
+    - LongLat
+    - Things to do
+    - Nearby places
