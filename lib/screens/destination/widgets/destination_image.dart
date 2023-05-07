@@ -87,7 +87,8 @@ class DestinationImage extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 110,
+          bottom: 0.3 * screenSize.height,
+          right: 10,
           child: DestinationCarouselControl(
             controller: buttonCarouselController,
           ),
