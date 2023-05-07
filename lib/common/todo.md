@@ -17,8 +17,6 @@ Must
 - Near Me
 	* Get user current location
 	* show destinations on screen
-- Search
-  - Join backend and frontend
 - Account
   - Fix future builder rebuilding everytime
   - Add suggestions to share dialog

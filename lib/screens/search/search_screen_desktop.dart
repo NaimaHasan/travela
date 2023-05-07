@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/search/widgets/search_column.dart';
 import 'package:travela/screens/search/widgets/search_result_card.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
@@ -14,8 +15,10 @@ final List<String> imgList = [
 
 class SearchScreenDesktop extends StatelessWidget {
   const SearchScreenDesktop({
-    super.key,
+    super.key, required this.searchTerm,
   });
+
+  final String searchTerm;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +28,10 @@ class SearchScreenDesktop extends StatelessWidget {
         preferredSize: Size(screenSize.width, 80),
         child: const TopNavigationBar(),
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.zero,
-        scrollDirection: Axis.vertical,
-        itemCount: imgList.length,
-        itemBuilder: (ctx, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.2),
-            child: SearchResultCard(image: imgList[index], cardTextWidth: screenSize.width * 0.6 - 278),
-          );
-        },
+      body: SearchColumn(
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.2),
+        cardWidth: screenSize.width * 0.6 - 278,
+        searchTerm: searchTerm,
       ),
     );
   }

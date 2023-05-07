@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/search/widgets/search_column.dart';
 import 'package:travela/screens/search/widgets/search_result_card.dart';
 
 import '../../widgets/common/spacing.dart';
@@ -15,8 +16,11 @@ final List<String> imgList = [
 
 class SearchScreenMobile extends StatelessWidget {
   const SearchScreenMobile({
-    super.key,
+    super.key, required this.searchTerm,
   });
+
+  final String searchTerm;
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +50,10 @@ class SearchScreenMobile extends StatelessWidget {
               ),
             ),
             verticalSpaceSmall,
-            ListView.builder(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.vertical,
-              itemCount: imgList.length,
-              itemBuilder: (ctx, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: SearchResultCard(
-                      image: imgList[index],
-                      cardTextWidth: screenSize.width - 288),
-                );
-              },
+            SearchColumn(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              cardWidth: screenSize.width - 288,
+              searchTerm: searchTerm,
             ),
           ],
         ),

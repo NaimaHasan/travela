@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../common/models/destination.dart';
 import '../../destination/destination_screen.dart';
 
 class SearchResultCard extends StatelessWidget {
-  SearchResultCard({Key? key, required this.image, required this.cardTextWidth})
+  const SearchResultCard({Key? key, required this.cardTextWidth, required this.destination})
       : super(key: key);
-  String image;
-  double cardTextWidth;
+  final Destination destination;
+  final double cardTextWidth;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,7 +23,7 @@ class SearchResultCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.network(image,
+                  Image.network(destination.image[0],
                       fit: BoxFit.cover, height: 150.0, width: 210),
                   Container(
                     decoration: const BoxDecoration(
@@ -40,8 +41,8 @@ class SearchResultCard extends StatelessWidget {
                     left: 10,
                     bottom: 10,
                     child: Text(
-                      'Hotel',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      destination.tag,
+                      style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -56,12 +57,12 @@ class SearchResultCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Dhakakakaka',
+                        destination.name,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Dhakakaka asdugfwoua sadkjabsdoa xsOUxasou  saxba saduosgf asdjb dlsobd dalih subcka',
+                        destination.address,
                         style: TextStyle(fontSize: 14),
                       ),
                     ],

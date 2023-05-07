@@ -11,7 +11,9 @@ class DestinationController{
         Uri.http('127.0.0.1:8000', 'destinations/search/$searchTerm/'),
       );
 
+
       var data = jsonDecode(response.body);
+
 
       for (Map<String, dynamic> entry in data) {
         allEntries.add(Destination.fromJson(entry));
