@@ -94,11 +94,6 @@ class AccountDashboardMobile extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: 1,
-              width: MediaQuery.of(context).size.width - 20,
-              color: Colors.black45,
-            ),
           ],
         );
       },

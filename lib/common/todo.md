@@ -6,8 +6,6 @@ Must
 	* Destination/Hotel/Restaurants filtering
 	* Destination
 - Destination
-  - arrow on carousel design 
-  - arrow implementation
   - show location on map and center
 - New Trip Screen
     - When clicking destination, initialize with location and name e.g. "Location Trip"
@@ -22,7 +20,7 @@ Must
 	* Can only be done after destination is done
 - Account
   - Fix future builder rebuilding everytime
-  - Add suuggestions to share dialog
+  - Add suggestions to share dialog
 - New Trip Screen
   - add image upload
   - update image

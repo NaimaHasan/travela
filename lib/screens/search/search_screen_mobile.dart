@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/search/widgets/search_result_card.dart';
 
+import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 final List<String> imgList = [
@@ -12,8 +13,8 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-class SearchScreenDesktop extends StatelessWidget {
-  const SearchScreenDesktop({
+class SearchScreenMobile extends StatelessWidget {
+  const SearchScreenMobile({
     super.key,
   });
 
@@ -23,18 +24,44 @@ class SearchScreenDesktop extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
-        child: const TopNavigationBar(),
+        child: const TopNavigationBar(
+          hasSearch: false,
+        ),
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.zero,
-        scrollDirection: Axis.vertical,
-        itemCount: imgList.length,
-        itemBuilder: (ctx, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.2),
-            child: SearchResultCard(image: imgList[index], cardTextWidth: screenSize.width * 0.6 - 278),
-          );
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              width: screenSize.width - 2 * marginHorizontalMobile,
+              height: 35,
+              child: TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+            verticalSpaceSmall,
+            ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.vertical,
+              itemCount: imgList.length,
+              itemBuilder: (ctx, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: SearchResultCard(
+                      image: imgList[index],
+                      cardTextWidth: screenSize.width - 288),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
