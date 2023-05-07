@@ -66,6 +66,11 @@ class _MainScreenState extends State<MainScreen> {
         if (futureResults.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
+        if (!futureResults.hasData){
+          return Center(
+            child: Text("Trip does not exist."),
+          );
+        }
         var data = futureResults.data!;
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,6 +137,7 @@ class _MainScreenState extends State<MainScreen> {
             Expanded(
               child: ItineraryColumn(
                 trip: futureResults.data!,
+                isScrollable: true,
               ),
             ),
             Expanded(

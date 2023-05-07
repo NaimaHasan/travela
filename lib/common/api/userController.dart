@@ -24,17 +24,21 @@ class UserController {
     return allUsers;
   }
 
-  static Future<TravelaUser> getUser() async {
-    TravelaUser currentUser;
+  static Future<TravelaUser?> getUser() async {
+    TravelaUser? currentUser;
     final auth = FirebaseAuth.instance;
 
-    var response = await http.get(
-      Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
-    );
+    try{
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
+      );
 
-    var data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
 
-    currentUser = TravelaUser.fromJson(data);
+      currentUser = TravelaUser.fromJson(data);
+    }catch(err){
+      print(err);
+    }
 
     return currentUser;
   }
@@ -68,7 +72,7 @@ class UserController {
       var uri = Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/');
       var request = http.MultipartRequest('PUT', uri)
         ..fields['userEmail'] = auth.currentUser!.email!
-        ..fields['userName'] = user.userName
+        ..fields['userName'] = user!.userName
         ..files.add(http.MultipartFile.fromBytes('userImage', await image!.readAsBytes(), contentType: MediaType('image', image.name.split(".")[1]), filename: image.name));
       var response = await request.send();
 

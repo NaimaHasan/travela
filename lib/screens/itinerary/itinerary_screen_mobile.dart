@@ -73,26 +73,16 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   children: [
                     ItineraryTopMobile(
-                      tripName: futureResults.data!.tripName,
-                      tripDate: '${DateFormat.MMMMd().format(DateTime.parse(futureResults.data!.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(futureResults.data!.endDate))}',
+                      trip: data,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: ItineraryColumn(
                         trip: data,
+                        isScrollable: false,
                       ),
                     ),
                   ],
-                ),
-              ),
-              Positioned(
-                bottom: 10,
-                right: 20,
-                child: FloatingActionButton(
-                  onPressed: () async {
-                    await ItineraryController.newEntry(context, widget.trip);
-                  },
-                  child: Icon(Icons.add),
                 ),
               ),
             ],

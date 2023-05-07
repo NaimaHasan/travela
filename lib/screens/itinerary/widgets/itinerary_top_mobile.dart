@@ -7,11 +7,9 @@ import '../../itinerary/itinerary_screen.dart';
 import 'package:intl/intl.dart';
 
 class ItineraryTopMobile extends StatelessWidget {
-  const ItineraryTopMobile({Key? key, required this.tripName, required this.tripDate}) : super(key: key);
+  const ItineraryTopMobile({Key? key, required this.trip}) : super(key: key);
 
-  final String tripName;
-  final String tripDate;
-
+  final Trip trip;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,13 +32,13 @@ class ItineraryTopMobile extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(
-                      tripName,
+                      trip.tripName,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
-                    tripDate,
+                    '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
                     style: TextStyle(fontSize: 14),
                   ),
                 ],
@@ -48,7 +46,9 @@ class ItineraryTopMobile extends StatelessWidget {
             ),
             Expanded(child: Container()),
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await TripController.shareTrip(trip, context);
+              },
               icon: Icon(Icons.share),
             ),
           ],
