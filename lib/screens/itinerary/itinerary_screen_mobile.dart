@@ -63,30 +63,20 @@ class _MainScreenState extends State<MainScreen> {
         }
         var data = futureResults.data!;
         return SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height -
-                    kToolbarHeight -
-                    MediaQuery.of(context).padding.top -
-                    kBottomNavigationBarHeight,
-                child: Column(
-                  children: [
-                    ItineraryTopMobile(
-                      trip: data,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: ItineraryColumn(
-                        trip: data,
-                        isScrollable: false,
-                      ),
-                    ),
-                  ],
+          child: Column(
+              children: [
+                ItineraryTopMobile(
+                  trip: data,
                 ),
-              ),
-            ],
-          ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: ItineraryColumn(
+                    trip: data,
+                    isScrollable: false,
+                  ),
+                ),
+              ],
+            ),
         );
       },
     );
