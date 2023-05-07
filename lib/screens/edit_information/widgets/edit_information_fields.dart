@@ -17,7 +17,6 @@ class EditInformationFields extends StatefulWidget {
 class _EditInformationFieldsState extends State<EditInformationFields> {
   bool isLoading = false;
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -31,8 +30,7 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
               ),
               CircularProgressIndicator(),
               const Padding(
-                padding:
-                EdgeInsets.only(left: 35, top: 30, bottom: 30),
+                padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -77,8 +75,7 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
             ),
             EditInformationPassword(),
             const Padding(
-              padding:
-              EdgeInsets.only(left: 31, top: 30, bottom: 30),
+              padding: EdgeInsets.only(left: 31, top: 30, bottom: 30),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -90,33 +87,43 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                 ),
               ),
             ),
-            DottedBorder(
-              borderType: BorderType.RRect,
-              radius: Radius.circular(6),
-              color: Colors.black38,
-              dashPattern: [8, 4],
-              strokeWidth: 0.5,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(6),
-                ),
-                child: Container(
-                  height: 300,
-                  width: 340,
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () async {
-                        await UserController.setUserImage();
-                      },
-                      icon: Icon(
-                          Icons.add_photo_alternate_outlined
+            futureResult.data!.userImageUrl == null
+                ? DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(6),
+                    color: Colors.black38,
+                    dashPattern: [8, 4],
+                    strokeWidth: 0.5,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(6),
                       ),
-                      color: Colors.black54,
+                      child: Container(
+                        height: 300,
+                        width: 340,
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () async {
+                              await UserController.setUserImage();
+                            },
+                            icon: Icon(Icons.add_photo_alternate_outlined),
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () async {
+                      await UserController.setUserImage();
+                    },
+                    child: Container(
+                      height: 300,
+                      width: 340,
+                      child: Image.network(
+                          "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
                     ),
                   ),
-                ),
-              ),
-            ),
           ],
         );
       },

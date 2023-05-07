@@ -26,7 +26,6 @@ Must
   - update image
   - add search to location picker
 - Edit Information Screen
-  - Show current Image
   - Show indicator that name/password/image is being updated
 - Itinerary
     - Allow editing trip info
