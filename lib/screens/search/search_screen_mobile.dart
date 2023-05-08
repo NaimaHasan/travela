@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/search/widgets/search_column.dart';
 import 'package:travela/screens/search/widgets/search_result_card.dart';
+import 'package:travela/widgets/common/search_box.dart';
 
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
@@ -35,20 +36,7 @@ class SearchScreenMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              width: screenSize.width - 2 * marginHorizontalMobile,
-              height: 35,
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-            ),
+            SearchBox(width: screenSize.width - 2 * marginHorizontalMobile),
             verticalSpaceSmall,
             SearchColumn(
               padding: EdgeInsets.symmetric(horizontal: 5),
