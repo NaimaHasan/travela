@@ -118,10 +118,16 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                       await UserController.setUserImage();
                     },
                     child: Container(
-                      height: 300,
+                      height: 340,
                       width: 340,
-                      child: Image.network(
-                          "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                      child: Card(
+                        elevation: 5,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Image.network(
+                              "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                        ),
+                      ),
                     ),
                   ),
           ],

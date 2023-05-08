@@ -67,7 +67,7 @@ class AccountDashboard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 15, right: 12),
+                      padding: EdgeInsets.only(bottom: 15, right: 9),
                       child: IconButton(
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
@@ -78,7 +78,7 @@ class AccountDashboard extends StatelessWidget {
                         },
                         icon: const Icon(
                           Icons.logout,
-                          size: 35,
+                          size: 30,
                         ),
                         splashRadius: 25,
                       ),
