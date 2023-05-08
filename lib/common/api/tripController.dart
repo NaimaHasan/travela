@@ -126,18 +126,37 @@ class TripController {
     final auth = FirebaseAuth.instance;
 
     try {
-        var uri = Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
-      var request = http.MultipartRequest('POST', uri)
-        ..fields['owner'] = trip.owner
-        ..fields['tripName'] = trip.tripName
-        ..fields['startDate'] = trip.startDate
-        ..fields['endDate'] = trip.endDate
-        ..files.add(http.MultipartFile.fromBytes('tripImage', await image!.readAsBytes(), contentType: MediaType('image', image.name.split(".")[1]), filename: image.name));
-      var responseStream = await request.send();
+      dynamic data;
+      if (image != null) {
+        var uri = Uri.http(
+            '127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
+        var request = http.MultipartRequest('POST', uri)
+          ..fields['owner'] = trip.owner
+          ..fields['tripName'] = trip.tripName
+          ..fields['startDate'] = trip.startDate
+          ..fields['endDate'] = trip.endDate
+          ..files.add(http.MultipartFile.fromBytes(
+              'tripImage', await image!.readAsBytes(),
+              contentType: MediaType('image', image.name.split(".")[1]),
+              filename: image.name));
+        var responseStream = await request.send();
 
-      var response = await http.Response.fromStream(responseStream);
+        var response = await http.Response.fromStream(responseStream);
 
-      var data = jsonDecode(response.body);
+        data = jsonDecode(response.body);
+      } else {
+        var response = await http.post(
+          Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
+          body: {
+            'owner': trip.owner,
+            'tripName': trip.tripName,
+            'startDate': trip.startDate,
+            'endDate': trip.endDate,
+          },
+        );
+
+        data = jsonDecode(response.body);
+      }
 
       var startDateTime = DateTime.parse(trip.startDate);
       startDateTime = startDateTime.add(Duration(hours: 6));
@@ -194,11 +213,21 @@ class TripController {
           'sharedUsers': trip.sharedUsers,
         };
 
-        await http.put(
+        var response = await http.put(
           Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
           headers: {'content-type': 'application/json'},
           body: jsonEncode(body),
         );
+
+        if (response.statusCode == 400) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("User does not exist."),
+              ),
+            );
+          }
+        }
       } else {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

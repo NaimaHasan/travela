@@ -12,17 +12,11 @@ New Trip Screen
     E When clicking destination, initialize with location
     E Add search to location and centering on initialized location
 Near Me
-	E Get user current location
 	E show destinations on screen
-Account
-    N Fix future builder rebuilding everytime
-    N Add suggestions to share dialog
 Itinerary
     N Allow editing trip info
     N Add next step indicator
     E Show tracker on map
-    N Center map to trip location
-
 E Hand picked destinations for banner and home carousels (shob data django te thakbe)
 - search results from scraper
   - Clicked results

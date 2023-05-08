@@ -6,6 +6,7 @@ import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
+import 'package:travela/widgets/common/variable_map.dart';
 
 import '../../common/api/tripController.dart';
 import '../../widgets/common/pill_button.dart';
@@ -188,16 +189,9 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 children: [
                   Expanded(
-                    child: FlutterMap(
-                      options: MapOptions(),
-                      children: [
-                        TileLayer(
-                          urlTemplate:
-                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          userAgentPackageName:
-                              'dev.fleaflet.flutter_map.example',
-                        ),
-                      ],
+                    child: VariableMap(
+                      getCenter:
+                          ItineraryController.getFirstLocation(data.tripID!),
                     ),
                   ),
                 ],

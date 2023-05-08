@@ -52,6 +52,26 @@ class ItineraryController {
       },
     );
   }
+
+  static Future<LatLng> getFirstLocation(int tripID) async {
+    List<ItineraryEntry> allEntries = [];
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'trips/$tripID/itineraryEntry/'),
+      );
+
+      var data = jsonDecode(response.body);
+
+      for (Map<String, dynamic> entry in data) {
+        allEntries.add(ItineraryEntry.fromJson(entry));
+      }
+    } catch (err) {
+      print(err);
+    }
+
+    return allEntries[0].location;
+  }
 }
 
 class _NewDialog extends StatefulWidget {

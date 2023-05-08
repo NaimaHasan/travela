@@ -9,7 +9,10 @@ class ItineraryItem extends StatelessWidget {
       required this.time,
       required this.description,
       this.isStart = false,
-      this.isEnd = false, required this.entry, required this.refresh})
+      this.isEnd = false,
+      required this.entry,
+      required this.refresh,
+      required this.isNext})
       : super(key: key);
 
   final String time;
@@ -18,6 +21,7 @@ class ItineraryItem extends StatelessWidget {
   final bool isEnd;
   final ItineraryEntry entry;
   final VoidCallback refresh;
+  final bool isNext;
 
   @override
   Widget build(BuildContext context) {
@@ -77,23 +81,33 @@ class ItineraryItem extends StatelessWidget {
           ),
         ),
         Positioned(
+          left: screenwidth > tabwidth ? factor * 125 : 225,
+          top: isStart ? 30 : 0,
+          child: Container(
+            height: isStart || isEnd ? (screenwidth > tabwidth ? 30 : 40) : 70,
+            width: 8,
+            decoration: BoxDecoration(
+              color: Colors.lightBlue,
+            ),
+          ),
+        ),
+        Positioned(
           left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
           child: CircleAvatar(
             radius: 10,
             backgroundColor: Colors.lightBlue,
           ),
         ),
-        Positioned(
-          left: screenwidth > tabwidth ? factor * 125 : 225,
-          top: isStart ? 30 : 0,
-          child: Container(
-            height: isStart || isEnd ? (screenwidth > tabwidth ? 30 : 40)  : 70,
-            width: 8,
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
+        Visibility(
+          visible: isNext,
+          child: Positioned(
+            left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
+            child: CircleAvatar(
+              radius: 11,
+              backgroundColor: Colors.red,
             ),
           ),
-        )
+        ),
       ],
     );
   }

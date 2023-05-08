@@ -41,7 +41,8 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
           return Text("No Itinerary Entries");
         }
         return Container(
-          height: widget.isScrollable ?  MediaQuery.of(context).size.height : null,
+          height:
+              widget.isScrollable ? MediaQuery.of(context).size.height : null,
           child: Stack(
             children: [
               ListView.builder(
@@ -71,17 +72,23 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                                 0,
                       ),
                       ItineraryItem(
-                          time: DateFormat('h:mm a').format(data.dateTime),
-                          description: data.description,
-                          isStart: index == 0,
-                          isEnd: index == futureResult.data!.length - 1,
-                          entry: futureResult.data![index],
-                          refresh: () {
-                            setState(() {
-                              _future = ItineraryController.getAllEntries(
-                                  widget.trip.tripID!);
-                            });
-                          }),
+                        time: DateFormat('h:mm a').format(data.dateTime),
+                        description: data.description,
+                        isStart: index == 0,
+                        isEnd: index == futureResult.data!.length - 1,
+                        entry: futureResult.data![index],
+                        refresh: () {
+                          setState(() {
+                            _future = ItineraryController.getAllEntries(
+                                widget.trip.tripID!);
+                          });
+                        },
+                        isNext: (index == 0 &&
+                                data.dateTime.isAfter(DateTime.now())) ||
+                            (data.dateTime.isAfter(DateTime.now()) &&
+                                futureResult.data![index - 1].dateTime
+                                    .isBefore(DateTime.now())),
+                      ),
                       Visibility(
                         child: SizedBox(
                           height: 75,

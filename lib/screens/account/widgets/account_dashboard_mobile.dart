@@ -2,15 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:travela/common/api/userController.dart';
 
 import '../../../common/api/authenticationController.dart';
+import '../../../common/models/user.dart';
 import '../../edit_information/edit_information_screen.dart';
 
-class AccountDashboardMobile extends StatelessWidget {
+class AccountDashboardMobile extends StatefulWidget {
   const AccountDashboardMobile({Key? key}) : super(key: key);
+
+  @override
+  State<AccountDashboardMobile> createState() => _AccountDashboardMobileState();
+}
+
+class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
+  late Future<TravelaUser?> _future;
+
+  @override
+  void initState() {
+    _future = UserController.getUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: UserController.getUser(),
+      future: _future,
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
