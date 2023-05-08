@@ -70,17 +70,22 @@ class _AccountTripListState extends State<AccountTripList> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 10),
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            color: Colors.black12,
-                            child: Center(
-                              child: Icon(
-                                Icons.image_not_supported_outlined,
-                                size: 16,
-                              ),
-                            ),
-                          ),
+                          child: futureResult.data![index].tripImageUrl == null
+                              ? Container(
+                                  height: 60,
+                                  width: 60,
+                                  color: Colors.black12,
+                                  child: Center(
+                                    child: Icon(
+                                        Icons.image_not_supported_outlined),
+                                  ),
+                                )
+                              : Container(
+                                  height: 60,
+                                  width: 60,
+                                  child: Image.network(
+                                      "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}"),
+                                ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 15),
@@ -152,7 +157,8 @@ class _AccountTripListState extends State<AccountTripList> {
                                     IconButton(
                                       onPressed: () async {
                                         await TripController.deleteTrip(
-                                            futureResult.data![index].tripID!, context);
+                                            futureResult.data![index].tripID!,
+                                            context);
                                         setState(() {
                                           setFutures();
                                         });

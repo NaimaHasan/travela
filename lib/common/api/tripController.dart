@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:travela/common/api/userController.dart';
 
 import '../models/trip.dart';
@@ -9,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/user.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:http_parser/http_parser.dart';
 
 class TripController {
   static Future<Trip?> getTripDetails(int tripID) async {
@@ -120,19 +122,20 @@ class TripController {
     return groupTrips;
   }
 
-  static Future<void> postTrip(Trip trip, LatLng location) async {
+  static Future<void> postTrip(Trip trip, LatLng location, XFile? image) async {
     final auth = FirebaseAuth.instance;
 
     try {
-      var response = await http.post(
-        Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
-        body: {
-          'owner': trip.owner,
-          'tripName': trip.tripName,
-          'startDate': trip.startDate,
-          'endDate': trip.endDate,
-        },
-      );
+        var uri = Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
+      var request = http.MultipartRequest('POST', uri)
+        ..fields['owner'] = trip.owner
+        ..fields['tripName'] = trip.tripName
+        ..fields['startDate'] = trip.startDate
+        ..fields['endDate'] = trip.endDate
+        ..files.add(http.MultipartFile.fromBytes('tripImage', await image!.readAsBytes(), contentType: MediaType('image', image.name.split(".")[1]), filename: image.name));
+      var responseStream = await request.send();
+
+      var response = await http.Response.fromStream(responseStream);
 
       var data = jsonDecode(response.body);
 
@@ -328,6 +331,7 @@ class _ShareDialogState extends State<_ShareDialog> {
                   controller: _controller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.zero,
                   ),
                 ),
               ),

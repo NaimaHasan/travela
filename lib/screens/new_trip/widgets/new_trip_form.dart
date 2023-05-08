@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:travela/common/api/tripController.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/account/account_screen.dart';
@@ -24,6 +25,8 @@ class _NewTripFormState extends State<NewTripForm> {
   String _name = "";
   String _startDate = "";
   String _endDate = "";
+
+  XFile? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +93,11 @@ class _NewTripFormState extends State<NewTripForm> {
               ),
             ),
           ),
-          DottedBorder(
+          _image == null
+              ? DottedBorder(
             borderType: BorderType.RRect,
             radius: Radius.circular(6),
-            color: Colors.black,
+            color: Colors.black38,
             dashPattern: [8, 4],
             strokeWidth: 0.5,
             child: ClipRRect(
@@ -101,12 +105,44 @@ class _NewTripFormState extends State<NewTripForm> {
                 Radius.circular(6),
               ),
               child: Container(
-                height: 250,
+                height: 300,
                 width: 340,
                 child: Center(
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      _image = await ImagePicker().pickImage(source:ImageSource.gallery);
+                      setState(() {});
+                    },
                     icon: Icon(Icons.add_photo_alternate_outlined),
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
+            ),
+          )
+              : InkWell(
+            onTap: () async {
+              _image = await ImagePicker().pickImage(source:ImageSource.gallery);
+              setState(() {});
+            },
+            child: Container(
+              height: 340,
+              width: 340,
+              child: Card(
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: FutureBuilder(
+                    future: _image!.readAsBytes(),
+                    builder: (ctx, futureResult){
+                      if(futureResult.connectionState == ConnectionState.waiting){
+                        return Container();
+                      }
+                      if(!futureResult.hasData){
+                        return Container();
+                      }
+                      return Image.memory(futureResult.data!);
+                    },
                   ),
                 ),
               ),
@@ -131,6 +167,7 @@ class _NewTripFormState extends State<NewTripForm> {
                     endDate: _endDate,
                   ),
                   _location,
+                  _image,
                 );
 
                 Navigator.of(context).pushNamed(AccountScreen.routeName);

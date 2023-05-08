@@ -73,20 +73,37 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10),
-                      child: Container(
-                        height:
-                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70),
-                        width:
-                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
-                                    3 -
-                                70),
-                        color: Colors.black12,
-                        child: Center(
-                          child: Icon(Icons.image_not_supported_outlined),
-                        ),
-                      ),
+                      child: futureResult.data![index].tripImageUrl == null
+                          ? Container(
+                              height: ((MediaQuery.of(context).size.width *
+                                          0.75 *
+                                          0.5) /
+                                      3 -
+                                  70),
+                              width: ((MediaQuery.of(context).size.width *
+                                          0.75 *
+                                          0.5) /
+                                      3 -
+                                  70),
+                              color: Colors.black12,
+                              child: Center(
+                                child: Icon(Icons.image_not_supported_outlined),
+                              ),
+                            )
+                          : Container(
+                              height: ((MediaQuery.of(context).size.width *
+                                          0.75 *
+                                          0.5) /
+                                      3 -
+                                  70),
+                              width: ((MediaQuery.of(context).size.width *
+                                          0.75 *
+                                          0.5) /
+                                      3 -
+                                  70),
+                              child: Image.network(
+                                  "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}"),
+                            ),
                     ),
                     Expanded(
                       child: Padding(
@@ -183,23 +200,25 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                         IconButton(
                                           onPressed: () async {
                                             await TripController.deleteTrip(
-                                                futureResult.data![index].tripID!, context);
+                                                futureResult
+                                                    .data![index].tripID!,
+                                                context);
                                             setState(() {
                                               setFutures();
                                             });
                                           },
                                           icon: Icon(Icons.delete_outline),
                                           splashRadius: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               1450 *
                                               15,
                                           padding: EdgeInsets.zero,
                                           visualDensity: VisualDensity.compact,
                                           color: Colors.black,
                                           iconSize: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               1450 *
                                               15,
                                         ),

@@ -1,6 +1,7 @@
 E Currently kon screen sheta dekha jae, and oita jaate clickable na hoi
 E logged in na thakle jeno route kore login screen e pathae dae
 N onno karo itinerary jaate randomly keo na dekhte pare
+wrap all circular progress indicator in center
 Home screen
 	E Destination/Hotel/Restaurants filtering
 	E Destination
@@ -10,8 +11,6 @@ New Trip Screen
     E When clicking destination, initialize with location and name e.g. "Location Trip"
     E Limit start and end to not cross
     E Add search to location and centering on initialized location
-    E add image upload 
-    E update image
 Near Me
 	E Get user current location
 	E show destinations on screen
