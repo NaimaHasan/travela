@@ -19,7 +19,7 @@ class AccountTripGrid extends StatefulWidget {
 class _AccountTripGridState extends State<AccountTripGrid> {
   late Future<List<Trip>> _getTrips;
 
-  void setFutures(){
+  void setFutures() {
     switch (widget.group) {
       case TripGroup.pending:
         _getTrips = TripController.getPendingTrips();
@@ -64,7 +64,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed("${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
+                Navigator.of(context).pushNamed(
+                    "${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
               },
               child: Card(
                 elevation: 5,
@@ -73,9 +74,18 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Container(
-                        height: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
-                        width: ((MediaQuery.of(context).size.width * 0.75 * 0.5)/3-70),
-                        color: Colors.tealAccent,
+                        height:
+                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70),
+                        width:
+                            ((MediaQuery.of(context).size.width * 0.75 * 0.5) /
+                                    3 -
+                                70),
+                        color: Colors.black12,
+                        child: Center(
+                          child: Icon(Icons.image_not_supported_outlined),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -89,16 +99,22 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                               child: Text(
                                 futureResult.data![index].tripName,
                                 style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.width/1450 * 14, fontWeight: FontWeight.bold),
+                                    fontSize:
+                                        MediaQuery.of(context).size.width /
+                                            1450 *
+                                            14,
+                                    fontWeight: FontWeight.bold),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
                               '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
-                              style: TextStyle(fontSize: MediaQuery.of(context).size.width/1450 * 12),
+                              style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.width /
+                                      1450 *
+                                      12),
                               overflow: TextOverflow.ellipsis,
                             ),
-
                             Expanded(
                               child: Container(),
                             ),
@@ -110,21 +126,31 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                       children: [
                                         IconButton(
                                           onPressed: () async {
-                                            await TripController.acceptTrip(futureResult.data![index]);
+                                            await TripController.acceptTrip(
+                                                futureResult.data![index]);
                                             setState(() {
                                               setFutures();
                                             });
                                           },
                                           icon: Icon(Icons.check),
-                                          splashRadius: MediaQuery.of(context).size.width/1450 * 15,
+                                          splashRadius: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1450 *
+                                              15,
                                           padding: EdgeInsets.zero,
                                           visualDensity: VisualDensity.compact,
                                           color: Colors.green,
-                                          iconSize: MediaQuery.of(context).size.width/1450 * 15,
+                                          iconSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1450 *
+                                              15,
                                         ),
                                         IconButton(
                                           onPressed: () async {
-                                            await TripController.declineTrip(futureResult.data![index]);
+                                            await TripController.declineTrip(
+                                                futureResult.data![index]);
                                             setState(() {
                                               setFutures();
                                             });
@@ -132,29 +158,75 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                           icon: Text(
                                             'X',
                                             style: TextStyle(
-                                              fontSize: MediaQuery.of(context).size.width/1450 * 13,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1450 *
+                                                  13,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
                                             ),
                                           ),
-                                          splashRadius: MediaQuery.of(context).size.width/1450 * 14,
+                                          splashRadius: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1450 *
+                                              14,
                                           padding: EdgeInsets.zero,
                                           visualDensity: VisualDensity.compact,
                                         ),
                                       ],
                                     )
-                                  : IconButton(
-                                      onPressed: () async {
-                                        await TripController.shareTrip(futureResult.data![index], context);
-                                        setState(() {
-                                          setFutures();
-                                        });
-                                      },
-                                      icon: Icon(Icons.share),
-                                      splashRadius: MediaQuery.of(context).size.width/1450 * 14,
-                                      padding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity.compact,
-                                      iconSize: MediaQuery.of(context).size.width/1450 * 14,
+                                  : Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.deleteTrip(
+                                                futureResult.data![index].tripID!, context);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Icon(Icons.delete_outline),
+                                          splashRadius: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                              1450 *
+                                              15,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                          color: Colors.black,
+                                          iconSize: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                              1450 *
+                                              15,
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.shareTrip(
+                                                futureResult.data![index],
+                                                context);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Icon(Icons.share),
+                                          splashRadius: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1450 *
+                                              14,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                          iconSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1450 *
+                                              14,
+                                        ),
+                                      ],
                                     ),
                             ),
                           ],

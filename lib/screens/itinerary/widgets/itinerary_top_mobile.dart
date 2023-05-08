@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 
 import '../../../common/models/trip.dart';
+import '../../account/account_screen.dart';
 import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
@@ -45,6 +46,15 @@ class ItineraryTopMobile extends StatelessWidget {
               ),
             ),
             Expanded(child: Container()),
+            IconButton(
+              onPressed: () async {
+                await TripController.deleteTrip(trip.tripID!, context);
+                Navigator.of(context)
+                    .pushNamed(AccountScreen.routeName);
+              },
+              icon: Icon(Icons.delete_outline),
+            ),
+            Container(width: 5),
             IconButton(
               onPressed: () async {
                 await TripController.shareTrip(trip, context);

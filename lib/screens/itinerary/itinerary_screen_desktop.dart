@@ -11,6 +11,7 @@ import '../../common/api/tripController.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
+import '../account/account_screen.dart';
 
 class ItineraryScreenDesktop extends StatelessWidget {
   const ItineraryScreenDesktop({super.key, required this.trip});
@@ -66,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         if (futureResults.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        if (!futureResults.hasData){
+        if (!futureResults.hasData) {
           return Center(
             child: Text("Trip does not exist."),
           );
@@ -95,8 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                   verticalSpaceSmall,
                   Text(
                     data.tripName,
-                    style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 10,
@@ -108,28 +108,63 @@ class _MainScreenState extends State<MainScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  PillButton(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Share",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                  Row(
+                    children: [
+                      PillButton(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Share",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.share,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 10,
+                        padding: EdgeInsets.all(10),
+                        onPress: () async {
+                          await TripController.shareTrip(data, context);
+                        },
+                      ),
+                      Container(
+                        width: 15,
+                      ),
+                      PillButton(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Delete",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.delete_outline,
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                          ],
                         ),
-                        Icon(
-                          Icons.share,
-                          color: Colors.black,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                    padding: EdgeInsets.all(10),
-                    onPress: () async {
-                      await TripController.shareTrip(data, context);
-                    },
+                        padding: EdgeInsets.all(10),
+                        onPress: () async {
+                          await TripController.deleteTrip(
+                              data.tripID!, context);
+                          Navigator.of(context)
+                              .pushNamed(AccountScreen.routeName);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

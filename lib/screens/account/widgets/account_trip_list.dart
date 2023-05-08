@@ -59,7 +59,8 @@ class _AccountTripListState extends State<AccountTripList> {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed("${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
+                Navigator.of(context).pushNamed(
+                    "${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
               },
               child: Column(
                 children: [
@@ -72,7 +73,13 @@ class _AccountTripListState extends State<AccountTripList> {
                           child: Container(
                             height: 60,
                             width: 60,
-                            color: Colors.tealAccent,
+                            color: Colors.black12,
+                            child: Center(
+                              child: Icon(
+                                Icons.image_not_supported_outlined,
+                                size: 16,
+                              ),
+                            ),
                           ),
                         ),
                         Padding(
@@ -139,27 +146,48 @@ class _AccountTripListState extends State<AccountTripList> {
                                     ),
                                   ],
                                 )
-                              : IconButton(
-                                  onPressed: () async {
-                                    await TripController.shareTrip(
-                                        futureResult.data![index], context);
-                                    setState(() {
-                                      setFutures();
-                                    });
-                                  },
-                                  icon: Icon(Icons.share),
-                                  splashRadius: 18,
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
+                              : Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () async {
+                                        await TripController.deleteTrip(
+                                            futureResult.data![index].tripID!, context);
+                                        setState(() {
+                                          setFutures();
+                                        });
+                                      },
+                                      icon: Icon(Icons.delete_outline),
+                                      iconSize: 18,
+                                      splashRadius: 18,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                      color: Colors.black,
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        await TripController.shareTrip(
+                                            futureResult.data![index], context);
+                                        setState(() {
+                                          setFutures();
+                                        });
+                                      },
+                                      icon: Icon(Icons.share),
+                                      iconSize: 17,
+                                      splashRadius: 17,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                    ),
+                                  ],
                                 ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    height: 1,
+                    height: 0.75,
                     width: MediaQuery.of(context).size.width - 40,
-                    color: Colors.black45,
+                    color: Colors.black38,
                   ),
                 ],
               ),

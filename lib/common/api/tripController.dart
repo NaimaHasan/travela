@@ -263,6 +263,21 @@ class TripController {
       print(err);
     }
   }
+
+  static Future<void> deleteTrip(int tripID, BuildContext context) async {
+    try {
+      await http.delete(
+        Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
+      );
+    } catch (err) {
+      print(err);
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Trip has been deleted'),
+      ),
+    );
+  }
 }
 
 class _ShareDialog extends StatefulWidget {
