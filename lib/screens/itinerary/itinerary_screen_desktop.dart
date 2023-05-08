@@ -13,6 +13,7 @@ import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import '../account/account_screen.dart';
+import 'package:latlong2/latlong.dart';
 
 class ItineraryScreenDesktop extends StatelessWidget {
   const ItineraryScreenDesktop({super.key, required this.trip});
@@ -52,11 +53,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late Future<Trip?> _future;
+  late Future<List<dynamic>> _future;
+  final MapController _controller = MapController();
+
+  void setFutures() {
+    _future = Future.wait([
+      TripController.getTripDetails(widget.trip),
+      ItineraryController.getAllLocations(widget.trip)
+    ]);
+  }
 
   @override
   void initState() {
-    _future = TripController.getTripDetails(widget.trip);
+    setFutures();
     super.initState();
   }
 
@@ -73,7 +82,8 @@ class _MainScreenState extends State<MainScreen> {
             child: Text("Trip does not exist."),
           );
         }
-        var data = futureResults.data!;
+        var data = futureResults.data![0] as Trip;
+        var locations = futureResults.data![1] as List<LatLng>;
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -181,17 +191,47 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Expanded(
               child: ItineraryColumn(
-                trip: futureResults.data!,
+                trip: data,
                 isScrollable: true,
+                refreshMarkers: (){
+                  setState(() {
+                    setFutures();
+                  });
+                },
               ),
             ),
             Expanded(
               child: Column(
                 children: [
                   Expanded(
-                    child: VariableMap(
-                      getCenter:
-                          ItineraryController.getFirstLocation(data.tripID!),
+                    child: FlutterMap(
+                      mapController: _controller,
+                      options: MapOptions(
+                        center: locations[0],
+                      ),
+                      children: [
+                        TileLayer(
+                          urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          userAgentPackageName:
+                          'dev.fleaflet.flutter_map.example',
+                        ),
+                        MarkerLayer(
+                          markers: [
+                            for (var location in locations)
+                              Marker(
+                                width: 150.0,
+                                height: 150.0,
+                                point: location,
+                                builder: (ctx) => const Icon(
+                                  Icons.location_on,
+                                  color: Colors.red,
+                                  size: 35.0,
+                                ),
+                              ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ],

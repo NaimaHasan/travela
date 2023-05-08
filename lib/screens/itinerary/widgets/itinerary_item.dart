@@ -95,17 +95,7 @@ class ItineraryItem extends StatelessWidget {
           left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
           child: CircleAvatar(
             radius: 10,
-            backgroundColor: Colors.lightBlue,
-          ),
-        ),
-        Visibility(
-          visible: isNext,
-          child: Positioned(
-            left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
-            child: CircleAvatar(
-              radius: 11,
-              backgroundColor: Colors.red,
-            ),
+            backgroundColor: isNext? Colors.deepOrangeAccent : Colors.lightBlue
           ),
         ),
       ],

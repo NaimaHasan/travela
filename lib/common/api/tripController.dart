@@ -158,10 +158,10 @@ class TripController {
         data = jsonDecode(response.body);
       }
 
-      var startDateTime = DateTime.parse(trip.startDate);
+      var startDateTime = DateTime.parse(trip.startDate).toLocal();
       startDateTime = startDateTime.add(Duration(hours: 6));
 
-      var endDateTime = DateTime.parse(trip.startDate);
+      var endDateTime = DateTime.parse(trip.startDate).toLocal();
       endDateTime = endDateTime.add(Duration(hours: 18));
 
       await http.post(

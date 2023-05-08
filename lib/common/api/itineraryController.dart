@@ -72,6 +72,28 @@ class ItineraryController {
 
     return allEntries[0].location;
   }
+
+  static Future<List<LatLng>> getAllLocations(int tripID) async {
+    ItineraryEntry temp;
+    List<LatLng> allLocations = [];
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'trips/$tripID/itineraryEntry/'),
+      );
+
+      var data = jsonDecode(response.body);
+
+      for (Map<String, dynamic> entry in data) {
+        temp = ItineraryEntry.fromJson(entry);
+        allLocations.add(temp.location);
+      }
+    } catch (err) {
+      print(err);
+    }
+
+    return allLocations;
+  }
 }
 
 class _NewDialog extends StatefulWidget {

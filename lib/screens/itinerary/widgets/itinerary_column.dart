@@ -10,11 +10,12 @@ import 'itinerary_item.dart';
 
 class ItineraryColumn extends StatefulWidget {
   const ItineraryColumn(
-      {Key? key, required this.trip, required this.isScrollable})
+      {Key? key, required this.trip, required this.isScrollable, required this.refreshMarkers})
       : super(key: key);
 
   final Trip trip;
   final bool isScrollable;
+  final VoidCallback refreshMarkers;
 
   @override
   State<ItineraryColumn> createState() => _ItineraryColumnState();
@@ -81,13 +82,10 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                           setState(() {
                             _future = ItineraryController.getAllEntries(
                                 widget.trip.tripID!);
+                            widget.refreshMarkers();
                           });
                         },
-                        isNext: (index == 0 &&
-                                data.dateTime.isAfter(DateTime.now())) ||
-                            (data.dateTime.isAfter(DateTime.now()) &&
-                                futureResult.data![index - 1].dateTime
-                                    .isBefore(DateTime.now())),
+                        isNext: (index == 0 && data.dateTime.isAfter(DateTime.now())) || (data.dateTime.isAfter(DateTime.now()) && futureResult.data![index - 1].dateTime.isBefore(DateTime.now())),
                       ),
                       Visibility(
                         child: SizedBox(
@@ -111,6 +109,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                       setState(() {
                         _future = ItineraryController.getAllEntries(
                             widget.trip.tripID!);
+                        widget.refreshMarkers();
                       });
                     },
                     child: Icon(Icons.add),
