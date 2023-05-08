@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (ctx) => const HomeScreen(),
         MapScreen.routeName: (ctx) => const MapScreen(),
-        DestinationScreen.routeName: (ctx) => const DestinationScreen(),
         LogInScreen.routeName: (ctx) => const LogInScreen(),
         RegisterScreen.routeName: (ctx) => const RegisterScreen(),
         AccountScreen.routeName: (ctx) => const AccountScreen(),
@@ -54,6 +53,13 @@ class MyApp extends StatelessWidget {
           final dynamicValue = settings.name!.split('/').last;
           return MaterialPageRoute(
             builder: (context) => SearchScreen(searchTerm: dynamicValue),
+            settings: settings,
+          );
+        }
+        if (settings.name!.startsWith('/destination/')) {
+          final dynamicValue = settings.name!.split('/').last;
+          return MaterialPageRoute(
+            builder: (context) => DestinationScreen(destination: dynamicValue),
             settings: settings,
           );
         }

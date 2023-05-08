@@ -50,6 +50,7 @@ class _SearchColumnState extends State<SearchColumn> {
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
           itemCount: futureResults.data!.length,
+          shrinkWrap: true,
           itemBuilder: (ctx, index) {
             return Padding(
               padding: widget.padding,

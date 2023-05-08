@@ -33,3 +33,4 @@ E Hand picked destinations for banner and home carousels (shob data django te th
     - E LongLat
     - N Things to do
     - E Nearby places
+N Fix locations that want destination

@@ -4,8 +4,10 @@ import 'package:travela/screens/destination/destination_screen_desktop.dart';
 import 'package:travela/screens/destination/destination_screen_mobile.dart';
 
 class DestinationScreen extends StatelessWidget {
-  const DestinationScreen({Key? key}) : super(key: key);
+  const DestinationScreen({Key? key, required this.destination}) : super(key: key);
   static const String routeName = '/destination';
+
+  final String destination;
 
   @override
   Widget build(BuildContext context) {
