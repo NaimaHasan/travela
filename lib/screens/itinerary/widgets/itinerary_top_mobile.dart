@@ -14,22 +14,19 @@ class ItineraryTopMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 25, right: 25, bottom: 20),
+      padding: EdgeInsets.only(left: 30, right: 30, top: 30),
       child: Row(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Container(
-              height: 70,
-              width: 70,
-              color: Colors.black12,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Center(
-                  child: Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 16,
-                  ),
+          Container(
+            height: 70,
+            width: 70,
+            color: Colors.black12,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Center(
+                child: Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 16,
                 ),
               ),
             ),

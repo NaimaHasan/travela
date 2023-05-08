@@ -41,7 +41,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
           return Text("No Itinerary Entries");
         }
         return Container(
-          height: MediaQuery.of(context).size.height,
+          height: widget.isScrollable ?  MediaQuery.of(context).size.height : null,
           child: Stack(
             children: [
               ListView.builder(
