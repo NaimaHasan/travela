@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travela/screens/home/widgets/home_banner.dart';
-import 'package:travela/screens/home/widgets/home_carousel.dart';
 import 'package:travela/screens/home/widgets/home_carousel_mobile.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 import 'package:travela/widgets/common/search_box.dart';

@@ -95,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                 });
               },
               child: _isLoading
-                  ? CircularProgressIndicator()
+                  ? Center(child: CircularProgressIndicator())
                   : const Text(
                       'Log In',
                       style: TextStyle(),

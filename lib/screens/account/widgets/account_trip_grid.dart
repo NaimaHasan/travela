@@ -45,7 +45,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
       future: _getTrips,
       builder: (context, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
         if (!futureResult.hasData || futureResult.data!.isEmpty) {
           return Text("No Trips Yet");

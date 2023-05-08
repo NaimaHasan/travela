@@ -136,8 +136,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 });
               },
               child: _isLoading
-                  ? CircularProgressIndicator()
-                  : const Text(
+                  ? Center(child: CircularProgressIndicator())
+                  : Text(
                       'Register',
                       style: TextStyle(),
                     ),

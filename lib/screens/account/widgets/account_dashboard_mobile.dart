@@ -13,7 +13,7 @@ class AccountDashboardMobile extends StatelessWidget {
       future: UserController.getUser(),
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
         if (!futureResult.hasData) {
           return Text("Error retrieving user info.");
@@ -30,12 +30,15 @@ class AccountDashboardMobile extends StatelessWidget {
                     height: 90,
                     child: IconButton(
                       onPressed: () {},
-                      icon: futureResult.data!.userImageUrl == null ? Icon(
-                        Icons.account_circle,
-                        size: 90,
-                      ) : ClipOval(
-                        child: Image.network("http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
-                      ),
+                      icon: futureResult.data!.userImageUrl == null
+                          ? Icon(
+                              Icons.account_circle,
+                              size: 90,
+                            )
+                          : ClipOval(
+                              child: Image.network(
+                                  "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                            ),
                     ),
                   ),
                   Container(width: 35),

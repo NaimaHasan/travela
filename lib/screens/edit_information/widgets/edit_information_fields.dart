@@ -28,7 +28,7 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
               Container(
                 height: 30,
               ),
-              CircularProgressIndicator(),
+              Center(child: CircularProgressIndicator()),
               const Padding(
                 padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
                 child: Align(

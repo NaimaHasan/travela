@@ -19,7 +19,6 @@ Account
 Itinerary
     N Allow editing trip info
     E Show image of trip
-    E Add map to mobile screen
     N Add next step indicator
     E Show tracker on map
     N Center map to trip location
