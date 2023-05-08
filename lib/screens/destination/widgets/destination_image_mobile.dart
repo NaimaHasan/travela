@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:travela/common/models/destination.dart';
 import 'package:travela/screens/destination/widgets/destination_carousel_mobile.dart';
 
 import '../../../widgets/common/pill_button.dart';
@@ -7,7 +8,9 @@ import '../../../widgets/common/spacing.dart';
 import '../../new_trip/new_trip_screen.dart';
 
 class DestinationImageMobile extends StatelessWidget {
-  const DestinationImageMobile({Key? key}) : super(key: key);
+  const DestinationImageMobile({Key? key, required this.destination}) : super(key: key);
+
+  final Destination destination;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,7 @@ class DestinationImageMobile extends StatelessWidget {
         Column(
           children: [
             DestinationCarouselMobile(
+              imgList: destination.image,
               controller: buttonCarouselController,
             ),
             SizedBox(
@@ -42,13 +46,13 @@ class DestinationImageMobile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Destination",
+                        destination.tag,
                         style: TextStyle(
                           fontSize: 14,
                         ),
                       ),
                       Text(
-                        "Honolulu",
+                        destination.name,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

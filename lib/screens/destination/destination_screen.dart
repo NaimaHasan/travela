@@ -4,17 +4,17 @@ import 'package:travela/screens/destination/destination_screen_desktop.dart';
 import 'package:travela/screens/destination/destination_screen_mobile.dart';
 
 class DestinationScreen extends StatelessWidget {
-  const DestinationScreen({Key? key, required this.destination}) : super(key: key);
+  const DestinationScreen({Key? key, required this.destinationName}) : super(key: key);
   static const String routeName = '/destination';
 
-  final String destination;
+  final String destinationName;
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const DestinationScreenMobile(),
-      tablet: (BuildContext context) => const DestinationScreenMobile(),
-      desktop: (BuildContext context) => const DestinationScreenDesktop(),
+      mobile: (BuildContext context) => DestinationScreenMobile(destinationName: destinationName),
+      tablet: (BuildContext context) => DestinationScreenMobile(destinationName: destinationName),
+      desktop: (BuildContext context) => DestinationScreenDesktop(destinationName: destinationName),
     );
   }
 }

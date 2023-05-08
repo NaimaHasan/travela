@@ -24,4 +24,22 @@ class DestinationController{
 
     return allEntries;
   }
+
+  static Future<Destination?> getDestination(String destinationName) async {
+    Destination? result;
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/details/$destinationName/'),
+      );
+
+      var data = jsonDecode(response.body);
+
+      result = Destination.fromJson(data);
+    } catch (err) {
+      print(err);
+    }
+
+    return result;
+  }
 }

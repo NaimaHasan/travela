@@ -3,6 +3,7 @@ import 'package:travela/screens/home/widgets/home_banner.dart';
 import 'package:travela/screens/home/widgets/home_carousel.dart';
 import 'package:travela/screens/home/widgets/home_carousel_mobile.dart';
 import 'package:travela/widgets/common/pill_button.dart';
+import 'package:travela/widgets/common/search_box.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar.dart';
 
@@ -24,20 +25,7 @@ class HomeScreenMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              width: screenSize.width - 2 * marginHorizontalMobile,
-              height: 35,
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-            ),
+            SearchBox(width: screenSize.width - 2 * marginHorizontalMobile),
             verticalSpaceSmall,
             Row(
               mainAxisSize: MainAxisSize.min,

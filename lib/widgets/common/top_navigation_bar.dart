@@ -6,6 +6,7 @@ import 'package:travela/screens/home/home_screen.dart';
 import 'package:travela/screens/login/login_screen.dart';
 import 'package:travela/screens/map/map_screen.dart';
 import 'package:travela/screens/search/search_screen.dart';
+import 'package:travela/widgets/common/search_box.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
@@ -56,7 +57,7 @@ class TopNavigationBar extends StatelessWidget {
                   : horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
-                child: SearchBox(screenSize: screenSize),
+                child: SearchBox(width: 0.25 * screenSize.width),
               ),
             ],
           ),
@@ -140,54 +141,3 @@ class TopNavigationBar extends StatelessWidget {
   }
 }
 
-class SearchBox extends StatefulWidget {
-  const SearchBox({
-    super.key,
-    required this.screenSize,
-  });
-
-  final Size screenSize;
-
-  @override
-  State<SearchBox> createState() => _SearchBoxState();
-}
-
-class _SearchBoxState extends State<SearchBox> {
-  TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void search() {
-    Navigator.of(context).pushNamed("${SearchScreen.routeName}/${_controller.text}");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 0.25 * widget.screenSize.width,
-      child: TextField(
-        controller: _controller,
-        onSubmitted: (_){
-          search();
-        },
-        decoration: InputDecoration(
-          prefixIcon: IconButton(
-            onPressed: (){
-              search();
-            },
-            icon: Icon(Icons.search),
-          ),
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -12,7 +12,7 @@ class SearchResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(DestinationScreen.routeName);
+        Navigator.of(context).pushNamed("${DestinationScreen.routeName}/${destination.name}");
       },
       child: Card(
         elevation: 2,

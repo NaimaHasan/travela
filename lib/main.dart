@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/destination/')) {
           final dynamicValue = settings.name!.split('/').last;
           return MaterialPageRoute(
-            builder: (context) => DestinationScreen(destination: dynamicValue),
+            builder: (context) => DestinationScreen(destinationName: dynamicValue),
             settings: settings,
           );
         }
