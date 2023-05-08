@@ -4,7 +4,7 @@ E logged in na thakle jeno route kore login screen e pathae dae
     - add the check for login in said on generate route
 N onno karo itinerary jaate randomly keo na dekhte pare
 Home screen
-	E Destination/Hotel/Restaurants filtering
+	E Destination/Hotel/Restaurants filterings
 	E Destination
 Destination
     E show location on map and center 
