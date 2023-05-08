@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
       future: _future,
       builder: (ctx, futureResults) {
         if (futureResults.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
         if (!futureResults.hasData) {
           return Center(
