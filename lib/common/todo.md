@@ -10,7 +10,6 @@ New Trip Screen
     E When clicking destination, initialize with location and name e.g. "Location Trip"
     E Limit start and end to not cross
     E Add search to location and centering on initialized location
-    E Initialize with image 
     E add image upload 
     E update image
 Near Me

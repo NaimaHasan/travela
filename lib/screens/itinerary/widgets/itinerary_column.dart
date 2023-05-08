@@ -35,82 +35,83 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
       future: _future,
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator()
-          );
+          return Center(child: CircularProgressIndicator());
         }
         if (!futureResult.hasData) {
           return Text("No Itinerary Entries");
         }
-        return Stack(
-          children: [
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics:
-                  widget.isScrollable ? null : NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              itemCount: futureResult.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                var data = futureResult.data![index];
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Visibility(
-                      child: ItineraryHeader(
-                        text:
-                            "${DateFormat.E().format(data.dateTime)}, ${DateFormat.MMMd().format(data.dateTime)}",
-                        isMiddle: index != 0,
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics:
+                    widget.isScrollable ? null : NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                itemCount: futureResult.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = futureResult.data![index];
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Visibility(
+                        child: ItineraryHeader(
+                          text:
+                              "${DateFormat.E().format(data.dateTime)}, ${DateFormat.MMMd().format(data.dateTime)}",
+                          isMiddle: index != 0,
+                        ),
+                        visible: index == 0
+                            ? true
+                            : (futureResult.data![index].dateTime.day -
+                                        futureResult
+                                            .data![index - 1].dateTime.day)
+                                    .abs() !=
+                                0,
                       ),
-                      visible: index == 0
-                          ? true
-                          : (futureResult.data![index].dateTime.day -
-                                      futureResult
-                                          .data![index - 1].dateTime.day)
-                                  .abs() !=
-                              0,
-                    ),
-                    ItineraryItem(
-                        time: DateFormat('h:mm a').format(data.dateTime),
-                        description: data.description,
-                        isStart: index == 0,
-                        isEnd: index == futureResult.data!.length - 1,
-                        entry: futureResult.data![index],
-                        refresh: () {
-                          setState(() {
-                            _future = ItineraryController.getAllEntries(
-                                widget.trip.tripID!);
-                          });
-                        }),
-                    Visibility(
-                      child: SizedBox(
-                        height: 75,
+                      ItineraryItem(
+                          time: DateFormat('h:mm a').format(data.dateTime),
+                          description: data.description,
+                          isStart: index == 0,
+                          isEnd: index == futureResult.data!.length - 1,
+                          entry: futureResult.data![index],
+                          refresh: () {
+                            setState(() {
+                              _future = ItineraryController.getAllEntries(
+                                  widget.trip.tripID!);
+                            });
+                          }),
+                      Visibility(
+                        child: SizedBox(
+                          height: 75,
+                        ),
+                        visible: index == futureResult.data!.length - 1,
                       ),
-                      visible: index == futureResult.data!.length - 1,
-                    ),
-                  ],
-                );
-              },
-            ),
-            Visibility(
-              visible: widget.isScrollable,
-              child: Positioned(
-                bottom: 20,
-                right: 20,
-                child: FloatingActionButton(
-                  onPressed: () async {
-                    await ItineraryController.newEntry(
-                        context, widget.trip.tripID!);
-                    setState(() {
-                      _future = ItineraryController.getAllEntries(
-                          widget.trip.tripID!);
-                    });
-                  },
-                  child: Icon(Icons.add),
+                    ],
+                  );
+                },
+              ),
+              Visibility(
+                visible: widget.isScrollable,
+                child: Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: FloatingActionButton(
+                    onPressed: () async {
+                      await ItineraryController.newEntry(
+                          context, widget.trip.tripID!);
+                      setState(() {
+                        _future = ItineraryController.getAllEntries(
+                            widget.trip.tripID!);
+                      });
+                    },
+                    child: Icon(Icons.add),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

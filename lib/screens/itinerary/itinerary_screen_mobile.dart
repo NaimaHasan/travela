@@ -62,40 +62,42 @@ class _MainScreenState extends State<MainScreen> {
           return CircularProgressIndicator();
         }
         var data = futureResults.data!;
-        return Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  ItineraryTopMobile(
-                    trip: data,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: ItineraryColumn(
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ItineraryTopMobile(
                       trip: data,
-                      isScrollable: false,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: ItineraryColumn(
+                        trip: data,
+                        isScrollable: false,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: FloatingActionButton(
-                onPressed: () async {
-                  await ItineraryController.newEntry(
-                      context, data.tripID!);
-                  setState(() {
-                    _future =
-                        ItineraryController.getAllEntries(data.tripID!) as Future<Trip?>;
-                  });
-                },
-                child: Icon(Icons.add),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: FloatingActionButton(
+                  onPressed: () async {
+                    await ItineraryController.newEntry(context, data.tripID!);
+                    setState(() {
+                      _future = ItineraryController.getAllEntries(data.tripID!)
+                          as Future<Trip?>;
+                    });
+                  },
+                  child: Icon(Icons.add),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

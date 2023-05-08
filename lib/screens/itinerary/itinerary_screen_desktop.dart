@@ -83,13 +83,17 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox.square(
-                    dimension: 0.16 * widget.screenSize.width,
+                  Container(
+                    width: 0.16 * widget.screenSize.width,
+                    height: 0.16 * widget.screenSize.width,
+                    color: Colors.black12,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
-                      child: Image.asset(
-                        'lib/assets/mock_1.jpg',
-                        fit: BoxFit.fill,
+                      child: Center(
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),

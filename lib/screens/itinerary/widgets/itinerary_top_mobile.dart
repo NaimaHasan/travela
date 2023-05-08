@@ -15,54 +15,60 @@ class ItineraryTopMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 25, right: 25, bottom: 20),
-      child:  Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Container(
-                height: 70,
-                width: 70,
-                color: Colors.tealAccent,
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Container(
+              height: 70,
+              width: 70,
+              color: Colors.black12,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Center(
+                  child: Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 16,
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 5, bottom: 5),
-                    child: Text(
-                      trip.tripName,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
+                  child: Text(
+                    trip.tripName,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
             ),
-            Expanded(child: Container()),
-            IconButton(
-              onPressed: () async {
-                await TripController.deleteTrip(trip.tripID!, context);
-                Navigator.of(context)
-                    .pushNamed(AccountScreen.routeName);
-              },
-              icon: Icon(Icons.delete_outline),
-            ),
-            Container(width: 5),
-            IconButton(
-              onPressed: () async {
-                await TripController.shareTrip(trip, context);
-              },
-              icon: Icon(Icons.share),
-            ),
-          ],
-
+          ),
+          Expanded(child: Container()),
+          IconButton(
+            onPressed: () async {
+              await TripController.deleteTrip(trip.tripID!, context);
+              Navigator.of(context).pushNamed(AccountScreen.routeName);
+            },
+            icon: Icon(Icons.delete_outline),
+          ),
+          Container(width: 5),
+          IconButton(
+            onPressed: () async {
+              await TripController.shareTrip(trip, context);
+            },
+            icon: Icon(Icons.share),
+          ),
+        ],
       ),
     );
     //},
