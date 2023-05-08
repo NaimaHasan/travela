@@ -6,10 +6,10 @@ class HomeDestination {
         required this.location});
 
   HomeDestination.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        image =json['image'],
-        tag = json['tag'],
-        location = json['description'];
+      : name = json['destinationName'],
+        image =json['destinationImage'],
+        tag = json['destinationTag'],
+        location = json['destinationLocation'];
 
   final String name;
   final String image;

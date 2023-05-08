@@ -16,6 +16,7 @@ class HomeDestinationController {
       var data = jsonDecode(response.body);
 
       result = HomeDestination.fromJson(data);
+      print(result);
     } catch (err) {
       print(err);
     }
