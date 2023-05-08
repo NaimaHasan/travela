@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
         }
         var data = futureResults.data!;
         return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
