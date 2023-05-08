@@ -48,11 +48,12 @@ class _NewTripDateState extends State<NewTripDate> {
             DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: widget.title == 'Start Date' ? DateTime(2000) : DateFormat('yyyy-MM-dd').parse(widget.otherController.text),
-              lastDate: widget.title == 'Start Date' ? DateFormat('yyyy-MM-dd').parse(widget.otherController.text) : DateTime(2101),
+              firstDate: widget.title == 'Start Date' ? DateTime(2000).toLocal() : DateFormat('yyyy-MM-dd').parse(widget.otherController.text).toLocal(),
+              lastDate: widget.title == 'Start Date' ? DateFormat('yyyy-MM-dd').parse(widget.otherController.text).toLocal() : DateTime(2101).toLocal(),
+
             );
             if (pickedDate != null) {
-              String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+              String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate.toLocal());
               setState(() {
                 widget.myController.text = formattedDate;
               });

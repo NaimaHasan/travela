@@ -12,6 +12,8 @@ import '../../common/models/trip.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
+import '../../widgets/common/variable_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class ItineraryScreenMobile extends StatelessWidget {
   const ItineraryScreenMobile({super.key, required this.trip});
@@ -46,11 +48,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late Future<Trip?> _future;
+  late Future<List<dynamic>> _future;
+  final MapController _controller = MapController();
+
+  void setFutures() {
+    _future = Future.wait([
+      TripController.getTripDetails(widget.trip),
+      ItineraryController.getAllLocations(widget.trip)
+    ]);
+  }
 
   @override
   void initState() {
-    _future = TripController.getTripDetails(widget.trip);
+    setFutures();
     super.initState();
   }
 
@@ -62,7 +72,11 @@ class _MainScreenState extends State<MainScreen> {
         if (futureResults.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
-        var data = futureResults.data!;
+        if (!futureResults.hasData) {
+          return Center(child: Text("Trip does not exist."));
+        }
+        var data = futureResults.data![0] as Trip;
+        var locations = futureResults.data![1] as List<LatLng>;
         return Container(
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -99,7 +113,10 @@ class _MainScreenState extends State<MainScreen> {
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: FlutterMap(
-                          options: MapOptions(),
+                          mapController: _controller,
+                          options: MapOptions(
+                            center: locations[0],
+                          ),
                           children: [
                             TileLayer(
                               urlTemplate:
@@ -107,6 +124,21 @@ class _MainScreenState extends State<MainScreen> {
                               userAgentPackageName:
                                   'dev.fleaflet.flutter_map.example',
                             ),
+                            MarkerLayer(
+                              markers: [
+                                for (var location in locations)
+                                  Marker(
+                                    width: 150.0,
+                                    height: 150.0,
+                                    point: location,
+                                    builder: (ctx) => const Icon(
+                                      Icons.location_on,
+                                      color: Colors.red,
+                                      size: 35.0,
+                                    ),
+                                  ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -136,6 +168,11 @@ class _MainScreenState extends State<MainScreen> {
                       child: ItineraryColumn(
                         trip: data,
                         isScrollable: false,
+                        refreshMarkers: () {
+                          setState(() {
+                            setFutures();
+                          });
+                        },
                       ),
                     ),
                   ],
@@ -148,8 +185,7 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () async {
                     await ItineraryController.newEntry(context, data.tripID!);
                     setState(() {
-                      _future = ItineraryController.getAllEntries(data.tripID!)
-                          as Future<Trip?>;
+                      setFutures();
                     });
                   },
                   child: Icon(Icons.add),

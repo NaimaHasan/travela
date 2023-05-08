@@ -5,7 +5,6 @@ E logged in na thakle jeno route kore login screen e pathae dae
 N onno karo itinerary jaate randomly keo na dekhte pare
 Home screen
 	E Destination/Hotel/Restaurants filtering
-	E Destination
 Destination
     E show location on map and center 
 New Trip Screen
@@ -15,9 +14,7 @@ Near Me
 	E show destinations on screen
 Itinerary
     N Allow editing trip info
-    N Add next step indicator
-    E Show tracker on map
-E Hand picked destinations for banner and home carousels (shob data django te thakbe)
+
 - search results from scraper
   - Clicked results
     - E LongLat
