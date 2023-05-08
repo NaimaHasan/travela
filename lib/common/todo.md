@@ -19,7 +19,6 @@ Account
     N Add suggestions to share dialog
 Itinerary
     N Allow editing trip info
-    E Add map to mobile screen
     N Add next step indicator
     E Show tracker on map
     N Center map to trip location
