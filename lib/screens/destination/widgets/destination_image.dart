@@ -80,7 +80,7 @@ class DestinationImage extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     onPress: () {
-                      Navigator.of(context).pushNamed(NewTripScreen.routeName);
+                      Navigator.of(context).pushNamed(NewTripScreen.routeName, arguments: destination.name);
                     },
                   ),
                   horizontalSpaceMedium,

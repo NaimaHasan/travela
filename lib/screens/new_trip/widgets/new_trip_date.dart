@@ -3,28 +3,22 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewTripDate extends StatefulWidget {
-  NewTripDate({required this.title, Key? key, required this.onSaved}) : super(key: key);
+  NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController}) : super(key: key);
   final String title;
   final Function(String?) onSaved;
+  final TextEditingController myController;
+  final TextEditingController otherController;
 
   @override
   _NewTripDateState createState() => _NewTripDateState();
 }
 
 class _NewTripDateState extends State<NewTripDate> {
-  TextEditingController dateController = TextEditingController();
-
   @override
   void initState() {
-    dateController.text = DateFormat('yyyy-MM-dd')
+    widget.myController.text = DateFormat('yyyy-MM-dd')
         .format(DateTime.now()); //set the initial value of text field
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    dateController.dispose();
-    super.dispose();
   }
 
   @override
@@ -39,7 +33,7 @@ class _NewTripDateState extends State<NewTripDate> {
       height: 60,
       child: Center(
         child: TextFormField(
-          controller: dateController,
+          controller: widget.myController,
           decoration: InputDecoration(
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
@@ -54,13 +48,13 @@ class _NewTripDateState extends State<NewTripDate> {
             DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2101),
+              firstDate: widget.title == 'Start Date' ? DateTime(2000) : DateFormat('yyyy-MM-dd').parse(widget.otherController.text),
+              lastDate: widget.title == 'Start Date' ? DateFormat('yyyy-MM-dd').parse(widget.otherController.text) : DateTime(2101),
             );
             if (pickedDate != null) {
               String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
               setState(() {
-                dateController.text = formattedDate;
+                widget.myController.text = formattedDate;
               });
             }
           },

@@ -12,8 +12,10 @@ import 'new_trip_location.dart';
 import 'package:latlong2/latlong.dart';
 
 class NewTripForm extends StatefulWidget {
-  const NewTripForm({Key? key}) : super(key: key);
+  const NewTripForm({Key? key, this.initialName}) : super(key: key);
 
+  final String? initialName;
+  
   @override
   State<NewTripForm> createState() => _NewTripFormState();
 }
@@ -27,6 +29,16 @@ class _NewTripFormState extends State<NewTripForm> {
   String _endDate = "";
 
   XFile? _image;
+
+  TextEditingController startController = TextEditingController();
+  TextEditingController endController = TextEditingController();
+
+  @override
+  void dispose() {
+    startController.dispose();
+    endController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +60,23 @@ class _NewTripFormState extends State<NewTripForm> {
               _name = value!;
             },
             label: "Name",
+            initialName: widget.initialName,
           ),
           NewTripDate(
             title: 'Start Date',
             onSaved: (value) {
               _startDate = value!;
             },
+            myController: startController,
+            otherController: endController,
           ),
           NewTripDate(
             title: 'End Date',
             onSaved: (value) {
               _endDate = value!;
             },
+            myController: endController,
+            otherController: startController,
           ),
           const Padding(
             padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),

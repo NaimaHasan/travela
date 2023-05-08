@@ -10,10 +10,11 @@ class NewTripScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? name = ModalRoute.of(context)!.settings.arguments as String?;
     return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => NewTripScreenDesktop(),
-      tablet: (BuildContext context) => NewTripScreenDesktop(),
-      desktop: (BuildContext context) => NewTripScreenDesktop(),
+      mobile: (BuildContext context) => NewTripScreenDesktop(initialName: name),
+      tablet: (BuildContext context) => NewTripScreenDesktop(initialName: name),
+      desktop: (BuildContext context) => NewTripScreenDesktop(initialName: name),
     );
   }
 }

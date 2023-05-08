@@ -3,11 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewTripName extends StatefulWidget {
-  NewTripName({Key? key, required this.onSaved, required this.label}) : super(key: key);
-  
+  NewTripName(
+      {Key? key, required this.onSaved, required this.label, this.initialName})
+      : super(key: key);
+
   final Function(String?) onSaved;
   final String label;
-  
+  final String? initialName;
+
   @override
   _NewTripNameState createState() => _NewTripNameState();
 }
@@ -17,7 +20,9 @@ class _NewTripNameState extends State<NewTripName> {
 
   @override
   void initState() {
-    dateController.text = "Default Name"; //set the initial value of text field
+    dateController.text = widget.initialName == null
+        ? "Default Name"
+        : widget.initialName!; //set the initial value of text field
     super.initState();
   }
 

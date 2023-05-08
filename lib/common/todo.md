@@ -8,8 +8,7 @@ Home screen
 Destination
     E show location on map and center 
 New Trip Screen
-    E When clicking destination, initialize with location and name e.g. "Location Trip"
-    E Limit start and end to not cross
+    E When clicking destination, initialize with location
     E Add search to location and centering on initialized location
 Near Me
 	E Get user current location
@@ -32,3 +31,4 @@ E Hand picked destinations for banner and home carousels (shob data django te th
     - N Things to do
     - E Nearby places
 N Fix destinations that want location
+N Add filtering
