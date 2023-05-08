@@ -70,7 +70,7 @@ class HomeScreenDesktop extends StatelessWidget {
             verticalSpaceSmall,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-              child: HomeCarousel(),
+              child: HomeCarousel(name: 'Hot destination'),
             ),
             verticalSpaceMedium,
             Align(
@@ -88,7 +88,7 @@ class HomeScreenDesktop extends StatelessWidget {
             verticalSpaceSmall,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-              child: HomeCarousel(),
+              child: HomeCarousel(name: 'Location of the day'),
             ),
           ],
         ),

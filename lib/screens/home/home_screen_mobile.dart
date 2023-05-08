@@ -70,7 +70,7 @@ class HomeScreenMobile extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             verticalSpaceSmall,
-            HomeCarouselMobile(),
+            HomeCarouselMobile(name: 'Hot Destinations'),
             verticalSpaceMedium,
             Align(
               child: Padding(
@@ -85,7 +85,7 @@ class HomeScreenMobile extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             verticalSpaceSmall,
-            HomeCarouselMobile(),
+            HomeCarouselMobile(name: 'Location of the day'),
           ],
         ),
       ),

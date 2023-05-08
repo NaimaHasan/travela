@@ -33,9 +33,10 @@ class HomeDestinationController {
       );
 
       var data = jsonDecode(response.body);
-      for (Map<String, dynamic> tripEntry in data) {
-        result.add(HomeDestination.fromJson(data));
+      for (Map<String, dynamic> homeDestination in data) {
+        result.add(HomeDestination.fromJson(homeDestination));
       }
+      print(result);
     } catch (err) {
       print(err);
     }

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/api/homeDestinationController.dart';
+import '../../../common/models/homeDestination.dart';
 import '../../destination/destination_screen.dart';
 
 final List<String> imgList = [
@@ -12,63 +14,93 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-class HomeCarousel extends StatelessWidget {
-  const HomeCarousel({Key? key}) : super(key: key);
+class HomeCarousel extends StatefulWidget {
+  const HomeCarousel({Key? key, required this.name}) : super(key: key);
+  final String name;
+  @override
+  _HomeCarouselState createState() => _HomeCarouselState();
+}
+
+class _HomeCarouselState extends State<HomeCarousel> {
+  late Future<List<HomeDestination?>> _future;
+
+  @override
+  void initState() {
+    _future = HomeDestinationController.getHomeHotDestinations();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        autoPlay: false,
-        enlargeCenterPage: true,
-        enlargeStrategy: CenterPageEnlargeStrategy.height,
-        enlargeFactor: 0.1,
-        viewportFraction: 0.335,
-        height: 400,
-        initialPage: 5,
-      ),
-      items: imgList
-          .map(
-            (item) => Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(DestinationScreen.routeName);
-                  },
-                  child: Stack(
-                    children: [
-                      Image.network(item, fit: BoxFit.cover, height: 400),
-                      Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(50, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
+    return FutureBuilder(
+      future: _future,
+      builder: (ctx, futureResult) {
+        if (futureResult.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (!futureResult.hasData || futureResult.data == null) {
+          return Center(
+            child: Text("No destination available"),
+          );
+        }
+        return CarouselSlider(
+          options: CarouselOptions(
+            autoPlay: false,
+            enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.height,
+            enlargeFactor: 0.1,
+            viewportFraction: 0.335,
+            height: 400,
+            initialPage: 5,
+          ),
+          items: futureResult.data!
+              .map(
+                (item) => Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(DestinationScreen.routeName);
+                      },
+                      child: Stack(
+                        children: [
+                          Image.network(item!.image,
+                              fit: BoxFit.cover, height: 400),
+                          Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(50, 0, 0, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            child: Container(),
                           ),
-                        ),
-                        child: Container(),
+                          Positioned(
+                            bottom: 15,
+                            left: 15,
+                            child: Text(
+                              item!.name,
+                              style:
+                                  TextStyle(fontSize: 22, color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
-                      Positioned(
-                        bottom: 15,
-                        left: 15,
-                        child: Text(
-                          'Puerto Rico',
-                          style: TextStyle(fontSize: 22, color: Colors.white),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          )
-          .toList(),
+              )
+              .toList(),
+        );
+      },
     );
   }
 }
