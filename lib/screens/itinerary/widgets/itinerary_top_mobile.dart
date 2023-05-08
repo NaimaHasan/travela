@@ -20,15 +20,20 @@ class ItineraryTopMobile extends StatelessWidget {
           Container(
             height: 70,
             width: 70,
-            color: Colors.black12,
+            color: trip.tripImageUrl == null ? Colors.black12 : null,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Center(
-                child: Icon(
-                  Icons.image_not_supported_outlined,
-                  size: 16,
-                ),
-              ),
+              child: trip.tripImageUrl == null
+                  ? Center(
+                      child: Icon(
+                        Icons.image_not_supported_outlined,
+                        size: 30,
+                      ),
+                    )
+                  : Image.network(
+                      "http://127.0.0.1:8000${trip.tripImageUrl!}",
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           Padding(

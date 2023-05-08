@@ -86,15 +86,20 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     width: 0.16 * widget.screenSize.width,
                     height: 0.16 * widget.screenSize.width,
-                    color: Colors.black12,
+                    color: data.tripImageUrl == null ? Colors.black12 : null,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
-                      child: Center(
-                        child: Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 30,
-                        ),
-                      ),
+                      child: data.tripImageUrl == null
+                          ? Center(
+                              child: Icon(
+                                Icons.image_not_supported_outlined,
+                                size: 30,
+                              ),
+                            )
+                          : Image.network(
+                              "http://127.0.0.1:8000${data.tripImageUrl!}",
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                   verticalSpaceSmall,
