@@ -68,8 +68,18 @@ class _HomeCarouselState extends State<HomeCarousel> {
                       },
                       child: Stack(
                         children: [
-                          Image.network(item!.image,
-                              fit: BoxFit.cover, height: 400),
+                          LayoutBuilder(
+                            builder: (BuildContext context, BoxConstraints constraints) {
+                              return FittedBox(
+                                fit: BoxFit.cover,
+                                child: SizedBox(
+                                  width: constraints.maxWidth,
+                                  height: constraints.maxHeight,
+                                  child: Image.network(item!.image, fit: BoxFit.cover),
+                                ),
+                              );
+                            },
+                          ),
                           Container(
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(

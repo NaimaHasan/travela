@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/account/account_screen.dart';
-import 'package:travela/screens/destination_list/destination_list_screen.dart';
 import 'package:travela/screens/edit_information/edit_information_screen.dart';
 import 'package:travela/screens/itinerary/itinerary_screen.dart';
 import 'package:travela/screens/login/login_screen.dart';
@@ -41,7 +40,6 @@ class MyApp extends StatelessWidget {
         AccountScreen.routeName: (ctx) => const AccountScreen(),
         EditInformationScreen.routeName: (ctx) => const EditInformationScreen(),
         NewTripScreen.routeName: (ctx) => const NewTripScreen(),
-        DestinationListScreen.routeName: (ctx) => const DestinationListScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name!.startsWith('/itinerary/')) {
