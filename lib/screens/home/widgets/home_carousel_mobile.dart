@@ -15,90 +15,91 @@ final List<String> imgList = [
 ];
 
 class HomeCarouselMobile extends StatefulWidget {
-  const HomeCarouselMobile({Key? key, required this.name}) : super(key: key);
+  const HomeCarouselMobile(
+      {Key? key, required this.name, required this.futureValueNotifier})
+      : super(key: key);
   final String name;
+  final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
   @override
   _HomeCarouselMobileState createState() => _HomeCarouselMobileState();
 }
 
 class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
-  late Future<List<HomeDestination?>> _future;
-
-  @override
-  void initState() {
-    _future = HomeDestinationController.getHomeHotDestinations();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (ctx, futureResult) {
-        if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (!futureResult.hasData || futureResult.data == null) {
-          return Center(
-            child: Text("No destination available"),
-          );
-        }
-        return CarouselSlider(
-          options: CarouselOptions(
-            autoPlay: false,
-            enlargeCenterPage: true,
-            enlargeStrategy: CenterPageEnlargeStrategy.height,
-            viewportFraction: 0.9,
-            height: 400,
-            initialPage: 5,
-            enlargeFactor: 0.1,
-          ),
-          items: futureResult.data!
-              .map(
-                (item) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(DestinationScreen.routeName);
-                      },
-                      child: Stack(
-                        children: [
-                          Image.network(item!.image,
-                              fit: BoxFit.cover, height: 400),
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(50, 0, 0, 0),
-                                  Color.fromARGB(0, 0, 0, 0)
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
+    return ValueListenableBuilder(
+      valueListenable: widget.futureValueNotifier,
+      builder: (context, future, child) {
+        return FutureBuilder(
+          future: future,
+          builder: (ctx, futureResult) {
+            if (futureResult.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (!futureResult.hasData || futureResult.data == null) {
+              return Center(
+                child: Text("No destination available"),
+              );
+            }
+            return CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                viewportFraction: 0.9,
+                height: 400,
+                initialPage: 5,
+                enlargeFactor: 0.1,
+              ),
+              items: futureResult.data!
+                  .map(
+                    (item) => Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(DestinationScreen.routeName);
+                          },
+                          child: Stack(
+                            children: [
+                              Image.network(item!.image,
+                                  fit: BoxFit.cover, height: 400),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(50, 0, 0, 0),
+                                      Color.fromARGB(0, 0, 0, 0)
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
+                                ),
+                                child: Container(),
                               ),
-                            ),
-                            child: Container(),
+                              Positioned(
+                                bottom: 15,
+                                left: 15,
+                                child: Text(
+                                  item!.name,
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            bottom: 15,
-                            left: 15,
-                            child: Text(
-                              item!.name,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              )
-              .toList(),
+                  )
+                  .toList(),
+            );
+          },
         );
       },
     );

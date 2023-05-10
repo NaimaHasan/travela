@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 
 import '../../../common/api/homeDestinationController.dart';
@@ -94,11 +95,15 @@ class _HomeBannerState extends State<HomeBanner> {
                               fontSize: 14,
                             ),
                           ),
-                          Text(
-                            futureResult.data!.name!,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 0.15 * screenSize.width,
+                            child: Text(
+                              futureResult.data!.name!,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ],
