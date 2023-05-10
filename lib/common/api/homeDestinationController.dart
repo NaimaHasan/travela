@@ -49,7 +49,7 @@ class HomeDestinationController {
 
     try {
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'destinations/homeDestinations/'),
+        Uri.http('127.0.0.1:8000', 'destinations/homeFilter/Destination/'),
       );
 
       var data = jsonDecode(response.body);
@@ -69,7 +69,7 @@ class HomeDestinationController {
 
     try {
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'destinations/homeHotels/'),
+        Uri.http('127.0.0.1:8000', 'destinations/homeFilter/Hotel/'),
       );
 
       var data = jsonDecode(response.body);
@@ -89,7 +89,7 @@ class HomeDestinationController {
 
     try {
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'destinations/homeRestaurants/'),
+        Uri.http('127.0.0.1:8000', 'destinations/homeFilter/Restaurant/'),
       );
 
       var data = jsonDecode(response.body);
@@ -110,6 +110,66 @@ class HomeDestinationController {
     try {
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDay/'),
+      );
+
+      var data = jsonDecode(response.body);
+      for (Map<String, dynamic> homeDestination in data) {
+        result.add(HomeDestination.fromJson(homeDestination));
+      }
+      print(result);
+    } catch (err) {
+      print(err);
+    }
+
+    return result;
+  }
+
+  static Future<List<HomeDestination?>> getLocationOfTheDayDestinations() async {
+    List<HomeDestination?> result = [];
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDayFiltered/Destination/'),
+      );
+
+      var data = jsonDecode(response.body);
+      for (Map<String, dynamic> homeDestination in data) {
+        result.add(HomeDestination.fromJson(homeDestination));
+      }
+      print(result);
+    } catch (err) {
+      print(err);
+    }
+
+    return result;
+  }
+
+  static Future<List<HomeDestination?>> getLocationOfTheDayHotels() async {
+    List<HomeDestination?> result = [];
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDayFiltered/Hotels/'),
+      );
+
+      var data = jsonDecode(response.body);
+      for (Map<String, dynamic> homeDestination in data) {
+        result.add(HomeDestination.fromJson(homeDestination));
+      }
+      print(result);
+    } catch (err) {
+      print(err);
+    }
+
+    return result;
+  }
+
+  static Future<List<HomeDestination?>> getLocationOfTheDayRestaurants() async {
+    List<HomeDestination?> result = [];
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDayFiltered/Restaurant/'),
       );
 
       var data = jsonDecode(response.body);
