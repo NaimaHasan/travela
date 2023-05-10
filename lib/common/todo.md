@@ -2,11 +2,7 @@ E logged in na thakle jeno route kore login screen e pathae dae
     - change all routes to on generate route so can control animation
     - add the check for login in said on generate route
 N onno karo itinerary jaate randomly keo na dekhte pare
-Home screen
-	E Destination/Hotel/Restaurants filtering
-Destination
-    E show location on map and center
-        - depends on giving the lat long from backend
+
 New Trip Screen
     E When clicking destination, initialize with location
         - depends on giving the lat long from backend
