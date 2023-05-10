@@ -51,6 +51,18 @@ class _HomeCarouselState extends State<HomeCarousel> {
   }
 
   @override
+  void didChangeDependencies() {
+    setFutures();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeCarousel oldWidget) {
+    setFutures();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _future,

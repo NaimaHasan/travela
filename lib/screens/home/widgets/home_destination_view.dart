@@ -38,8 +38,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     filterName = FilterName.Destination;
                   });
-                }
-                else {
+                } else {
                   setState(() {
                     filterName = FilterName.None;
                   });
@@ -61,8 +60,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     filterName = FilterName.Hotel;
                   });
-                }
-                else {
+                } else {
                   setState(() {
                     filterName = FilterName.None;
                   });
@@ -84,8 +82,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     filterName = FilterName.Resturant;
                   });
-                }
-                else {
+                } else {
                   setState(() {
                     filterName = FilterName.None;
                   });
@@ -131,8 +128,10 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
         verticalSpaceSmall,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-          child:
-              HomeCarousel(name: 'Location of the day', filterName: filterName),
+          child: HomeCarousel(
+            name: 'Location of the day',
+            filterName: filterName,
+          ),
         ),
       ],
     );
