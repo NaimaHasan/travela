@@ -102,7 +102,9 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                       3 -
                                   70),
                               child: Image.network(
-                                  "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}"),
+                                "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                     ),
                     Expanded(

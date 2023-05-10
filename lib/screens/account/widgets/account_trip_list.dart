@@ -84,7 +84,9 @@ class _AccountTripListState extends State<AccountTripList> {
                                   height: 60,
                                   width: 60,
                                   child: Image.network(
-                                      "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}"),
+                                    "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                         ),
                         Padding(
