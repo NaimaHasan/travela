@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/api/homeDestinationController.dart';
+import '../../../common/enums.dart';
 import '../../../common/models/homeDestination.dart';
 import '../../destination/destination_screen.dart';
 
@@ -15,8 +16,10 @@ final List<String> imgList = [
 ];
 
 class HomeCarousel extends StatefulWidget {
-  const HomeCarousel({Key? key, required this.name}) : super(key: key);
+  const HomeCarousel({Key? key, required this.name, required this.filterName})
+      : super(key: key);
   final String name;
+  final FilterName filterName;
   @override
   _HomeCarouselState createState() => _HomeCarouselState();
 }
@@ -24,9 +27,26 @@ class HomeCarousel extends StatefulWidget {
 class _HomeCarouselState extends State<HomeCarousel> {
   late Future<List<HomeDestination?>> _future;
 
+  void setFutures() {
+    switch (widget.filterName) {
+      case FilterName.Destination:
+        _future = HomeDestinationController.getHomeDestinations();
+        break;
+      case FilterName.Hotel:
+        _future = HomeDestinationController.getHomeHotels();
+        break;
+      case FilterName.Resturant:
+        _future = HomeDestinationController.getHomeRestaurants();
+        break;
+      case FilterName.None:
+        _future = HomeDestinationController.getHomeHotDestinations();
+        break;
+    }
+  }
+
   @override
   void initState() {
-    _future = HomeDestinationController.getHomeHotDestinations();
+    setFutures();
     super.initState();
   }
 
@@ -69,13 +89,15 @@ class _HomeCarouselState extends State<HomeCarousel> {
                       child: Stack(
                         children: [
                           LayoutBuilder(
-                            builder: (BuildContext context, BoxConstraints constraints) {
+                            builder: (BuildContext context,
+                                BoxConstraints constraints) {
                               return FittedBox(
                                 fit: BoxFit.cover,
                                 child: SizedBox(
                                   width: constraints.maxWidth,
                                   height: constraints.maxHeight,
-                                  child: Image.network(item!.image, fit: BoxFit.cover),
+                                  child: Image.network(item!.image,
+                                      fit: BoxFit.cover),
                                 ),
                               );
                             },
