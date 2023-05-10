@@ -34,7 +34,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               ),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
-                if (filterName == FilterName.None) {
+                if (filterName != FilterName.Destination) {
                   setState(() {
                     filterName = FilterName.Destination;
                   });
@@ -46,7 +46,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                 }
               },
               color: filterName == FilterName.Destination
-                  ? Colors.blueAccent
+                  ? Colors.lightBlueAccent
                   : Colors.white,
             ),
             horizontalSpaceSmall,
@@ -57,7 +57,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               ),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
-                if (filterName == FilterName.None) {
+                if (filterName != FilterName.Hotel) {
                   setState(() {
                     filterName = FilterName.Hotel;
                   });
@@ -69,7 +69,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                 }
               },
               color: filterName == FilterName.Hotel
-                  ? Colors.blueAccent
+                  ? Colors.lightBlueAccent
                   : Colors.white,
             ),
             horizontalSpaceSmall,
@@ -80,7 +80,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               ),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
-                if (filterName == FilterName.None) {
+                if (filterName != FilterName.Resturant) {
                   setState(() {
                     filterName = FilterName.Resturant;
                   });
@@ -92,7 +92,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                 }
               },
               color: filterName == FilterName.Resturant
-                  ? Colors.blueAccent
+                  ? Colors.lightBlueAccent
                   : Colors.white,
             ),
           ],
