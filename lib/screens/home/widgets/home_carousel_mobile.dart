@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/api/homeDestinationController.dart';
 import '../../../common/models/homeDestination.dart';
+import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
 
 final List<String> imgList = [
@@ -15,10 +16,8 @@ final List<String> imgList = [
 ];
 
 class HomeCarouselMobile extends StatefulWidget {
-  const HomeCarouselMobile(
-      {Key? key, required this.name, required this.futureValueNotifier})
+  const HomeCarouselMobile({Key? key, required this.futureValueNotifier})
       : super(key: key);
-  final String name;
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
   @override
   _HomeCarouselMobileState createState() => _HomeCarouselMobileState();
@@ -34,70 +33,112 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
           future: future,
           builder: (ctx, futureResult) {
             if (futureResult.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (!futureResult.hasData || futureResult.data == null) {
-              return Center(
-                child: Text("No destination available"),
-              );
-            }
-            return CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                viewportFraction: 0.9,
-                height: 400,
-                initialPage: 5,
-                enlargeFactor: 0.1,
-              ),
-              items: futureResult.data!
-                  .map(
-                    (item) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed("${DestinationScreen.routeName}/${item.name}");
-                          },
-                          child: Stack(
-                            children: [
-                              Image.network(item!.image,
-                                  fit: BoxFit.cover, height: 400),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(50, 0, 0, 0),
-                                      Color.fromARGB(0, 0, 0, 0)
-                                    ],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                  ),
-                                ),
-                                child: Container(),
-                              ),
-                              Positioned(
-                                bottom: 15,
-                                left: 15,
-                                child: Text(
-                                  item!.name,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              return Column(
+                children: [
+                  Align(
+                    child: Text(
+                      "Location of the Day",
+                      style: TextStyle(
+                        fontSize: 24,
                       ),
                     ),
-                  )
-                  .toList(),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  verticalSpaceSmall,
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+              );
+            }
+            if (!futureResult.hasData || futureResult.data == null || futureResult.data!.isEmpty) {
+              return Column(
+                children: [
+                  Align(
+                    child: Text(
+                      "Location of the Day",
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  verticalSpaceSmall,
+                  Center(
+                    child: Text("No destination available"),
+                  ),
+                ],
+              );
+            }
+            return Column(
+              children: [
+                Align(
+                  child: Text(
+                    "Location of the Day: ${futureResult.data![0]!.location}",
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  alignment: Alignment.centerLeft,
+                ),
+                verticalSpaceSmall,
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    viewportFraction: 0.9,
+                    height: 400,
+                    initialPage: 5,
+                    enlargeFactor: 0.1,
+                  ),
+                  items: futureResult.data!
+                      .map(
+                        (item) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    "${DestinationScreen.routeName}/${item.name}");
+                              },
+                              child: Stack(
+                                children: [
+                                  Image.network(item!.image,
+                                      fit: BoxFit.cover, height: 400),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color.fromARGB(50, 0, 0, 0),
+                                          Color.fromARGB(0, 0, 0, 0)
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                      ),
+                                    ),
+                                    child: Container(),
+                                  ),
+                                  Positioned(
+                                    bottom: 15,
+                                    left: 15,
+                                    child: Text(
+                                      item!.name,
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
             );
           },
         );

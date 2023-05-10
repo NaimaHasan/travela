@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../common/api/homeDestinationController.dart';
 import '../../../common/enums.dart';
 import '../../../common/models/homeDestination.dart';
+import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
 
 final List<String> imgList = [
@@ -17,10 +18,10 @@ final List<String> imgList = [
 
 class HomeCarousel extends StatefulWidget {
   const HomeCarousel(
-      {Key? key, required this.name, required this.futureValueNotifier})
+      {Key? key, required this.futureValueNotifier, required this.isLOTD})
       : super(key: key);
-  final String name;
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
+  final bool isLOTD;
   @override
   _HomeCarouselState createState() => _HomeCarouselState();
 }
@@ -35,82 +36,133 @@ class _HomeCarouselState extends State<HomeCarousel> {
           future: future,
           builder: (ctx, futureResult) {
             if (futureResult.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (!futureResult.hasData || futureResult.data == null) {
-              return Center(
-                child: Text("No destination available"),
-              );
-            }
-            return CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                enlargeFactor: 0.1,
-                viewportFraction: 0.335,
-                height: 400,
-                initialPage: 5,
-              ),
-              items: futureResult.data!
-                  .map(
-                    (item) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed("${DestinationScreen.routeName}/${item.name}");
-                          },
-                          child: Stack(
-                            children: [
-                              LayoutBuilder(
-                                builder: (BuildContext context,
-                                    BoxConstraints constraints) {
-                                  return FittedBox(
-                                    fit: BoxFit.cover,
-                                    child: SizedBox(
-                                      width: constraints.maxWidth,
-                                      height: constraints.maxHeight,
-                                      child: Image.network(item!.image,
-                                          fit: BoxFit.cover),
-                                    ),
-                                  );
-                                },
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(50, 0, 0, 0),
-                                      Color.fromARGB(0, 0, 0, 0)
-                                    ],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                  ),
-                                ),
-                                child: Container(),
-                              ),
-                              Positioned(
-                                bottom: 15,
-                                left: 15,
-                                child: Text(
-                                  item!.name,
-                                  style: TextStyle(
-                                      fontSize: 22, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
+              return Column(
+                children: [
+                  Visibility(
+                    visible: widget.isLOTD,
+                    child: Align(
+                      child: Text(
+                        "Location of the Day",
+                        style: TextStyle(
+                          fontSize: 24,
                         ),
                       ),
+                      alignment: Alignment.centerLeft,
                     ),
-                  )
-                  .toList(),
+                  ),
+                  verticalSpaceSmall,
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+              );
+            }
+            if (!futureResult.hasData || futureResult.data == null || futureResult.data!.isEmpty) {
+              return Column(
+                children: [
+                  Visibility(
+                    visible: widget.isLOTD,
+                    child: Align(
+                      child: Text(
+                        "Location of the Day",
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
+                  verticalSpaceSmall,
+                  Center(
+                    child: Text("No destinations available"),
+                  ),
+                ],
+              );
+            }
+            return Column(
+              children: [
+                Visibility(
+                  visible: widget.isLOTD,
+                  child: Align(
+                    child: Text(
+                      "Location of the Day: ${futureResult.data![0]!.location}",
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
+                verticalSpaceSmall,
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    enlargeFactor: 0.1,
+                    viewportFraction: 0.335,
+                    height: 400,
+                    initialPage: 5,
+                  ),
+                  items: futureResult.data!
+                      .map(
+                        (item) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    "${DestinationScreen.routeName}/${item.name}");
+                              },
+                              child: Stack(
+                                children: [
+                                  LayoutBuilder(
+                                    builder: (BuildContext context,
+                                        BoxConstraints constraints) {
+                                      return FittedBox(
+                                        fit: BoxFit.cover,
+                                        child: SizedBox(
+                                          width: constraints.maxWidth,
+                                          height: constraints.maxHeight,
+                                          child: Image.network(item!.image,
+                                              fit: BoxFit.cover),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color.fromARGB(50, 0, 0, 0),
+                                          Color.fromARGB(0, 0, 0, 0)
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                      ),
+                                    ),
+                                    child: Container(),
+                                  ),
+                                  Positioned(
+                                    bottom: 15,
+                                    left: 15,
+                                    child: Text(
+                                      item!.name,
+                                      style: TextStyle(
+                                          fontSize: 22, color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
             );
           },
         );

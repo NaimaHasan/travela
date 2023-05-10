@@ -5,18 +5,24 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:http/http.dart' as http;
 
-class LocationController{
+class LocationController {
   static Future<LatLng?> getCurrentLocation() async {
-    final position = await window.navigator.geolocation.getCurrentPosition();
+    LatLng? result;
 
-    final latitude = position.coords?.latitude?.toDouble();
-    final longitude = position.coords?.longitude?.toDouble();
+    try {
+      final position = await window.navigator.geolocation.getCurrentPosition();
 
-    if(latitude == null || longitude == null) {
+      final latitude = position.coords?.latitude?.toDouble();
+      final longitude = position.coords?.longitude?.toDouble();
+
+      if (latitude == null || longitude == null) {
+        return null;
+      }
+      result = LatLng(latitude, longitude);
+    } catch (err) {
+      print(err);
       return null;
     }
-
-    LatLng result = LatLng(latitude, longitude);
     return result;
   }
 
@@ -28,10 +34,10 @@ class LocationController{
         Uri.http('127.0.0.1:8000', 'destinations/location/$locationName/'),
       );
 
-
       var data = jsonDecode(response.body);
 
-      result = LatLng( double.parse(data['latitude']), double.parse(data['longitude']));
+      result = LatLng(
+          double.parse(data['latitude']), double.parse(data['longitude']));
     } catch (err) {
       print(err);
     }

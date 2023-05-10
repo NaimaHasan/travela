@@ -18,6 +18,8 @@ class HomeDestinationView extends StatefulWidget {
 class _HomeDestinationViewState extends State<HomeDestinationView> {
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier =
       ValueNotifier(HomeDestinationController.getHomeHotDestinations());
+  final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifierLOTD =
+      ValueNotifier(HomeDestinationController.getLocationOfTheDay());
   FilterName filterName = FilterName.None;
 
   @override
@@ -38,12 +40,16 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeDestinations();
+                    futureValueNotifierLOTD.value = HomeDestinationController
+                        .getLocationOfTheDayDestinations();
                     filterName = FilterName.Destination;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -64,12 +70,16 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotels();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDayHotels();
                     filterName = FilterName.Hotel;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -90,12 +100,16 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeRestaurants();
+                    futureValueNotifierLOTD.value = HomeDestinationController
+                        .getLocationOfTheDayRestaurants();
                     filterName = FilterName.Resturant;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -119,32 +133,19 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
           ),
           alignment: Alignment.centerLeft,
         ),
-        verticalSpaceSmall,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
           child: HomeCarousel(
-              name: 'Hot destination',
-              futureValueNotifier: futureValueNotifier),
+            isLOTD: false,
+            futureValueNotifier: futureValueNotifier,
+          ),
         ),
         verticalSpaceMedium,
-        Align(
-          child: Padding(
-            padding: EdgeInsets.only(left: marginHorizontal),
-            child: Text(
-              "Location of the Day: Venice",
-              style: TextStyle(
-                fontSize: 24,
-              ),
-            ),
-          ),
-          alignment: Alignment.centerLeft,
-        ),
-        verticalSpaceSmall,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
           child: HomeCarousel(
-            name: 'Location of the day',
-            futureValueNotifier: futureValueNotifier,
+            isLOTD: true,
+            futureValueNotifier: futureValueNotifierLOTD,
           ),
         ),
       ],

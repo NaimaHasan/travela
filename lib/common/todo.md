@@ -1,6 +1,3 @@
-E logged in na thakle jeno route kore login screen e pathae dae
-    - change all routes to on generate route so can control animation
-    - add the check for login in said on generate route
 N onno karo itinerary jaate randomly keo na dekhte pare
 N fix destination screen being stful
 N Fix destinations that want location

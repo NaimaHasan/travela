@@ -21,6 +21,8 @@ class HomeDestinationViewMobile extends StatefulWidget {
 class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier =
       ValueNotifier(HomeDestinationController.getHomeHotDestinations());
+  final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifierLOTD =
+      ValueNotifier(HomeDestinationController.getLocationOfTheDay());
   FilterName filterName = FilterName.None;
 
   @override
@@ -44,12 +46,16 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeDestinations();
+                    futureValueNotifierLOTD.value = HomeDestinationController
+                        .getLocationOfTheDayDestinations();
                     filterName = FilterName.Destination;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -70,12 +76,16 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotels();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDayHotels();
                     filterName = FilterName.Hotel;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -96,12 +106,16 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeRestaurants();
+                    futureValueNotifierLOTD.value = HomeDestinationController
+                        .getLocationOfTheDayRestaurants();
                     filterName = FilterName.Resturant;
                   });
                 } else {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeHotDestinations();
+                    futureValueNotifierLOTD.value =
+                        HomeDestinationController.getLocationOfTheDay();
                     filterName = FilterName.None;
                   });
                 }
@@ -126,25 +140,10 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
           alignment: Alignment.centerLeft,
         ),
         verticalSpaceSmall,
-        HomeCarouselMobile(
-            name: 'Hot Destinations', futureValueNotifier: futureValueNotifier),
+        HomeCarouselMobile(futureValueNotifier: futureValueNotifier),
         verticalSpaceMedium,
-        Align(
-          child: Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              "Location of the Day: Venice",
-              style: TextStyle(
-                fontSize: 24,
-              ),
-            ),
-          ),
-          alignment: Alignment.centerLeft,
-        ),
-        verticalSpaceSmall,
-        HomeCarouselMobile(
-            name: 'Location of the day',
-            futureValueNotifier: futureValueNotifier),
+
+        HomeCarouselMobile(futureValueNotifier: futureValueNotifierLOTD),
       ],
     );
   }
