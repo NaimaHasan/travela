@@ -63,7 +63,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context)
-                                .pushNamed(DestinationScreen.routeName);
+                                .pushNamed("${DestinationScreen.routeName}/${item.name}");
                           },
                           child: Stack(
                             children: [

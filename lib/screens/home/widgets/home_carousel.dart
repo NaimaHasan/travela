@@ -64,7 +64,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context)
-                                .pushNamed(DestinationScreen.routeName);
+                                .pushNamed("${DestinationScreen.routeName}/${item.name}");
                           },
                           child: Stack(
                             children: [

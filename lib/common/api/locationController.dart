@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 import 'dart:html';
+import 'package:http/http.dart' as http;
 
 class LocationController{
   static Future<LatLng?> getCurrentLocation() async {
@@ -14,6 +17,25 @@ class LocationController{
     }
 
     LatLng result = LatLng(latitude, longitude);
+    return result;
+  }
+
+  static Future<LatLng?> getDestinationLocation(String locationName) async {
+    LatLng? result;
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/location/$locationName/'),
+      );
+
+
+      var data = jsonDecode(response.body);
+
+      result = LatLng( double.parse(data['latitude']), double.parse(data['longitude']));
+    } catch (err) {
+      print(err);
+    }
+
     return result;
   }
 }

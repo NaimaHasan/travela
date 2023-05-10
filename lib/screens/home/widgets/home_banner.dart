@@ -58,10 +58,10 @@ class _HomeBannerState extends State<HomeBanner> {
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed(DestinationScreen.routeName);
+                                  .pushNamed("${DestinationScreen.routeName}/${futureResult.data!.name}");
                             },
                             child: Image.network(
-                              futureResult.data!.image!,
+                              futureResult.data!.image,
                               fit: BoxFit.fitWidth,
                             ),
                           ),
@@ -98,7 +98,7 @@ class _HomeBannerState extends State<HomeBanner> {
                           SizedBox(
                             width: 0.15 * screenSize.width,
                             child: Text(
-                              futureResult.data!.name!,
+                              futureResult.data!.name,
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _HomeBannerState extends State<HomeBanner> {
                             EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                         onPress: () {
                           Navigator.of(context)
-                              .pushNamed(NewTripScreen.routeName);
+                              .pushNamed(NewTripScreen.routeName, arguments: futureResult.data!.name);
                         },
                       ),
                       horizontalSpaceMedium,

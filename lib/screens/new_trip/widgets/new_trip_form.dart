@@ -96,6 +96,7 @@ class _NewTripFormState extends State<NewTripForm> {
             setLocation: (value) {
               _location = value;
             },
+            initialName: widget.initialName,
           ),
           const Padding(
             padding: EdgeInsets.only(left: 30, top: 25, bottom: 15),

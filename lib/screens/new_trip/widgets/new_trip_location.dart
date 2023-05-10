@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:travela/common/api/locationController.dart';
 import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 
 class NewTripLocation extends StatefulWidget {
-  NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng}) : super(key: key);
+  NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng, this.initialName}) : super(key: key);
 
   final LatLng defaultLatLng;
+  final String? initialName;
   final Function(LatLng value) setLocation;
 
   @override
@@ -17,12 +19,16 @@ class NewTripLocation extends StatefulWidget {
 
 class _NewTripLocationState extends State<NewTripLocation> {
   TextEditingController locationController = TextEditingController();
+  late Future<LatLng?> _future;
   // String defaultLocation = "";
 
   @override
   void initState() {
     locationController.text =
         formattedLatLng(widget.defaultLatLng); //set the initial value of text field
+    if(widget.initialName != null){
+      _future = LocationController.getDestinationLocation(widget.initialName!);
+    }
     super.initState();
   }
 
@@ -42,7 +48,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
       width: 350,
       height: 60,
       child: Center(
-        child: TextFormField(
+        child: widget.initialName == null ? TextFormField(
           controller: locationController,
           decoration: const InputDecoration(
             prefixIcon: Padding(
@@ -63,8 +69,74 @@ class _NewTripLocationState extends State<NewTripLocation> {
               },
             );
 
-            locationController.text = formattedLatLng(result);
-            widget.setLocation(result);
+            if(result != null){
+              locationController.text = formattedLatLng(result);
+              widget.setLocation(result);
+            }
+          },
+        ) :
+        FutureBuilder(
+          future: _future,
+          builder: (ctx, futureResult){
+              if(futureResult.connectionState == ConnectionState.waiting){
+                return CircularProgressIndicator();
+              }
+              if(!futureResult.hasData || futureResult.data == null){
+                return TextFormField(
+                  controller: locationController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Icon(Icons.map_outlined),
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  readOnly: true,
+                  onTap: () async {
+                    var result = await showDialog(
+                      context: context,
+                      builder: (ctx) {
+                        return LocationPicker(
+                          ctx: ctx,
+                          initialPos: widget.defaultLatLng,
+                        );
+                      },
+                    );
+                    if(result != null){
+                      locationController.text = formattedLatLng(result);
+                      widget.setLocation(result);
+                    }
+                  },
+                );
+              }
+              locationController.text = formattedLatLng(futureResult.data!);
+              return TextFormField(
+                controller: locationController,
+                decoration: const InputDecoration(
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Icon(Icons.map_outlined),
+                  ),
+                  border: InputBorder.none,
+                ),
+                readOnly: true,
+                onTap: () async {
+                  var result = await showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      return LocationPicker(
+                        ctx: ctx,
+                        initialPos: futureResult.data!,
+                      );
+                    },
+                  );
+
+                  if(result != null){
+                    locationController.text = formattedLatLng(result);
+                    widget.setLocation(result);
+                  }
+                },
+              );
           },
         ),
       ),

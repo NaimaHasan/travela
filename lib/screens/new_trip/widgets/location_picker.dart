@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:travela/common/api/locationController.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
 class LocationPicker extends StatefulWidget {
-  const LocationPicker({Key? key, required this.ctx, required this.initialPos}) : super(key: key);
+  const LocationPicker({Key? key, required this.ctx, required this.initialPos})
+      : super(key: key);
 
   final BuildContext ctx;
   final LatLng initialPos;
@@ -56,10 +58,39 @@ class _LocationPickerState extends State<LocationPicker> {
                         WhiteText(text: "SELECT LOCATION", size: 10),
                         verticalSpaceSmall,
                         WhiteText(text: "Latitude", size: 18),
-                        WhiteText(text: convertToDms(_marker.point.latitude, false), size: 16),
+                        WhiteText(
+                            text: convertToDms(_marker.point.latitude, false),
+                            size: 16),
                         verticalSpaceSmall,
                         WhiteText(text: "Longitude", size: 18),
-                        WhiteText(text: convertToDms(_marker.point.longitude, true), size: 16),
+                        WhiteText(
+                            text: convertToDms(_marker.point.longitude, true),
+                            size: 16),
+                        verticalSpaceSmall,
+                        TextField(
+                          decoration: InputDecoration(
+                            label: Text("Search",
+                                style: TextStyle(color: Colors.white)),
+                            focusColor: Colors.white,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                          style: TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          onSubmitted: (value) async {
+                            final location =
+                                await LocationController.getDestinationLocation(
+                                    value);
+
+                            if (location != null && value.isNotEmpty) {
+                              _mapController.move(location, _mapController.zoom);
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -69,6 +100,7 @@ class _LocationPickerState extends State<LocationPicker> {
                   child: Stack(
                     children: [
                       FlutterMap(
+                        mapController: _mapController,
                         options: MapOptions(
                           onTap: (tapPos, latlng) {
                             setState(() {
@@ -149,8 +181,12 @@ class WhiteText extends StatelessWidget {
 
 String convertToDms(double dd, bool isLng) {
   var dir = dd < 0
-      ? isLng ? 'W' : 'S'
-      : isLng ? 'E' : 'N';
+      ? isLng
+          ? 'W'
+          : 'S'
+      : isLng
+          ? 'E'
+          : 'N';
 
   var absDd = dd.abs();
   var deg = absDd.floor();
