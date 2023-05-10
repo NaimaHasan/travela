@@ -16,133 +16,103 @@ final List<String> imgList = [
 ];
 
 class HomeCarousel extends StatefulWidget {
-  const HomeCarousel({Key? key, required this.name, required this.filterName})
+  const HomeCarousel(
+      {Key? key, required this.name, required this.futureValueNotifier})
       : super(key: key);
   final String name;
-  final FilterName filterName;
+  final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
   @override
   _HomeCarouselState createState() => _HomeCarouselState();
 }
 
 class _HomeCarouselState extends State<HomeCarousel> {
-  late Future<List<HomeDestination?>> _future;
-
-  void setFutures() {
-    switch (widget.filterName) {
-      case FilterName.Destination:
-        _future = HomeDestinationController.getHomeDestinations();
-        break;
-      case FilterName.Hotel:
-        _future = HomeDestinationController.getHomeHotels();
-        break;
-      case FilterName.Resturant:
-        _future = HomeDestinationController.getHomeRestaurants();
-        break;
-      case FilterName.None:
-        _future = HomeDestinationController.getHomeHotDestinations();
-        break;
-    }
-  }
-
-  @override
-  void initState() {
-    setFutures();
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    setFutures();
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(covariant HomeCarousel oldWidget) {
-    setFutures();
-    super.didUpdateWidget(oldWidget);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (ctx, futureResult) {
-        if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (!futureResult.hasData || futureResult.data == null) {
-          return Center(
-            child: Text("No destination available"),
-          );
-        }
-        return CarouselSlider(
-          options: CarouselOptions(
-            autoPlay: false,
-            enlargeCenterPage: true,
-            enlargeStrategy: CenterPageEnlargeStrategy.height,
-            enlargeFactor: 0.1,
-            viewportFraction: 0.335,
-            height: 400,
-            initialPage: 5,
-          ),
-          items: futureResult.data!
-              .map(
-                (item) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(DestinationScreen.routeName);
-                      },
-                      child: Stack(
-                        children: [
-                          LayoutBuilder(
-                            builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              return FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: constraints.maxWidth,
-                                  height: constraints.maxHeight,
-                                  child: Image.network(item!.image,
-                                      fit: BoxFit.cover),
-                                ),
-                              );
-                            },
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(50, 0, 0, 0),
-                                  Color.fromARGB(0, 0, 0, 0)
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
+    return ValueListenableBuilder(
+      valueListenable: widget.futureValueNotifier,
+      builder: (context, future, child) {
+        return FutureBuilder(
+          future: future,
+          builder: (ctx, futureResult) {
+            if (futureResult.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (!futureResult.hasData || futureResult.data == null) {
+              return Center(
+                child: Text("No destination available"),
+              );
+            }
+            return CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enlargeFactor: 0.1,
+                viewportFraction: 0.335,
+                height: 400,
+                initialPage: 5,
+              ),
+              items: futureResult.data!
+                  .map(
+                    (item) => Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(DestinationScreen.routeName);
+                          },
+                          child: Stack(
+                            children: [
+                              LayoutBuilder(
+                                builder: (BuildContext context,
+                                    BoxConstraints constraints) {
+                                  return FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: SizedBox(
+                                      width: constraints.maxWidth,
+                                      height: constraints.maxHeight,
+                                      child: Image.network(item!.image,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                            child: Container(),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(50, 0, 0, 0),
+                                      Color.fromARGB(0, 0, 0, 0)
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
+                                ),
+                                child: Container(),
+                              ),
+                              Positioned(
+                                bottom: 15,
+                                left: 15,
+                                child: Text(
+                                  item!.name,
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            bottom: 15,
-                            left: 15,
-                            child: Text(
-                              item!.name,
-                              style:
-                                  TextStyle(fontSize: 22, color: Colors.white),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              )
-              .toList(),
+                  )
+                  .toList(),
+            );
+          },
         );
       },
     );
