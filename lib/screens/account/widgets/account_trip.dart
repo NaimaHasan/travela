@@ -64,6 +64,8 @@ class AccountTrip extends StatelessWidget {
                           Icons.add,
                           size: MediaQuery.of(context).size.width < tabWidth ? 22 : 30,
                         ),
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
                         splashRadius: 18,
                       ),
                     ),

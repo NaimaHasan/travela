@@ -2,6 +2,9 @@ N onno karo itinerary jaate randomly keo na dekhte pare
 N fix destination screen being stful
 N Fix destinations that want location
 E different types er scraping
+N Show pending and shared list in trip screen and card
+E add itinerary deletion
+N fix padding location picker mobile
 
 Near Me
 	E show destinations on screen

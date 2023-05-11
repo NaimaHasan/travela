@@ -16,9 +16,11 @@ final List<String> imgList = [
 ];
 
 class HomeCarouselMobile extends StatefulWidget {
-  const HomeCarouselMobile({Key? key, required this.futureValueNotifier})
+  const HomeCarouselMobile(
+      {Key? key, required this.futureValueNotifier, required this.isLOTD})
       : super(key: key);
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
+  final bool isLOTD;
   @override
   _HomeCarouselMobileState createState() => _HomeCarouselMobileState();
 }
@@ -35,14 +37,20 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
             if (futureResult.connectionState == ConnectionState.waiting) {
               return Column(
                 children: [
-                  Align(
-                    child: Text(
-                      "Location of the Day",
-                      style: TextStyle(
-                        fontSize: 24,
+                  Visibility(
+                    visible: widget.isLOTD,
+                    child: Align(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          "Location of the Day",
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        ),
                       ),
+                      alignment: Alignment.centerLeft,
                     ),
-                    alignment: Alignment.centerLeft,
                   ),
                   verticalSpaceSmall,
                   Center(
@@ -51,17 +59,25 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 ],
               );
             }
-            if (!futureResult.hasData || futureResult.data == null || futureResult.data!.isEmpty) {
+            if (!futureResult.hasData ||
+                futureResult.data == null ||
+                futureResult.data!.isEmpty) {
               return Column(
                 children: [
-                  Align(
-                    child: Text(
-                      "Location of the Day",
-                      style: TextStyle(
-                        fontSize: 24,
+                  Visibility(
+                    visible: widget.isLOTD,
+                    child: Align(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          "Location of the Day",
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        ),
                       ),
+                      alignment: Alignment.centerLeft,
                     ),
-                    alignment: Alignment.centerLeft,
                   ),
                   verticalSpaceSmall,
                   Center(
@@ -72,14 +88,20 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
             }
             return Column(
               children: [
-                Align(
-                  child: Text(
-                    "Location of the Day: ${futureResult.data![0]!.location}",
-                    style: TextStyle(
-                      fontSize: 24,
+                Visibility(
+                  visible: widget.isLOTD,
+                  child: Align(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "Location of the Day: ${futureResult.data![0]!.location}",
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                      ),
                     ),
+                    alignment: Alignment.centerLeft,
                   ),
-                  alignment: Alignment.centerLeft,
                 ),
                 verticalSpaceSmall,
                 CarouselSlider(
@@ -106,8 +128,20 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                               },
                               child: Stack(
                                 children: [
-                                  Image.network(item!.image,
-                                      fit: BoxFit.cover, height: 400),
+                                  LayoutBuilder(
+                                    builder: (BuildContext context,
+                                        BoxConstraints constraints) {
+                                      return FittedBox(
+                                        fit: BoxFit.cover,
+                                        child: SizedBox(
+                                          width: constraints.maxWidth,
+                                          height: constraints.maxHeight,
+                                          child: Image.network(item!.image,
+                                              fit: BoxFit.cover),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                   Container(
                                     decoration: const BoxDecoration(
                                       gradient: LinearGradient(

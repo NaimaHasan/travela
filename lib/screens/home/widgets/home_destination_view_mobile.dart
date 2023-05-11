@@ -140,10 +140,9 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
           alignment: Alignment.centerLeft,
         ),
         verticalSpaceSmall,
-        HomeCarouselMobile(futureValueNotifier: futureValueNotifier),
+        HomeCarouselMobile(isLOTD: false, futureValueNotifier: futureValueNotifier),
         verticalSpaceMedium,
-
-        HomeCarouselMobile(futureValueNotifier: futureValueNotifierLOTD),
+        HomeCarouselMobile(isLOTD: true, futureValueNotifier: futureValueNotifierLOTD),
       ],
     );
   }
