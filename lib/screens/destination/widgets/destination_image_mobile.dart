@@ -51,11 +51,15 @@ class DestinationImageMobile extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      Text(
-                        destination.name,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 0.15 * screenSize.width,
+                        child: Text(
+                          destination.name,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ],
