@@ -108,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: 30, top: 30, right: 30, bottom: 20),
+                            left: 30, top: 15, right: 30, bottom: 20),
                         child: Row(
                           children: [
                             Text(

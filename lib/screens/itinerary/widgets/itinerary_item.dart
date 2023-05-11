@@ -50,13 +50,13 @@ class ItineraryItem extends StatelessWidget {
                 ),
                 SizedBox(
                   width: screenwidth > tabwidth
-                      ? factor * 45
-                      : screenwidth / 450 * 60,
+                      ? factor + 15
+                      : screenwidth / 450 * 40,
                 ),
                 SizedBox(
                   width: screenwidth > tabwidth
                       ? factor * 100
-                      : screenwidth / 450 * 90,
+                      : screenwidth / 450 * 70,
                   child: Text(
                     description,
                     style: TextStyle(
@@ -66,6 +66,16 @@ class ItineraryItem extends StatelessWidget {
                   ),
                 ),
                 Expanded(child: Container()),
+                IconButton(
+                  onPressed: () async {
+                    await ItineraryController.deleteEntry(context, entry);
+                    refresh();
+                  },
+                  icon: Icon(Icons.delete_outline),
+                  iconSize: screenwidth > tabwidth ? factor * 14 : 18,
+                  splashRadius:
+                  ((screenwidth > tabwidth ? factor * 14 : 18) / 2) + 5,
+                ),
                 IconButton(
                   onPressed: () async {
                     await ItineraryController.editEntry(context, entry);
@@ -81,7 +91,7 @@ class ItineraryItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: screenwidth > tabwidth ? factor * 125 : 225,
+          left: screenwidth > tabwidth ? factor * 125 : 180,
           top: isStart ? 30 : 0,
           child: Container(
             height: isStart || isEnd ? (screenwidth > tabwidth ? 30 : 40) : 70,
@@ -92,7 +102,7 @@ class ItineraryItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: screenwidth > tabwidth ? factor * 125 - 6.25 : 225 - 6.25,
+          left: screenwidth > tabwidth ? factor * 125 - 6.25 : 180 - 6.25,
           child: CircleAvatar(
             radius: 10,
             backgroundColor: isNext? Colors.deepOrangeAccent : Colors.lightBlue

@@ -36,9 +36,7 @@ class ItineraryUsers extends StatelessWidget {
                   itemCount: userList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return SizedBox(
-                      width: MediaQuery.of(context).size.width < 600
-                          ? marginHorizontalMobile
-                          : marginHorizontal,
+                      width: marginHorizontal,
                       child: Center(
                         child: FutureBuilder(
                           future:

@@ -97,106 +97,116 @@ class _MainScreenState extends State<MainScreen> {
               padding: EdgeInsets.symmetric(
                   horizontal:
                       MediaQuery.of(context).size.width / widget.tabwidth * 45),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 0.16 * widget.screenSize.width,
-                    height: 0.16 * widget.screenSize.width,
-                    color: data.tripImageUrl == null ? Colors.black12 : null,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: data.tripImageUrl == null
-                          ? Center(
-                              child: Icon(
-                                Icons.image_not_supported_outlined,
-                                size: 30,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    SizedBox(height: 0.12 * widget.screenSize.height),
+                    Container(
+                      width: 0.16 * widget.screenSize.width,
+                      height: 0.16 * widget.screenSize.width,
+                      color: data.tripImageUrl == null ? Colors.black12 : null,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: data.tripImageUrl == null
+                            ? Center(
+                                child: Icon(
+                                  Icons.image_not_supported_outlined,
+                                  size: 30,
+                                ),
+                              )
+                            : Image.network(
+                                "http://127.0.0.1:8000${data.tripImageUrl!}",
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          : Image.network(
-                              "http://127.0.0.1:8000${data.tripImageUrl!}",
-                              fit: BoxFit.cover,
-                            ),
+                      ),
                     ),
-                  ),
-                  verticalSpaceSmall,
-                  Text(
-                    data.tripName,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '${DateFormat.MMMMd().format(DateTime.parse(data.startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(data.endDate))}',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      PillButton(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Share",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.share,
-                              color: Colors.black,
-                              size: 16,
-                            ),
-                          ],
+                    verticalSpaceSmall,
+                    Text(
+                      data.tripName,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '${DateFormat.MMMMd().format(DateTime.parse(data.startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(data.endDate))}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        PillButton(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Share",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.share,
+                                color: Colors.black,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                          padding: EdgeInsets.all(10),
+                          onPress: () async {
+                            await TripController.shareTrip(data, context);
+                          },
                         ),
-                        padding: EdgeInsets.all(10),
-                        onPress: () async {
-                          await TripController.shareTrip(data, context);
-                        },
-                      ),
-                      Container(
-                        width: 15,
-                      ),
-                      PillButton(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Delete",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.delete_outline,
-                              color: Colors.black,
-                              size: 16,
-                            ),
-                          ],
+                        Container(
+                          width: 15,
                         ),
-                        padding: EdgeInsets.all(10),
-                        onPress: () async {
-                          await TripController.deleteTrip(
-                              data.tripID!, context);
-                          Navigator.of(context)
-                              .pushNamed(AccountScreen.routeName);
-                        },
-                      ),
-                    ],
-                  ),
-                  Container(height: 15),
-                  ItineraryUsers(userList: data.sharedUsers, name: 'Shared',),
-                  Container(height: 15),
-                  ItineraryUsers(userList: data.pendingUsers, name: 'Pending',),
-                ],
+                        PillButton(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Delete",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.delete_outline,
+                                color: Colors.black,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                          padding: EdgeInsets.all(10),
+                          onPress: () async {
+                            await TripController.deleteTrip(
+                                data.tripID!, context);
+                            Navigator.of(context)
+                                .pushNamed(AccountScreen.routeName);
+                          },
+                        ),
+                      ],
+                    ),
+                    Container(height: 15),
+                    ItineraryUsers(
+                      userList: data.sharedUsers,
+                      name: 'Shared',
+                    ),
+                    Container(height: 15),
+                    ItineraryUsers(
+                      userList: data.pendingUsers,
+                      name: 'Pending',
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(

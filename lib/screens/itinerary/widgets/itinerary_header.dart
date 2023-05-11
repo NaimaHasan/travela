@@ -46,7 +46,7 @@ class ItineraryHeader extends StatelessWidget {
           child: Positioned(
             left: screenwidth > tabwidth
                 ? factor * 125
-                : 225,
+                : 180,
             child: Container(
               height: 37,
               width: 8,

@@ -53,6 +53,23 @@ class ItineraryController {
     );
   }
 
+  static Future<void> deleteEntry(
+      BuildContext context, ItineraryEntry entry) async {
+    try {
+      await http.delete(
+        Uri.http(
+            '127.0.0.1:8000', 'trips/${entry.trip}/itineraryEntry/${entry.id}'),
+      );
+    } catch (err) {
+      print(err);
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Entry has been deleted'),
+      ),
+    );
+  }
+
   static Future<LatLng> getFirstLocation(int tripID) async {
     List<ItineraryEntry> allEntries = [];
 
@@ -125,7 +142,8 @@ class _NewDialogState extends State<_NewDialog> {
   @override
   void initState() {
     _location = widget.isEditable ? widget.entry!.location : LatLng(51, 0);
-    _description = widget.isEditable ? widget.entry!.description : "Default Name";
+    _description =
+        widget.isEditable ? widget.entry!.description : "Default Name";
     _startDate = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
     _startTime = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
     super.initState();
@@ -201,7 +219,12 @@ class _NewDialogState extends State<_NewDialog> {
                     final auth = FirebaseAuth.instance;
                     var initialDate = _startDate;
 
-                    initialDate = initialDate.copyWith(hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
+                    initialDate = initialDate.copyWith(
+                        hour: 0,
+                        minute: 0,
+                        second: 0,
+                        microsecond: 0,
+                        millisecond: 0);
 
                     initialDate = initialDate.add(Duration(
                       hours: _startTime.hour,
@@ -209,7 +232,7 @@ class _NewDialogState extends State<_NewDialog> {
                       seconds: _startTime.second,
                     ));
 
-                    try{
+                    try {
                       if (!widget.isEditable) {
                         await http.post(
                           Uri.http('127.0.0.1:8000',
@@ -218,12 +241,13 @@ class _NewDialogState extends State<_NewDialog> {
                             'trip': "${widget.tripID}",
                             'dateTime': initialDate.toIso8601String(),
                             'description': _description,
-                            'location_latitude': _location.latitude.toStringAsFixed(20),
-                            'location_longitude': _location.longitude.toStringAsFixed(20),
+                            'location_latitude':
+                                _location.latitude.toStringAsFixed(20),
+                            'location_longitude':
+                                _location.longitude.toStringAsFixed(20),
                           },
                         );
-                      }
-                      else{
+                      } else {
                         await http.put(
                           Uri.http('127.0.0.1:8000',
                               'trips/${widget.tripID}/itineraryEntry/${widget.entry!.id}/'),
@@ -231,12 +255,14 @@ class _NewDialogState extends State<_NewDialog> {
                             'trip': "${widget.tripID}",
                             'dateTime': initialDate.toIso8601String(),
                             'description': _description,
-                            'location_latitude': _location.latitude.toStringAsFixed(20),
-                            'location_longitude': _location.longitude.toStringAsFixed(20),
+                            'location_latitude':
+                                _location.latitude.toStringAsFixed(20),
+                            'location_longitude':
+                                _location.longitude.toStringAsFixed(20),
                           },
                         );
                       }
-                    }catch(err){
+                    } catch (err) {
                       print(err);
                     }
 
