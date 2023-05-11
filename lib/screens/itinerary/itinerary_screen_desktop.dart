@@ -175,6 +175,9 @@ class _MainScreenState extends State<MainScreen> {
                           padding: EdgeInsets.all(10),
                           onPress: () async {
                             await TripController.shareTrip(data, context);
+                            setState(() {
+                              setFutures();
+                            });
                           },
                         ),
                         Container(
