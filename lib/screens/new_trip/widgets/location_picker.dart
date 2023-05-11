@@ -48,7 +48,8 @@ class _LocationPickerState extends State<LocationPicker> {
             borderRadius: BorderRadius.circular(5),
             child: Row(
               children: [
-                Expanded(
+                SizedBox(
+                  width: 150,
                   child: Container(
                     color: Colors.blue,
                     padding: EdgeInsets.all(15),
@@ -70,7 +71,8 @@ class _LocationPickerState extends State<LocationPicker> {
                         TextField(
                           decoration: InputDecoration(
                             label: Text("Search",
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(color: Colors.white, fontSize: 12),
+                            ),
                             focusColor: Colors.white,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
@@ -95,8 +97,7 @@ class _LocationPickerState extends State<LocationPicker> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 496.0 - 150.0,
+                Expanded(
                   child: Stack(
                     children: [
                       FlutterMap(
