@@ -103,10 +103,10 @@ class _MainScreenState extends State<MainScreen> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    SizedBox(height: 0.1 * widget.screenSize.height),
+                    SizedBox(height: 50),
                     Container(
-                      width: 0.16 * widget.screenSize.width,
-                      height: 0.16 * widget.screenSize.width,
+                      width: 0.15 * widget.screenSize.width,
+                      height: 0.15 * widget.screenSize.width,
                       color: data.tripImageUrl == null ? Colors.black12 : null,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
@@ -151,6 +151,30 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                     ),
+
+                    PillButton(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Edit",
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 12),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.edit,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      padding: EdgeInsets.all(10),
+                      onPress: () {},
+                    ),
+                    Container(height: 15),
                     Row(
                       children: [
                         PillButton(
@@ -160,7 +184,7 @@ class _MainScreenState extends State<MainScreen> {
                               Text(
                                 "Share",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 16),
+                                    color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
                                 width: 10,
@@ -180,9 +204,7 @@ class _MainScreenState extends State<MainScreen> {
                             });
                           },
                         ),
-                        Container(
-                          width: 15,
-                        ),
+                        Container(width: 15),
                         PillButton(
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -190,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
                               Text(
                                 "Delete",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 16),
+                                    color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
                                 width: 10,
@@ -210,6 +232,7 @@ class _MainScreenState extends State<MainScreen> {
                                 .pushNamed(AccountScreen.routeName);
                           },
                         ),
+
                       ],
                     ),
                     Container(height: 15),

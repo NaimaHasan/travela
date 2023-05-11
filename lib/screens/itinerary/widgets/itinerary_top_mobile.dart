@@ -71,11 +71,18 @@ class ItineraryTopMobile extends StatelessWidget {
           ),
           Expanded(child: Container()),
           IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.edit),
+            splashRadius: 16,
+          ),
+          Container(width: 5),
+          IconButton(
             onPressed: () async {
               await TripController.deleteTrip(trip.tripID!, context);
               Navigator.of(context).pushNamed(AccountScreen.routeName);
             },
             icon: Icon(Icons.delete_outline),
+            splashRadius: 16,
           ),
           Container(width: 5),
           IconButton(
@@ -83,6 +90,7 @@ class ItineraryTopMobile extends StatelessWidget {
               await TripController.shareTrip(trip, context);
             },
             icon: Icon(Icons.share),
+            splashRadius: 16,
           ),
         ],
       ),
