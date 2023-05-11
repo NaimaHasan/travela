@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
@@ -78,12 +79,14 @@ class _MainScreenState extends State<MainScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (!futureResults.hasData) {
-          return Center(
-            child: Text("Trip does not exist."),
-          );
+          return Center(child: Text("Trip does not exist."));
         }
         var data = futureResults.data![0] as Trip;
         var locations = futureResults.data![1] as List<LatLng>;
+        var auth = FirebaseAuth.instance;
+        if(data.owner != auth.currentUser!.email! && !data.pendingUsers.contains(auth.currentUser!.email!) && !data.sharedUsers.contains(auth.currentUser!.email!)){
+          return Center(child: Text("Trip does not exist."));
+        }
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -193,7 +196,7 @@ class _MainScreenState extends State<MainScreen> {
               child: ItineraryColumn(
                 trip: data,
                 isScrollable: true,
-                refreshMarkers: (){
+                refreshMarkers: () {
                   setState(() {
                     setFutures();
                   });
@@ -212,9 +215,9 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         TileLayer(
                           urlTemplate:
-                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           userAgentPackageName:
-                          'dev.fleaflet.flutter_map.example',
+                              'dev.fleaflet.flutter_map.example',
                         ),
                         MarkerLayer(
                           markers: [
