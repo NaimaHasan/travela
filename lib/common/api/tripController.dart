@@ -360,7 +360,6 @@ class _ShareDialogState extends State<_ShareDialog> {
                   controller: _controller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.zero,
                   ),
                 ),
               ),
