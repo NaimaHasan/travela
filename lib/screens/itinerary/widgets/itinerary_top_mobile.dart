@@ -7,6 +7,8 @@ import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
 
+import 'itinerary_account_circle.dart';
+
 class ItineraryTopMobile extends StatelessWidget {
   const ItineraryTopMobile({Key? key, required this.trip}) : super(key: key);
 
@@ -18,8 +20,8 @@ class ItineraryTopMobile extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 70,
-            width: 70,
+            height: 100,
+            width: 100,
             color: trip.tripImageUrl == null ? Colors.black12 : null,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
@@ -51,6 +53,18 @@ class ItineraryTopMobile extends StatelessWidget {
                 Text(
                   '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
                   style: TextStyle(fontSize: 14),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Text('Created by:'),
+                      ),
+                      ItineraryAccountCircle(email: trip.owner)
+                    ],
+                  ),
                 ),
               ],
             ),
