@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart';
 
 import '../../../common/api/userController.dart';
-import '../../../widgets/common/spacing.dart';
 
 class ItineraryUsers extends StatelessWidget {
   const ItineraryUsers({Key? key, required this.userList, required this.name})
@@ -27,7 +27,7 @@ class ItineraryUsers extends StatelessWidget {
               )
             : Container(
                 width: 0.16 * screenSize.width,
-                height: 60,
+                height: 30,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -35,41 +35,7 @@ class ItineraryUsers extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   itemCount: userList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      width: marginHorizontal,
-                      child: Center(
-                        child: FutureBuilder(
-                          future:
-                              UserController.getUserFromEmail(userList[index]),
-                          builder: (ctx, futureResult) {
-                            if (futureResult.connectionState ==
-                                ConnectionState.waiting) {
-                              return Container();
-                            }
-                            return InkWell(
-                              child: Tooltip(
-                                message: futureResult.data!.userName,
-                                verticalOffset: 5,
-                                child: Column(
-                                  children: [
-                                    if (futureResult.data!.userImageUrl == null)
-                                      Icon(
-                                        Icons.account_circle,
-                                        size: 30,
-                                      )
-                                    else
-                                      ClipOval(
-                                        child: Image.network(
-                                            "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    );
+                    return ItineraryAccountCircle(email: userList[index]);
                   },
                 ),
               ),

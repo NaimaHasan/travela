@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
 import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/trip.dart';
+import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
@@ -11,6 +12,7 @@ import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 import 'package:travela/widgets/common/variable_map.dart';
 
 import '../../common/api/tripController.dart';
+import '../../common/api/userController.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
@@ -101,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    SizedBox(height: 0.12 * widget.screenSize.height),
+                    SizedBox(height: 0.1 * widget.screenSize.height),
                     Container(
                       width: 0.16 * widget.screenSize.width,
                       height: 0.16 * widget.screenSize.width,
@@ -136,6 +138,18 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     SizedBox(
                       height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Text('Created by:'),
+                          ),
+                          ItineraryAccountCircle(email: data.owner)
+                        ],
+                      ),
                     ),
                     Row(
                       children: [
