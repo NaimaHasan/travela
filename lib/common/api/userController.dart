@@ -28,7 +28,7 @@ class UserController {
     TravelaUser? currentUser;
     final auth = FirebaseAuth.instance;
 
-    try{
+    try {
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
       );
@@ -36,11 +36,29 @@ class UserController {
       var data = jsonDecode(response.body);
 
       currentUser = TravelaUser.fromJson(data);
-    }catch(err){
+    } catch (err) {
       print(err);
     }
 
     return currentUser;
+  }
+
+  static Future<TravelaUser?> getUserFromEmail(String email) async {
+    TravelaUser? userData;
+
+    try {
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'users/${email}/'),
+      );
+
+      var data = jsonDecode(response.body);
+
+      userData = TravelaUser.fromJson(data);
+    } catch (err) {
+      print(err);
+    }
+
+    return userData;
   }
 
   static Future<void> setUserName(String name) async {
@@ -66,16 +84,18 @@ class UserController {
     final auth = FirebaseAuth.instance;
 
     try {
-      final image = await ImagePicker().pickImage(source:ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       var user = await getUser();
 
       var uri = Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/');
       var request = http.MultipartRequest('PUT', uri)
         ..fields['userEmail'] = auth.currentUser!.email!
         ..fields['userName'] = user!.userName
-        ..files.add(http.MultipartFile.fromBytes('userImage', await image!.readAsBytes(), contentType: MediaType('image', image.name.split(".")[1]), filename: image.name));
+        ..files.add(http.MultipartFile.fromBytes(
+            'userImage', await image!.readAsBytes(),
+            contentType: MediaType('image', image.name.split(".")[1]),
+            filename: image.name));
       var response = await request.send();
-
     } catch (err) {
       print(err);
     }

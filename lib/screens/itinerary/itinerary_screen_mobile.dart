@@ -5,6 +5,7 @@ import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_top_mobile.dart';
+import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 
 import '../../common/api/itineraryController.dart';
 import '../../common/api/tripController.dart';
@@ -88,6 +89,21 @@ class _MainScreenState extends State<MainScreen> {
                     ItineraryTopMobile(
                       trip: data,
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      child: ItineraryUsers(
+                        userList: data.sharedUsers,
+                        name: 'Shared',
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: ItineraryUsers(
+                        userList: data.pendingUsers,
+                        name: 'Pending',
+                      ),
+                    ),
+
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(

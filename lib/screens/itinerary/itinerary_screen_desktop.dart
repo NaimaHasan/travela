@@ -7,6 +7,7 @@ import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
+import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 import 'package:travela/widgets/common/variable_map.dart';
 
 import '../../common/api/tripController.dart';
@@ -84,7 +85,9 @@ class _MainScreenState extends State<MainScreen> {
         var data = futureResults.data![0] as Trip;
         var locations = futureResults.data![1] as List<LatLng>;
         var auth = FirebaseAuth.instance;
-        if(data.owner != auth.currentUser!.email! && !data.pendingUsers.contains(auth.currentUser!.email!) && !data.sharedUsers.contains(auth.currentUser!.email!)){
+        if (data.owner != auth.currentUser!.email! &&
+            !data.pendingUsers.contains(auth.currentUser!.email!) &&
+            !data.sharedUsers.contains(auth.currentUser!.email!)) {
           return Center(child: Text("Trip does not exist."));
         }
         return Row(
@@ -189,6 +192,10 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ],
                   ),
+                  Container(height: 15),
+                  ItineraryUsers(userList: data.sharedUsers, name: 'Shared',),
+                  Container(height: 15),
+                  ItineraryUsers(userList: data.pendingUsers, name: 'Pending',),
                 ],
               ),
             ),
