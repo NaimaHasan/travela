@@ -80,7 +80,7 @@ class _HomeBannerState extends State<HomeBanner> {
               child: Card(
                 elevation: 10,
                 child: SizedBox(
-                  width: 0.35 * screenSize.width,
+                  width: 500,
                   height: 100,
                   child: Row(
                     children: [
@@ -96,7 +96,7 @@ class _HomeBannerState extends State<HomeBanner> {
                             ),
                           ),
                           SizedBox(
-                            width: 0.15 * screenSize.width,
+                            width: 250,
                             child: Text(
                               futureResult.data!.name,
                               style: TextStyle(

@@ -36,8 +36,8 @@ class DestinationImageMobile extends StatelessWidget {
           child: Card(
             elevation: 10,
             child: SizedBox(
-              width: 0.55 * screenSize.width,
-              height: 60,
+              width: 400,
+              height: 80,
               child: Row(
                 children: [
                   horizontalSpaceSmall,
@@ -52,7 +52,7 @@ class DestinationImageMobile extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 0.15 * screenSize.width,
+                        width: 200,
                         child: Text(
                           destination.name,
                           style: TextStyle(

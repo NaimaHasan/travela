@@ -97,8 +97,8 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal:
-                      MediaQuery.of(context).size.width / widget.tabwidth * 45),
+                  horizontal: widget.screenSize.width < 1250 ?
+                      widget.screenSize.width / widget.tabwidth * 26 : widget.screenSize.width / widget.tabwidth * 50),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(

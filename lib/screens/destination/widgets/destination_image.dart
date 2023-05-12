@@ -46,7 +46,7 @@ class DestinationImage extends StatelessWidget {
           child: Card(
             elevation: 10,
             child: SizedBox(
-              width: 0.35 * screenSize.width,
+              width: 500,
               height: 100,
               child: Row(
                 children: [
@@ -62,7 +62,7 @@ class DestinationImage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 0.15 * screenSize.width,
+                        width: 250,
                         child: Text(
                           destination.name,
                           style: TextStyle(

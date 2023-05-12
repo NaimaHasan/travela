@@ -72,9 +72,8 @@ class ItineraryItem extends StatelessWidget {
                     refresh();
                   },
                   icon: Icon(Icons.delete_outline),
-                  iconSize: screenwidth > tabwidth ? factor * 14 : 18,
-                  splashRadius:
-                  ((screenwidth > tabwidth ? factor * 14 : 18) / 2) + 5,
+                  iconSize: 18,
+                  splashRadius: 18,
                 ),
                 IconButton(
                   onPressed: () async {
@@ -82,9 +81,8 @@ class ItineraryItem extends StatelessWidget {
                     refresh();
                   },
                   icon: Icon(Icons.edit),
-                  iconSize: screenwidth > tabwidth ? factor * 14 : 18,
-                  splashRadius:
-                      ((screenwidth > tabwidth ? factor * 14 : 18) / 2) + 5,
+                  iconSize: 18,
+                  splashRadius: 18,
                 ),
               ],
             ),
@@ -104,9 +102,9 @@ class ItineraryItem extends StatelessWidget {
         Positioned(
           left: screenwidth > tabwidth ? factor * 125 - 6.25 : 180 - 6.25,
           child: CircleAvatar(
-            radius: 10,
-            backgroundColor: isNext? Colors.deepOrangeAccent : Colors.lightBlue
-          ),
+              radius: 10,
+              backgroundColor:
+                  isNext ? Colors.deepOrangeAccent : Colors.lightBlue),
         ),
       ],
     );
