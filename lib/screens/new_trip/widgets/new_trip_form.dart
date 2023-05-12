@@ -10,12 +10,16 @@ import 'package:travela/screens/new_trip/widgets/new_trip_name.dart';
 import 'new_trip_date.dart';
 import 'new_trip_location.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class NewTripForm extends StatefulWidget {
-  const NewTripForm({Key? key, this.initialName}) : super(key: key);
+  const NewTripForm({Key? key, this.initialName, this.existingTrip})
+      : super(key: key);
 
   final String? initialName;
-  
+  final Trip? existingTrip;
+
   @override
   State<NewTripForm> createState() => _NewTripFormState();
 }
@@ -48,8 +52,8 @@ class _NewTripFormState extends State<NewTripForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(height: 30),
-          const Text(
-            'New Trip',
+          Text(
+            widget.existingTrip == null ? 'New Trip' : 'Edit Trip',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -60,7 +64,9 @@ class _NewTripFormState extends State<NewTripForm> {
               _name = value!;
             },
             label: "Name",
-            initialName: widget.initialName,
+            initialName: widget.existingTrip == null
+                ? widget.initialName
+                : widget.existingTrip!.tripName,
           ),
           NewTripDate(
             title: 'Start Date',
@@ -69,6 +75,9 @@ class _NewTripFormState extends State<NewTripForm> {
             },
             myController: startController,
             otherController: endController,
+            initialDate: widget.existingTrip == null
+                ? null
+                : widget.existingTrip!.startDate,
           ),
           NewTripDate(
             title: 'End Date',
@@ -77,26 +86,35 @@ class _NewTripFormState extends State<NewTripForm> {
             },
             myController: endController,
             otherController: startController,
+            initialDate: widget.existingTrip == null
+                ? null
+                : widget.existingTrip!.endDate,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Location',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+          Visibility(
+            visible: widget.existingTrip == null,
+            child: const Padding(
+              padding: EdgeInsets.only(left: 30, top: 20, bottom: 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Location',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
           ),
-          NewTripLocation(
-            defaultLatLng: _location,
-            setLocation: (value) {
-              _location = value;
-            },
-            initialName: widget.initialName,
+          Visibility(
+            visible: widget.existingTrip == null,
+            child: NewTripLocation(
+              defaultLatLng: _location,
+              setLocation: (value) {
+                _location = value;
+              },
+              initialName: widget.initialName,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 30, top: 25, bottom: 15),
@@ -112,60 +130,82 @@ class _NewTripFormState extends State<NewTripForm> {
             ),
           ),
           _image == null
-              ? DottedBorder(
-            borderType: BorderType.RRect,
-            radius: Radius.circular(6),
-            color: Colors.black38,
-            dashPattern: [8, 4],
-            strokeWidth: 0.5,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(6),
-              ),
-              child: Container(
-                height: 300,
-                width: 340,
-                child: Center(
-                  child: IconButton(
-                    onPressed: () async {
-                      _image = await ImagePicker().pickImage(source:ImageSource.gallery);
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.add_photo_alternate_outlined),
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
-            ),
-          )
+              ? (widget.existingTrip == null || widget.existingTrip!.tripImageUrl == null
+                  ? DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(6),
+                      color: Colors.black38,
+                      dashPattern: [8, 4],
+                      strokeWidth: 0.5,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(6),
+                        ),
+                        child: Container(
+                          height: 300,
+                          width: 340,
+                          child: Center(
+                            child: IconButton(
+                              onPressed: () async {
+                                _image = await ImagePicker()
+                                    .pickImage(source: ImageSource.gallery);
+                                setState(() {});
+                              },
+                              icon: Icon(Icons.add_photo_alternate_outlined),
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : InkWell(
+                      onTap: () async {
+                        _image = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 340,
+                        width: 340,
+                        child: Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Image.network("http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}"),
+                          ),
+                        ),
+                      ),
+                    ))
               : InkWell(
-            onTap: () async {
-              _image = await ImagePicker().pickImage(source:ImageSource.gallery);
-              setState(() {});
-            },
-            child: Container(
-              height: 340,
-              width: 340,
-              child: Card(
-                elevation: 5,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: FutureBuilder(
-                    future: _image!.readAsBytes(),
-                    builder: (ctx, futureResult){
-                      if(futureResult.connectionState == ConnectionState.waiting){
-                        return Container();
-                      }
-                      if(!futureResult.hasData){
-                        return Container();
-                      }
-                      return Image.memory(futureResult.data!);
-                    },
+                  onTap: () async {
+                    _image = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 340,
+                    width: 340,
+                    child: Card(
+                      elevation: 5,
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: FutureBuilder(
+                          future: _image!.readAsBytes(),
+                          builder: (ctx, futureResult) {
+                            if (futureResult.connectionState ==
+                                ConnectionState.waiting) {
+                              return Container();
+                            }
+                            if (!futureResult.hasData) {
+                              return Container();
+                            }
+                            return Image.memory(futureResult.data!);
+                          },
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
           Container(
             height: 40,
           ),
@@ -177,18 +217,47 @@ class _NewTripFormState extends State<NewTripForm> {
                 _formKey.currentState!.save();
                 final auth = FirebaseAuth.instance;
 
-                await TripController.postTrip(
-                  Trip(
-                    owner: "${auth.currentUser!.email}",
-                    tripName: _name,
-                    startDate: _startDate,
-                    endDate: _endDate,
-                  ),
-                  _location,
-                  _image,
-                );
+                if(widget.existingTrip == null){
+                  await TripController.postTrip(
+                    Trip(
+                      owner: "${auth.currentUser!.email}",
+                      tripName: _name,
+                      startDate: _startDate,
+                      endDate: _endDate,
+                    ),
+                    _location,
+                    _image,
+                  );
 
-                Navigator.of(context).pushNamed(AccountScreen.routeName);
+                  Navigator.of(context).pushNamed(AccountScreen.routeName);
+                }
+                else {
+                  if (_image != null) {
+                    var uri = Uri.http(
+                        '127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/');
+                    var request = http.MultipartRequest('PUT', uri)
+                      ..fields['owner'] = auth.currentUser!.email!
+                      ..fields['tripName'] = _name
+                      ..fields['startDate'] = _startDate
+                      ..fields['endDate'] = _endDate
+                      ..files.add(http.MultipartFile.fromBytes(
+                          'tripImage', await _image!.readAsBytes(),
+                          contentType: MediaType('image', _image!.name.split(".")[1]),
+                          filename: _image!.name));
+                    await request.send();
+                  } else {
+                    await http.put(
+                      Uri.http('127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/'),
+                      body: {
+                        'owner': auth.currentUser!.email!,
+                        'tripName': _name,
+                        'startDate': _startDate,
+                        'endDate': _endDate,
+                      },
+                    );
+                  }
+                  Navigator.of(context).pop();
+                }
               },
               child: const Text(
                 'Done',

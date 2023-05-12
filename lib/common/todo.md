@@ -1,9 +1,5 @@
 Near Me
-	E show destinations on screen
-        - scraping on nearby
-Itinerary
-    N Allow editing trip info
-
+	E Join to backend
 - search results from scraper
     - N Things to do
     - E Nearby places

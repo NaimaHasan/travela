@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewTripDate extends StatefulWidget {
-  NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController}) : super(key: key);
+  const NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController, this.initialDate}) : super(key: key);
   final String title;
   final Function(String?) onSaved;
+  final String? initialDate;
   final TextEditingController myController;
   final TextEditingController otherController;
 
@@ -16,8 +17,8 @@ class NewTripDate extends StatefulWidget {
 class _NewTripDateState extends State<NewTripDate> {
   @override
   void initState() {
-    widget.myController.text = DateFormat('yyyy-MM-dd')
-        .format(DateTime.now()); //set the initial value of text field
+    widget.myController.text = widget.initialDate == null ? DateFormat('yyyy-MM-dd')
+        .format(DateTime.now()) : widget.initialDate!; //set the initial value of text field
     super.initState();
   }
 

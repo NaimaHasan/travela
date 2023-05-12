@@ -192,46 +192,13 @@ class TripController {
   }
 
   static Future<void> putTrip(Trip trip, BuildContext context) async {
-    final auth = FirebaseAuth.instance;
-
     try {
-      dynamic data = await showDialog(
+      await showDialog(
         context: context,
         builder: (ctx) {
-          return SimpleDialog(
-              children: [NewTripForm(initialName: trip.tripName)]);
+          return SimpleDialog(children: [NewTripForm(existingTrip: trip)]);
         },
       );
-      if (data.image != null) {
-        var uri = Uri.http(
-            '127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
-        var request = http.MultipartRequest('PUT', uri)
-          ..fields['owner'] = trip.owner
-          ..fields['tripName'] = trip.tripName
-          ..fields['startDate'] = trip.startDate
-          ..fields['endDate'] = trip.endDate
-          ..files.add(http.MultipartFile.fromBytes(
-              'tripImage', await data.image!.readAsBytes(),
-              contentType: MediaType('image', data.image.name.split(".")[1]),
-              filename: data.image.name));
-        var responseStream = await request.send();
-
-        var response = await http.Response.fromStream(responseStream);
-
-        data = jsonDecode(response.body);
-      } else {
-        var response = await http.put(
-          Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
-          body: {
-            'owner': trip.owner,
-            'tripName': trip.tripName,
-            'startDate': trip.startDate,
-            'endDate': trip.endDate,
-          },
-        );
-
-        data = jsonDecode(response.body);
-      }
     } catch (err) {
       print(err);
     }
