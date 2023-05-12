@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travela/common/api/userController.dart';
+import 'package:travela/screens/new_trip/widgets/new_trip_form.dart';
 
 import '../models/trip.dart';
 import 'package:http/http.dart' as http;
@@ -185,6 +186,52 @@ class TripController {
           'location_longitude': location.longitude.toString(),
         },
       );
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  static Future<void> putTrip(Trip trip, BuildContext context) async {
+    final auth = FirebaseAuth.instance;
+
+    try {
+      dynamic data = await showDialog(
+        context: context,
+        builder: (ctx) {
+          return SimpleDialog(
+              children: [NewTripForm(initialName: trip.tripName)]);
+        },
+      );
+      if (data.image != null) {
+        var uri = Uri.http(
+            '127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
+        var request = http.MultipartRequest('PUT', uri)
+          ..fields['owner'] = trip.owner
+          ..fields['tripName'] = trip.tripName
+          ..fields['startDate'] = trip.startDate
+          ..fields['endDate'] = trip.endDate
+          ..files.add(http.MultipartFile.fromBytes(
+              'tripImage', await data.image!.readAsBytes(),
+              contentType: MediaType('image', data.image.name.split(".")[1]),
+              filename: data.image.name));
+        var responseStream = await request.send();
+
+        var response = await http.Response.fromStream(responseStream);
+
+        data = jsonDecode(response.body);
+      } else {
+        var response = await http.put(
+          Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
+          body: {
+            'owner': trip.owner,
+            'tripName': trip.tripName,
+            'startDate': trip.startDate,
+            'endDate': trip.endDate,
+          },
+        );
+
+        data = jsonDecode(response.body);
+      }
     } catch (err) {
       print(err);
     }

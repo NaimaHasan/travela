@@ -97,8 +97,9 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: widget.screenSize.width < 1250 ?
-                      widget.screenSize.width / widget.tabwidth * 26 : widget.screenSize.width / widget.tabwidth * 50),
+                  horizontal: widget.screenSize.width < 1250
+                      ? widget.screenSize.width / widget.tabwidth * 26
+                      : widget.screenSize.width / widget.tabwidth * 50),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
@@ -151,15 +152,13 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                     ),
-
                     PillButton(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             "Edit",
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 12),
+                            style: TextStyle(color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
                             width: 10,
@@ -172,7 +171,12 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                       padding: EdgeInsets.all(10),
-                      onPress: () {},
+                      onPress: () async {
+                        await TripController.putTrip(data, context);
+                        setState(() {
+                          setFutures();
+                        });
+                      },
                     ),
                     Container(height: 15),
                     Row(
@@ -232,7 +236,6 @@ class _MainScreenState extends State<MainScreen> {
                                 .pushNamed(AccountScreen.routeName);
                           },
                         ),
-
                       ],
                     ),
                     Container(height: 15),
