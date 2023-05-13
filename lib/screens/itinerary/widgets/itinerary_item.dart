@@ -3,6 +3,8 @@ import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/itineraryEntry.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
+import '../../../common/models/trip.dart';
+
 class ItineraryItem extends StatelessWidget {
   const ItineraryItem(
       {Key? key,
@@ -12,7 +14,8 @@ class ItineraryItem extends StatelessWidget {
       this.isEnd = false,
       required this.entry,
       required this.refresh,
-      required this.isNext})
+      required this.isNext,
+      required this.trip})
       : super(key: key);
 
   final String time;
@@ -22,6 +25,7 @@ class ItineraryItem extends StatelessWidget {
   final ItineraryEntry entry;
   final VoidCallback refresh;
   final bool isNext;
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -66,18 +70,22 @@ class ItineraryItem extends StatelessWidget {
                   ),
                 ),
                 Expanded(child: Container()),
-                IconButton(
-                  onPressed: () async {
-                    await ItineraryController.deleteEntry(context, entry);
-                    refresh();
-                  },
-                  icon: Icon(Icons.delete_outline),
-                  iconSize: 18,
-                  splashRadius: 18,
+                Visibility(
+                  visible: entry.description != "Start of Trip" &&
+                      entry.description != "End of Trip",
+                  child: IconButton(
+                    onPressed: () async {
+                      await ItineraryController.deleteEntry(context, entry);
+                      refresh();
+                    },
+                    icon: Icon(Icons.delete_outline),
+                    iconSize: 18,
+                    splashRadius: 18,
+                  ),
                 ),
                 IconButton(
                   onPressed: () async {
-                    await ItineraryController.editEntry(context, entry);
+                    await ItineraryController.editEntry(context, entry, trip);
                     refresh();
                   },
                   icon: Icon(Icons.edit),

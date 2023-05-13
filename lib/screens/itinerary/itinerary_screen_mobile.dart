@@ -201,7 +201,7 @@ class _MainScreenState extends State<MainScreen> {
                 right: 20,
                 child: FloatingActionButton(
                   onPressed: () async {
-                    await ItineraryController.newEntry(context, data.tripID!);
+                    await ItineraryController.newEntry(context, data.tripID!, data);
                     setState(() {
                       setFutures();
                     });

@@ -86,6 +86,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                           });
                         },
                         isNext: (index == 0 && data.dateTime.isAfter(DateTime.now())) || (data.dateTime.isAfter(DateTime.now()) && futureResult.data![index - 1].dateTime.isBefore(DateTime.now())),
+                        trip: widget.trip,
                       ),
                       Visibility(
                         child: SizedBox(
@@ -105,7 +106,8 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                   child: FloatingActionButton(
                     onPressed: () async {
                       await ItineraryController.newEntry(
-                          context, widget.trip.tripID!);
+                          context, widget.trip.tripID!, widget.trip
+                      );
                       setState(() {
                         _future = ItineraryController.getAllEntries(
                             widget.trip.tripID!);

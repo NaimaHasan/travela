@@ -236,7 +236,7 @@ class _NewTripFormState extends State<NewTripForm> {
                     var uri = Uri.http(
                         '127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/');
                     var request = http.MultipartRequest('PUT', uri)
-                      ..fields['owner'] = auth.currentUser!.email!
+                      ..fields['owner'] = widget.existingTrip!.owner
                       ..fields['tripName'] = _name
                       ..fields['startDate'] = _startDate
                       ..fields['endDate'] = _endDate
@@ -249,7 +249,7 @@ class _NewTripFormState extends State<NewTripForm> {
                     await http.put(
                       Uri.http('127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/'),
                       body: {
-                        'owner': auth.currentUser!.email!,
+                        'owner': widget.existingTrip!.owner,
                         'tripName': _name,
                         'startDate': _startDate,
                         'endDate': _endDate,

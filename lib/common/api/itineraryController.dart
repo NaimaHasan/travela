@@ -12,6 +12,8 @@ import '../models/itineraryEntry.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 
+import '../models/trip.dart';
+
 class ItineraryController {
   static Future<List<ItineraryEntry>> getAllEntries(int tripID) async {
     List<ItineraryEntry> allEntries = [];
@@ -33,22 +35,36 @@ class ItineraryController {
     return allEntries;
   }
 
-  static Future<void> newEntry(BuildContext context, int tripID) async {
+  static Future<void> newEntry(
+      BuildContext context, int tripID, Trip trip) async {
     await showDialog(
       context: context,
       builder: (ctx) {
-        return _NewDialog(ctx: ctx, tripID: tripID);
+        return _NewDialog(
+          ctx: ctx,
+          tripID: tripID,
+          startLimit: DateTime.parse(trip.startDate),
+          endLimit: DateTime.parse(trip.endDate),
+          trip: trip,
+        );
       },
     );
   }
 
   static Future<void> editEntry(
-      BuildContext context, ItineraryEntry entry) async {
+      BuildContext context, ItineraryEntry entry, Trip trip) async {
     await showDialog(
       context: context,
       builder: (ctx) {
         return _NewDialog(
-            ctx: ctx, tripID: entry.trip, isEditable: true, entry: entry);
+          ctx: ctx,
+          tripID: entry.trip,
+          isEditable: true,
+          entry: entry,
+          startLimit: DateTime.parse(trip.startDate),
+          endLimit: DateTime.parse(trip.endDate),
+          trip: trip,
+        );
       },
     );
   }
@@ -119,13 +135,20 @@ class _NewDialog extends StatefulWidget {
       required this.ctx,
       required this.tripID,
       this.isEditable = false,
-      this.entry})
+      this.entry,
+      required this.startLimit,
+      required this.endLimit, required this.trip})
       : super(key: key);
 
   final BuildContext ctx;
   final int tripID;
   final bool isEditable;
   final ItineraryEntry? entry;
+
+  final DateTime startLimit;
+  final DateTime endLimit;
+
+  final Trip trip;
 
   @override
   State<_NewDialog> createState() => _NewDialogState();
@@ -144,8 +167,8 @@ class _NewDialogState extends State<_NewDialog> {
     _location = widget.isEditable ? widget.entry!.location : LatLng(51, 0);
     _description =
         widget.isEditable ? widget.entry!.description : "Default Name";
-    _startDate = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
-    _startTime = widget.isEditable ? widget.entry!.dateTime : DateTime.now();
+    _startDate = widget.isEditable ? widget.entry!.dateTime : widget.startLimit;
+    _startTime = widget.isEditable ? widget.entry!.dateTime : widget.startLimit;
     super.initState();
   }
 
@@ -168,12 +191,16 @@ class _NewDialogState extends State<_NewDialog> {
                   fontSize: 20,
                 ),
               ),
-              _NameField(
-                initalText: _description,
-                onSaved: (value) {
-                  _description = value!;
-                },
-                label: "Description",
+              Visibility(
+                visible: _description != "Start of Trip" &&
+                    _description != "End of Trip",
+                child: _NameField(
+                  initalText: _description,
+                  onSaved: (value) {
+                    _description = value!;
+                  },
+                  label: "Description",
+                ),
               ),
               _DateField(
                 title: 'Date',
@@ -181,6 +208,10 @@ class _NewDialogState extends State<_NewDialog> {
                 onSaved: (value) {
                   _startDate = value;
                 },
+                startLimit: _description != "Start of Trip" &&
+                    _description != "End of Trip" ? widget.startLimit : DateTime(2000),
+                endLimit: _description != "Start of Trip" &&
+                    _description != "End of Trip" ? widget.endLimit : DateTime(2101),
               ),
               _TimeField(
                 initialTime: _startTime,
@@ -261,6 +292,28 @@ class _NewDialogState extends State<_NewDialog> {
                                 _location.longitude.toStringAsFixed(20),
                           },
                         );
+                        if(_description == "Start of Trip"){
+                          await http.put(
+                            Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/'),
+                            body: {
+                              'owner': widget.trip.owner,
+                              'tripName': widget.trip.owner,
+                              'startDate': DateFormat('yyyy-MM-dd').format(initialDate),
+                              'endDate': widget.trip.endDate,
+                            },
+                          );
+                        }
+                        else if(_description == "End of Trip"){
+                          await http.put(
+                            Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/'),
+                            body: {
+                              'owner': widget.trip.owner,
+                              'tripName': widget.trip.owner,
+                              'startDate': widget.trip.startDate,
+                              'endDate': DateFormat('yyyy-MM-dd').format(initialDate),
+                            },
+                          );
+                        }
                       }
                     } catch (err) {
                       print(err);
@@ -349,11 +402,14 @@ class _DateField extends StatefulWidget {
       {required this.title,
       Key? key,
       required this.onSaved,
-      required this.initialTime})
+      required this.initialTime, required this.startLimit, required this.endLimit})
       : super(key: key);
   final String title;
   final Function(DateTime) onSaved;
   final DateTime initialTime;
+
+  final DateTime startLimit;
+  final DateTime endLimit;
 
   @override
   _DateFieldState createState() => _DateFieldState();
@@ -406,8 +462,8 @@ class _DateFieldState extends State<_DateField> {
             DateTime? pickedDate = await showDatePicker(
               context: context,
               initialDate: storedDateTime,
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2101),
+              firstDate: widget.startLimit,
+              lastDate: widget.endLimit,
             );
             if (pickedDate != null) {
               String formattedDate =
