@@ -14,11 +14,12 @@ import '../../common/api/userController.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar(
-      {Key? key, this.hasSearch = true, this.hasAccount = true})
+      {Key? key, this.hasSearch = true, this.hasAccount = true, this.searchString})
       : super(key: key);
 
   final bool hasSearch;
   final bool hasAccount;
+  final String? searchString;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class TopNavigationBar extends StatelessWidget {
                   : horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
-                child: SearchBox(width: 0.25 * screenSize.width),
+                child: SearchBox(width: 0.25 * screenSize.width, initialString: searchString),
               ),
             ],
           ),

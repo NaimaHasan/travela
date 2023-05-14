@@ -5,10 +5,11 @@ import '../../screens/search/search_screen.dart';
 class SearchBox extends StatefulWidget {
   const SearchBox({
     super.key,
-    required this.width,
+    required this.width, this.initialString,
   });
 
   final double width;
+  final String? initialString;
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -18,13 +19,21 @@ class _SearchBoxState extends State<SearchBox> {
   TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    if(widget.initialString != null) {
+      _controller.text = widget.initialString!;
+    }
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   void search() {
-    Navigator.of(context).pushNamed("${SearchScreen.routeName}/${_controller.text}");
+    Navigator.of(context).pushNamed("${SearchScreen.routeName}/${_controller.text.toLowerCase()}");
   }
 
   @override

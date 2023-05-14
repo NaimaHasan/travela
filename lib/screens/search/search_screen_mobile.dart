@@ -36,7 +36,7 @@ class SearchScreenMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SearchBox(width: screenSize.width - 2 * marginHorizontalMobile),
+            SearchBox(width: screenSize.width - 2 * marginHorizontalMobile, initialString: searchTerm),
             verticalSpaceSmall,
             SearchColumn(
               padding: EdgeInsets.symmetric(horizontal: 5),

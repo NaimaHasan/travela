@@ -26,6 +26,7 @@ class DestinationScreenDesktop extends StatefulWidget {
 class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
   late Future<Destination?> _future;
   late Future<LatLng?> _mapFuture;
+  late Future<List<Destination>> _nearbyFuture;
 
   @override
   void initState() {
@@ -237,7 +238,19 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-                  child: DestinationNearbyPlaces(),
+                  child: FutureBuilder(
+                    future: _mapFuture,
+                    builder: (ctx, futureResult) {
+                      if (futureResult.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (!futureResult.hasData || futureResult.data == null) {
+                        return Center(child: Text("Unable to fetch nearby destinations"));
+                      }
+                      return DestinationNearbyPlaces(location: futureResult.data!);
+                    },
+                  ),
                 ),
               ],
             ),

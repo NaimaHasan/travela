@@ -26,7 +26,7 @@ class SearchScreenDesktop extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
-        child: const TopNavigationBar(),
+        child: TopNavigationBar(searchString: searchTerm),
       ),
       body: SearchColumn(
         padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.2),

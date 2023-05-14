@@ -5,5 +5,3 @@
   - Add cached images
 - search results from scraper
   - N Things to do
-  - E Nearby places
-- Improve location results

@@ -8,8 +8,10 @@ import 'package:travela/screens/destination/widgets/destination_nearby.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby_mobile.dart';
 
 import '../../common/api/destinationController.dart';
+import '../../common/api/locationController.dart';
 import '../../common/models/destination.dart';
 import '../../widgets/common/top_navigation_bar.dart';
+import 'package:latlong2/latlong.dart';
 
 class DestinationScreenMobile extends StatefulWidget {
   const DestinationScreenMobile({Key? key, required this.destinationName}) : super(key: key);
@@ -22,6 +24,8 @@ class DestinationScreenMobile extends StatefulWidget {
 
 class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
   late Future<Destination?> _future;
+  late Future<LatLng?> _mapFuture;
+  late Future<List<Destination>> _nearbyFuture;
 
   @override
   void initState() {
@@ -52,6 +56,8 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
               child: Text("No destination by that name"),
             );
           }
+          _mapFuture = LocationController.getDestinationLocation(
+              futureResult.data!.name);
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,16 +130,56 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width / 2,
-                  child: FlutterMap(
-                    options: MapOptions(),
-                    children: [
-                      TileLayer(
-                        urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        userAgentPackageName:
-                        'dev.fleaflet.flutter_map.example',
-                      ),
-                    ],
+                  child: FutureBuilder(
+                    future: _mapFuture,
+                    builder: (ctx, futureResult) {
+                      if (futureResult.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator());
+                      }
+                      if (!futureResult.hasData ||
+                          futureResult.data == null) {
+                        return FlutterMap(
+                          options: MapOptions(),
+                          children: [
+                            TileLayer(
+                              urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              userAgentPackageName:
+                              'dev.fleaflet.flutter_map.example',
+                            ),
+                          ],
+                        );
+                      }
+                      return FlutterMap(
+                        options: MapOptions(
+                          center: futureResult.data!,
+                        ),
+                        children: [
+                          TileLayer(
+                            urlTemplate:
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            userAgentPackageName:
+                            'dev.fleaflet.flutter_map.example',
+                          ),
+                          MarkerLayer(
+                            markers: [
+                              Marker(
+                                width: 150.0,
+                                height: 150.0,
+                                point: futureResult.data!,
+                                builder: (ctx) => const Icon(
+                                  Icons.location_on,
+                                  color: Colors.red,
+                                  size: 35.0,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      );
+                    },
                   ),
                 ),
                 const Padding(
@@ -177,7 +223,19 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     ],
                   ),
                 ),
-                const DestinationNearbyPlacesMobile(),
+                FutureBuilder(
+                  future: _mapFuture,
+                  builder: (ctx, futureResult) {
+                    if (futureResult.connectionState ==
+                        ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (!futureResult.hasData || futureResult.data == null) {
+                      return Center(child: Text("Unable to fetch nearby destinations"));
+                    }
+                    return DestinationNearbyPlacesMobile(location: futureResult.data!);
+                  },
+                ),
               ],
             ),
           );
