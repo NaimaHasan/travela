@@ -4,12 +4,12 @@ import 'package:latlong2/latlong.dart';
 import 'package:travela/common/api/locationController.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../screens/destination/destination_screen.dart';
+
 class VariableMap extends StatefulWidget {
-  const VariableMap({Key? key, required this.getCenter, this.getMarkers})
-      : super(key: key);
+  const VariableMap({Key? key, required this.getCenter}) : super(key: key);
 
   final Future<LatLng?> getCenter;
-  final Future<List<LatLng>>? getMarkers;
 
   @override
   State<VariableMap> createState() => VariableMapState();
@@ -29,28 +29,36 @@ class VariableMapState extends State<VariableMap> {
           _location = value;
           _controller.move(_location, _controller.zoom);
         });
-        if (widget.getMarkers != null) {
-          widget.getMarkers!.then((value) {
-            setState(() {
-              _markers.clear();
-              for (var pos in value) {
-                _markers.add(
-                  Marker(
-                    width: 150.0,
-                    height: 150.0,
-                    point: pos,
-                    builder: (ctx) => const Icon(
-                      Icons.location_on,
-                      color: Colors.red,
-                      size: 35.0,
+        LocationController.getNearbyLocations(value.latitude, value.longitude).then((value) {
+          setState(() {
+            _markers.clear();
+            for (var pos in value) {
+              _markers.add(
+                Marker(
+                  width: 35.0,
+                  height: 35.0,
+                  point: pos['location'],
+                  builder: (ctx) => InkWell(
+                    onTap: (){
+                      Navigator.of(context)
+                          .pushNamed("${DestinationScreen.routeName}/${pos['name']}");
+                    },
+                    child: Tooltip(
+                      message: pos['name'],
+                      padding: EdgeInsets.zero,
+                      child: Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                        size: 35.0,
+                      ),
                     ),
                   ),
-                );
-              }
-              print(_markers);
-            });
+                ),
+              );
+            }
+            print(_markers);
           });
-        }
+        });
       }
     });
   }

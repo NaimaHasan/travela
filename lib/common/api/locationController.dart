@@ -44,4 +44,33 @@ class LocationController {
 
     return result;
   }
+
+  static Future<List<Map<String, dynamic>>> getNearbyLocations(double latitude, double longitude) async {
+    List<Map<String, dynamic>> result = [];
+
+      final queryParameters = {
+        'latitude': '$latitude',
+        'longitude': '$longitude',
+      };
+
+      var response = await http.get(
+        Uri.http('127.0.0.1:8000', 'destinations/nearby/', queryParameters),
+      );
+
+      var data = jsonDecode(response.body);
+
+      print(data);
+
+      for(var entry in data){
+        result.add({
+          "name": entry["name"],
+          "location": LatLng(
+            double.parse(entry['latitude']),
+            double.parse(entry['longitude']),
+          ),
+        });
+      }
+
+    return result;
+  }
 }

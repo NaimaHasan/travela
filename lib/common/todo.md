@@ -1,5 +1,9 @@
-Near Me
-	E Join to backend
+- Destination
+  - handle the null description case
+  - add more things on the page
+- All over
+  - Add cached images
 - search results from scraper
-    - N Things to do
-    - E Nearby places
+  - N Things to do
+  - E Nearby places
+- Improve location results
