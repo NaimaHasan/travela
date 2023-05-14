@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -118,8 +119,8 @@ class _MainScreenState extends State<MainScreen> {
                                   size: 30,
                                 ),
                               )
-                            : Image.network(
-                                "http://127.0.0.1:8000${data.tripImageUrl!}",
+                            : CachedNetworkImage(
+                                imageUrl: "http://127.0.0.1:8000${data.tripImageUrl!}",
                                 fit: BoxFit.cover,
                               ),
                       ),

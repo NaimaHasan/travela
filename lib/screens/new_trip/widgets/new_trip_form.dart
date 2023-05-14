@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +172,7 @@ class _NewTripFormState extends State<NewTripForm> {
                           elevation: 5,
                           child: Padding(
                             padding: EdgeInsets.all(10),
-                            child: Image.network("http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}"),
+                            child: CachedNetworkImage(imageUrl: "http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}"),
                           ),
                         ),
                       ),

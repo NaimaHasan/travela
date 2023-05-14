@@ -93,21 +93,26 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                               ),
                             ),
                             verticalSpaceMedium,
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
+                            if (futureResult.data!.description != null)
+                              Column(
+                                children: [
+                                  Text(
+                                    "Description",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  verticalSpaceSmall,
+                                  Text(
+                                    futureResult.data!.description!,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  verticalSpaceMedium,
+                                ],
                               ),
-                            ),
-                            verticalSpaceSmall,
-                            Text(
-                              futureResult.data!.description!,
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            verticalSpaceMedium,
                             Text(
                               "Things to do",
                               style: TextStyle(
@@ -246,9 +251,11 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                         return Center(child: CircularProgressIndicator());
                       }
                       if (!futureResult.hasData || futureResult.data == null) {
-                        return Center(child: Text("Unable to fetch nearby destinations"));
+                        return Center(
+                            child: Text("Unable to fetch nearby destinations"));
                       }
-                      return DestinationNearbyPlaces(location: futureResult.data!);
+                      return DestinationNearbyPlaces(
+                          location: futureResult.data!);
                     },
                   ),
                 ),

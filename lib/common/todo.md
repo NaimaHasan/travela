@@ -1,7 +1,5 @@
 - Destination
-  - handle the null description case
   - add more things on the page
-- All over
-  - Add cached images
 - search results from scraper
   - N Things to do
+- Make carousels have a fixed height

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 
@@ -32,8 +33,8 @@ class ItineraryTopMobile extends StatelessWidget {
                         size: 30,
                       ),
                     )
-                  : Image.network(
-                      "http://127.0.0.1:8000${trip.tripImageUrl!}",
+                  : CachedNetworkImage(
+                      imageUrl: "http://127.0.0.1:8000${trip.tripImageUrl!}",
                       fit: BoxFit.cover,
                     ),
             ),

@@ -11,10 +11,14 @@ import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
 import '../../common/api/userController.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar(
-      {Key? key, this.hasSearch = true, this.hasAccount = true, this.searchString})
+      {Key? key,
+      this.hasSearch = true,
+      this.hasAccount = true,
+      this.searchString})
       : super(key: key);
 
   final bool hasSearch;
@@ -58,7 +62,9 @@ class TopNavigationBar extends StatelessWidget {
                   : horizontalSpaceSmall,
               Visibility(
                 visible: hasSearch,
-                child: SearchBox(width: 0.25 * screenSize.width, initialString: searchString),
+                child: SearchBox(
+                    width: 0.25 * screenSize.width,
+                    initialString: searchString),
               ),
             ],
           ),
@@ -92,9 +98,9 @@ class TopNavigationBar extends StatelessWidget {
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
                               splashRadius:
-                              MediaQuery.of(context).size.width < 600
-                                  ? 25
-                                  : null,
+                                  MediaQuery.of(context).size.width < 600
+                                      ? 25
+                                      : null,
                               icon: Icon(
                                 Icons.account_circle,
                                 size: 30,
@@ -107,8 +113,10 @@ class TopNavigationBar extends StatelessWidget {
                                   .pushNamed(AccountScreen.routeName);
                             },
                             child: ClipOval(
-                              child: Image.network(
-                                  "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
+                              ),
                             ),
                           );
                         },
@@ -141,4 +149,3 @@ class TopNavigationBar extends StatelessWidget {
     );
   }
 }
-

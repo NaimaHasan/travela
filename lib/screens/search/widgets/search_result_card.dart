@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/models/destination.dart';
 import '../../destination/destination_screen.dart';
 
 class SearchResultCard extends StatelessWidget {
-  const SearchResultCard({Key? key, required this.cardTextWidth, required this.destination})
+  const SearchResultCard(
+      {Key? key, required this.cardTextWidth, required this.destination})
       : super(key: key);
   final Destination destination;
   final double cardTextWidth;
@@ -12,7 +14,8 @@ class SearchResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed("${DestinationScreen.routeName}/${destination.name}");
+        Navigator.of(context)
+            .pushNamed("${DestinationScreen.routeName}/${destination.name}");
       },
       child: Card(
         elevation: 2,
@@ -23,8 +26,12 @@ class SearchResultCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.network(destination.image[0],
-                      fit: BoxFit.cover, height: 150.0, width: 210),
+                  CachedNetworkImage(
+                    imageUrl: destination.image[0],
+                    fit: BoxFit.cover,
+                    height: 150.0,
+                    width: 210,
+                  ),
                   Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -42,7 +49,10 @@ class SearchResultCard extends StatelessWidget {
                     bottom: 10,
                     child: Text(
                       destination.tag,
-                      style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

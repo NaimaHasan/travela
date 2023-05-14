@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 
 class DestinationCarousel extends StatelessWidget {
@@ -28,8 +29,8 @@ class DestinationCarousel extends StatelessWidget {
               (item) => Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.network(
-                      item,
+                    child: CachedNetworkImage(
+                      imageUrl: item,
                       fit: BoxFit.fitWidth,
                       height: 0.6 * screenSize.height,
                     ),

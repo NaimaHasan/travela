@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/api/userController.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ItineraryAccountCircle extends StatelessWidget {
   const ItineraryAccountCircle({Key? key, required this.email})
@@ -30,8 +31,10 @@ class ItineraryAccountCircle extends StatelessWidget {
                       )
                     else
                       ClipOval(
-                        child: Image.network(
-                            "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
+                        ),
                       ),
                   ],
                 ),

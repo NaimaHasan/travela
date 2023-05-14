@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 
@@ -101,8 +102,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                           0.5) /
                                       3 -
                                   70),
-                              child: Image.network(
-                                "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
+                              child: CachedNetworkImage(
+                                imageUrl: "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
                                 fit: BoxFit.cover,
                               ),
                             ),

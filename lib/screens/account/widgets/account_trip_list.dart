@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/tripController.dart';
 import 'package:travela/common/enums.dart';
@@ -83,8 +84,8 @@ class _AccountTripListState extends State<AccountTripList> {
                               : Container(
                                   height: 60,
                                   width: 60,
-                                  child: Image.network(
-                                    "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
+                                  child: CachedNetworkImage(
+                                    imageUrl: "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),

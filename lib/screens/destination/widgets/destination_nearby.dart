@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -111,8 +112,8 @@ class DestinationNearbyPlaces extends StatelessWidget {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(7),
-                              child: Image.network(
-                                destination.image[0],
+                              child: CachedNetworkImage(
+                                imageUrl: destination.image[0],
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:travela/widgets/common/pill_button.dart';
@@ -60,8 +61,8 @@ class _HomeBannerState extends State<HomeBanner> {
                               Navigator.of(context)
                                   .pushNamed("${DestinationScreen.routeName}/${futureResult.data!.name}");
                             },
-                            child: Image.network(
-                              futureResult.data!.image,
+                            child: CachedNetworkImage(
+                              imageUrl: futureResult.data!.image,
                               fit: BoxFit.fitWidth,
                             ),
                           ),
