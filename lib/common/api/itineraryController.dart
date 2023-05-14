@@ -297,7 +297,7 @@ class _NewDialogState extends State<_NewDialog> {
                             Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/'),
                             body: {
                               'owner': widget.trip.owner,
-                              'tripName': widget.trip.owner,
+                              'tripName': widget.trip.tripName,
                               'startDate': DateFormat('yyyy-MM-dd').format(initialDate),
                               'endDate': widget.trip.endDate,
                             },
@@ -308,7 +308,7 @@ class _NewDialogState extends State<_NewDialog> {
                             Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/'),
                             body: {
                               'owner': widget.trip.owner,
-                              'tripName': widget.trip.owner,
+                              'tripName': widget.trip.tripName,
                               'startDate': widget.trip.startDate,
                               'endDate': DateFormat('yyyy-MM-dd').format(initialDate),
                             },

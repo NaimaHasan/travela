@@ -92,22 +92,6 @@ class AccountTrip extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(NewTripScreen.routeName);
-                        },
-                        icon: Icon(
-                          Icons.add,
-                          size: MediaQuery.of(context).size.width < tabWidth ? 22 : 30,
-                        ),
-                        splashRadius: 18,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
