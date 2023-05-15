@@ -129,13 +129,16 @@ class Authentication {
       await user.updatePassword(newPassword);
 
       //Displays a snackbar that passowrd is updated successfully
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Password updated successfully.'),
         ),
       );
     } on FirebaseAuthException catch (err) {
-      print(err.code);
+      if (kDebugMode) {
+        print(err.code);
+      }
 
       //if there is an error message, stores the error message
       var message =
@@ -153,7 +156,9 @@ class Authentication {
         ),
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(err.toString()),

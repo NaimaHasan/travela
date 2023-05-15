@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class NewTripDate extends StatefulWidget {
   const NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController, this.initialDate}) : super(key: key);
@@ -11,6 +10,7 @@ class NewTripDate extends StatefulWidget {
   final TextEditingController otherController;
 
   @override
+  // ignore: library_private_types_in_public_api
   _NewTripDateState createState() => _NewTripDateState();
 }
 
@@ -25,10 +25,10 @@ class _NewTripDateState extends State<NewTripDate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
@@ -36,7 +36,7 @@ class _NewTripDateState extends State<NewTripDate> {
         child: TextFormField(
           controller: widget.myController,
           decoration: InputDecoration(
-            prefixIcon: Padding(
+            prefixIcon: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Icon(Icons.calendar_today),
             ),

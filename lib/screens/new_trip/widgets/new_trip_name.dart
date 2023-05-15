@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class NewTripName extends StatefulWidget {
-  NewTripName(
+  const NewTripName(
       {Key? key, required this.onSaved, required this.label, this.initialName})
       : super(key: key);
 
@@ -12,6 +10,7 @@ class NewTripName extends StatefulWidget {
   final String? initialName;
 
   @override
+  // ignore: library_private_types_in_public_api
   _NewTripNameState createState() => _NewTripNameState();
 }
 
@@ -35,16 +34,16 @@ class _NewTripNameState extends State<NewTripName> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
       child: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TextFormField(
             controller: dateController,
             decoration: InputDecoration(

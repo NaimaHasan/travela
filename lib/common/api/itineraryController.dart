@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -30,7 +29,9 @@ class ItineraryController {
         allEntries.add(ItineraryEntry.fromJson(entry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allEntries;
@@ -84,9 +85,12 @@ class ItineraryController {
             '127.0.0.1:8000', 'trips/${entry.trip}/itineraryEntry/${entry.id}'),
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
     //Shows a snackbar that the entry has been deleted
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Entry has been deleted'),
@@ -111,7 +115,9 @@ class ItineraryController {
         allEntries.add(ItineraryEntry.fromJson(entry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allEntries[0].location;
@@ -136,7 +142,9 @@ class ItineraryController {
         allLocations.add(temp.location);
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allLocations;
@@ -193,7 +201,7 @@ class _NewDialogState extends State<_NewDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: EdgeInsets.all(15),
+      contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       children: [
         Form(
@@ -205,7 +213,7 @@ class _NewDialogState extends State<_NewDialog> {
               Text(
                 //If widget is for editing entry displays edit entry else displays new entry
                 widget.isEditable ? 'Edit Entry' : 'New Entry',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -216,7 +224,7 @@ class _NewDialogState extends State<_NewDialog> {
                 visible: _description != "Start of Trip" &&
                     _description != "End of Trip",
                 child: _NameField(
-                  initalText: _description,
+                  initialText: _description,
                   //Storing the data of the name field
                   onSaved: (value) {
                     _description = value!;
@@ -272,7 +280,6 @@ class _NewDialogState extends State<_NewDialog> {
                 child: ElevatedButton(
                   onPressed: () async {
                     _formKey.currentState!.save();
-                    final auth = FirebaseAuth.instance;
                     var initialDate = _startDate;
 
                     initialDate = initialDate.copyWith(
@@ -344,9 +351,12 @@ class _NewDialogState extends State<_NewDialog> {
                         }
                       }
                     } catch (err) {
-                      print(err);
+                      if (kDebugMode) {
+                        print(err);
+                      }
                     }
 
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(widget.ctx);
                   },
                   child: const Text(
@@ -372,12 +382,12 @@ class _NameField extends StatefulWidget {
       {Key? key,
       required this.onSaved,
       required this.label,
-      required this.initalText})
+      required this.initialText})
       : super(key: key);
 
   final Function(String?) onSaved;
   final String label;
-  final String initalText;
+  final String initialText;
 
   @override
   _NameFieldState createState() => _NameFieldState();
@@ -389,7 +399,7 @@ class _NameFieldState extends State<_NameField> {
   @override
   void initState() {
     dateController.text =
-        widget.initalText; //set the initial value of text field
+        widget.initialText; //set the initial value of text field
     super.initState();
   }
 
@@ -402,16 +412,16 @@ class _NameFieldState extends State<_NameField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
       child: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TextFormField(
             controller: dateController,
             decoration: InputDecoration(
@@ -466,10 +476,10 @@ class _DateFieldState extends State<_DateField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
@@ -477,7 +487,7 @@ class _DateFieldState extends State<_DateField> {
         child: TextFormField(
           controller: dateController,
           decoration: InputDecoration(
-            prefixIcon: Padding(
+            prefixIcon: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Icon(Icons.calendar_today),
             ),
@@ -542,17 +552,17 @@ class _TimeFieldState extends State<_TimeField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
       child: Center(
         child: TextFormField(
           controller: timeController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Icon(Icons.calendar_today),

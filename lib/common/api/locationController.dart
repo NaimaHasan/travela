@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +23,9 @@ class LocationController {
       }
       result = LatLng(latitude, longitude);
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
       return null;
     }
     return result;
@@ -51,7 +55,9 @@ class LocationController {
       result = LatLng(
           double.parse(data['latitude']), double.parse(data['longitude']));
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -75,7 +81,9 @@ class LocationController {
     //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
 
       for(var entry in data){
         result.add({

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:travela/screens/login/widgets/login_form.dart';
 import 'package:travela/widgets/common/variable_map.dart';
 import '../../common/api/locationController.dart';
 import '../../widgets/common/top_navigation_bar.dart';

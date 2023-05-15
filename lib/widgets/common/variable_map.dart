@@ -1,8 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:travela/common/api/locationController.dart';
-import 'package:latlong2/latlong.dart';
 
 import '../../screens/destination/destination_screen.dart';
 
@@ -17,8 +17,8 @@ class VariableMap extends StatefulWidget {
 
 class VariableMapState extends State<VariableMap> {
   LatLng _location = LatLng(51, 0);
-  List<Marker> _markers = [];
-  MapController _controller = MapController();
+  final List<Marker> _markers = [];
+  final MapController _controller = MapController();
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class VariableMapState extends State<VariableMap> {
                     child: Tooltip(
                       message: pos['name'],
                       padding: EdgeInsets.zero,
-                      child: Icon(
+                      child: const Icon(
                         Icons.location_on,
                         color: Colors.red,
                         size: 35.0,
@@ -56,7 +56,9 @@ class VariableMapState extends State<VariableMap> {
                 ),
               );
             }
-            print(_markers);
+            if (kDebugMode) {
+              print(_markers);
+            }
           });
         });
       }

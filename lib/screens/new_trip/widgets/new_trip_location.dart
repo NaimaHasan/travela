@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:travela/common/api/locationController.dart';
 import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 
 class NewTripLocation extends StatefulWidget {
-  NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng, this.initialName, this.initialAddress}) : super(key: key);
+  const NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng, this.initialName, this.initialAddress}) : super(key: key);
 
   final LatLng defaultLatLng;
   final String? initialName;
@@ -15,6 +12,7 @@ class NewTripLocation extends StatefulWidget {
   final Function(LatLng value) setLocation;
 
   @override
+  // ignore: library_private_types_in_public_api
   _NewTripLocationState createState() => _NewTripLocationState();
 }
 
@@ -44,7 +42,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       width: 350,
       height: 60,
@@ -80,7 +78,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
           future: _future,
           builder: (ctx, futureResult){
               if(futureResult.connectionState == ConnectionState.waiting){
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               if(!futureResult.hasData || futureResult.data == null){
                 return TextFormField(

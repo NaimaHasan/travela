@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_form.dart';
 
-import 'widgets/location_picker.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class NewTripScreenDesktop extends StatelessWidget {
@@ -24,7 +23,7 @@ class NewTripScreenDesktop extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: 420,
             child: Card(
               elevation: 5,

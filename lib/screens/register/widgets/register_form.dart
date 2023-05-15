@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/authenticationController.dart';
 import 'package:travela/widgets/common/auth_form_field.dart';
@@ -136,8 +136,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 });
               },
               child: _isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : Text(
+                  ? const Center(child: CircularProgressIndicator())
+                  : const Text(
                       'Register',
                       style: TextStyle(),
                     ),
@@ -160,7 +160,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(LogInScreen.routeName);
                 },
-                child: Text('Log In'),
+                child: const Text('Log In'),
               )
             ],
           ),

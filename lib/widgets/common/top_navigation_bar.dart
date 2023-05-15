@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/screens/account/account_screen.dart';
-import 'package:travela/screens/destination/destination_screen.dart';
 import 'package:travela/screens/home/home_screen.dart';
 import 'package:travela/screens/login/login_screen.dart';
 import 'package:travela/screens/map/map_screen.dart';
-import 'package:travela/screens/search/search_screen.dart';
 import 'package:travela/widgets/common/search_box.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
@@ -29,13 +27,13 @@ class TopNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
       child: Row(
         children: [
           MediaQuery.of(context).size.width < 600
               ? horizontalSpaceMarginMobile
               : horizontalSpaceMargin,
-          TopNavigationBarItem(
+          const TopNavigationBarItem(
             text: "Travela",
             size: 28,
             route: HomeScreen.routeName,
@@ -46,14 +44,14 @@ class TopNavigationBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TopNavigationBarItem(
+              const TopNavigationBarItem(
                 text: "Home",
                 route: HomeScreen.routeName,
               ),
               MediaQuery.of(context).size.width < 600
                   ? horizontalSpaceSmallMobile
                   : horizontalSpaceSmall,
-              TopNavigationBarItem(
+              const TopNavigationBarItem(
                 text: "Near Me",
                 route: MapScreen.routeName,
               ),
@@ -101,7 +99,7 @@ class TopNavigationBar extends StatelessWidget {
                                   MediaQuery.of(context).size.width < 600
                                       ? 25
                                       : null,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.account_circle,
                                 size: 30,
                               ),
@@ -131,7 +129,7 @@ class TopNavigationBar extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     splashRadius:
                         MediaQuery.of(context).size.width < 600 ? 25 : null,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.account_circle,
                       size: 30,
                     ),
@@ -141,8 +139,8 @@ class TopNavigationBar extends StatelessWidget {
             ),
           ),
           Visibility(
-            child: horizontalSpaceMarginMobile,
             visible: MediaQuery.of(context).size.width < 600,
+            child: horizontalSpaceMarginMobile,
           )
         ],
       ),

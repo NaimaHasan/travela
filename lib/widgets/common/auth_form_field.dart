@@ -12,6 +12,7 @@ class AuthFormField extends StatefulWidget {
       : super(key: key);
 
   final String text;
+  // ignore: prefer_typing_uninitialized_variables
   final width;
   final void Function(String? value) savedFn;
   final String? Function(String? value) validatorFn;

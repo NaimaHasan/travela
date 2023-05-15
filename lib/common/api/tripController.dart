@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,7 +28,9 @@ class TripController {
       var data = jsonDecode(response.body);
       trip = Trip.fromJson(data);
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return trip;
@@ -52,8 +55,9 @@ class TripController {
         allTrips.add(Trip.fromJson(tripEntry));
       }
     } catch (err) {
-      print("hij");
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allTrips;
@@ -79,7 +83,9 @@ class TripController {
         allTrips.add(Trip.fromJson(tripEntry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allTrips;
@@ -105,7 +111,9 @@ class TripController {
         personalTrips.add(Trip.fromJson(tripEntry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return personalTrips;
@@ -131,7 +139,9 @@ class TripController {
         groupTrips.add(Trip.fromJson(tripEntry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return groupTrips;
@@ -153,7 +163,7 @@ class TripController {
           ..fields['startDate'] = trip.startDate
           ..fields['endDate'] = trip.endDate
           ..files.add(http.MultipartFile.fromBytes(
-              'tripImage', await image!.readAsBytes(),
+              'tripImage', await image.readAsBytes(),
               contentType: MediaType('image', image.name.split(".")[1]),
               filename: image.name));
         var responseStream = await request.send();
@@ -179,10 +189,10 @@ class TripController {
       }
 
       var startDateTime = DateTime.parse(trip.startDate).toLocal();
-      startDateTime = startDateTime.add(Duration(hours: 6));
+      startDateTime = startDateTime.add(const Duration(hours: 6));
 
       var endDateTime = DateTime.parse(trip.startDate).toLocal();
-      endDateTime = endDateTime.add(Duration(hours: 18));
+      endDateTime = endDateTime.add(const Duration(hours: 18));
 
       //http post for the start time and end time of the trip
       await http.post(
@@ -207,7 +217,9 @@ class TripController {
         },
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -222,7 +234,9 @@ class TripController {
         },
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -264,7 +278,7 @@ class TripController {
         if (response.statusCode == 400) {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text("User does not exist."),
               ),
             );
@@ -287,7 +301,9 @@ class TripController {
         }
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -305,14 +321,16 @@ class TripController {
         'sharedUsers': trip.sharedUsers..add(auth.currentUser!.email!),
       };
 
-      //If the trip is accepted adds the trip to grouptrip list and removes the trip from pending trip
+      //If the trip is accepted adds the trip to group trip list and removes the trip from pending trip
       await http.put(
         Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
         headers: {'content-type': 'application/json'},
         body: jsonEncode(body),
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -337,7 +355,9 @@ class TripController {
         body: jsonEncode(body),
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -388,7 +408,9 @@ class TripController {
         }
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
     //Shows snackbar that the trip has been deleted
     if(context.mounted) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/search/widgets/search_column.dart';
-import 'package:travela/screens/search/widgets/search_result_card.dart';
 import 'package:travela/widgets/common/search_box.dart';
 
 import '../../widgets/common/spacing.dart';
@@ -39,7 +38,7 @@ class SearchScreenMobile extends StatelessWidget {
             SearchBox(width: screenSize.width - 2 * marginHorizontalMobile, initialString: searchTerm),
             verticalSpaceSmall,
             SearchColumn(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               cardWidth: screenSize.width - 288,
               searchTerm: searchTerm,
             ),

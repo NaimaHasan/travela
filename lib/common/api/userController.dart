@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../models/user.dart';
@@ -43,7 +43,9 @@ class UserController {
 
       currentUser = TravelaUser.fromJson(data);
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return currentUser;
@@ -56,7 +58,7 @@ class UserController {
     try {
       //Gets user from backend given the backend
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'users/${email}/'),
+        Uri.http('127.0.0.1:8000', 'users/$email/'),
       );
 
       //Stores the response body in data variable
@@ -64,7 +66,9 @@ class UserController {
 
       userData = TravelaUser.fromJson(data);
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return userData;
@@ -87,7 +91,9 @@ class UserController {
         body: jsonEncode(body),
       );
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
@@ -108,9 +114,11 @@ class UserController {
             'userImage', await image!.readAsBytes(),
             contentType: MediaType('image', image.name.split(".")[1]),
             filename: image.name));
-      var response = await request.send();
+      await request.send();
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 }

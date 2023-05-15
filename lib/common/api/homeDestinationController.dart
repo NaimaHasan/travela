@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -19,9 +20,13 @@ class HomeDestinationController {
       var data = jsonDecode(response.body);
 
       result = HomeDestination.fromJson(data);
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -42,9 +47,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -65,9 +74,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -88,9 +101,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -111,9 +128,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -134,9 +155,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -157,9 +182,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -180,9 +209,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
@@ -203,9 +236,13 @@ class HomeDestinationController {
       for (Map<String, dynamic> homeDestination in data) {
         result.add(HomeDestination.fromJson(homeDestination));
       }
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;

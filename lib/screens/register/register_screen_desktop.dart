@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travela/screens/register/widgets/register_form.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
-import '../account/account_screen.dart';
-import '../login/login_screen.dart';
+
 
 class RegisterScreenDesktop extends StatelessWidget {
   const RegisterScreenDesktop({
@@ -21,7 +20,7 @@ class RegisterScreenDesktop extends StatelessWidget {
           hasAccount: false,
         ),
       ),
-      body: Center(
+      body: const Center(
         child: RegisterForm(),
       ),
     );

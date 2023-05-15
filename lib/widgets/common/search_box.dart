@@ -16,7 +16,7 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -50,10 +50,10 @@ class _SearchBoxState extends State<SearchBox> {
             onPressed: (){
               search();
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
           contentPadding:
-          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

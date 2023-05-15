@@ -56,7 +56,7 @@ class _NewTripFormState extends State<NewTripForm> {
           Container(height: 30),
           Text(
             widget.existingTrip == null ? 'New Trip' : 'Edit Trip',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
@@ -136,15 +136,15 @@ class _NewTripFormState extends State<NewTripForm> {
               ? (widget.existingTrip == null || widget.existingTrip!.tripImageUrl == null
                   ? DottedBorder(
                       borderType: BorderType.RRect,
-                      radius: Radius.circular(6),
+                      radius: const Radius.circular(6),
                       color: Colors.black38,
-                      dashPattern: [8, 4],
+                      dashPattern: const [8, 4],
                       strokeWidth: 0.5,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(6),
                         ),
-                        child: Container(
+                        child: SizedBox(
                           height: 300,
                           width: 340,
                           child: Center(
@@ -154,7 +154,7 @@ class _NewTripFormState extends State<NewTripForm> {
                                     .pickImage(source: ImageSource.gallery);
                                 setState(() {});
                               },
-                              icon: Icon(Icons.add_photo_alternate_outlined),
+                              icon: const Icon(Icons.add_photo_alternate_outlined),
                               color: Colors.black54,
                             ),
                           ),
@@ -167,13 +167,13 @@ class _NewTripFormState extends State<NewTripForm> {
                             .pickImage(source: ImageSource.gallery);
                         setState(() {});
                       },
-                      child: Container(
+                      child: SizedBox(
                         height: 340,
                         width: 340,
                         child: Card(
                           elevation: 5,
                           child: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: CachedNetworkImage(imageUrl: "http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}"),
                           ),
                         ),
@@ -185,13 +185,14 @@ class _NewTripFormState extends State<NewTripForm> {
                         .pickImage(source: ImageSource.gallery);
                     setState(() {});
                   },
-                  child: Container(
+
+                  child: SizedBox(
                     height: 340,
                     width: 340,
                     child: Card(
                       elevation: 5,
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: FutureBuilder(
                           future: _image!.readAsBytes(),
                           builder: (ctx, futureResult) {
@@ -232,6 +233,7 @@ class _NewTripFormState extends State<NewTripForm> {
                     _image,
                   );
 
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamed(AccountScreen.routeName);
                 }
                 else {
@@ -259,6 +261,7 @@ class _NewTripFormState extends State<NewTripForm> {
                       },
                     );
                   }
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 }
               },

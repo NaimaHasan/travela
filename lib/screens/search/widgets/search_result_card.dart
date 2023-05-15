@@ -21,7 +21,7 @@ class SearchResultCard extends StatelessWidget {
         elevation: 2,
         borderOnForeground: true,
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Row(
             children: [
               Stack(
@@ -49,7 +49,7 @@ class SearchResultCard extends StatelessWidget {
                     bottom: 10,
                     child: Text(
                       destination.tag,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
@@ -58,8 +58,8 @@ class SearchResultCard extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Container(
+                padding: const EdgeInsets.only(left: 20),
+                child: SizedBox(
                   height: 140,
                   width: cardTextWidth,
                   child: Column(
@@ -68,12 +68,12 @@ class SearchResultCard extends StatelessWidget {
                     children: [
                       Text(
                         destination.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         destination.address,
-                        style: TextStyle(fontSize: 14),
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ],
                   ),

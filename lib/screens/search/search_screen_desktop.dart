@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travela/screens/search/widgets/search_column.dart';
-import 'package:travela/screens/search/widgets/search_result_card.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 

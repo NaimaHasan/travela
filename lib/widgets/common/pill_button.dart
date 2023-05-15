@@ -12,16 +12,16 @@ class PillButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPress,
-      child: Padding(
-        padding: padding,
-        child: child,
-      ),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: Colors.black, width: 0.5),
+          side: const BorderSide(color: Colors.black, width: 0.5),
         ),
-        backgroundColor: color == null? Colors.white : color,
+        backgroundColor: color ?? Colors.white,
+      ),
+      child: Padding(
+        padding: padding,
+        child: child,
       ),
     );
   }

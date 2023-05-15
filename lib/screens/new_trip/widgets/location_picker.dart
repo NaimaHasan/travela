@@ -52,24 +52,24 @@ class _LocationPickerState extends State<LocationPicker> {
                   width: 150,
                   child: Container(
                     color: Colors.blue,
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        WhiteText(text: "SELECT LOCATION", size: 10),
+                        const WhiteText(text: "SELECT LOCATION", size: 10),
                         verticalSpaceSmall,
-                        WhiteText(text: "Latitude", size: 18),
+                        const WhiteText(text: "Latitude", size: 18),
                         WhiteText(
                             text: convertToDms(_marker.point.latitude, false),
                             size: 16),
                         verticalSpaceSmall,
-                        WhiteText(text: "Longitude", size: 18),
+                        const WhiteText(text: "Longitude", size: 18),
                         WhiteText(
                             text: convertToDms(_marker.point.longitude, true),
                             size: 16),
                         verticalSpaceSmall,
                         TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             label: Text("Search",
                                 style: TextStyle(color: Colors.white, fontSize: 12),
                             ),
@@ -81,7 +81,7 @@ class _LocationPickerState extends State<LocationPicker> {
                               borderSide: BorderSide(color: Colors.white),
                             ),
                           ),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           cursorColor: Colors.white,
                           onSubmitted: (value) async {
                             final location =
@@ -139,7 +139,7 @@ class _LocationPickerState extends State<LocationPicker> {
                             final p = _marker.point;
                             Navigator.pop(widget.ctx, p);
                           },
-                          child: Text("OK"),
+                          child: const Text("OK"),
                         ),
                       ),
                       Positioned(
@@ -147,7 +147,7 @@ class _LocationPickerState extends State<LocationPicker> {
                         right: 80,
                         child: ElevatedButton(
                           onPressed: () => Navigator.pop(widget.ctx),
-                          child: Text("CANCEL"),
+                          child: const Text("CANCEL"),
                         ),
                       ),
                     ],

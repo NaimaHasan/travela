@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:intl/intl.dart';
-import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
-import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
-import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_top_mobile.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 
 import '../../common/api/itineraryController.dart';
 import '../../common/api/tripController.dart';
 import '../../common/models/trip.dart';
-import '../../widgets/common/pill_button.dart';
-import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
-import '../../widgets/common/variable_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class ItineraryScreenMobile extends StatelessWidget {
@@ -72,14 +65,14 @@ class _MainScreenState extends State<MainScreen> {
       future: _future,
       builder: (ctx, futureResults) {
         if (futureResults.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (!futureResults.hasData) {
-          return Center(child: Text("Trip does not exist."));
+          return const Center(child: Text("Trip does not exist."));
         }
         var data = futureResults.data![0] as Trip;
         var locations = futureResults.data![1] as List<LatLng>;
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
@@ -92,33 +85,33 @@ class _MainScreenState extends State<MainScreen> {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       child: ItineraryUsers(
                         userList: data.sharedUsers,
                         name: 'Shared',
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: ItineraryUsers(
                         userList: data.pendingUsers,
                         name: 'Pending',
                       ),
                     ),
 
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 30, top: 15, right: 30, bottom: 20),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               'Map',
                               style: TextStyle(fontSize: 24),
                             ),
                             Expanded(child: Container()),
-                            Icon(
+                            const Icon(
                               Icons.location_on_outlined,
                               color: Colors.black38,
                             )
@@ -127,8 +120,8 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
-                      child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: FlutterMap(
                           mapController: _controller,
@@ -161,19 +154,19 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 30, bottom: 20, right: 30, top: 30),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               'Itinerary',
                               style: TextStyle(fontSize: 24),
                             ),
                             Expanded(child: Container()),
-                            Icon(
+                            const Icon(
                               Icons.calendar_today_outlined,
                               color: Colors.black38,
                             )
@@ -182,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: ItineraryColumn(
                         trip: data,
                         isScrollable: false,
@@ -206,7 +199,7 @@ class _MainScreenState extends State<MainScreen> {
                       setFutures();
                     });
                   },
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                 ),
               ),
             ],

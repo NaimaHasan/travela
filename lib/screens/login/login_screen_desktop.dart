@@ -16,7 +16,7 @@ class LogInScreenDesktop extends StatelessWidget {
           hasAccount: false,
         ),
       ),
-      body: Center(
+      body: const Center(
         child: LoginForm(),
       ),
     );

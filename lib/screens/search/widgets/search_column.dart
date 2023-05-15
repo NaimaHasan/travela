@@ -35,14 +35,14 @@ class _SearchColumnState extends State<SearchColumn> {
       future: searchResults,
       builder: (ctx, futureResults) {
         if (futureResults.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
         if (!futureResults.hasData ||
             futureResults.data == null ||
             futureResults.data!.isEmpty) {
-          return Center(
+          return const Center(
             child: Text("No results found"),
           );
         }

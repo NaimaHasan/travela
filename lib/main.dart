@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           final dynamicValue = int.parse(settings.name!.split('/').last);
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? LogInScreen() : ItineraryScreen(trip: dynamicValue),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : ItineraryScreen(trip: dynamicValue),
             settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         }
         if (settings.name!.startsWith('/near-me')) {
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => MapScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => const MapScreen(),
             settings: settings,
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/login')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? LogInScreen() : AccountScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const AccountScreen(),
             settings: auth.currentUser == null ? settings : RouteSettings(name: "/account", arguments: settings.arguments),
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/register')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? RegisterScreen() : AccountScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const RegisterScreen() : const AccountScreen(),
             settings: auth.currentUser == null ? settings : RouteSettings(name: "/account", arguments: settings.arguments),
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/account')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? LogInScreen() : AccountScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const AccountScreen(),
             settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/edit_information')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? LogInScreen() : EditInformationScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const EditInformationScreen(),
             settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
@@ -101,13 +101,13 @@ class MyApp extends StatelessWidget {
         if (settings.name!.startsWith('/new_trip')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? LogInScreen() : NewTripScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const NewTripScreen(),
             settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
+          pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
           settings: settings,
           transitionDuration: Duration.zero, // Set the transition duration to zero
         );

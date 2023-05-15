@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:travela/common/models/destination.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -21,7 +22,9 @@ class DestinationController{
         allEntries.add(Destination.fromJson(entry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allEntries;
@@ -51,7 +54,9 @@ class DestinationController{
         allEntries.add(Destination.fromJson(entry));
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return allEntries;
@@ -72,7 +77,9 @@ class DestinationController{
 
       result = Destination.fromJson(data);
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
 
     return result;
