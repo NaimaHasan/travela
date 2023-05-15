@@ -21,7 +21,7 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   void initState() {
     if(widget.initialString != null) {
-      _controller.text = widget.initialString!;
+      _controller.text = widget.initialString!.replaceAll("%20", " ");
     }
     super.initState();
   }
