@@ -1,8 +1,0 @@
-- Destination
-  - add more things on the page
-- search results from scraper
-  - N Things to do
-- Add more robust w replacement in the backend
-  - check dynamic kina
-  - replace everything after ? with w=1800&s=1
-  - dont send back svgs
