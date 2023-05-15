@@ -86,7 +86,7 @@ class _LocationPickerState extends State<LocationPicker> {
                           onSubmitted: (value) async {
                             final location =
                                 await LocationController.getDestinationLocation(
-                                    value);
+                                    value, null);
 
                             if (location != null && value.isNotEmpty) {
                               _mapController.move(location, _mapController.zoom);

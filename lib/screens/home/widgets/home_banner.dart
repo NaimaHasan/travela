@@ -128,7 +128,7 @@ class _HomeBannerState extends State<HomeBanner> {
                         onPress: () {
                           Navigator.of(context).pushNamed(
                               NewTripScreen.routeName,
-                              arguments: futureResult.data!.name);
+                              arguments: [futureResult.data!.name, futureResult.data!.location]);
                         },
                       ),
                       horizontalSpaceMedium,

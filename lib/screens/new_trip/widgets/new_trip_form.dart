@@ -15,10 +15,11 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 class NewTripForm extends StatefulWidget {
-  const NewTripForm({Key? key, this.initialName, this.existingTrip})
+  const NewTripForm({Key? key, this.initialName, this.existingTrip, this.initialAddress})
       : super(key: key);
 
   final String? initialName;
+  final String? initialAddress;
   final Trip? existingTrip;
 
   @override
@@ -115,6 +116,7 @@ class _NewTripFormState extends State<NewTripForm> {
                 _location = value;
               },
               initialName: widget.initialName,
+              initialAddress: widget.initialAddress,
             ),
           ),
           const Padding(

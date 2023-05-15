@@ -60,7 +60,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
             );
           }
           _mapFuture = LocationController.getDestinationLocation(
-              futureResult.data!.name);
+              futureResult.data!.name, futureResult.data!.address);
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -6,10 +6,11 @@ import '../../widgets/common/top_navigation_bar.dart';
 
 class NewTripScreenDesktop extends StatelessWidget {
   const NewTripScreenDesktop({
-    super.key, this.initialName,
+    super.key, this.initialName, this.initialAddress,
   });
   
   final String? initialName;
+  final String? initialAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class NewTripScreenDesktop extends StatelessWidget {
             width: 420,
             child: Card(
               elevation: 5,
-              child: NewTripForm(initialName: initialName),
+              child: NewTripForm(initialName: initialName, initialAddress: initialAddress),
             ),
           ),
         ),

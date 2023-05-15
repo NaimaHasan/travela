@@ -28,13 +28,21 @@ class LocationController {
   }
 
   //Function to get the destination location
-  static Future<LatLng?> getDestinationLocation(String locationName) async {
+  static Future<LatLng?> getDestinationLocation(String locationName, String? locationAddress) async {
     LatLng? result;
+    String searchTerm;
+
+    if(locationAddress != null){
+      searchTerm = "$locationName, $locationAddress";
+    }
+    else {
+      searchTerm = locationName;
+    }
 
     try {
       //Gets the destination location from the backend
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'destinations/location/$locationName/'),
+        Uri.http('127.0.0.1:8000', 'destinations/location/$searchTerm/'),
       );
 
       //Stores the response body in data variable

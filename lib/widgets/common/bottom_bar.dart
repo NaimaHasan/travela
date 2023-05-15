@@ -35,8 +35,8 @@ class BottomBar extends StatelessWidget {
                 ? horizontalSpaceMarginMobile
                 : horizontalSpaceMargin,
             Image.asset(
-              "lib/assets/travelalogo64_nb.png",
-              height: 50,
+              "lib/assets/logo_128.png",
+              height: 45,
             ),
             SizedBox(width: 10),
             Text(
