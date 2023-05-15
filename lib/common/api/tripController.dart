@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travela/common/api/userController.dart';
+
 import 'package:travela/screens/new_trip/widgets/new_trip_form.dart';
 
 import '../models/trip.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/user.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -22,6 +21,7 @@ class TripController {
         Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
       trip = Trip.fromJson(data);
     } catch (err) {
@@ -41,6 +41,7 @@ class TripController {
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> tripEntry in data) {
@@ -65,6 +66,7 @@ class TripController {
             '127.0.0.1:8000', 'users/${auth.currentUser!.email}/pendingTrips/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> tripEntry in data) {
@@ -88,6 +90,7 @@ class TripController {
             'users/${auth.currentUser!.email}/personalTrips/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> tripEntry in data) {
@@ -111,6 +114,7 @@ class TripController {
             '127.0.0.1:8000', 'users/${auth.currentUser!.email}/groupTrips/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> tripEntry in data) {
@@ -144,6 +148,7 @@ class TripController {
 
         var response = await http.Response.fromStream(responseStream);
 
+        //Stores the response body in data variable
         data = jsonDecode(response.body);
       } else {
         var response = await http.post(
@@ -156,6 +161,7 @@ class TripController {
           },
         );
 
+        //Stores the response body in data variable
         data = jsonDecode(response.body);
       }
 

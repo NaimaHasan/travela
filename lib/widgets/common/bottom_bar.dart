@@ -14,7 +14,7 @@ import '../../common/api/userController.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class BottomBar extends StatelessWidget {
-  static const double bottomBarHeight = 150;
+  static const double bottomBarHeight = 100;
 
   const BottomBar({Key? key}) : super(key: key);
 
@@ -34,65 +34,57 @@ class BottomBar extends StatelessWidget {
             MediaQuery.of(context).size.width < 600
                 ? horizontalSpaceMarginMobile
                 : horizontalSpaceMargin,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      "lib/assets/travelalogo64_nb.png",
-                      height: 60,
-                    ),
-                    Text(
-                      "Travela",
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      width: 1,
-                      height: 60,
-                    ),
-                    Text("Follow"),
-                    SizedBox(width: 5),
-                    Tooltip(
-                      message: "imranZMiko",
-                      verticalOffset: 15,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          "lib/assets/github-mark/github-mark-64.png",
-                          height: 55,
-                        ),
-                        splashRadius: 18,
-                      ),
-                    ),
-                    Tooltip(
-                      message: "NaimaHasan",
-                      verticalOffset: 15,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          "lib/assets/github-mark/github-mark-64.png",
-                          height: 55,
-                        ),
-                        splashRadius: 18,
-                      ),
-                    ),
-                  ],
+            Image.asset(
+              "lib/assets/travelalogo64_nb.png",
+              height: 50,
+            ),
+            SizedBox(width: 10),
+            Text(
+              "Travela",
+              style: TextStyle(fontSize: 22),
+            ),
+            Container(
+              color: Colors.grey,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              width: 1,
+              height: 60,
+            ),
+            Text("Follow"),
+            SizedBox(width: 5),
+            Tooltip(
+              message: "imranZMiko",
+              verticalOffset: 15,
+              child: IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "lib/assets/github-mark/github-mark-64.png",
+                  height: 55,
                 ),
-                Container(
-                  color: Colors.grey,
-                  height: 1,
-                  width: 300,
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                splashRadius: 18,
+              ),
+            ),
+            Tooltip(
+              message: "NaimaHasan",
+              verticalOffset: 15,
+              child: IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "lib/assets/github-mark/github-mark-64.png",
+                  height: 55,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text("© Travela"),
-                ),
-              ],
-            )
+                splashRadius: 18,
+              ),
+            ),
+            Container(
+              color: Colors.grey,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              width: 1,
+              height: 60,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Text("© Travela"),
+            ),
           ],
         ),
       ),

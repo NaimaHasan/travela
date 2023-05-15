@@ -16,6 +16,7 @@ class UserController {
       Uri.http('127.0.0.1:8000', 'users/'),
     );
 
+    //Stores the response body in data variable
     var data = jsonDecode(response.body);
 
     for (Map<String, dynamic> userEntry in data) {
@@ -33,6 +34,7 @@ class UserController {
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       currentUser = TravelaUser.fromJson(data);
@@ -51,6 +53,7 @@ class UserController {
         Uri.http('127.0.0.1:8000', 'users/${email}/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       userData = TravelaUser.fromJson(data);

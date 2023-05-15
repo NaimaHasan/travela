@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:travela/screens/new_trip/widgets/new_trip_form.dart';
 
-import '../../screens/new_trip/widgets/new_trip_date.dart';
 import '../../screens/new_trip/widgets/new_trip_location.dart';
-import '../../screens/new_trip/widgets/new_trip_name.dart';
+
 import '../models/itineraryEntry.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
@@ -15,14 +13,17 @@ import 'package:latlong2/latlong.dart';
 import '../models/trip.dart';
 
 class ItineraryController {
+  //Function to get all itinerary entries
   static Future<List<ItineraryEntry>> getAllEntries(int tripID) async {
     List<ItineraryEntry> allEntries = [];
 
     try {
+      //Gets all itinerary entries from backend
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'trips/$tripID/itineraryEntry/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> entry in data) {
@@ -35,11 +36,13 @@ class ItineraryController {
     return allEntries;
   }
 
+  //Function to add a new itinerary entry
   static Future<void> newEntry(
       BuildContext context, int tripID, Trip trip) async {
     await showDialog(
       context: context,
       builder: (ctx) {
+        //Calls _NewDialogue with the trip data as parameter
         return _NewDialog(
           ctx: ctx,
           tripID: tripID,
@@ -51,11 +54,13 @@ class ItineraryController {
     );
   }
 
+  //Function to edit an itinerary entry
   static Future<void> editEntry(
       BuildContext context, ItineraryEntry entry, Trip trip) async {
     await showDialog(
       context: context,
       builder: (ctx) {
+        //Calls _NewDialogue with the trip data as parameter
         return _NewDialog(
           ctx: ctx,
           tripID: entry.trip,
@@ -69,9 +74,11 @@ class ItineraryController {
     );
   }
 
+  //Function to delete an itinerary entry
   static Future<void> deleteEntry(
       BuildContext context, ItineraryEntry entry) async {
     try {
+      //Deletes the itinerary entry from backend
       await http.delete(
         Uri.http(
             '127.0.0.1:8000', 'trips/${entry.trip}/itineraryEntry/${entry.id}'),
@@ -79,21 +86,25 @@ class ItineraryController {
     } catch (err) {
       print(err);
     }
+    //Shows a snackbar that the entry has been deleted
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Entry has been deleted'),
       ),
     );
   }
 
+  //Function to get first location of an itinerary
   static Future<LatLng> getFirstLocation(int tripID) async {
     List<ItineraryEntry> allEntries = [];
 
     try {
+      //Gets first location of an itinerary from backend
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'trips/$tripID/itineraryEntry/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> entry in data) {
@@ -106,15 +117,18 @@ class ItineraryController {
     return allEntries[0].location;
   }
 
+  //Function to get all locations of an itinerary
   static Future<List<LatLng>> getAllLocations(int tripID) async {
     ItineraryEntry temp;
     List<LatLng> allLocations = [];
 
     try {
+      //Gets all locations of an itinerary from backend
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'trips/$tripID/itineraryEntry/'),
       );
 
+      //Stores the response body in data variable
       var data = jsonDecode(response.body);
 
       for (Map<String, dynamic> entry in data) {
@@ -129,6 +143,8 @@ class ItineraryController {
   }
 }
 
+//Widget has been made stateful
+//Class to display dialogue for editing and adding an itinerary entry
 class _NewDialog extends StatefulWidget {
   const _NewDialog(
       {Key? key,
@@ -140,6 +156,7 @@ class _NewDialog extends StatefulWidget {
       required this.endLimit, required this.trip})
       : super(key: key);
 
+  //Required variables for the parameters
   final BuildContext ctx;
   final int tripID;
   final bool isEditable;
@@ -164,6 +181,7 @@ class _NewDialogState extends State<_NewDialog> {
 
   @override
   void initState() {
+    //If the widget is not editable initializes with default values
     _location = widget.isEditable ? widget.entry!.location : LatLng(51, 0);
     _description =
         widget.isEditable ? widget.entry!.description : "Default Name";
@@ -185,17 +203,21 @@ class _NewDialogState extends State<_NewDialog> {
             children: [
               Container(height: 20),
               Text(
+                //If widget is for editing entry displays edit entry else displays new entry
                 widget.isEditable ? 'Edit Entry' : 'New Entry',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
+              //We do not allow editing the entry names start of trip and end of trip
+              //Thus they are omitted from the fields using a visibility modifier
               Visibility(
                 visible: _description != "Start of Trip" &&
                     _description != "End of Trip",
                 child: _NameField(
                   initalText: _description,
+                  //Storing the data of the name field
                   onSaved: (value) {
                     _description = value!;
                   },
@@ -205,6 +227,7 @@ class _NewDialogState extends State<_NewDialog> {
               _DateField(
                 title: 'Date',
                 initialTime: _startDate,
+                //Storing the data of the date field
                 onSaved: (value) {
                   _startDate = value;
                 },
@@ -215,6 +238,7 @@ class _NewDialogState extends State<_NewDialog> {
               ),
               _TimeField(
                 initialTime: _startTime,
+                //Storing the data of the time field
                 onSaved: (value) {
                   _startTime = value;
                 },
@@ -234,6 +258,7 @@ class _NewDialogState extends State<_NewDialog> {
               ),
               NewTripLocation(
                 defaultLatLng: _location,
+                //Storing the data of the location field
                 setLocation: (value) {
                   _location = value;
                 },
@@ -265,6 +290,7 @@ class _NewDialogState extends State<_NewDialog> {
 
                     try {
                       if (!widget.isEditable) {
+                        //if the widget is for a new entry, uses http post to add it to the backend
                         await http.post(
                           Uri.http('127.0.0.1:8000',
                               'trips/${widget.tripID}/itineraryEntry/'),
@@ -279,6 +305,7 @@ class _NewDialogState extends State<_NewDialog> {
                           },
                         );
                       } else {
+                        //if the widget is for editing an entry, uses http put to add it to the backend
                         await http.put(
                           Uri.http('127.0.0.1:8000',
                               'trips/${widget.tripID}/itineraryEntry/${widget.entry!.id}/'),
@@ -292,6 +319,7 @@ class _NewDialogState extends State<_NewDialog> {
                                 _location.longitude.toStringAsFixed(20),
                           },
                         );
+                        //As we do not allow editing start of trip and end of trip different http put are called for them
                         if(_description == "Start of Trip"){
                           await http.put(
                             Uri.http('127.0.0.1:8000', 'trips/${widget.tripID}/'),
@@ -338,6 +366,7 @@ class _NewDialogState extends State<_NewDialog> {
   }
 }
 
+//A stateful class for updating or adding the name field in itinerary entry
 class _NameField extends StatefulWidget {
   const _NameField(
       {Key? key,
@@ -397,6 +426,7 @@ class _NameFieldState extends State<_NameField> {
   }
 }
 
+//A stateful class for updating or adding the date field in itinerary entry
 class _DateField extends StatefulWidget {
   const _DateField(
       {required this.title,
@@ -480,6 +510,7 @@ class _DateFieldState extends State<_DateField> {
   }
 }
 
+//A stateful class for updating or adding the time field in itinerary entry
 class _TimeField extends StatefulWidget {
   const _TimeField({Key? key, required this.onSaved, required this.initialTime})
       : super(key: key);
