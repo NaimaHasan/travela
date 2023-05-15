@@ -23,8 +23,8 @@ class BottomBar extends StatelessWidget {
     return Card(
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
-      ),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5), topRight: Radius.circular(5))),
       elevation: 20,
       child: Container(
         height: bottomBarHeight,
@@ -34,9 +34,17 @@ class BottomBar extends StatelessWidget {
             MediaQuery.of(context).size.width < 600
                 ? horizontalSpaceMarginMobile
                 : horizontalSpaceMargin,
-            Text(
-              "Travela",
-            )
+            Row(
+              children: [
+                Image.asset("lib/assets/travelalogo.png", height: 70,),
+                Text(
+                  "Travela",
+                  style: TextStyle(
+                    fontSize: 22
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
