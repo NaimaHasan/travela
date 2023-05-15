@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
+//A stateful widget for location picker
 class LocationPicker extends StatefulWidget {
   //Constructor
   const LocationPicker({Key? key, required this.ctx, required this.initialPos})
@@ -37,6 +38,7 @@ class _LocationPickerState extends State<LocationPicker> {
 
   @override
   Widget build(BuildContext context) {
+    //A simple dialog is displayed when the location field in the trip form is tapped
     return SimpleDialog(
       contentPadding: EdgeInsets.zero,
       backgroundColor: Colors.transparent,
@@ -59,16 +61,19 @@ class _LocationPickerState extends State<LocationPicker> {
                       children: [
                         const WhiteText(text: "SELECT LOCATION", size: 10),
                         verticalSpaceSmall,
+                        //Widgets for displaying the latitude of the location
                         const WhiteText(text: "Latitude", size: 18),
                         WhiteText(
                             text: convertToDms(_marker.point.latitude, false),
                             size: 16),
                         verticalSpaceSmall,
+                        //Widgets for displaying the longitude of the location
                         const WhiteText(text: "Longitude", size: 18),
                         WhiteText(
                             text: convertToDms(_marker.point.longitude, true),
                             size: 16),
                         verticalSpaceSmall,
+                        //Displaying the search field in the location picker
                         TextField(
                           decoration: const InputDecoration(
                             label: Text("Search",
@@ -98,6 +103,7 @@ class _LocationPickerState extends State<LocationPicker> {
                     ),
                   ),
                 ),
+                //Displaying the map in the location picker simple dialog
                 Expanded(
                   child: Stack(
                     children: [
@@ -132,9 +138,11 @@ class _LocationPickerState extends State<LocationPicker> {
                           )
                         ],
                       ),
+                      //Displaying the buttons in the location picker simple dialog
                       Positioned(
                         bottom: 10,
                         right: 10,
+                        //Displaying the elevated button with text "OK"
                         child: ElevatedButton(
                           onPressed: () async {
                             final p = _marker.point;
@@ -146,6 +154,7 @@ class _LocationPickerState extends State<LocationPicker> {
                       Positioned(
                         bottom: 10,
                         right: 80,
+                        //Displaying the elevated button with text "CANCEL"
                         child: ElevatedButton(
                           onPressed: () => Navigator.pop(widget.ctx),
                           child: const Text("CANCEL"),
@@ -163,7 +172,9 @@ class _LocationPickerState extends State<LocationPicker> {
   }
 }
 
+//A stateless widget for the texts in the simple dialogue
 class WhiteText extends StatelessWidget {
+  //Constructor
   const WhiteText({Key? key, required this.text, this.size}) : super(key: key);
 
   final String text;
@@ -181,6 +192,7 @@ class WhiteText extends StatelessWidget {
   }
 }
 
+//A function to covert the location parameters
 String convertToDms(double dd, bool isLng) {
   var dir = dd < 0
       ? isLng

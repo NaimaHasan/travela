@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//A stateful widget for the new trip date field
 class NewTripDate extends StatefulWidget {
   //Constructor
   const NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController, this.initialDate}) : super(key: key);
@@ -34,6 +35,7 @@ class _NewTripDateState extends State<NewTripDate> {
       width: 350,
       height: 60,
       child: Center(
+        //Text form field for the new trip date
         child: TextFormField(
           controller: widget.myController,
           decoration: InputDecoration(
