@@ -1,6 +1,8 @@
 import 'package:latlong2/latlong.dart';
 
+//Model class for itinerary entry
 class ItineraryEntry {
+  //Constructor
   const ItineraryEntry(
       { required this.id,
         required this.trip,
@@ -15,6 +17,7 @@ class ItineraryEntry {
         description = json['description'],
         location = LatLng(double.parse(json['location_latitude']), double.parse(json['location_longitude']));
 
+  //Fields of the model
   final int id;
   final int trip;
   final DateTime dateTime;

@@ -1,4 +1,7 @@
+
+//Model class for trip
 class Trip {
+  //Constructor
   const Trip({
     this.tripID,
     required this.owner,
@@ -20,6 +23,7 @@ class Trip {
         pendingUsers = List<String>.from(json['pendingUsers']),
         sharedUsers = List<String>.from(json['sharedUsers']);
 
+  //Fields of the model
   final int? tripID;
   final String owner;
   final String tripName;

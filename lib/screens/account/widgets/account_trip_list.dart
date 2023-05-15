@@ -8,10 +8,14 @@ import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
 
+import '../../new_trip/new_trip_screen.dart';
+
 class AccountTripList extends StatefulWidget {
-  const AccountTripList({Key? key, required this.group}) : super(key: key);
+  const AccountTripList({Key? key, required this.group, required this.name})
+      : super(key: key);
 
   final TripGroup group;
+  final String name;
 
   @override
   State<AccountTripList> createState() => _AccountTripListState();
@@ -42,6 +46,8 @@ class _AccountTripListState extends State<AccountTripList> {
 
   @override
   Widget build(BuildContext context) {
+    //Variable to specify the tablet width
+    var tabWidth = 1150;
     return FutureBuilder(
       future: _getTrips,
       builder: (context, futureResult) {
@@ -51,157 +57,210 @@ class _AccountTripListState extends State<AccountTripList> {
         if (!futureResult.hasData || futureResult.data!.isEmpty) {
           return Text("No Trips Yet");
         }
-        return ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          itemCount: futureResult.data!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                    "${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
-              },
-              child: Column(
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 40,
+                  bottom:
+                      MediaQuery.of(context).size.width < tabWidth ? 5 : 30),
+              child: Row(
                 children: [
-                  Container(
-                    height: 90,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: futureResult.data![index].tripImageUrl == null
-                              ? Container(
-                                  height: 60,
-                                  width: 60,
-                                  color: Colors.black12,
-                                  child: Center(
-                                    child: Icon(
-                                        Icons.image_not_supported_outlined),
-                                  ),
-                                )
-                              : Container(
-                                  height: 60,
-                                  width: 60,
-                                  child: CachedNetworkImage(
-                                    imageUrl: "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 25, bottom: 5),
-                                child: Text(
-                                  futureResult.data![index].tripName,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Text(
-                                '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 25),
-                          child: widget.group == TripGroup.pending
-                              ? Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () async {
-                                        await TripController.acceptTrip(
-                                            futureResult.data![index]);
-                                        setState(() {
-                                          setFutures();
-                                        });
-                                      },
-                                      icon: Icon(Icons.check),
-                                      splashRadius: 18,
-                                      padding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity.compact,
-                                      color: Colors.green,
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        await TripController.declineTrip(
-                                            futureResult.data![index]);
-                                        setState(() {
-                                          setFutures();
-                                        });
-                                      },
-                                      icon: Text(
-                                        'X',
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      splashRadius: 18,
-                                      padding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity.compact,
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () async {
-                                        await TripController.deleteTrip(
-                                            futureResult.data![index].tripID!,
-                                            context);
-                                        setState(() {
-                                          setFutures();
-                                        });
-                                      },
-                                      icon: Icon(Icons.delete_outline),
-                                      iconSize: 18,
-                                      splashRadius: 18,
-                                      padding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity.compact,
-                                      color: Colors.black,
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        await TripController.shareTrip(
-                                            futureResult.data![index], context);
-                                        setState(() {
-                                          setFutures();
-                                        });
-                                      },
-                                      icon: Icon(Icons.share),
-                                      iconSize: 17,
-                                      splashRadius: 17,
-                                      padding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity.compact,
-                                    ),
-                                  ],
-                                ),
-                        ),
-                      ],
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.name,
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width < tabWidth
+                              ? 18
+                              : 24,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                    height: 0.75,
-                    width: MediaQuery.of(context).size.width - 40,
-                    color: Colors.black38,
+                  Visibility(
+                    visible: widget.name == 'Your Trips',
+                    child: Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(NewTripScreen.routeName);
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            size: MediaQuery.of(context).size.width < tabWidth
+                                ? 22
+                                : 30,
+                          ),
+                          padding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          splashRadius: 18,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            );
-          },
+            ),
+            ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              itemCount: futureResult.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                        "${ItineraryScreen.routeName}/${futureResult.data![index].tripID}");
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 90,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: futureResult.data![index].tripImageUrl ==
+                                      null
+                                  ? Container(
+                                      height: 60,
+                                      width: 60,
+                                      color: Colors.black12,
+                                      child: Center(
+                                        child: Icon(
+                                            Icons.image_not_supported_outlined),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 60,
+                                      width: 60,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            "http://127.0.0.1:8000${futureResult.data![index].tripImageUrl!}",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 25, bottom: 5),
+                                    child: Text(
+                                      futureResult.data![index].tripName,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${DateFormat.MMMMd().format(DateTime.parse(futureResult.data![index].startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(futureResult.data![index].endDate))}',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(child: Container()),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 25),
+                              child: widget.group == TripGroup.pending
+                                  ? Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.acceptTrip(
+                                                futureResult.data![index]);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Icon(Icons.check),
+                                          splashRadius: 18,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                          color: Colors.green,
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.declineTrip(
+                                                futureResult.data![index]);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Text(
+                                            'X',
+                                            style: TextStyle(
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          splashRadius: 18,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.deleteTrip(
+                                                futureResult
+                                                    .data![index].tripID!,
+                                                context);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Icon(Icons.delete_outline),
+                                          iconSize: 18,
+                                          splashRadius: 18,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                          color: Colors.black,
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await TripController.shareTrip(
+                                                futureResult.data![index],
+                                                context);
+                                            setState(() {
+                                              setFutures();
+                                            });
+                                          },
+                                          icon: Icon(Icons.share),
+                                          iconSize: 17,
+                                          splashRadius: 17,
+                                          padding: EdgeInsets.zero,
+                                          visualDensity: VisualDensity.compact,
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 0.75,
+                        width: MediaQuery.of(context).size.width - 40,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         );
       },
     );

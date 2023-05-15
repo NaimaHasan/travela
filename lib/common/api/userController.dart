@@ -9,9 +9,11 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 class UserController {
+  //Function to get all users
   static Future<List<TravelaUser>> getAllUsers() async {
     List<TravelaUser> allUsers = [];
 
+    //Gets all users from the backend
     var response = await http.get(
       Uri.http('127.0.0.1:8000', 'users/'),
     );
@@ -25,11 +27,13 @@ class UserController {
     return allUsers;
   }
 
+  //Function to get an individual user
   static Future<TravelaUser?> getUser() async {
     TravelaUser? currentUser;
     final auth = FirebaseAuth.instance;
 
     try {
+      //Gets a single user from backend
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
       );
@@ -45,10 +49,12 @@ class UserController {
     return currentUser;
   }
 
+  //Function to get user from email
   static Future<TravelaUser?> getUserFromEmail(String email) async {
     TravelaUser? userData;
 
     try {
+      //Gets user from backend given the backend
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'users/${email}/'),
       );
@@ -64,6 +70,7 @@ class UserController {
     return userData;
   }
 
+  //Function to set user name
   static Future<void> setUserName(String name) async {
     final auth = FirebaseAuth.instance;
 
@@ -73,6 +80,7 @@ class UserController {
         'userName': name,
       };
 
+      //Sets the user name in the backend
       await http.put(
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/'),
         headers: {'content-type': 'application/json'},
@@ -83,6 +91,7 @@ class UserController {
     }
   }
 
+  //Function to set user image
   static Future<void> setUserImage() async {
     final auth = FirebaseAuth.instance;
 
@@ -90,6 +99,7 @@ class UserController {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       var user = await getUser();
 
+      //Sets the user image in the backend
       var uri = Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/');
       var request = http.MultipartRequest('PUT', uri)
         ..fields['userEmail'] = auth.currentUser!.email!

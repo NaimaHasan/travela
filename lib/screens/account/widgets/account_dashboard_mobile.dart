@@ -6,6 +6,8 @@ import '../../../common/api/authenticationController.dart';
 import '../../../common/models/user.dart';
 import '../../edit_information/edit_information_screen.dart';
 
+//A stateful widget for the top part of the account screen in mobile
+//Top part contains the user name, user image, log out and edit information button
 class AccountDashboardMobile extends StatefulWidget {
   const AccountDashboardMobile({Key? key}) : super(key: key);
 
@@ -24,6 +26,8 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
 
   @override
   Widget build(BuildContext context) {
+    //A future builder for retrieving user data
+    //A circular progress indicator is displayed while the data is being loaded
     return FutureBuilder(
       future: _future,
       builder: (ctx, futureResult) {
@@ -40,6 +44,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
               padding: EdgeInsets.only(left: 10, right: 55),
               child: Row(
                 children: [
+                  //If user does not have an image displays the default icon else shows the user image
                   SizedBox(
                     width: 90,
                     height: 90,
@@ -59,6 +64,9 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                     ),
                   ),
                   Container(width: 35),
+                  //The log out button
+                  //When pressed logs out and routes to the log in screen
+                  //The routing is handled in the controller
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -90,6 +98,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                 ],
               ),
             ),
+            //Text field to display the user name
             Padding(
               padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
               child: Text(
@@ -97,6 +106,8 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                 style: TextStyle(fontSize: 16),
               ),
             ),
+            //The edit information button
+            //When pressed routes to the edit information screen
             Padding(
               padding: EdgeInsets.only(left: 20, bottom: 20),
               child: SizedBox(

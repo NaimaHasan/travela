@@ -1,4 +1,7 @@
+
+//Model class for home destination
 class HomeDestination {
+  //Constructor
   const HomeDestination(
       {required this.name,
         required this.image,
@@ -11,6 +14,7 @@ class HomeDestination {
         tag = json['destinationTag'],
         location = json['destinationLocation'];
 
+  //Fields of the model
   final String name;
   final String image;
   final String tag;

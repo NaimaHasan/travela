@@ -13,10 +13,12 @@ import 'package:latlong2/latlong.dart';
 import 'package:http_parser/http_parser.dart';
 
 class TripController {
+  //Function to get trip details
   static Future<Trip?> getTripDetails(int tripID) async {
     Trip? trip;
 
     try {
+      //Gets the trip detail given the tripID
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
       );
@@ -31,12 +33,14 @@ class TripController {
     return trip;
   }
 
+  //Function to get all trips
   static Future<List<Trip>> getAllTrips() async {
     final auth = FirebaseAuth.instance;
 
     List<Trip> allTrips = [];
 
     try {
+      //Gets all trips of the current user
       var response = await http.get(
         Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
       );
@@ -55,12 +59,14 @@ class TripController {
     return allTrips;
   }
 
+  //Function to get pending trips
   static Future<List<Trip>> getPendingTrips() async {
     final auth = FirebaseAuth.instance;
 
     List<Trip> allTrips = [];
 
     try {
+      //Gets pending trips of the current user
       var response = await http.get(
         Uri.http(
             '127.0.0.1:8000', 'users/${auth.currentUser!.email}/pendingTrips/'),
@@ -79,12 +85,14 @@ class TripController {
     return allTrips;
   }
 
+  //Function to get personal trips
   static Future<List<Trip>> getPersonalTrips() async {
     final auth = FirebaseAuth.instance;
 
     List<Trip> personalTrips = [];
 
     try {
+      //Gets personal trips of the current user
       var response = await http.get(
         Uri.http('127.0.0.1:8000',
             'users/${auth.currentUser!.email}/personalTrips/'),
@@ -103,12 +111,14 @@ class TripController {
     return personalTrips;
   }
 
+  //Function to get group trips
   static Future<List<Trip>> getGroupTrips() async {
     final auth = FirebaseAuth.instance;
 
     List<Trip> groupTrips = [];
 
     try {
+      //Gets group trips of the current user
       var response = await http.get(
         Uri.http(
             '127.0.0.1:8000', 'users/${auth.currentUser!.email}/groupTrips/'),
@@ -127,12 +137,14 @@ class TripController {
     return groupTrips;
   }
 
+  //Function to post trip
   static Future<void> postTrip(Trip trip, LatLng location, XFile? image) async {
     final auth = FirebaseAuth.instance;
 
     try {
       dynamic data;
       if (image != null) {
+        //Post trip when the user adds an image with the trip
         var uri = Uri.http(
             '127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/');
         var request = http.MultipartRequest('POST', uri)
@@ -151,6 +163,7 @@ class TripController {
         //Stores the response body in data variable
         data = jsonDecode(response.body);
       } else {
+        //Post trip when the user does not attach an image with the trip
         var response = await http.post(
           Uri.http('127.0.0.1:8000', 'users/${auth.currentUser!.email}/trips/'),
           body: {
@@ -171,6 +184,7 @@ class TripController {
       var endDateTime = DateTime.parse(trip.startDate).toLocal();
       endDateTime = endDateTime.add(Duration(hours: 18));
 
+      //http post for the start time and end time of the trip
       await http.post(
         Uri.http('127.0.0.1:8000', 'trips/${data["id"]}/itineraryEntry/'),
         body: {
@@ -197,8 +211,10 @@ class TripController {
     }
   }
 
+  //Function to edit trip
   static Future<void> putTrip(Trip trip, BuildContext context) async {
     try {
+      //Calls showDialogue which returns the NewTripForm
       await showDialog(
         context: context,
         builder: (ctx) {
@@ -210,16 +226,20 @@ class TripController {
     }
   }
 
+  //Function to share trip
   static Future<void> shareTrip(Trip trip, BuildContext context) async {
     try {
       String result = await showDialog(
         context: context,
         builder: (ctx) {
+          //Calls the _ShareDialogue
           return _ShareDialog(ctx: ctx, name: trip.tripName);
         },
       );
       final auth = FirebaseAuth.instance;
 
+      //If the shared user email is not already in the pending list or shared trip list or is not the owner of the trip or the current user
+      //then the trip is shared to the user with the email
       if (!(trip.pendingUsers.contains(result) ||
           trip.sharedUsers.contains(result) ||
           trip.owner == result ||
@@ -233,12 +253,14 @@ class TripController {
           'sharedUsers': trip.sharedUsers,
         };
 
+        //Adds the trip to the users pending list
         var response = await http.put(
           Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
           headers: {'content-type': 'application/json'},
           body: jsonEncode(body),
         );
 
+        //If user could not be found shows error message that the user does not exist
         if (response.statusCode == 400) {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -249,6 +271,7 @@ class TripController {
           }
         }
       } else {
+        //Shows the respective messages for each of the above mentioned cases
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -268,7 +291,7 @@ class TripController {
     }
   }
 
-  // acceptTrip, remove user from pending list, add to shared list
+  //acceptTrip, remove user from pending list, add to shared list
   static Future<void> acceptTrip(Trip trip) async {
     final auth = FirebaseAuth.instance;
 
@@ -282,6 +305,7 @@ class TripController {
         'sharedUsers': trip.sharedUsers..add(auth.currentUser!.email!),
       };
 
+      //If the trip is accepted adds the trip to grouptrip list and removes the trip from pending trip
       await http.put(
         Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
         headers: {'content-type': 'application/json'},
@@ -292,7 +316,7 @@ class TripController {
     }
   }
 
-  // declineTrip, remove user from pending list
+  //declineTrip, remove user from pending list
   static Future<void> declineTrip(Trip trip) async {
     final auth = FirebaseAuth.instance;
 
@@ -306,6 +330,7 @@ class TripController {
         'sharedUsers': trip.sharedUsers,
       };
 
+      //If the trip is declined removes the trip from pending trip
       await http.put(
         Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
         headers: {'content-type': 'application/json'},
@@ -316,14 +341,17 @@ class TripController {
     }
   }
 
+  //Function to delete trip
   static Future<void> deleteTrip(int tripID, BuildContext context) async {
     try {
+      //Deletes the trip from backend
       await http.delete(
         Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
       );
     } catch (err) {
       print(err);
     }
+    //Shows snackbar that the trip has been deleted
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Trip has been deleted'),
@@ -332,6 +360,7 @@ class TripController {
   }
 }
 
+//A stateful class for share dialogue
 class _ShareDialog extends StatefulWidget {
   const _ShareDialog({Key? key, required this.ctx, required this.name})
       : super(key: key);
@@ -367,6 +396,7 @@ class _ShareDialogState extends State<_ShareDialog> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //Text for the heading of the simple dialogue
             Text(
               "Share \"${widget.name}\"",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -387,6 +417,7 @@ class _ShareDialogState extends State<_ShareDialog> {
             SizedBox(height: 30),
             Align(
               alignment: Alignment.bottomRight,
+              //Elevated button with Done written on it
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(widget.ctx, _controller.text);
