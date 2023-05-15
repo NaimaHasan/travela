@@ -43,6 +43,11 @@ class BottomBar extends StatelessWidget {
                     fontSize: 22
                   ),
                 ),
+                VerticalDivider(
+                  color: Colors.grey,
+                  thickness: 1,
+                ),
+                Text("Follow"),
               ],
             ),
           ],
