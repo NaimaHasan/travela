@@ -5,6 +5,7 @@ import 'package:travela/common/models/itineraryEntry.dart';
 import '../../../common/models/trip.dart';
 
 class ItineraryItem extends StatelessWidget {
+  //Constructor
   const ItineraryItem(
       {Key? key,
       required this.time,

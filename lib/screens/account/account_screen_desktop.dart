@@ -9,6 +9,7 @@ import '../../widgets/common/top_navigation_bar.dart';
 
 //A stateless widget for account screen desktop
 class AccountScreenDesktop extends StatelessWidget {
+  //Constructor
   const AccountScreenDesktop({
     super.key,
   });

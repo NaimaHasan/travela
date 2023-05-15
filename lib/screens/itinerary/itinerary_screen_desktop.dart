@@ -18,6 +18,7 @@ import '../account/account_screen.dart';
 import 'package:latlong2/latlong.dart';
 
 class ItineraryScreenDesktop extends StatelessWidget {
+  //Constructor
   const ItineraryScreenDesktop({super.key, required this.trip});
 
   final int trip;

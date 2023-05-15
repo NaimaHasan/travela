@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NewTripName extends StatefulWidget {
+  //Constructor
   const NewTripName(
       {Key? key, required this.onSaved, required this.label, this.initialName})
       : super(key: key);

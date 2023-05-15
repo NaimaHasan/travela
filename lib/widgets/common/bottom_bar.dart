@@ -6,7 +6,7 @@ import 'package:travela/widgets/common/spacing.dart';
 
 class BottomBar extends StatelessWidget {
   static const double bottomBarHeight = 100;
-
+  //Constructor
   const BottomBar({Key? key}) : super(key: key);
 
   @override

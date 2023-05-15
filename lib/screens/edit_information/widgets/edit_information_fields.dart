@@ -7,7 +7,9 @@ import '../../../common/api/userController.dart';
 import 'edit_information_name.dart';
 import 'edit_information_password.dart';
 
+//A stateless widget for edit information screen
 class EditInformationFields extends StatefulWidget {
+  //Constructor
   const EditInformationFields({Key? key}) : super(key: key);
 
   @override
@@ -19,10 +21,13 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
 
   @override
   Widget build(BuildContext context) {
+    //Future builder for edit information field data
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: UserController.getUser(),
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
+          //If waiting shows separate circular progress indicators for top part and image part
           return Column(
             children: [
               Container(
@@ -69,11 +74,13 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
             Container(
               height: 30,
             ),
+            //Calls the edit information name class
             EditInformationName(data: futureResult.data!.userName),
             Container(
               height: 10,
             ),
-            EditInformationPassword(),
+            //Calls the edit information password class
+            const EditInformationPassword(),
             const Padding(
               padding: EdgeInsets.only(left: 31, top: 30, bottom: 30),
               child: Align(
@@ -87,6 +94,9 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                 ),
               ),
             ),
+            //if user does not have an image, shows the default dotted border with an icon
+            //else shows the user image
+            //if tapped on either of them calls setUserImage function to set a new user image
             futureResult.data!.userImageUrl == null
                 ? DottedBorder(
                     borderType: BorderType.RRect,

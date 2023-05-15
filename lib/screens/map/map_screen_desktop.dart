@@ -4,6 +4,7 @@ import '../../common/api/locationController.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class MapScreenDesktop extends StatelessWidget {
+  //Constructor
   const MapScreenDesktop({Key? key}) : super(key: key);
 
   @override

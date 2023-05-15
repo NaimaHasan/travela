@@ -4,6 +4,7 @@ import '../../../common/api/userController.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ItineraryAccountCircle extends StatelessWidget {
+  //Constructor
   const ItineraryAccountCircle({Key? key, required this.email})
       : super(key: key);
   final String email;

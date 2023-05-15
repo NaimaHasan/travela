@@ -4,6 +4,7 @@ import 'package:travela/screens/new_trip/widgets/new_trip_form.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class NewTripScreenDesktop extends StatelessWidget {
+  //Constructor
   const NewTripScreenDesktop({
     super.key, this.initialName, this.initialAddress,
   });

@@ -3,6 +3,7 @@ import 'package:travela/screens/login/widgets/login_form.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 
 class LogInScreenDesktop extends StatelessWidget {
+  //Constructor
   const LogInScreenDesktop({Key? key}) : super(key: key);
 
   @override

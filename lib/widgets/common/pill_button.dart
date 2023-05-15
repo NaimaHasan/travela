@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PillButton extends StatelessWidget {
+  //Constructor
   const PillButton({Key? key, required this.child, required this.padding, required this.onPress, this.color}) : super(key: key);
 
   final Widget child;

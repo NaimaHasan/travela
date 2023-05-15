@@ -7,7 +7,9 @@ import '../../../widgets/common/pill_button.dart';
 import '../../../widgets/common/spacing.dart';
 import '../../new_trip/new_trip_screen.dart';
 
+//A stateless widget for destination widget desktop
 class DestinationImage extends StatelessWidget {
+  //Constructor
   const DestinationImage({Key? key, required this.destination})
       : super(key: key);
 
@@ -15,7 +17,9 @@ class DestinationImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
+    //Carousel controller
     CarouselController buttonCarouselController = CarouselController();
 
     return Stack(
@@ -26,6 +30,8 @@ class DestinationImage extends StatelessWidget {
             Row(
               children: [
                 horizontalSpaceMargin,
+                //Widget for destination image
+                //Calls DestinationCarousel
                 Expanded(
                   child: SizedBox(
                     height: 0.6 * screenSize.height,
@@ -40,6 +46,7 @@ class DestinationImage extends StatelessWidget {
             const SizedBox(height: 50),
           ],
         ),
+        //Card for destination name, tag and plan a trip button
         Positioned(
           bottom: 0,
           child: Card(
@@ -54,10 +61,12 @@ class DestinationImage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      //Displays destination tag
                       Text(
                         destination.tag,
                         style: const TextStyle(fontSize: 14),
                       ),
+                      //Displays destination name
                       SizedBox(
                         width: 250,
                         child: Text(
@@ -74,8 +83,10 @@ class DestinationImage extends StatelessWidget {
                   Expanded(
                     child: Container(),
                   ),
+                  //Pill button for plan a trip
                   PillButton(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     onPress: () {
                       Navigator.of(context).pushNamed(NewTripScreen.routeName,
                           arguments: destination.name);
@@ -91,6 +102,7 @@ class DestinationImage extends StatelessWidget {
             ),
           ),
         ),
+        //Displays forward carousel arrow
         Positioned(
           bottom: 0.3 * screenSize.height,
           right: 10,
@@ -105,6 +117,7 @@ class DestinationImage extends StatelessWidget {
             iconSize: 35,
           ),
         ),
+        //Displays backward carousel arrow
         Positioned(
           bottom: 0.3 * screenSize.height,
           left: 100,

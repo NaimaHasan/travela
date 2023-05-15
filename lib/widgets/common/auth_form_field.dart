@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthFormField extends StatefulWidget {
+  //Constructor
   const AuthFormField(
       {Key? key,
       required this.text,

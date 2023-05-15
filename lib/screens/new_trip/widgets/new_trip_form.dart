@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 class NewTripForm extends StatefulWidget {
+  //Constructor
   const NewTripForm({Key? key, this.initialName, this.existingTrip, this.initialAddress})
       : super(key: key);
 

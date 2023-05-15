@@ -6,6 +6,7 @@ import 'package:travela/widgets/common/auth_form_field.dart';
 import '../../login/login_screen.dart';
 
 class RegisterForm extends StatefulWidget {
+  //Constructor
   const RegisterForm({Key? key}) : super(key: key);
 
   @override

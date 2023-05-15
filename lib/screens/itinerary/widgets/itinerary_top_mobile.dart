@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'itinerary_account_circle.dart';
 
 class ItineraryTopMobile extends StatelessWidget {
+  //Constructor
   const ItineraryTopMobile({Key? key, required this.trip}) : super(key: key);
 
   final Trip trip;

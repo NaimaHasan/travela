@@ -4,7 +4,9 @@ import 'package:travela/screens/edit_information/widgets/edit_information_fields
 import '../../widgets/common/top_navigation_bar.dart';
 import '../account/account_screen.dart';
 
+//A stateless widget for edit information screen desktop
 class EditInformationScreenDesktop extends StatelessWidget {
+  //Constructor
   const EditInformationScreenDesktop({
     super.key,
   });
@@ -15,6 +17,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls the top navigation bar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
@@ -38,10 +41,12 @@ class EditInformationScreenDesktop extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
+                  //Calls the EditInformationFields widget
                   const EditInformationFields(),
                   Container(
                     height: 60,
                   ),
+                  //Elevated button that displays "Done"
                   SizedBox(
                     width: 250,
                     height: 50,

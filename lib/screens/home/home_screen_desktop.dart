@@ -6,6 +6,7 @@ import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar.dart';
 
 class HomeScreenDesktop extends StatelessWidget {
+  //Constructor
   const HomeScreenDesktop({
     super.key,
   });

@@ -6,6 +6,7 @@ import 'package:travela/screens/account/widgets/account_trip_list.dart';
 //A stateless widget to display the trips in the account screen
 //Calls the classes AccountTripList for phone and tablet versions and AccountTripGrid for website version
 class AccountTrip extends StatelessWidget {
+  //Constructor
   const AccountTrip({
     super.key,
   });

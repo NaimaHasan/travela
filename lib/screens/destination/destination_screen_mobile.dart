@@ -11,7 +11,9 @@ import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
+//A stateless widget for Destination Screen Mobile
 class DestinationScreenMobile extends StatefulWidget {
+  //Constructor
   const DestinationScreenMobile({Key? key, required this.destinationName})
       : super(key: key);
 
@@ -34,14 +36,18 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls the top navigation bar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
       ),
+      //Future builder for destination data
+      //Checks the relevant conditions and displays messages on screen accordingly
       body: FutureBuilder(
         future: _future,
         builder: (ctx, futureResult) {
@@ -61,6 +67,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //Calls the DestinationImageMobile widget for displaying destination image
                 DestinationImageMobile(
                   destination: futureResult.data!,
                 ),
@@ -75,6 +82,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     ),
                   ),
                 ),
+                //Displays the destination address
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Text(
@@ -84,6 +92,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     ),
                   ),
                 ),
+                //Displays the description if there is destination description
                 if (futureResult.data!.description != null)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,6 +119,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                       ),
                     ],
                   ),
+                //Displays the location of the destination using flutter map
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, bottom: 15, top: 30),
@@ -184,6 +194,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     },
                   ),
                 ),
+                //Displays Nearby places and shows corresponding message
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, bottom: 10, top: 40),
@@ -205,6 +216,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     ],
                   ),
                 ),
+                //Future builder for nearby places
                 FutureBuilder(
                   future: _mapFuture,
                   builder: (ctx, futureResult) {

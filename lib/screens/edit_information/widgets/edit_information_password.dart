@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../common/api/authenticationController.dart';
 import '../../../widgets/common/auth_form_field.dart';
 
+//A stateless widget for changing password in edit information screen
 class EditInformationPassword extends StatefulWidget {
+  //Constructor
   const EditInformationPassword({Key? key}) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
@@ -55,6 +57,11 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                   ),
                 ),
               ),
+              //if the edit icon is pressed it is replaced with a tick icon and the 3 text fields appear
+              //The edit icon is replaced with a tick icon and isLoading is set to true
+              //After user edits the name and presses the tick icon the new password is set
+              //A circular progress indicator is displayed in place of the tick/edit icon till the password is set
+              //After the password is set isLoading is set to false
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -122,6 +129,8 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
             ],
           ),
         ),
+        //if change password is enabled 3 text fields namely old password, new password and confirm new password ase visible
+        //Re-authentication and respective message are displayed on the screen
         Visibility(
           visible: isEnabled,
           child: Form(

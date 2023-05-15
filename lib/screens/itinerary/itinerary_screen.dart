@@ -6,6 +6,7 @@ import 'itinerary_screen_desktop.dart';
 
 
 class ItineraryScreen extends StatelessWidget {
+  //Constructor
   const ItineraryScreen({Key? key, required this.trip}) : super(key: key);
   static const String routeName = '/itinerary';
 
@@ -13,6 +14,7 @@ class ItineraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Routes to the respective widgets for each of the versions
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) => ItineraryScreenMobile(trip: trip),
       tablet: (BuildContext context) => ItineraryScreenMobile(trip: trip),

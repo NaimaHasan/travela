@@ -5,6 +5,7 @@ import 'package:travela/common/api/locationController.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
 class LocationPicker extends StatefulWidget {
+  //Constructor
   const LocationPicker({Key? key, required this.ctx, required this.initialPos})
       : super(key: key);
 

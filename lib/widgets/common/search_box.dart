@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../screens/search/search_screen.dart';
 
 class SearchBox extends StatefulWidget {
+  //Constructor
   const SearchBox({
     super.key,
     required this.width, this.initialString,

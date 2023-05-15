@@ -8,7 +8,9 @@ import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
 import '../../new_trip/new_trip_screen.dart';
 
+//A stateful widget for displaying home banner
 class HomeBanner extends StatefulWidget {
+  //Constructor
   const HomeBanner({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +30,8 @@ class _HomeBannerState extends State<HomeBanner> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    //Future builder for home banner data
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: _future,
       builder: (ctx, futureResult) {
@@ -47,6 +51,7 @@ class _HomeBannerState extends State<HomeBanner> {
             ),
           );
         }
+        //Stack for displaying home banner
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -62,6 +67,7 @@ class _HomeBannerState extends State<HomeBanner> {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5.0),
                               bottomLeft: Radius.circular(5.0)),
+                          //If the home banner is tapped navigates to destination screen
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pushNamed(
@@ -82,6 +88,8 @@ class _HomeBannerState extends State<HomeBanner> {
                 ),
               ],
             ),
+            //Card to display home banner information
+            //Displays name, and a plan a trip button
             Positioned(
               bottom: 0,
               child: Card(
@@ -96,12 +104,14 @@ class _HomeBannerState extends State<HomeBanner> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Destination",
-                            style: TextStyle(
+                          //Displays the destination tag
+                          Text(
+                            futureResult.data!.tag,
+                            style: const TextStyle(
                               fontSize: 14,
                             ),
                           ),
+                          //Displays the destination name
                           SizedBox(
                             width: 250,
                             child: Text(
@@ -118,13 +128,16 @@ class _HomeBannerState extends State<HomeBanner> {
                       Expanded(
                         child: Container(),
                       ),
+                      //Pill button for displaying "Plan a trip now"
                       PillButton(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 5),
                         onPress: () {
-                          Navigator.of(context).pushNamed(
-                              NewTripScreen.routeName,
-                              arguments: [futureResult.data!.name, futureResult.data!.location]);
+                          Navigator.of(context)
+                              .pushNamed(NewTripScreen.routeName, arguments: [
+                            futureResult.data!.name,
+                            futureResult.data!.location
+                          ]);
                         },
                         child: const Text(
                           "Plan a trip now",

@@ -5,6 +5,7 @@ import 'package:travela/screens/search/widgets/search_result_card.dart';
 import '../../../common/models/destination.dart';
 
 class SearchColumn extends StatefulWidget {
+  //Constructor
   const SearchColumn({
     super.key,
     required this.padding,

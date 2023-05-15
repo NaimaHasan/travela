@@ -13,6 +13,7 @@ final List<String> imgList = [
 ];
 
 class SearchScreenDesktop extends StatelessWidget {
+  //Constructor
   const SearchScreenDesktop({
     super.key, required this.searchTerm,
   });

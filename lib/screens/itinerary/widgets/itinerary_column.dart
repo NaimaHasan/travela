@@ -8,6 +8,7 @@ import 'itinerary_header.dart';
 import 'itinerary_item.dart';
 
 class ItineraryColumn extends StatefulWidget {
+  //Constructor
   const ItineraryColumn(
       {Key? key, required this.trip, required this.isScrollable, required this.refreshMarkers})
       : super(key: key);

@@ -3,6 +3,7 @@ import 'package:travela/screens/home/widgets/home_destination_view_mobile.dart';
 import 'package:travela/widgets/common/top_navigation_bar.dart';
 
 class HomeScreenMobile extends StatelessWidget {
+  //Constructor
   const HomeScreenMobile({
     super.key,
   });

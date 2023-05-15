@@ -11,7 +11,9 @@ import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
+//A stateless widget for Destination Screen Desktop
 class DestinationScreenDesktop extends StatefulWidget {
+  //Constructor
   const DestinationScreenDesktop({
     super.key,
     required this.destinationName,
@@ -36,14 +38,18 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls the top navigation bar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
       ),
+      //Future builder for destination data
+      //Checks the relevant conditions and displays messages on screen accordingly
       body: FutureBuilder(
         future: _future,
         builder: (ctx, futureResult) {
@@ -63,6 +69,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //Calls the DestinationImage widget for displaying destination image
                 DestinationImage(
                   destination: futureResult.data!,
                 ),
@@ -93,6 +100,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                     ),
                                   ),
                                   verticalSpaceSmall,
+                                  //Displays the destination address
                                   Text(
                                     futureResult.data!.address,
                                     style: const TextStyle(
@@ -103,6 +111,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                               ),
                             ),
                           ),
+                          //Displays the description if there is destination description
                           verticalSpaceMedium,
                           if (futureResult.data!.description != null)
                             Card(
@@ -137,6 +146,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                       const SizedBox(
                         width: 30,
                       ),
+                      //Displays the location of the destination using flutter map
                       Expanded(
                         child: Card(
                           elevation: 3,
@@ -223,6 +233,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                     ],
                   ),
                 ),
+                //Displays Nearby places and shows corresponding message
                 verticalSpaceMedium,
                 Align(
                   alignment: Alignment.centerLeft,
@@ -239,6 +250,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+                  //Future builder for nearby places
                   child: FutureBuilder(
                     future: _mapFuture,
                     builder: (ctx, futureResult) {

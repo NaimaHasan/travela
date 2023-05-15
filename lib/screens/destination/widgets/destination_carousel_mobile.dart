@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class DestinationCarouselMobile extends StatelessWidget {
+  //Constructor
   const DestinationCarouselMobile(
       {Key? key, required this.controller, required this.imgList})
       : super(key: key);

@@ -9,6 +9,7 @@ import '../../../widgets/common/spacing.dart';
 import 'home_carousel.dart';
 
 class HomeDestinationView extends StatefulWidget {
+  //Constructor
   const HomeDestinationView({Key? key}) : super(key: key);
 
   @override

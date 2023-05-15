@@ -7,6 +7,7 @@ import 'package:travela/common/api/locationController.dart';
 import '../../screens/destination/destination_screen.dart';
 
 class VariableMap extends StatefulWidget {
+  //Constructor
   const VariableMap({Key? key, required this.getCenter}) : super(key: key);
 
   final Future<LatLng?> getCenter;

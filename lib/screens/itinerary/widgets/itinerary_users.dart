@@ -3,6 +3,7 @@ import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart'
 
 
 class ItineraryUsers extends StatelessWidget {
+  //Constructor
   const ItineraryUsers({Key? key, required this.userList, required this.name})
       : super(key: key);
   final List<String> userList;

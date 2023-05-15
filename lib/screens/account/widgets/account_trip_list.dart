@@ -12,6 +12,7 @@ import '../../new_trip/new_trip_screen.dart';
 
 //A stateful widget to display the account trip grid in the browser version
 class AccountTripList extends StatefulWidget {
+  //Constructor
   const AccountTripList({Key? key, required this.group, required this.name})
       : super(key: key);
 

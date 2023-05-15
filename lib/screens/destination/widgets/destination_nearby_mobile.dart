@@ -6,8 +6,9 @@ import '../../../common/api/destinationController.dart';
 import '../destination_screen.dart';
 import 'package:latlong2/latlong.dart';
 
-
+//A stateless widget for displaying nearby places for mobile
 class DestinationNearbyPlacesMobile extends StatelessWidget {
+  //Constructor
   const DestinationNearbyPlacesMobile({Key? key, required this.location})
       : super(key: key);
 
@@ -15,6 +16,8 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //A future builder for getting nearby places
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: DestinationController.getNearbyPlaces(
           location.latitude, location.longitude),
@@ -50,6 +53,7 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
                     Navigator.of(context)
                         .pushNamed(DestinationScreen.routeName);
                   },
+                  //Widget for displaying the nearby places cards
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Card(
@@ -62,6 +66,7 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //Displays the image of the nearby place
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(7),
@@ -72,6 +77,7 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
                               ),
                             ),
                           ),
+                          //Displays the name of the nearby place
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 15, left: 15, right: 15),
@@ -80,6 +86,7 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
                               style: const TextStyle(fontSize: 20),
                             ),
                           ),
+                          //Displays the address of the nearby place
                           Padding(
                             padding:
                                 const EdgeInsets.only(bottom: 5, left: 15, right: 15),

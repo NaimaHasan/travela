@@ -5,6 +5,7 @@ import '../../widgets/common/top_navigation_bar.dart';
 
 
 class RegisterScreenDesktop extends StatelessWidget {
+  //Constructor
   const RegisterScreenDesktop({
   super.key,
   });

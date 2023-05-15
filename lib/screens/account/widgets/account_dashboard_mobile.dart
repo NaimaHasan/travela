@@ -9,6 +9,7 @@ import '../../edit_information/edit_information_screen.dart';
 //A stateful widget for the top part of the account screen in mobile
 //Top part contains the user name, user image, log out and edit information button
 class AccountDashboardMobile extends StatefulWidget {
+  //Constructor
   const AccountDashboardMobile({Key? key}) : super(key: key);
 
   @override

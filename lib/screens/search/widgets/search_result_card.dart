@@ -5,6 +5,7 @@ import '../../../common/models/destination.dart';
 import '../../destination/destination_screen.dart';
 
 class SearchResultCard extends StatelessWidget {
+  //Constructor
   const SearchResultCard(
       {Key? key, required this.cardTextWidth, required this.destination})
       : super(key: key);

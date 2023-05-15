@@ -12,6 +12,7 @@ import '../../common/api/userController.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TopNavigationBar extends StatelessWidget {
+  //Constructor
   const TopNavigationBar(
       {Key? key,
       this.hasSearch = true,

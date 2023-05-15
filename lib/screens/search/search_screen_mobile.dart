@@ -15,6 +15,7 @@ final List<String> imgList = [
 ];
 
 class SearchScreenMobile extends StatelessWidget {
+  //Constructor
   const SearchScreenMobile({
     super.key, required this.searchTerm,
   });

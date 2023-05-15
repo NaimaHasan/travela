@@ -11,6 +11,7 @@ import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
 class ItineraryScreenMobile extends StatelessWidget {
+  //Constructor
   const ItineraryScreenMobile({super.key, required this.trip});
 
   final int trip;

@@ -16,6 +16,7 @@ final List<String> imgList = [
 ];
 
 class HomeCarouselMobile extends StatefulWidget {
+  //Constructor
   const HomeCarouselMobile(
       {Key? key, required this.futureValueNotifier, required this.isLOTD})
       : super(key: key);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/userController.dart';
 
+//A stateless widget for edit information name
 class EditInformationName extends StatefulWidget {
+  //Constructor
   const EditInformationName({required this.data, Key? key}) : super(key: key);
   final String data;
   @override
@@ -55,6 +57,9 @@ class _EditInformationNameState extends State<EditInformationName> {
                     ),
                   ),
                 ),
+                //if the edit icon is pressed it is replaced with a tick icon and the text field is activated
+                //After user edits the name and presses the tick icon the new user name is set
+                //A circular progress indicator is displayed in place of the tick/edit icon till the user name is set
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,

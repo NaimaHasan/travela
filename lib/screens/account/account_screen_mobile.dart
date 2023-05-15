@@ -9,6 +9,7 @@ import '../../widgets/common/top_navigation_bar.dart';
 
 //A stateless widget for account screen mobile
 class AccountScreenMobile extends StatelessWidget {
+  //Constructor
   const AccountScreenMobile({
     super.key,
   });

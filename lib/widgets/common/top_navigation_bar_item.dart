@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopNavigationBarItem extends StatelessWidget {
+  //Constructor
   const TopNavigationBarItem(
       {Key? key, required this.text, this.size = 18, required this.route})
       : super(key: key);

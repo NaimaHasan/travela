@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 //A stateless widget for destination carousel
 class DestinationCarousel extends StatelessWidget {
+  //Constructor
   const DestinationCarousel(
       {Key? key, required this.controller, required this.imgList})
       : super(key: key);

@@ -4,6 +4,7 @@ import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 
 class NewTripLocation extends StatefulWidget {
+  //Constructor
   const NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng, this.initialName, this.initialAddress}) : super(key: key);
 
   final LatLng defaultLatLng;

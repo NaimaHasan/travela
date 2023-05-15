@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/map/map_screen_desktop.dart';
 
 class MapScreen extends StatelessWidget {
+  //Constructor
   const MapScreen({Key? key}) : super(key: key);
   static const String routeName = '/near-me';
 

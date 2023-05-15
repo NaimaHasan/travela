@@ -5,6 +5,7 @@ import '../../../widgets/common/auth_form_field.dart';
 import '../../register/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
+  //Constructor
   const LoginForm({Key? key}) : super(key: key);
 
   @override

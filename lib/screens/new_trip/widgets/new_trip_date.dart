@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewTripDate extends StatefulWidget {
+  //Constructor
   const NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController, this.initialDate}) : super(key: key);
   final String title;
   final Function(String?) onSaved;

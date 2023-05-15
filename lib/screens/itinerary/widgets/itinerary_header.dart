@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ItineraryHeader extends StatelessWidget {
+  //Constructor
   const ItineraryHeader({Key? key, required this.text, this.isMiddle = false})
       : super(key: key);
 
