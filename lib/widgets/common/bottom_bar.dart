@@ -34,22 +34,65 @@ class BottomBar extends StatelessWidget {
             MediaQuery.of(context).size.width < 600
                 ? horizontalSpaceMarginMobile
                 : horizontalSpaceMargin,
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset("lib/assets/travelalogo.png", height: 70,),
-                Text(
-                  "Travela",
-                  style: TextStyle(
-                    fontSize: 22
-                  ),
+                Row(
+                  children: [
+                    Image.asset(
+                      "lib/assets/travelalogo64_nb.png",
+                      height: 60,
+                    ),
+                    Text(
+                      "Travela",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Container(
+                      color: Colors.grey,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      width: 1,
+                      height: 60,
+                    ),
+                    Text("Follow"),
+                    SizedBox(width: 5),
+                    Tooltip(
+                      message: "imranZMiko",
+                      verticalOffset: 15,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          "lib/assets/github-mark/github-mark-64.png",
+                          height: 55,
+                        ),
+                        splashRadius: 18,
+                      ),
+                    ),
+                    Tooltip(
+                      message: "NaimaHasan",
+                      verticalOffset: 15,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          "lib/assets/github-mark/github-mark-64.png",
+                          height: 55,
+                        ),
+                        splashRadius: 18,
+                      ),
+                    ),
+                  ],
                 ),
-                VerticalDivider(
+                Container(
                   color: Colors.grey,
-                  thickness: 1,
+                  height: 1,
+                  width: 300,
+                  margin: EdgeInsets.symmetric(vertical: 10),
                 ),
-                Text("Follow"),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Text("© Travela"),
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
