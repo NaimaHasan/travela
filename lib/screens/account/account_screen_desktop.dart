@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:travela/screens/account/widgets/account_dashboard.dart';
 import 'package:travela/screens/account/widgets/account_trip.dart';
 import 'package:travela/widgets/common/bottom_bar.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
-import '../../common/api/authenticationController.dart';
+
 import '../../widgets/common/top_navigation_bar.dart';
-import '../edit_information/edit_information_screen.dart';
+
 
 class AccountScreenDesktop extends StatelessWidget {
   const AccountScreenDesktop({
@@ -41,20 +40,20 @@ class AccountScreenDesktop extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        AccountDashboard(),
+                        const AccountDashboard(),
                         Container(height: 20),
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width * 0.75,
                           color: Colors.black45,
                         ),
-                        AccountTrip(),
+                        const AccountTrip(),
                       ],
                     ),
                   ),
                 ),
                 verticalSpaceMedium,
-                BottomBar(),
+                const BottomBar(),
               ],
             ),
           );

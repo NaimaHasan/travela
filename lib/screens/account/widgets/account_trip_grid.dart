@@ -48,14 +48,18 @@ class _AccountTripGridState extends State<AccountTripGrid> {
   Widget build(BuildContext context) {
     //Variable to specify the tablet width
     var tabWidth = 1150;
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
+    //Variable for scaling factor
     var factor = screenSize.width / 1450;
+    //Future builder to get user trip information
     return FutureBuilder(
       future: _getTrips,
       builder: (context, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
+        //Column for the name and "+" icon
         return Column(
           children: [
             Padding(
@@ -74,6 +78,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  //"+" icon is only visible in case of your trips
                   Visibility(
                     visible: widget.name == 'Your Trips',
                     child: Expanded(
@@ -98,6 +103,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                 ],
               ),
             ),
+            //if there are no trips displays No trips yet else displays a gridview
             !futureResult.hasData || futureResult.data!.isEmpty
                 ? const Text("No Trips Yet")
                 : GridView.builder(
@@ -113,6 +119,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                     ),
                     itemCount: futureResult.data!.length,
                     itemBuilder: (BuildContext context, int index) {
+                      //If tapped on a trip card routes to its corresponding itinerary screen
                       return InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(
@@ -122,6 +129,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                           elevation: 5,
                           child: Row(
                             children: [
+                              //if there is already a trip image displays the trip image
+                              //else displays the default icon
                               Padding(
                                 padding: const EdgeInsets.only(left: 10),
                                 child: futureResult.data![index].tripImageUrl ==
@@ -145,15 +154,17 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                         ),
                                       ),
                               ),
+                              //Widget for displaying the trip informations
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 15, left: 15),
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 15, bottom: 5),
+                                        padding: const EdgeInsets.only(
+                                            top: 15, bottom: 5),
                                         child: Text(
                                           futureResult.data![index].tripName,
                                           style: TextStyle(
@@ -170,8 +181,12 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                       Expanded(
                                         child: Container(),
                                       ),
+                                      //if the trip is in pending group displays the tick and cross icon
+                                      //if the tick is pressed, the trip is accepted
+                                      //if the cross is pressed, the trip is declined
                                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 5),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5),
                                         child: widget.group == TripGroup.pending
                                             ? Row(
                                                 mainAxisSize: MainAxisSize.min,
@@ -187,7 +202,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                                         setFutures();
                                                       });
                                                     },
-                                                    icon: const Icon(Icons.check),
+                                                    icon:
+                                                        const Icon(Icons.check),
                                                     splashRadius: factor * 15,
                                                     padding: EdgeInsets.zero,
                                                     visualDensity:
@@ -222,6 +238,9 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                                   ),
                                                 ],
                                               )
+                                            //if the trip is in your trip or you group trip group displays the delete and share icon
+                                            //if the delete is pressed, the trip is deleted
+                                            //if the share is pressed, the share dialogue is displayed
                                             : Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
@@ -257,7 +276,8 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                                         setFutures();
                                                       });
                                                     },
-                                                    icon: const Icon(Icons.share),
+                                                    icon:
+                                                        const Icon(Icons.share),
                                                     splashRadius: factor * 14,
                                                     padding: EdgeInsets.zero,
                                                     visualDensity:

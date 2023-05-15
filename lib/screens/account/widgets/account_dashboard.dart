@@ -38,10 +38,10 @@ class _AccountDashboardState extends State<AccountDashboard> {
         future: _future,
         builder: (ctx, futureResult) {
           if (futureResult.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (!futureResult.hasData) {
-            return Text("Error retrieving user info.");
+            return const Text("Error retrieving user info.");
           }
           return Row(
             children: [
@@ -83,7 +83,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                         Navigator.of(context)
                             .pushNamed(EditInformationScreen.routeName);
                       },
-                      child: Text(
+                      child: const Text(
                         'Edit Information',
                         style: TextStyle(fontSize: 12.5),
                       ),
@@ -99,7 +99,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 15, right: 9),
+                      padding: const EdgeInsets.only(bottom: 15, right: 9),
                       child: IconButton(
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,

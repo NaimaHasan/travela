@@ -32,16 +32,16 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
       future: _future,
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (!futureResult.hasData) {
-          return Text("Error retrieving user info.");
+          return const Text("Error retrieving user info.");
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10, right: 55),
+              padding: const EdgeInsets.only(left: 10, right: 55),
               child: Row(
                 children: [
                   //If user does not have an image displays the default icon else shows the user image
@@ -51,7 +51,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                     child: IconButton(
                       onPressed: () {},
                       icon: futureResult.data!.userImageUrl == null
-                          ? Icon(
+                          ? const Icon(
                               Icons.account_circle,
                               size: 90,
                             )
@@ -73,7 +73,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                       children: [
                         Padding(
                           padding:
-                              EdgeInsets.only(bottom: 5, top: 25, right: 5),
+                              const EdgeInsets.only(bottom: 5, top: 25, right: 5),
                           child: IconButton(
                             visualDensity: VisualDensity.compact,
                             padding: EdgeInsets.zero,
@@ -100,16 +100,16 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
             ),
             //Text field to display the user name
             Padding(
-              padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
               child: Text(
                 futureResult.data!.userName,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
             //The edit information button
             //When pressed routes to the edit information screen
             Padding(
-              padding: EdgeInsets.only(left: 20, bottom: 20),
+              padding: const EdgeInsets.only(left: 20, bottom: 20),
               child: SizedBox(
                 width: 130,
                 height: 35,
@@ -118,7 +118,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                     Navigator.of(context)
                         .pushNamed(EditInformationScreen.routeName);
                   },
-                  child: Text(
+                  child: const Text(
                     'Edit Information',
                     style: TextStyle(fontSize: 12),
                   ),

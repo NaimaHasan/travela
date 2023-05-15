@@ -20,12 +20,15 @@ class AccountTrip extends StatelessWidget {
         padding: const EdgeInsets.only(left: 5, right: 5),
         child: Column(
           children: [
+            //Pending trip request list / grid respectively
             MediaQuery.of(context).size.width < tabWidth
                 ? const AccountTripList(group: TripGroup.pending, name: 'Pending Trip requests')
                 : const AccountTripGrid(group: TripGroup.pending, name: 'Pending Trip requests'),
+            //User trip list / grid respectively
             MediaQuery.of(context).size.width < tabWidth
                 ? const AccountTripList(group: TripGroup.personal, name: 'Your Trips')
                 : const AccountTripGrid(group: TripGroup.personal, name: 'Your Trips'),
+            //User group trip list / grid respectively
             MediaQuery.of(context).size.width < tabWidth
                 ? const AccountTripList(group: TripGroup.group, name: 'Your Group Trips')
                 : const AccountTripGrid(group: TripGroup.group, name: 'Your Group Trips'),
