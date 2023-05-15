@@ -54,8 +54,11 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                     ),
                   ),
                   verticalSpaceSmall,
-                  Center(
-                    child: CircularProgressIndicator(),
+                  SizedBox(
+                    height: 400,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ],
               );
@@ -81,8 +84,11 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                     ),
                   ),
                   verticalSpaceSmall,
-                  Center(
-                    child: Text("No destination available"),
+                  SizedBox(
+                    height: 400,
+                    child: Center(
+                      child: Text("No destinations available"),
+                    ),
                   ),
                 ],
               );

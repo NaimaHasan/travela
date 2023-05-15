@@ -4,6 +4,7 @@ import 'package:travela/common/api/destinationController.dart';
 import 'package:travela/common/api/locationController.dart';
 import 'package:travela/screens/destination/widgets/destination_image.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby.dart';
+import 'package:travela/widgets/common/bottom_bar.dart';
 
 import '../../common/models/destination.dart';
 import '../../widgets/common/spacing.dart';
@@ -95,6 +96,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                             verticalSpaceMedium,
                             if (futureResult.data!.description != null)
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Description",
@@ -248,17 +250,25 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                     builder: (ctx, futureResult) {
                       if (futureResult.connectionState ==
                           ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return SizedBox(
+                          height: 450,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
                       }
                       if (!futureResult.hasData || futureResult.data == null) {
-                        return Center(
-                            child: Text("Unable to fetch nearby destinations"));
+                        return SizedBox(
+                          height: 450,
+                          child: Center(
+                              child: Text("Unable to fetch nearby destinations")),
+                        );
                       }
                       return DestinationNearbyPlaces(
                           location: futureResult.data!);
                     },
                   ),
                 ),
+                verticalSpaceMedium,
+                BottomBar(),
               ],
             ),
           );

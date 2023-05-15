@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -14,12 +13,14 @@ import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
 class DestinationScreenMobile extends StatefulWidget {
-  const DestinationScreenMobile({Key? key, required this.destinationName}) : super(key: key);
+  const DestinationScreenMobile({Key? key, required this.destinationName})
+      : super(key: key);
 
   final String destinationName;
 
   @override
-  State<DestinationScreenMobile> createState() => _DestinationScreenMobileState();
+  State<DestinationScreenMobile> createState() =>
+      _DestinationScreenMobileState();
 }
 
 class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
@@ -45,13 +46,13 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
       ),
       body: FutureBuilder(
         future: _future,
-        builder: (ctx, futureResult){
-          if(futureResult.connectionState == ConnectionState.waiting){
+        builder: (ctx, futureResult) {
+          if (futureResult.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          if(!futureResult.hasData || futureResult.data == null){
+          if (!futureResult.hasData || futureResult.data == null) {
             return Center(
               child: Text("No destination by that name"),
             );
@@ -67,7 +68,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 ),
                 const Padding(
                   padding:
-                  EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
+                      EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
                   child: Text(
                     'Address',
                     style: TextStyle(
@@ -85,27 +86,32 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding:
-                  EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
-                  child: Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
+                if (futureResult.data!.description != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                            left: 15, right: 15, bottom: 10, top: 30),
+                        child: Text(
+                          'Description',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: Text(
+                          futureResult.data!.description!,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
-                  child: Text(
-                    futureResult.data!.description!,
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15, right: 15, bottom: 15, top: 30),
@@ -135,19 +141,17 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     builder: (ctx, futureResult) {
                       if (futureResult.connectionState ==
                           ConnectionState.waiting) {
-                        return Center(
-                            child: CircularProgressIndicator());
+                        return Center(child: CircularProgressIndicator());
                       }
-                      if (!futureResult.hasData ||
-                          futureResult.data == null) {
+                      if (!futureResult.hasData || futureResult.data == null) {
                         return FlutterMap(
                           options: MapOptions(),
                           children: [
                             TileLayer(
                               urlTemplate:
-                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                               userAgentPackageName:
-                              'dev.fleaflet.flutter_map.example',
+                                  'dev.fleaflet.flutter_map.example',
                             ),
                           ],
                         );
@@ -159,9 +163,9 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                         children: [
                           TileLayer(
                             urlTemplate:
-                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                             userAgentPackageName:
-                            'dev.fleaflet.flutter_map.example',
+                                'dev.fleaflet.flutter_map.example',
                           ),
                           MarkerLayer(
                             markers: [
@@ -184,7 +188,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 ),
                 const Padding(
                   padding:
-                  EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
+                      EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
                   child: Text(
                     'Things to do',
                     style: TextStyle(
@@ -228,12 +232,20 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   builder: (ctx, futureResult) {
                     if (futureResult.connectionState ==
                         ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return SizedBox(
+                        height: 400,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
                     }
                     if (!futureResult.hasData || futureResult.data == null) {
-                      return Center(child: Text("Unable to fetch nearby destinations"));
+                      return SizedBox(
+                        height: 400,
+                        child: Center(
+                            child: Text("Unable to fetch nearby destinations")),
+                      );
                     }
-                    return DestinationNearbyPlacesMobile(location: futureResult.data!);
+                    return DestinationNearbyPlacesMobile(
+                        location: futureResult.data!);
                   },
                 ),
               ],

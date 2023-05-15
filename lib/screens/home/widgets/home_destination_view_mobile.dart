@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:travela/widgets/common/bottom_bar.dart';
 
 import '../../../common/api/homeDestinationController.dart';
 import '../../../common/enums.dart';
@@ -143,6 +144,8 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
         HomeCarouselMobile(isLOTD: false, futureValueNotifier: futureValueNotifier),
         verticalSpaceMedium,
         HomeCarouselMobile(isLOTD: true, futureValueNotifier: futureValueNotifierLOTD),
+        verticalSpaceMedium,
+        BottomBar(),
       ],
     );
   }

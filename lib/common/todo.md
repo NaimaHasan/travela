@@ -2,9 +2,7 @@
   - add more things on the page
 - search results from scraper
   - N Things to do
-- Make carousels have a fixed height
-- Make home and destination banners have a fixed height
 - Add more robust w replacement in the backend
-- Check if image is sufficiently wide before displaying, and check if file format is correct
-- Add color coordination to markers in itinerary page
-- Add box to bottom for padding
+  - check dynamic kina
+  - replace everything after ? with w=1800&s=1
+  - dont send back svgs

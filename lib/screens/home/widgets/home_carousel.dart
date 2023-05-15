@@ -52,13 +52,18 @@ class _HomeCarouselState extends State<HomeCarousel> {
                     ),
                   ),
                   verticalSpaceSmall,
-                  Center(
-                    child: CircularProgressIndicator(),
+                  SizedBox(
+                    height: 400,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ],
               );
             }
-            if (!futureResult.hasData || futureResult.data == null || futureResult.data!.isEmpty) {
+            if (!futureResult.hasData ||
+                futureResult.data == null ||
+                futureResult.data!.isEmpty) {
               return Column(
                 children: [
                   Visibility(
@@ -74,8 +79,11 @@ class _HomeCarouselState extends State<HomeCarousel> {
                     ),
                   ),
                   verticalSpaceSmall,
-                  Center(
-                    child: Text("No destinations available"),
+                  SizedBox(
+                    height: 400,
+                    child: Center(
+                      child: Text("No destinations available"),
+                    ),
                   ),
                 ],
               );
@@ -95,74 +103,78 @@ class _HomeCarouselState extends State<HomeCarousel> {
                   ),
                 ),
                 verticalSpaceSmall,
-                CarouselSlider(
-                  options: CarouselOptions(
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    enlargeFactor: 0.1,
-                    viewportFraction: 0.335,
-                    height: 400,
-                    initialPage: 5,
-                  ),
-                  items: futureResult.data!
-                      .map(
-                        (item) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    "${DestinationScreen.routeName}/${item.name}");
-                              },
-                              child: Stack(
-                                children: [
-                                  LayoutBuilder(
-                                    builder: (BuildContext context,
-                                        BoxConstraints constraints) {
-                                      return FittedBox(
-                                        fit: BoxFit.cover,
-                                        child: SizedBox(
-                                          width: constraints.maxWidth,
-                                          height: constraints.maxHeight,
-                                          child: CachedNetworkImage(
-                                              imageUrl: item!.image,
-                                              fit: BoxFit.cover),
+                SizedBox(
+                  height: 400,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      enlargeFactor: 0.1,
+                      viewportFraction: 0.335,
+                      height: 400,
+                      initialPage: 5,
+                    ),
+                    items: futureResult.data!
+                        .map(
+                          (item) => Container(
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5.0)),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      "${DestinationScreen.routeName}/${item.name}");
+                                },
+                                child: Stack(
+                                  children: [
+                                    LayoutBuilder(
+                                      builder: (BuildContext context,
+                                          BoxConstraints constraints) {
+                                        return FittedBox(
+                                          fit: BoxFit.cover,
+                                          child: SizedBox(
+                                            width: constraints.maxWidth,
+                                            height: constraints.maxHeight,
+                                            child: CachedNetworkImage(
+                                                imageUrl: item!.image,
+                                                fit: BoxFit.cover),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color.fromARGB(50, 0, 0, 0),
+                                            Color.fromARGB(0, 0, 0, 0)
+                                          ],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
                                         ),
-                                      );
-                                    },
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromARGB(50, 0, 0, 0),
-                                          Color.fromARGB(0, 0, 0, 0)
-                                        ],
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
+                                      ),
+                                      child: Container(),
+                                    ),
+                                    Positioned(
+                                      bottom: 15,
+                                      left: 15,
+                                      child: Text(
+                                        item!.name,
+                                        style: TextStyle(
+                                            fontSize: 22, color: Colors.white),
                                       ),
                                     ),
-                                    child: Container(),
-                                  ),
-                                  Positioned(
-                                    bottom: 15,
-                                    left: 15,
-                                    child: Text(
-                                      item!.name,
-                                      style: TextStyle(
-                                          fontSize: 22, color: Colors.white),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
+                  ),
                 ),
               ],
             );

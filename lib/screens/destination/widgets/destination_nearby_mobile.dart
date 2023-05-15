@@ -73,17 +73,24 @@ class DestinationNearbyPlacesMobile extends StatelessWidget {
           location.latitude, location.longitude),
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return SizedBox(
+            height: 400,
+            child: Center(child: CircularProgressIndicator()),
+          );
         }
         if (!futureResult.hasData || futureResult.data == null) {
-          return Center(child: Text("Unable to fetch nearby destinations"));
+          return SizedBox(
+            height: 400,
+            child: Center(
+                child: Text("Unable to fetch nearby destinations")),
+          );
         }
         return ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: CarouselSlider(
             options: CarouselOptions(
               autoPlay: false,
-              aspectRatio: 1.2,
+              height: 400,
               enlargeCenterPage: true,
               enlargeStrategy: CenterPageEnlargeStrategy.height,
               enlargeFactor: 0.1,

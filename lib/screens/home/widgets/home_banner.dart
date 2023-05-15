@@ -32,13 +32,19 @@ class _HomeBannerState extends State<HomeBanner> {
       future: _future,
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
+          return SizedBox(
+            height: 0.65 * screenSize.height,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         if (!futureResult.hasData || futureResult.data == null) {
-          return Center(
-            child: Text("No destination available"),
+          return SizedBox(
+            height: 0.65 * screenSize.height,
+            child: Center(
+              child: Text("No destination available"),
+            ),
           );
         }
         return Stack(
@@ -58,8 +64,8 @@ class _HomeBannerState extends State<HomeBanner> {
                               bottomLeft: Radius.circular(5.0)),
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed("${DestinationScreen.routeName}/${futureResult.data!.name}");
+                              Navigator.of(context).pushNamed(
+                                  "${DestinationScreen.routeName}/${futureResult.data!.name}");
                             },
                             child: CachedNetworkImage(
                               imageUrl: futureResult.data!.image,
@@ -120,8 +126,9 @@ class _HomeBannerState extends State<HomeBanner> {
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                         onPress: () {
-                          Navigator.of(context)
-                              .pushNamed(NewTripScreen.routeName, arguments: futureResult.data!.name);
+                          Navigator.of(context).pushNamed(
+                              NewTripScreen.routeName,
+                              arguments: futureResult.data!.name);
                         },
                       ),
                       horizontalSpaceMedium,
