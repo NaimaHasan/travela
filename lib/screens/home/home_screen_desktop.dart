@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/enums.dart';
 import 'package:travela/screens/home/widgets/home_banner.dart';
-import 'package:travela/screens/home/widgets/home_carousel.dart';
 import 'package:travela/screens/home/widgets/home_destination_view.dart';
 import 'package:travela/widgets/common/bottom_bar.dart';
-import 'package:travela/widgets/common/pill_button.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar.dart';
 
@@ -24,11 +21,11 @@ class HomeScreenDesktop extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HomeBanner(),
+            const HomeBanner(),
             verticalSpaceSmall,
-            HomeDestinationView(),
+            const HomeDestinationView(),
             verticalSpaceMedium,
-            BottomBar(),
+            const BottomBar(),
           ],
         ),
       ),

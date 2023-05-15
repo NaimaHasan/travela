@@ -4,7 +4,6 @@ import 'package:travela/common/api/tripController.dart';
 
 import '../../../common/models/trip.dart';
 import '../../account/account_screen.dart';
-import '../../itinerary/itinerary_screen.dart';
 
 import 'package:intl/intl.dart';
 
@@ -17,7 +16,7 @@ class ItineraryTopMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
       child: Row(
         children: [
           Container(
@@ -27,7 +26,7 @@ class ItineraryTopMobile extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: trip.tripImageUrl == null
-                  ? Center(
+                  ? const Center(
                       child: Icon(
                         Icons.image_not_supported_outlined,
                         size: 30,
@@ -40,26 +39,26 @@ class ItineraryTopMobile extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 5),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: Text(
                     trip.tripName,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Text(
                   '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: Text('Created by:'),
                       ),
@@ -73,16 +72,17 @@ class ItineraryTopMobile extends StatelessWidget {
           Expanded(child: Container()),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             splashRadius: 16,
           ),
           Container(width: 5),
           IconButton(
             onPressed: () async {
               await TripController.deleteTrip(trip.tripID!, context);
+              // ignore: use_build_context_synchronously
               Navigator.of(context).pushNamed(AccountScreen.routeName);
             },
-            icon: Icon(Icons.delete_outline),
+            icon: const Icon(Icons.delete_outline),
             splashRadius: 16,
           ),
           Container(width: 5),
@@ -90,7 +90,7 @@ class ItineraryTopMobile extends StatelessWidget {
             onPressed: () async {
               await TripController.shareTrip(trip, context);
             },
-            icon: Icon(Icons.share),
+            icon: const Icon(Icons.share),
             splashRadius: 16,
           ),
         ],

@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../new_trip/new_trip_screen.dart';
 
+//A stateful widget to display the account trip grid in the browser version
 class AccountTripList extends StatefulWidget {
   const AccountTripList({Key? key, required this.group, required this.name})
       : super(key: key);
@@ -48,12 +49,14 @@ class _AccountTripListState extends State<AccountTripList> {
   Widget build(BuildContext context) {
     //Variable to specify the tablet width
     var tabWidth = 1150;
+    //Future builder to get user trip information
     return FutureBuilder(
       future: _getTrips,
       builder: (context, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
+        //Column for the name and "+" icon
         return Column(
           children: [
             Padding(
@@ -74,6 +77,7 @@ class _AccountTripListState extends State<AccountTripList> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  //"+" icon is only visible in case of your trips
                   Visibility(
                     visible: widget.name == 'Your Trips',
                     child: Expanded(
@@ -100,6 +104,7 @@ class _AccountTripListState extends State<AccountTripList> {
                 ],
               ),
             ),
+            //if there are no trips displays No trips yet else displays a listview
             !futureResult.hasData || futureResult.data!.isEmpty
                 ? const Text("No Trips Yet")
                 : ListView.builder(
@@ -109,6 +114,7 @@ class _AccountTripListState extends State<AccountTripList> {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     itemCount: futureResult.data!.length,
                     itemBuilder: (BuildContext context, int index) {
+                      //If tapped on a trip card routes to its corresponding itinerary screen
                       return InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(
@@ -116,6 +122,8 @@ class _AccountTripListState extends State<AccountTripList> {
                         },
                         child: Column(
                           children: [
+                            //if there is already a trip image displays the trip image
+                            //else displays the default icon
                             SizedBox(
                               height: 90,
                               child: Row(
@@ -144,6 +152,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                             ),
                                           ),
                                   ),
+                                  //Widget for displaying the trip informations
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15),
                                     child: Column(
@@ -168,6 +177,9 @@ class _AccountTripListState extends State<AccountTripList> {
                                     ),
                                   ),
                                   Expanded(child: Container()),
+                                  //if the trip is in pending group displays the tick and cross icon
+                                  //if the tick is pressed, the trip is accepted
+                                  //if the cross is pressed, the trip is declined
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 25),
                                     child: widget.group == TripGroup.pending
@@ -214,6 +226,9 @@ class _AccountTripListState extends State<AccountTripList> {
                                               ),
                                             ],
                                           )
+                                        //if the trip is in your trip or you group trip group displays the delete and share icon
+                                        //if the delete is pressed, the trip is deleted
+                                        //if the share is pressed, the share dialogue is displayed
                                         : Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -229,8 +244,8 @@ class _AccountTripListState extends State<AccountTripList> {
                                                     setFutures();
                                                   });
                                                 },
-                                                icon:
-                                                    const Icon(Icons.delete_outline),
+                                                icon: const Icon(
+                                                    Icons.delete_outline),
                                                 iconSize: 18,
                                                 splashRadius: 18,
                                                 padding: EdgeInsets.zero,

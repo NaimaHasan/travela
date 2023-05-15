@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/api/homeDestinationController.dart';
 import '../../../common/models/homeDestination.dart';
 import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
@@ -23,6 +22,7 @@ class HomeCarouselMobile extends StatefulWidget {
   final ValueNotifier<Future<List<HomeDestination?>>> futureValueNotifier;
   final bool isLOTD;
   @override
+  // ignore: library_private_types_in_public_api
   _HomeCarouselMobileState createState() => _HomeCarouselMobileState();
 }
 
@@ -40,7 +40,8 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 children: [
                   Visibility(
                     visible: widget.isLOTD,
-                    child: Align(
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Text(
@@ -50,11 +51,10 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                           ),
                         ),
                       ),
-                      alignment: Alignment.centerLeft,
                     ),
                   ),
                   verticalSpaceSmall,
-                  SizedBox(
+                  const SizedBox(
                     height: 400,
                     child: Center(
                       child: CircularProgressIndicator(),
@@ -70,7 +70,8 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 children: [
                   Visibility(
                     visible: widget.isLOTD,
-                    child: Align(
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Text(
@@ -80,11 +81,10 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                           ),
                         ),
                       ),
-                      alignment: Alignment.centerLeft,
                     ),
                   ),
                   verticalSpaceSmall,
-                  SizedBox(
+                  const SizedBox(
                     height: 400,
                     child: Center(
                       child: Text("No destinations available"),
@@ -98,16 +98,16 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 Visibility(
                   visible: widget.isLOTD,
                   child: Align(
+                    alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.only(left: 20),
                       child: Text(
                         "Location of the Day: ${futureResult.data![0]!.location}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                         ),
                       ),
                     ),
-                    alignment: Alignment.centerLeft,
                   ),
                 ),
                 verticalSpaceSmall,
@@ -168,7 +168,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                                     left: 15,
                                     child: Text(
                                       item!.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 18, color: Colors.white),
                                     ),
                                   ),

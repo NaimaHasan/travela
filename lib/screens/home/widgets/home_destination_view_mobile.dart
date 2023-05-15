@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:travela/widgets/common/bottom_bar.dart';
 
@@ -8,13 +8,13 @@ import '../../../common/models/homeDestination.dart';
 import '../../../widgets/common/pill_button.dart';
 import '../../../widgets/common/search_box.dart';
 import '../../../widgets/common/spacing.dart';
-import 'home_carousel.dart';
 import 'home_carousel_mobile.dart';
 
 class HomeDestinationViewMobile extends StatefulWidget {
   const HomeDestinationViewMobile({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeDestinationViewMobileState createState() =>
       _HomeDestinationViewMobileState();
 }
@@ -37,11 +37,7 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
           mainAxisSize: MainAxisSize.min,
           children: [
             PillButton(
-              child: Text(
-                "Destinations",
-                style: TextStyle(color: Colors.black, fontSize: 12),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               onPress: () {
                 if (filterName != FilterName.Destination) {
                   setState(() {
@@ -64,14 +60,14 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
               color: filterName == FilterName.Destination
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Destinations",
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
             ),
             horizontalSpaceSmall,
             PillButton(
-              child: Text(
-                "Hotels",
-                style: TextStyle(color: Colors.black, fontSize: 12),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               onPress: () {
                 if (filterName != FilterName.Hotel) {
                   setState(() {
@@ -94,14 +90,14 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
               color: filterName == FilterName.Hotel
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Hotels",
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
             ),
             horizontalSpaceSmall,
             PillButton(
-              child: Text(
-                "Restaurants",
-                style: TextStyle(color: Colors.black, fontSize: 12),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               onPress: () {
                 if (filterName != FilterName.Resturant) {
                   setState(() {
@@ -124,11 +120,16 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
               color: filterName == FilterName.Resturant
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Restaurants",
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
             ),
           ],
         ),
         verticalSpaceSmall,
-        Align(
+        const Align(
+          alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
@@ -138,14 +139,13 @@ class _HomeDestinationViewMobileState extends State<HomeDestinationViewMobile> {
               ),
             ),
           ),
-          alignment: Alignment.centerLeft,
         ),
         verticalSpaceSmall,
         HomeCarouselMobile(isLOTD: false, futureValueNotifier: futureValueNotifier),
         verticalSpaceMedium,
         HomeCarouselMobile(isLOTD: true, futureValueNotifier: futureValueNotifierLOTD),
         verticalSpaceMedium,
-        BottomBar(),
+        const BottomBar(),
       ],
     );
   }

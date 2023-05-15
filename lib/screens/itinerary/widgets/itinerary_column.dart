@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/itineraryEntry.dart';
 
-import '../../../common/api/tripController.dart';
 import '../../../common/models/trip.dart';
 import 'itinerary_header.dart';
 import 'itinerary_item.dart';
@@ -36,12 +35,12 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
       future: _future,
       builder: (ctx, futureResult) {
         if (futureResult.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (!futureResult.hasData) {
-          return Text("No Itinerary Entries");
+          return const Text("No Itinerary Entries");
         }
-        return Container(
+        return SizedBox(
           height:
               widget.isScrollable ? MediaQuery.of(context).size.height : null,
           child: Stack(
@@ -50,7 +49,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 physics:
-                    widget.isScrollable ? null : NeverScrollableScrollPhysics(),
+                    widget.isScrollable ? null : const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 itemCount: futureResult.data!.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -59,11 +58,6 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Visibility(
-                        child: ItineraryHeader(
-                          text:
-                              "${DateFormat.E().format(data.dateTime)}, ${DateFormat.MMMd().format(data.dateTime)}",
-                          isMiddle: index != 0,
-                        ),
                         visible: index == 0
                             ? true
                             : (futureResult.data![index].dateTime.day -
@@ -71,6 +65,11 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                                             .data![index - 1].dateTime.day)
                                     .abs() !=
                                 0,
+                        child: ItineraryHeader(
+                          text:
+                              "${DateFormat.E().format(data.dateTime)}, ${DateFormat.MMMd().format(data.dateTime)}",
+                          isMiddle: index != 0,
+                        ),
                       ),
                       ItineraryItem(
                         time: DateFormat('h:mm a').format(data.dateTime),
@@ -89,10 +88,10 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                         trip: widget.trip,
                       ),
                       Visibility(
-                        child: SizedBox(
+                        visible: index == futureResult.data!.length - 1,
+                        child: const SizedBox(
                           height: 75,
                         ),
-                        visible: index == futureResult.data!.length - 1,
                       ),
                     ],
                   );
@@ -114,7 +113,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                         widget.refreshMarkers();
                       });
                     },
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                   ),
                 ),
               ),

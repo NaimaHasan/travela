@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 
 import '../../../common/api/homeDestinationController.dart';
@@ -13,6 +12,7 @@ class HomeBanner extends StatefulWidget {
   const HomeBanner({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeBannerState createState() => _HomeBannerState();
 }
 
@@ -34,7 +34,7 @@ class _HomeBannerState extends State<HomeBanner> {
         if (futureResult.connectionState == ConnectionState.waiting) {
           return SizedBox(
             height: 0.65 * screenSize.height,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
@@ -42,7 +42,7 @@ class _HomeBannerState extends State<HomeBanner> {
         if (!futureResult.hasData || futureResult.data == null) {
           return SizedBox(
             height: 0.65 * screenSize.height,
-            child: Center(
+            child: const Center(
               child: Text("No destination available"),
             ),
           );
@@ -77,7 +77,7 @@ class _HomeBannerState extends State<HomeBanner> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
               ],
@@ -96,7 +96,7 @@ class _HomeBannerState extends State<HomeBanner> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Destination",
                             style: TextStyle(
                               fontSize: 14,
@@ -106,7 +106,7 @@ class _HomeBannerState extends State<HomeBanner> {
                             width: 250,
                             child: Text(
                               futureResult.data!.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.ellipsis,
@@ -119,17 +119,17 @@ class _HomeBannerState extends State<HomeBanner> {
                         child: Container(),
                       ),
                       PillButton(
-                        child: Text(
-                          "Plan a trip now",
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                        ),
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                         onPress: () {
                           Navigator.of(context).pushNamed(
                               NewTripScreen.routeName,
                               arguments: [futureResult.data!.name, futureResult.data!.location]);
                         },
+                        child: const Text(
+                          "Plan a trip now",
+                          style: TextStyle(color: Colors.black, fontSize: 13),
+                        ),
                       ),
                       horizontalSpaceMedium,
                     ],

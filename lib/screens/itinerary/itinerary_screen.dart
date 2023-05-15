@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/itinerary/itinerary_screen_mobile.dart';
 
-import '../../common/models/trip.dart';
 import 'itinerary_screen_desktop.dart';
 
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/itineraryEntry.dart';
-import 'package:travela/widgets/common/spacing.dart';
 
 import '../../../common/models/trip.dart';
 
@@ -29,41 +28,41 @@ class ItineraryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tabwidth = 945;
-    var screenwidth = MediaQuery.of(context).size.width;
-    var factor = (screenwidth / tabwidth) * 0.8;
+    var tabWidth = 945;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var factor = (screenWidth / tabWidth) * 0.8;
     return Stack(
       alignment: Alignment.center,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              vertical: screenwidth > tabwidth ? factor * 4 : 15,
+              vertical: screenWidth > tabWidth ? factor * 4 : 15,
               horizontal: 25),
           child: SizedBox(
             width: double.infinity,
             child: Row(
               children: [
                 SizedBox(
-                  width: screenwidth > tabwidth ? factor * 115 : 190,
+                  width: screenWidth > tabWidth ? factor * 115 : 190,
                   child: Text(
                     time,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: screenwidth > tabwidth
+                  width: screenWidth > tabWidth
                       ? factor + 15
-                      : screenwidth / 450 * 40,
+                      : screenWidth / 450 * 40,
                 ),
                 SizedBox(
-                  width: screenwidth > tabwidth
+                  width: screenWidth > tabWidth
                       ? factor * 100
-                      : screenwidth / 450 * 70,
+                      : screenWidth / 450 * 70,
                   child: Text(
                     description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -78,7 +77,7 @@ class ItineraryItem extends StatelessWidget {
                       await ItineraryController.deleteEntry(context, entry);
                       refresh();
                     },
-                    icon: Icon(Icons.delete_outline),
+                    icon: const Icon(Icons.delete_outline),
                     iconSize: 18,
                     splashRadius: 18,
                   ),
@@ -88,7 +87,7 @@ class ItineraryItem extends StatelessWidget {
                     await ItineraryController.editEntry(context, entry, trip);
                     refresh();
                   },
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   iconSize: 18,
                   splashRadius: 18,
                 ),
@@ -97,18 +96,18 @@ class ItineraryItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: screenwidth > tabwidth ? factor * 125 : 180,
+          left: screenWidth > tabWidth ? factor * 125 : 180,
           top: isStart ? 30 : 0,
           child: Container(
-            height: isStart || isEnd ? (screenwidth > tabwidth ? 30 : 40) : 70,
+            height: isStart || isEnd ? (screenWidth > tabWidth ? 30 : 40) : 70,
             width: 8,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.lightBlue,
             ),
           ),
         ),
         Positioned(
-          left: screenwidth > tabwidth ? factor * 125 - 6.25 : 180 - 6.25,
+          left: screenWidth > tabWidth ? factor * 125 - 6.25 : 180 - 6.25,
           child: CircleAvatar(
               radius: 10,
               backgroundColor:

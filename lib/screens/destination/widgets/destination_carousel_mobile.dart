@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-
 class DestinationCarouselMobile extends StatelessWidget {
-  const DestinationCarouselMobile({Key? key, required this.controller, required this.imgList})
+  const DestinationCarouselMobile(
+      {Key? key, required this.controller, required this.imgList})
       : super(key: key);
 
   final CarouselController controller;
@@ -12,7 +12,9 @@ class DestinationCarouselMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
+    //Displays the carousel slider for desktop
     return CarouselSlider(
       carouselController: controller,
       options: CarouselOptions(

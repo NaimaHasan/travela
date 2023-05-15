@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:travela/screens/destination/widgets/destination_image.dart';
 import 'package:travela/screens/destination/widgets/destination_image_mobile.dart';
-import 'package:travela/screens/destination/widgets/destination_nearby.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby_mobile.dart';
 
 import '../../common/api/destinationController.dart';
@@ -28,7 +25,6 @@ class DestinationScreenMobile extends StatefulWidget {
 class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
   late Future<Destination?> _future;
   late Future<LatLng?> _mapFuture;
-  late Future<List<Destination>> _nearbyFuture;
 
   @override
   void initState() {
@@ -50,12 +46,12 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
         future: _future,
         builder: (ctx, futureResult) {
           if (futureResult.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (!futureResult.hasData || futureResult.data == null) {
-            return Center(
+            return const Center(
               child: Text("No destination by that name"),
             );
           }
@@ -80,10 +76,10 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Text(
                     futureResult.data!.address,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                     ),
                   ),
@@ -104,10 +100,10 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Text(
                           futureResult.data!.description!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                           ),
                         ),
@@ -143,7 +139,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     builder: (ctx, futureResult) {
                       if (futureResult.connectionState ==
                           ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                       if (!futureResult.hasData || futureResult.data == null) {
                         return FlutterMap(
@@ -188,26 +184,6 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     },
                   ),
                 ),
-                const Padding(
-                  padding:
-                      EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 30),
-                  child: Text(
-                    'Things to do',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Text(
-                    'daoiholwfh awdbwak ldbqlwd awdsn;owa bfwoabfiwua lhfqiwsba ADHAWJD KBAWHIBD DABNAJKSBF JAKBFJA',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, bottom: 10, top: 40),
@@ -234,13 +210,13 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   builder: (ctx, futureResult) {
                     if (futureResult.connectionState ==
                         ConnectionState.waiting) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 400,
                         child: Center(child: CircularProgressIndicator()),
                       );
                     }
                     if (!futureResult.hasData || futureResult.data == null) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 400,
                         child: Center(
                             child: Text("Unable to fetch nearby destinations")),
@@ -251,7 +227,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   },
                 ),
                 verticalSpaceMedium,
-                BottomBar(),
+                const BottomBar(),
               ],
             ),
           );

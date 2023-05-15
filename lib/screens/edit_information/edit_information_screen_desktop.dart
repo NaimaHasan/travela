@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/userController.dart';
 import 'package:travela/screens/edit_information/widgets/edit_information_fields.dart';
-import 'package:travela/screens/edit_information/widgets/edit_information_name.dart';
-import 'package:travela/screens/edit_information/widgets/edit_information_password.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 import '../account/account_screen.dart';
@@ -24,7 +21,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: 420,
             child: Card(
               elevation: 5,
@@ -41,7 +38,7 @@ class EditInformationScreenDesktop extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  EditInformationFields(),
+                  const EditInformationFields(),
                   Container(
                     height: 60,
                   ),

@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../common/api/homeDestinationController.dart';
@@ -12,6 +12,7 @@ class HomeDestinationView extends StatefulWidget {
   const HomeDestinationView({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeDestinationViewState createState() => _HomeDestinationViewState();
 }
 
@@ -30,11 +31,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             PillButton(
-              child: Text(
-                "Destinations",
-                style: TextStyle(color: Colors.black, fontSize: 13),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
                 if (filterName != FilterName.Destination) {
                   setState(() {
@@ -57,14 +54,14 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               color: filterName == FilterName.Destination
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Destinations",
+                style: TextStyle(color: Colors.black, fontSize: 13),
+              ),
             ),
             horizontalSpaceSmall,
             PillButton(
-              child: Text(
-                "Hotels",
-                style: TextStyle(color: Colors.black, fontSize: 13),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
                 if (filterName != FilterName.Hotel) {
                   setState(() {
@@ -87,14 +84,14 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               color: filterName == FilterName.Hotel
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Hotels",
+                style: TextStyle(color: Colors.black, fontSize: 13),
+              ),
             ),
             horizontalSpaceSmall,
             PillButton(
-              child: Text(
-                "Restaurants",
-                style: TextStyle(color: Colors.black, fontSize: 13),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
                 if (filterName != FilterName.Resturant) {
                   setState(() {
@@ -117,21 +114,25 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
               color: filterName == FilterName.Resturant
                   ? Colors.lightBlueAccent
                   : Colors.white,
+              child: const Text(
+                "Restaurants",
+                style: TextStyle(color: Colors.black, fontSize: 13),
+              ),
             ),
           ],
         ),
         verticalSpaceSmall,
         Align(
+          alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: marginHorizontal),
-            child: Text(
+            child: const Text(
               "Hot Destinations",
               style: TextStyle(
                 fontSize: 24,
               ),
             ),
           ),
-          alignment: Alignment.centerLeft,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),

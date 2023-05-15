@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-
+//A stateless widget for destination carousel
 class DestinationCarousel extends StatelessWidget {
-  const DestinationCarousel({Key? key, required this.controller, required this.imgList}) : super(key: key);
+  const DestinationCarousel(
+      {Key? key, required this.controller, required this.imgList})
+      : super(key: key);
 
   final CarouselController controller;
   final List<String> imgList;
@@ -15,6 +17,7 @@ class DestinationCarousel extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(5.0), bottomLeft: Radius.circular(5.0)),
+      //Displays the carousel slider for desktop
       child: CarouselSlider(
         carouselController: controller,
         options: CarouselOptions(
@@ -22,7 +25,6 @@ class DestinationCarousel extends StatelessWidget {
           viewportFraction: 1,
           height: 0.6 * screenSize.height,
           initialPage: 5,
-
         ),
         items: imgList
             .map(

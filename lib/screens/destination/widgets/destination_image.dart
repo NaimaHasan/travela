@@ -8,7 +8,8 @@ import '../../../widgets/common/spacing.dart';
 import '../../new_trip/new_trip_screen.dart';
 
 class DestinationImage extends StatelessWidget {
-  const DestinationImage({Key? key, required this.destination}) : super(key: key);
+  const DestinationImage({Key? key, required this.destination})
+      : super(key: key);
 
   final Destination destination;
 
@@ -36,9 +37,7 @@ class DestinationImage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 50),
           ],
         ),
         Positioned(
@@ -57,15 +56,13 @@ class DestinationImage extends StatelessWidget {
                     children: [
                       Text(
                         destination.tag,
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       SizedBox(
                         width: 250,
                         child: Text(
                           destination.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis,
@@ -78,14 +75,15 @@ class DestinationImage extends StatelessWidget {
                     child: Container(),
                   ),
                   PillButton(
-                    child: Text(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    onPress: () {
+                      Navigator.of(context).pushNamed(NewTripScreen.routeName,
+                          arguments: destination.name);
+                    },
+                    child: const Text(
                       "Plan a trip now",
                       style: TextStyle(color: Colors.black, fontSize: 13),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    onPress: () {
-                      Navigator.of(context).pushNamed(NewTripScreen.routeName, arguments: destination.name);
-                    },
                   ),
                   horizontalSpaceMedium,
                 ],
@@ -102,7 +100,7 @@ class DestinationImage extends StatelessWidget {
             },
             visualDensity: VisualDensity.compact,
             padding: EdgeInsets.zero,
-            icon: Icon(Icons.arrow_forward_ios_outlined),
+            icon: const Icon(Icons.arrow_forward_ios_outlined),
             color: Colors.white,
             iconSize: 35,
           ),
@@ -116,7 +114,7 @@ class DestinationImage extends StatelessWidget {
             },
             visualDensity: VisualDensity.compact,
             padding: EdgeInsets.zero,
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             color: Colors.white,
             iconSize: 35,
           ),

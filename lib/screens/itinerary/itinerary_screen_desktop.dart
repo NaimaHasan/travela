@@ -7,13 +7,10 @@ import 'package:travela/common/api/itineraryController.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
-import 'package:travela/screens/itinerary/widgets/itinerary_header.dart';
-import 'package:travela/screens/itinerary/widgets/itinerary_item.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
-import 'package:travela/widgets/common/variable_map.dart';
+
 
 import '../../common/api/tripController.dart';
-import '../../common/api/userController.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
@@ -28,7 +25,7 @@ class ItineraryScreenDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var tabwidth = 945;
+    var tabWidth = 945;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
@@ -36,7 +33,7 @@ class ItineraryScreenDesktop extends StatelessWidget {
           hasSearch: false,
         ),
       ),
-      body: MainScreen(trip: trip, tabwidth: tabwidth, screenSize: screenSize),
+      body: MainScreen(trip: trip, tabWidth: tabWidth, screenSize: screenSize),
     );
   }
 }
@@ -45,12 +42,12 @@ class MainScreen extends StatefulWidget {
   const MainScreen({
     super.key,
     required this.trip,
-    required this.tabwidth,
+    required this.tabWidth,
     required this.screenSize,
   });
 
   final int trip;
-  final int tabwidth;
+  final int tabWidth;
   final Size screenSize;
 
   @override
@@ -80,10 +77,10 @@ class _MainScreenState extends State<MainScreen> {
       future: _future,
       builder: (ctx, futureResults) {
         if (futureResults.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (!futureResults.hasData) {
-          return Center(child: Text("Trip does not exist."));
+          return const Center(child: Text("Trip does not exist."));
         }
         var data = futureResults.data![0] as Trip;
         var locations = futureResults.data![1] as List<LatLng>;
@@ -91,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
         if (data.owner != auth.currentUser!.email! &&
             !data.pendingUsers.contains(auth.currentUser!.email!) &&
             !data.sharedUsers.contains(auth.currentUser!.email!)) {
-          return Center(child: Text("Trip does not exist."));
+          return const Center(child: Text("Trip does not exist."));
         }
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,13 +96,13 @@ class _MainScreenState extends State<MainScreen> {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: widget.screenSize.width < 1250
-                      ? widget.screenSize.width / widget.tabwidth * 26
-                      : widget.screenSize.width / widget.tabwidth * 50),
+                      ? widget.screenSize.width / widget.tabWidth * 26
+                      : widget.screenSize.width / widget.tabWidth * 50),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Container(
                       width: 0.15 * widget.screenSize.width,
                       height: 0.15 * widget.screenSize.width,
@@ -113,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: data.tripImageUrl == null
-                            ? Center(
+                            ? const Center(
                                 child: Icon(
                                   Icons.image_not_supported_outlined,
                                   size: 30,
@@ -129,23 +126,23 @@ class _MainScreenState extends State<MainScreen> {
                     Text(
                       data.tripName,
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                          const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       '${DateFormat.MMMMd().format(DateTime.parse(data.startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(data.endDate))}',
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.only(bottom: 20),
                       child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(right: 10),
                             child: Text('Created by:'),
                           ),
@@ -154,9 +151,16 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     PillButton(
+                      padding: const EdgeInsets.all(10),
+                      onPress: () async {
+                        await TripController.putTrip(data, context);
+                        setState(() {
+                          setFutures();
+                        });
+                      },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
+                        children: const [
                           Text(
                             "Edit",
                             style: TextStyle(color: Colors.black, fontSize: 12),
@@ -171,21 +175,21 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ],
                       ),
-                      padding: EdgeInsets.all(10),
-                      onPress: () async {
-                        await TripController.putTrip(data, context);
-                        setState(() {
-                          setFutures();
-                        });
-                      },
                     ),
                     Container(height: 15),
                     Row(
                       children: [
                         PillButton(
+                          padding: const EdgeInsets.all(10),
+                          onPress: () async {
+                            await TripController.shareTrip(data, context);
+                            setState(() {
+                              setFutures();
+                            });
+                          },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: const [
                               Text(
                                 "Share",
                                 style: TextStyle(
@@ -201,19 +205,20 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             ],
                           ),
-                          padding: EdgeInsets.all(10),
-                          onPress: () async {
-                            await TripController.shareTrip(data, context);
-                            setState(() {
-                              setFutures();
-                            });
-                          },
                         ),
                         Container(width: 15),
                         PillButton(
+                          padding: const EdgeInsets.all(10),
+                          onPress: () async {
+                            await TripController.deleteTrip(
+                                data.tripID!, context);
+                            // ignore: use_build_context_synchronously
+                            Navigator.of(context)
+                                .pushNamed(AccountScreen.routeName);
+                          },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: const [
                               Text(
                                 "Delete",
                                 style: TextStyle(
@@ -229,13 +234,6 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             ],
                           ),
-                          padding: EdgeInsets.all(10),
-                          onPress: () async {
-                            await TripController.deleteTrip(
-                                data.tripID!, context);
-                            Navigator.of(context)
-                                .pushNamed(AccountScreen.routeName);
-                          },
                         ),
                       ],
                     ),

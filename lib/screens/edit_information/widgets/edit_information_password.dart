@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../../../common/api/authenticationController.dart';
 import '../../../widgets/common/auth_form_field.dart';
 
 class EditInformationPassword extends StatefulWidget {
-  EditInformationPassword({Key? key}) : super(key: key);
+  const EditInformationPassword({Key? key}) : super(key: key);
   @override
+  // ignore: library_private_types_in_public_api
   _EditInformationPasswordState createState() =>
       _EditInformationPasswordState();
 }
@@ -16,6 +16,7 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
   var _userOldPassword = '';
   var _userNewPassword = '';
   var _userConfirmNewPassword = '';
+  // ignore: prefer_typing_uninitialized_variables
   var _invalidText;
   bool isEnabled = false;
   bool isLoading = false;
@@ -41,13 +42,13 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
           width: 350,
           child: Row(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Change Password?',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -103,7 +104,7 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
                         : null,
                     icon: isLoading == false
                         ? Icon(icon)
-                        : Center(
+                        : const Center(
                             child: SizedBox(
                               height: 16,
                               width: 16,

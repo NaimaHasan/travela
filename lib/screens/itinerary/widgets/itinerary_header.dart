@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
 
@@ -11,19 +11,19 @@ class ItineraryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tabwidth = 945;
-    var screenwidth = MediaQuery.of(context).size.width;
-    var factor =  (screenwidth / tabwidth) * 0.8;
+    var tabWidth = 945;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var factor =  (screenWidth / tabWidth) * 0.8;
     return Stack(
       alignment: Alignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: SizedBox(
             width: double.infinity,
             height: 37,
             child: Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                   vertical: 7,
                   horizontal: 20),
               decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class ItineraryHeader extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: screenwidth > tabwidth
+                  fontSize: screenWidth > tabWidth
                       ? 16
                       : 18,
                 ),
@@ -44,13 +44,13 @@ class ItineraryHeader extends StatelessWidget {
         Visibility(
           visible: isMiddle,
           child: Positioned(
-            left: screenwidth > tabwidth
+            left: screenWidth > tabWidth
                 ? factor * 125
                 : 180,
             child: Container(
               height: 37,
               width: 8,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.lightBlue,
               ),
             ),

@@ -7,7 +7,7 @@ import 'package:travela/widgets/common/spacing.dart';
 
 import '../../widgets/common/top_navigation_bar.dart';
 
-
+//A stateless widget for account screen desktop
 class AccountScreenDesktop extends StatelessWidget {
   const AccountScreenDesktop({
     super.key,
@@ -15,10 +15,12 @@ class AccountScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calling the top navigation bar widget
         child: const TopNavigationBar(
           hasSearch: false,
           hasAccount: false,
@@ -40,6 +42,7 @@ class AccountScreenDesktop extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        //Calls the account dashboard widget
                         const AccountDashboard(),
                         Container(height: 20),
                         Container(
@@ -47,12 +50,14 @@ class AccountScreenDesktop extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.75,
                           color: Colors.black45,
                         ),
+                        //Calls the account trip widget
                         const AccountTrip(),
                       ],
                     ),
                   ),
                 ),
                 verticalSpaceMedium,
+                //Calls the bottom bar widget
                 const BottomBar(),
               ],
             ),

@@ -25,7 +25,7 @@ class ItineraryAccountCircle extends StatelessWidget {
                 child: Column(
                   children: [
                     if (futureResult.data!.userImageUrl == null)
-                      Icon(
+                      const Icon(
                         Icons.account_circle,
                         size: 30,
                       )

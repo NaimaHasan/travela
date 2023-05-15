@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import '../../../common/api/userController.dart';
 import 'edit_information_name.dart';
 import 'edit_information_password.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditInformationFields extends StatefulWidget {
   const EditInformationFields({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
               Container(
                 height: 30,
               ),
-              Center(child: CircularProgressIndicator()),
+              const Center(child: CircularProgressIndicator()),
               const Padding(
                 padding: EdgeInsets.only(left: 35, top: 30, bottom: 30),
                 child: Align(
@@ -45,15 +44,15 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
               ),
               DottedBorder(
                 borderType: BorderType.RRect,
-                radius: Radius.circular(6),
+                radius: const Radius.circular(6),
                 color: Colors.black38,
-                dashPattern: [8, 4],
+                dashPattern: const [8, 4],
                 strokeWidth: 0.5,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
+                child: const ClipRRect(
+                  borderRadius: BorderRadius.all(
                     Radius.circular(6),
                   ),
-                  child: Container(
+                  child: SizedBox(
                     height: 300,
                     width: 340,
                     child: Center(
@@ -91,15 +90,15 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
             futureResult.data!.userImageUrl == null
                 ? DottedBorder(
                     borderType: BorderType.RRect,
-                    radius: Radius.circular(6),
+                    radius: const Radius.circular(6),
                     color: Colors.black38,
-                    dashPattern: [8, 4],
+                    dashPattern: const [8, 4],
                     strokeWidth: 0.5,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(6),
                       ),
-                      child: Container(
+                      child: SizedBox(
                         height: 300,
                         width: 340,
                         child: Center(
@@ -107,7 +106,7 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                             onPressed: () async {
                               await UserController.setUserImage();
                             },
-                            icon: Icon(Icons.add_photo_alternate_outlined),
+                            icon: const Icon(Icons.add_photo_alternate_outlined),
                             color: Colors.black54,
                           ),
                         ),
@@ -118,13 +117,13 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                     onTap: () async {
                       await UserController.setUserImage();
                     },
-                    child: Container(
+                    child: SizedBox(
                       height: 340,
                       width: 340,
                       child: Card(
                         elevation: 5,
                         child: Padding(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: CachedNetworkImage(
                               imageUrl:
                                   "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),

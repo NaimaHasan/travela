@@ -27,7 +27,6 @@ class DestinationScreenDesktop extends StatefulWidget {
 class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
   late Future<Destination?> _future;
   late Future<LatLng?> _mapFuture;
-  late Future<List<Destination>> _nearbyFuture;
 
   @override
   void initState() {
@@ -49,12 +48,12 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
         future: _future,
         builder: (ctx, futureResult) {
           if (futureResult.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (!futureResult.hasData || futureResult.data == null) {
-            return Center(
+            return const Center(
               child: Text("No destination by that name"),
             );
           }
@@ -81,12 +80,12 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                             elevation: 3,
                             child: Container(
                               width: 0.5 * screenSize.width,
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   top: 20, left: 20, bottom: 20, right: 120),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Address",
                                     style: TextStyle(
                                       fontSize: 24,
@@ -96,7 +95,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                   verticalSpaceSmall,
                                   Text(
                                     futureResult.data!.address,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                     ),
                                   ),
@@ -110,12 +109,12 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                               elevation: 3,
                               child: Container(
                                 width: 0.5 * screenSize.width,
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 20, left: 20, bottom: 20, right: 120),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Description",
                                       style: TextStyle(
                                         fontSize: 24,
@@ -125,7 +124,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                     verticalSpaceSmall,
                                     Text(
                                       futureResult.data!.description!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                       ),
                                     ),
@@ -135,14 +134,14 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                             ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       Expanded(
                         child: Card(
                           elevation: 3,
                           child: Padding(
-                            padding: EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(20),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -150,7 +149,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Location",
                                       style: TextStyle(
                                         fontSize: 24,
@@ -158,7 +157,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                       ),
                                     ),
                                     Expanded(child: Container()),
-                                    Icon(Icons.location_on),
+                                    const Icon(Icons.location_on),
                                   ],
                                 ),
                                 verticalSpaceSmall,
@@ -169,7 +168,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                     builder: (ctx, futureResult) {
                                       if (futureResult.connectionState ==
                                           ConnectionState.waiting) {
-                                        return Center(
+                                        return const Center(
                                             child: CircularProgressIndicator());
                                       }
                                       if (!futureResult.hasData ||
@@ -226,9 +225,10 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                 ),
                 verticalSpaceMedium,
                 Align(
+                  alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: EdgeInsets.only(left: marginHorizontal),
-                    child: Text(
+                    child: const Text(
                       "Nearby Places",
                       style: TextStyle(
                         fontSize: 24,
@@ -236,7 +236,6 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                       ),
                     ),
                   ),
-                  alignment: Alignment.centerLeft,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
@@ -245,13 +244,13 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                     builder: (ctx, futureResult) {
                       if (futureResult.connectionState ==
                           ConnectionState.waiting) {
-                        return SizedBox(
+                        return const SizedBox(
                           height: 450,
                           child: Center(child: CircularProgressIndicator()),
                         );
                       }
                       if (!futureResult.hasData || futureResult.data == null) {
-                        return SizedBox(
+                        return const SizedBox(
                           height: 450,
                           child: Center(
                               child:
@@ -264,7 +263,7 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                   ),
                 ),
                 verticalSpaceMedium,
-                BottomBar(),
+                const BottomBar(),
               ],
             ),
           );
