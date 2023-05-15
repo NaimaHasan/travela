@@ -9,6 +9,8 @@ import 'package:travela/screens/destination/widgets/destination_nearby_mobile.da
 import '../../common/api/destinationController.dart';
 import '../../common/api/locationController.dart';
 import '../../common/models/destination.dart';
+import '../../widgets/common/bottom_bar.dart';
+import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -68,7 +70,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 ),
                 const Padding(
                   padding:
-                      EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
+                      EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 30),
                   child: Text(
                     'Address',
                     style: TextStyle(
@@ -78,7 +80,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  padding: EdgeInsets.only(left: 20, right: 20),
                   child: Text(
                     futureResult.data!.address,
                     style: TextStyle(
@@ -92,7 +94,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                     children: [
                       const Padding(
                         padding: EdgeInsets.only(
-                            left: 15, right: 15, bottom: 10, top: 30),
+                            left: 20, right: 20, bottom: 10, top: 30),
                         child: Text(
                           'Description',
                           style: TextStyle(
@@ -102,7 +104,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 15, right: 15),
+                        padding: EdgeInsets.only(left: 20, right: 20),
                         child: Text(
                           futureResult.data!.description!,
                           style: TextStyle(
@@ -114,7 +116,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 15, right: 15, bottom: 15, top: 30),
+                      left: 20, right: 20, bottom: 15, top: 30),
                   child: Row(
                     children: [
                       const Expanded(
@@ -188,7 +190,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 ),
                 const Padding(
                   padding:
-                      EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 30),
+                      EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 30),
                   child: Text(
                     'Things to do',
                     style: TextStyle(
@@ -198,7 +200,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  padding: EdgeInsets.only(left: 20, right: 20),
                   child: Text(
                     'daoiholwfh awdbwak ldbqlwd awdsn;owa bfwoabfiwua lhfqiwsba ADHAWJD KBAWHIBD DABNAJKSBF JAKBFJA',
                     style: TextStyle(
@@ -208,7 +210,7 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 15, right: 15, bottom: 10, top: 40),
+                      left: 20, right: 20, bottom: 10, top: 40),
                   child: Row(
                     children: [
                       const Expanded(
@@ -248,6 +250,8 @@ class _DestinationScreenMobileState extends State<DestinationScreenMobile> {
                         location: futureResult.data!);
                   },
                 ),
+                verticalSpaceMedium,
+                BottomBar(),
               ],
             ),
           );

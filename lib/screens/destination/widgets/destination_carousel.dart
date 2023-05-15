@@ -31,20 +31,8 @@ class DestinationCarousel extends StatelessWidget {
                   Positioned.fill(
                     child: CachedNetworkImage(
                       imageUrl: item,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                       height: 0.6 * screenSize.height,
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(128, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.center,
-                      ),
                     ),
                   ),
                 ],

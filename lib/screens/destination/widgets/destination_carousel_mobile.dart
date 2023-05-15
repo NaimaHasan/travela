@@ -31,18 +31,6 @@ class DestinationCarouselMobile extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(128, 0, 0, 0),
-                        Color.fromARGB(0, 0, 0, 0)
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.center,
-                    ),
-                  ),
-                ),
               ],
             ),
           )
