@@ -211,7 +211,7 @@ class _MainScreenState extends State<MainScreen> {
                           padding: const EdgeInsets.all(10),
                           onPress: () async {
                             await TripController.deleteTrip(
-                                data.tripID!, context);
+                                data, context);
                             // ignore: use_build_context_synchronously
                             Navigator.of(context)
                                 .pushNamed(AccountScreen.routeName);

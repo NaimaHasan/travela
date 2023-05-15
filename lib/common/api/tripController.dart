@@ -342,21 +342,62 @@ class TripController {
   }
 
   //Function to delete trip
-  static Future<void> deleteTrip(int tripID, BuildContext context) async {
+  static Future<void> deleteTrip(Trip trip, BuildContext context) async {
     try {
-      //Deletes the trip from backend
-      await http.delete(
-        Uri.http('127.0.0.1:8000', 'trips/$tripID/'),
-      );
+      final auth = FirebaseAuth.instance;
+      if(trip.owner == auth.currentUser!.email!) {
+        //Deletes the trip from backend
+        await http.delete(
+          Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
+        );
+      }
+      else {
+        if(trip.pendingUsers.contains(auth.currentUser!.email!)){
+          Map<String, dynamic> body = {
+            'owner': trip.owner,
+            'tripName': trip.tripName,
+            'startDate': trip.startDate,
+            'endDate': trip.endDate,
+            'pendingUsers': trip.pendingUsers..remove(auth.currentUser!.email),
+            'sharedUsers': trip.sharedUsers,
+          };
+
+          //If the trip is declined removes the trip from pending trip
+          await http.put(
+            Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
+            headers: {'content-type': 'application/json'},
+            body: jsonEncode(body),
+          );
+        }
+        else if(trip.sharedUsers.contains(auth.currentUser!.email!)){
+          Map<String, dynamic> body = {
+            'owner': trip.owner,
+            'tripName': trip.tripName,
+            'startDate': trip.startDate,
+            'endDate': trip.endDate,
+            'pendingUsers': trip.pendingUsers,
+            'sharedUsers': trip.sharedUsers..remove(auth.currentUser!.email),
+          };
+
+          //If the trip is declined removes the trip from pending trip
+          await http.put(
+            Uri.http('127.0.0.1:8000', 'trips/${trip.tripID}/'),
+            headers: {'content-type': 'application/json'},
+            body: jsonEncode(body),
+          );
+        }
+      }
     } catch (err) {
       print(err);
     }
     //Shows snackbar that the trip has been deleted
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Trip has been deleted'),
-      ),
-    );
+    if(context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Trip has been deleted'),
+        ),
+      );
+    }
   }
 }
 
@@ -390,7 +431,7 @@ class _ShareDialogState extends State<_ShareDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: EdgeInsets.all(15),
+      contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       children: [
         Column(
@@ -399,22 +440,22 @@ class _ShareDialogState extends State<_ShareDialog> {
             //Text for the heading of the simple dialogue
             Text(
               "Share \"${widget.name}\"",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Align(
               alignment: Alignment.center,
               child: SizedBox(
                 width: 418,
                 child: TextField(
                   controller: _controller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Align(
               alignment: Alignment.bottomRight,
               //Elevated button with Done written on it
@@ -422,13 +463,13 @@ class _ShareDialogState extends State<_ShareDialog> {
                 onPressed: () {
                   Navigator.pop(widget.ctx, _controller.text);
                 },
-                child: Text("Done"),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+                child: const Text("Done"),
               ),
             ),
           ],

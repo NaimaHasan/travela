@@ -250,8 +250,7 @@ class _AccountTripGridState extends State<AccountTripGrid> {
                                                       await TripController
                                                           .deleteTrip(
                                                               futureResult
-                                                                  .data![index]
-                                                                  .tripID!,
+                                                                  .data![index],
                                                               context);
                                                       setState(() {
                                                         setFutures();

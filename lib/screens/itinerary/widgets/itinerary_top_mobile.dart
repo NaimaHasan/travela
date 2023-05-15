@@ -78,7 +78,7 @@ class ItineraryTopMobile extends StatelessWidget {
           Container(width: 5),
           IconButton(
             onPressed: () async {
-              await TripController.deleteTrip(trip.tripID!, context);
+              await TripController.deleteTrip(trip, context);
               // ignore: use_build_context_synchronously
               Navigator.of(context).pushNamed(AccountScreen.routeName);
             },
