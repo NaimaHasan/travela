@@ -73,33 +73,21 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 0.5 * screenSize.width,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Address",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            verticalSpaceSmall,
-                            Text(
-                              futureResult.data!.address,
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            verticalSpaceMedium,
-                            if (futureResult.data!.description != null)
-                              Column(
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            elevation: 3,
+                            child: Container(
+                              width: 0.5 * screenSize.width,
+                              padding: EdgeInsets.only(
+                                  top: 20, left: 20, bottom: 20, right: 120),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Description",
+                                    "Address",
                                     style: TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w600,
@@ -107,123 +95,130 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                                   ),
                                   verticalSpaceSmall,
                                   Text(
-                                    futureResult.data!.description!,
+                                    futureResult.data!.address,
                                     style: TextStyle(
                                       fontSize: 18,
                                     ),
                                   ),
-                                  verticalSpaceMedium,
                                 ],
                               ),
-                            Text(
-                              "Things to do",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                              ),
                             ),
-                            verticalSpaceSmall,
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(top: 7, right: 8),
-                                  child: CircleAvatar(
-                                    radius: 4,
-                                    backgroundColor: Colors.black,
-                                    foregroundColor: Colors.black,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Lorem ipsum dolor sit amet consectetur. Est commodo senectus purus porttitor quisque non sem eu tempus."
-                                    " Ac ullamcorper sagittis cras non ornare ac neque. Blandit tincidunt diam",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 150),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "Location",
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Expanded(child: Container()),
-                                Icon(Icons.location_on),
-                              ],
-                            ),
-                            verticalSpaceSmall,
-                            SizedBox(
-                              height: 500,
-                              child: FutureBuilder(
-                                future: _mapFuture,
-                                builder: (ctx, futureResult) {
-                                  if (futureResult.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                  if (!futureResult.hasData ||
-                                      futureResult.data == null) {
-                                    return FlutterMap(
-                                      options: MapOptions(),
-                                      children: [
-                                        TileLayer(
-                                          urlTemplate:
-                                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                          userAgentPackageName:
-                                              'dev.fleaflet.flutter_map.example',
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                  return FlutterMap(
-                                    options: MapOptions(
-                                      center: futureResult.data!,
-                                    ),
-                                    children: [
-                                      TileLayer(
-                                        urlTemplate:
-                                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                        userAgentPackageName:
-                                            'dev.fleaflet.flutter_map.example',
+                          ),
+                          verticalSpaceMedium,
+                          if (futureResult.data!.description != null)
+                            Card(
+                              elevation: 3,
+                              child: Container(
+                                width: 0.5 * screenSize.width,
+                                padding: EdgeInsets.only(
+                                    top: 20, left: 20, bottom: 20, right: 120),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Description",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      MarkerLayer(
-                                        markers: [
-                                          Marker(
-                                            width: 150.0,
-                                            height: 150.0,
-                                            point: futureResult.data!,
-                                            builder: (ctx) => const Icon(
-                                              Icons.location_on,
-                                              color: Colors.red,
-                                              size: 35.0,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  );
-                                },
+                                    ),
+                                    verticalSpaceSmall,
+                                    Text(
+                                      futureResult.data!.description!,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ],
+                        ],
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Expanded(
+                        child: Card(
+                          elevation: 3,
+                          child: Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Location",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Expanded(child: Container()),
+                                    Icon(Icons.location_on),
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                SizedBox(
+                                  height: 500,
+                                  child: FutureBuilder(
+                                    future: _mapFuture,
+                                    builder: (ctx, futureResult) {
+                                      if (futureResult.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      if (!futureResult.hasData ||
+                                          futureResult.data == null) {
+                                        return FlutterMap(
+                                          options: MapOptions(),
+                                          children: [
+                                            TileLayer(
+                                              urlTemplate:
+                                                  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                              userAgentPackageName:
+                                                  'dev.fleaflet.flutter_map.example',
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                      return FlutterMap(
+                                        options: MapOptions(
+                                          center: futureResult.data!,
+                                        ),
+                                        children: [
+                                          TileLayer(
+                                            urlTemplate:
+                                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                            userAgentPackageName:
+                                                'dev.fleaflet.flutter_map.example',
+                                          ),
+                                          MarkerLayer(
+                                            markers: [
+                                              Marker(
+                                                width: 150.0,
+                                                height: 150.0,
+                                                point: futureResult.data!,
+                                                builder: (ctx) => const Icon(
+                                                  Icons.location_on,
+                                                  color: Colors.red,
+                                                  size: 35.0,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -259,7 +254,8 @@ class _DestinationScreenDesktopState extends State<DestinationScreenDesktop> {
                         return SizedBox(
                           height: 450,
                           child: Center(
-                              child: Text("Unable to fetch nearby destinations")),
+                              child:
+                                  Text("Unable to fetch nearby destinations")),
                         );
                       }
                       return DestinationNearbyPlaces(
