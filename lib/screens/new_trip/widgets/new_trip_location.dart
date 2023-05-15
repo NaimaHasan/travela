@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/locationController.dart';
+import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 

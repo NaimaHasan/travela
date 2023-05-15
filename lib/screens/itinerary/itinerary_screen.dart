@@ -4,7 +4,7 @@ import 'package:travela/screens/itinerary/itinerary_screen_mobile.dart';
 
 import 'itinerary_screen_desktop.dart';
 
-
+//A stateless widget for displaying Itinerary screen
 class ItineraryScreen extends StatelessWidget {
   //Constructor
   const ItineraryScreen({Key? key, required this.trip}) : super(key: key);

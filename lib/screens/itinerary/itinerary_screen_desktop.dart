@@ -3,20 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
-import 'package:travela/common/api/itineraryController.dart';
+import 'package:travela/common/api/itinerary_controller.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_account_circle.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 
 
-import '../../common/api/tripController.dart';
+import '../../common/api/trip_controller.dart';
 import '../../widgets/common/pill_button.dart';
 import '../../widgets/common/spacing.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import '../account/account_screen.dart';
 import 'package:latlong2/latlong.dart';
 
+//A stateless widget for displaying itinerary screen desktop
 class ItineraryScreenDesktop extends StatelessWidget {
   //Constructor
   const ItineraryScreenDesktop({super.key, required this.trip});
@@ -25,21 +26,27 @@ class ItineraryScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
+    //Variable for tab width limit
     var tabWidth = 945;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls the TopNavigationBar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
       ),
+      //Calls the main screen widget
       body: MainScreen(trip: trip, tabWidth: tabWidth, screenSize: screenSize),
     );
   }
 }
 
+//A stateful widget for displaying itinerary screen desktop
 class MainScreen extends StatefulWidget {
+  //Constructor
   const MainScreen({
     super.key,
     required this.trip,
@@ -74,6 +81,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Future builder for itinerary screen data
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: _future,
       builder: (ctx, futureResults) {
@@ -83,6 +92,8 @@ class _MainScreenState extends State<MainScreen> {
         if (!futureResults.hasData) {
           return const Center(child: Text("Trip does not exist."));
         }
+        //If anyone that should not have access to the screen tries to access the screen i.e with the link
+        //then shows trip does not exist
         var data = futureResults.data![0] as Trip;
         var locations = futureResults.data![1] as List<LatLng>;
         var auth = FirebaseAuth.instance;
@@ -104,6 +115,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 50),
+                    //Displays the trip image if there is one else shows the default image
                     Container(
                       width: 0.15 * widget.screenSize.width,
                       height: 0.15 * widget.screenSize.width,
@@ -124,6 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     verticalSpaceSmall,
+                    //Displays the trip name
                     Text(
                       data.tripName,
                       style:
@@ -132,6 +145,7 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    //Displays the trip duration
                     Text(
                       '${DateFormat.MMMMd().format(DateTime.parse(data.startDate))} - ${DateFormat.yMMMMd().format(DateTime.parse(data.endDate))}',
                       style: const TextStyle(fontSize: 16),
@@ -139,6 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    //Displays the created by
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Row(
@@ -151,6 +166,7 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                     ),
+                    //Displays the pill button for edit trip information
                     PillButton(
                       padding: const EdgeInsets.all(10),
                       onPress: () async {
@@ -178,6 +194,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Container(height: 15),
+                    //Displays the pill button for sharing trip
                     Row(
                       children: [
                         PillButton(
@@ -208,6 +225,7 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                         Container(width: 15),
+                        //Displays the pill button for deleting trip
                         PillButton(
                           padding: const EdgeInsets.all(10),
                           onPress: () async {
@@ -239,6 +257,7 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                     Container(height: 15),
+                    //Displays the itinerary users
                     ItineraryUsers(
                       userList: data.sharedUsers,
                       name: 'Shared',
@@ -252,6 +271,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
             ),
+            //Displays the itinerary column
             Expanded(
               child: ItineraryColumn(
                 trip: data,
@@ -263,6 +283,8 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
             ),
+
+            //Displays the itinerary map
             Expanded(
               child: Column(
                 children: [

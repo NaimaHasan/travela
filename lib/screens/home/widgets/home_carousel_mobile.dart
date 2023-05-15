@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/models/homeDestination.dart';
+import '../../../common/models/home_destination.dart';
 import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
 
@@ -15,6 +15,7 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
+//A stateful widget for home carousel mobile
 class HomeCarouselMobile extends StatefulWidget {
   //Constructor
   const HomeCarouselMobile(
@@ -33,12 +34,15 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
     return ValueListenableBuilder(
       valueListenable: widget.futureValueNotifier,
       builder: (context, future, child) {
+        //Future builder for home carousel data
+        //Checks the relevant conditions and displays messages on screen accordingly
         return FutureBuilder(
           future: future,
           builder: (ctx, futureResult) {
             if (futureResult.connectionState == ConnectionState.waiting) {
               return Column(
                 children: [
+                  //If the data is for location of the day, displays the text location of the day
                   Visibility(
                     visible: widget.isLOTD,
                     child: const Align(
@@ -55,6 +59,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                     ),
                   ),
                   verticalSpaceSmall,
+                  //Displays the circular progress indicator if connection state is waiting
                   const SizedBox(
                     height: 400,
                     child: Center(
@@ -64,6 +69,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 ],
               );
             }
+            //If there is no data shows text that no destinations are available
             if (!futureResult.hasData ||
                 futureResult.data == null ||
                 futureResult.data!.isEmpty) {
@@ -94,6 +100,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                 ],
               );
             }
+            //If there is data displays location of the day
             return Column(
               children: [
                 Visibility(
@@ -112,6 +119,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                   ),
                 ),
                 verticalSpaceSmall,
+                //Carousel slider for home destination images
                 CarouselSlider(
                   options: CarouselOptions(
                     autoPlay: false,
@@ -129,11 +137,13 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                           child: ClipRRect(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5.0)),
+                            //if the destination is tapped, screen routes to the destination screen for the respective destination
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                     "${DestinationScreen.routeName}/${item.name}");
                               },
+                              //Displays the image and adds a gradient to the image so that the name is visible for all kinds of images
                               child: Stack(
                                 children: [
                                   LayoutBuilder(
@@ -164,6 +174,7 @@ class _HomeCarouselMobileState extends State<HomeCarouselMobile> {
                                     ),
                                     child: Container(),
                                   ),
+                                  //Displays the carousel destination name
                                   Positioned(
                                     bottom: 15,
                                     left: 15,

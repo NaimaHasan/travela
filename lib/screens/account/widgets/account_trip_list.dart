@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/tripController.dart';
+import 'package:travela/common/api/trip_controller.dart';
 import 'package:travela/common/enums.dart';
 
 import '../../../common/models/trip.dart';

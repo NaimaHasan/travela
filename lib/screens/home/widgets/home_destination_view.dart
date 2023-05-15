@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
 
-import '../../../common/api/homeDestinationController.dart';
+import '../../../common/api/home_destination_controller.dart';
 import '../../../common/enums.dart';
-import '../../../common/models/homeDestination.dart';
+import '../../../common/models/home_destination.dart';
 import '../../../widgets/common/pill_button.dart';
 import '../../../widgets/common/spacing.dart';
 import 'home_carousel.dart';
 
+//A stateful widget for home destination view desktop
 class HomeDestinationView extends StatefulWidget {
   //Constructor
   const HomeDestinationView({Key? key}) : super(key: key);
@@ -31,9 +31,16 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            //Pill button for filters
+            //If filters are selected color of the buttons will be respectively set
+
+            //Pill button for destination
             PillButton(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
+                //if the pill button is pressed and filter was not previously set to destination, filter is set to destination
+                //if set, carousels will then only show destinations
+                //else will show all types of places
                 if (filterName != FilterName.Destination) {
                   setState(() {
                     futureValueNotifier.value =
@@ -52,18 +59,25 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   });
                 }
               },
-              color: filterName == FilterName.Destination
-                  ? Colors.lightBlueAccent
-                  : Colors.white,
-              child: const Text(
+              color: filterName == FilterName.Destination? Colors.black87 : Colors.white,
+              child: Text(
                 "Destinations",
-                style: TextStyle(color: Colors.black, fontSize: 13),
+                style: TextStyle(
+                    color: filterName == FilterName.Destination
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 13),
               ),
             ),
             horizontalSpaceSmall,
+
+            //Pill button for hotel
             PillButton(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
+                //if the pill button is pressed and filter was not previously set to hotel, filter is set to hotel
+                //if set, carousels will then only show hotels
+                //else will show all types of places
                 if (filterName != FilterName.Hotel) {
                   setState(() {
                     futureValueNotifier.value =
@@ -82,25 +96,32 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   });
                 }
               },
-              color: filterName == FilterName.Hotel
-                  ? Colors.lightBlueAccent
-                  : Colors.white,
-              child: const Text(
+              color:
+                  filterName == FilterName.Hotel ? Colors.black87 : Colors.white,
+              child: Text(
                 "Hotels",
-                style: TextStyle(color: Colors.black, fontSize: 13),
+                style: TextStyle(
+                    color: filterName == FilterName.Hotel
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 13),
               ),
             ),
             horizontalSpaceSmall,
+            //Pill button for restaurant
             PillButton(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               onPress: () {
-                if (filterName != FilterName.Resturant) {
+                //if the pill button is pressed and filter was not previously set to restaurant, filter is set to restaurant
+                //if set, carousels will then only show restaurants
+                //else will show all types of places
+                if (filterName != FilterName.Restaurant) {
                   setState(() {
                     futureValueNotifier.value =
                         HomeDestinationController.getHomeRestaurants();
                     futureValueNotifierLOTD.value = HomeDestinationController
                         .getLocationOfTheDayRestaurants();
-                    filterName = FilterName.Resturant;
+                    filterName = FilterName.Restaurant;
                   });
                 } else {
                   setState(() {
@@ -112,17 +133,20 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
                   });
                 }
               },
-              color: filterName == FilterName.Resturant
-                  ? Colors.lightBlueAccent
-                  : Colors.white,
-              child: const Text(
+              color: filterName == FilterName.Restaurant? Colors.black87 : Colors.white,
+              child: Text(
                 "Restaurants",
-                style: TextStyle(color: Colors.black, fontSize: 13),
+                style: TextStyle(
+                    color: filterName == FilterName.Restaurant
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 13),
               ),
             ),
           ],
         ),
         verticalSpaceSmall,
+
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -135,6 +159,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
             ),
           ),
         ),
+        //Carousel for hot destination
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
           child: HomeCarousel(
@@ -143,6 +168,7 @@ class _HomeDestinationViewState extends State<HomeDestinationView> {
           ),
         ),
         verticalSpaceMedium,
+        //Carousel for location of the day
         Padding(
           padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
           child: HomeCarousel(

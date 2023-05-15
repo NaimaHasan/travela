@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/userController.dart';
+import 'package:travela/common/api/user_controller.dart';
 
-import '../../../common/api/authenticationController.dart';
+import '../../../common/api/authentication_controller.dart';
 import '../../../common/models/user.dart';
 import '../../edit_information/edit_information_screen.dart';
 

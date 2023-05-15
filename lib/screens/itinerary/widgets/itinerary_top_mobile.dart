@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/tripController.dart';
+import 'package:travela/common/api/trip_controller.dart';
 
 import '../../../common/models/trip.dart';
 import '../../account/account_screen.dart';
@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import 'itinerary_account_circle.dart';
 
+//A stateless widget for displaying the itinerary top part of the screen for mobile version
 class ItineraryTopMobile extends StatelessWidget {
   //Constructor
   const ItineraryTopMobile({Key? key, required this.trip}) : super(key: key);
@@ -26,6 +27,7 @@ class ItineraryTopMobile extends StatelessWidget {
             color: trip.tripImageUrl == null ? Colors.black12 : null,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
+              //if there is no trip image displays an icon, otherwise displays the trip image
               child: trip.tripImageUrl == null
                   ? const Center(
                       child: Icon(
@@ -39,6 +41,8 @@ class ItineraryTopMobile extends StatelessWidget {
                     ),
             ),
           ),
+          //Displays the trip information
+          //Displays trip name, trip duration, created by, share button and delete button and share button
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Column(
@@ -46,15 +50,18 @@ class ItineraryTopMobile extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  //Displays trip name
                   child: Text(
                     trip.tripName,
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
+                //Displays trip duration
                 Text(
                   '${DateFormat.MMMMd().format(DateTime.parse(trip.startDate))}  - ${DateFormat.yMMMMd().format(DateTime.parse(trip.endDate))}',
                   style: const TextStyle(fontSize: 14),
                 ),
+                //Displays created by
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(
@@ -71,12 +78,14 @@ class ItineraryTopMobile extends StatelessWidget {
             ),
           ),
           Expanded(child: Container()),
+          //Displays the edit icon
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.edit),
             splashRadius: 16,
           ),
           Container(width: 5),
+          //Displays the delete icon
           IconButton(
             onPressed: () async {
               await TripController.deleteTrip(trip, context);
@@ -87,6 +96,7 @@ class ItineraryTopMobile extends StatelessWidget {
             splashRadius: 16,
           ),
           Container(width: 5),
+          //Displays the share button
           IconButton(
             onPressed: () async {
               await TripController.shareTrip(trip, context);

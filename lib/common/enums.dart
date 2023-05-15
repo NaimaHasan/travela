@@ -4,4 +4,5 @@
 enum TripGroup { pending, personal, group }
 
 //We have 4 available filters in the home screen
-enum FilterName { Destination, Hotel, Resturant, None}
+// ignore: constant_identifier_names
+enum FilterName { Destination, Hotel, Restaurant, None}

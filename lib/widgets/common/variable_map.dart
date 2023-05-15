@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:travela/common/api/locationController.dart';
+import 'package:travela/common/api/location_controller.dart';
 
 import '../../screens/destination/destination_screen.dart';
 

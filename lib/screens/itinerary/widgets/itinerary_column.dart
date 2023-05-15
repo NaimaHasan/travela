@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:travela/common/api/itineraryController.dart';
-import 'package:travela/common/models/itineraryEntry.dart';
+import 'package:travela/common/api/itinerary_controller.dart';
+import 'package:travela/common/models/itinerary_entry.dart';
 
 import '../../../common/models/trip.dart';
 import 'itinerary_header.dart';
 import 'itinerary_item.dart';
 
+//A stateful widget for itinerary column
 class ItineraryColumn extends StatefulWidget {
   //Constructor
   const ItineraryColumn(
@@ -32,6 +33,8 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
 
   @override
   Widget build(BuildContext context) {
+    //Future builder for itinerary entries
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: _future,
       builder: (ctx, futureResult) {
@@ -46,6 +49,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
               widget.isScrollable ? MediaQuery.of(context).size.height : null,
           child: Stack(
             children: [
+              //List view for itinerary entries
               ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -58,6 +62,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      //if the entry is for a different day a header is displayed to show the day
                       Visibility(
                         visible: index == 0
                             ? true
@@ -72,6 +77,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                           isMiddle: index != 0,
                         ),
                       ),
+                      //itinerary entries are displayed using the widget itinerary item
                       ItineraryItem(
                         time: DateFormat('h:mm a').format(data.dateTime),
                         description: data.description,
@@ -98,6 +104,7 @@ class _ItineraryColumnState extends State<ItineraryColumn> {
                   );
                 },
               ),
+              //A floating action button for adding new items in the itinerary
               Visibility(
                 visible: widget.isScrollable,
                 child: Positioned(

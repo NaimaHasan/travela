@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+//A stateless widget for displaying the itinerary header
 class ItineraryHeader extends StatelessWidget {
   //Constructor
   const ItineraryHeader({Key? key, required this.text, this.isMiddle = false})
@@ -12,12 +13,17 @@ class ItineraryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for tab width limit
     var tabWidth = 945;
+    //Variable for screen size
     var screenWidth = MediaQuery.of(context).size.width;
+    //Scaling factor for responsiveness
     var factor =  (screenWidth / tabWidth) * 0.8;
+
     return Stack(
       alignment: Alignment.center,
       children: [
+        //Displays the grey bar in the itinerary header
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: SizedBox(
@@ -42,6 +48,7 @@ class ItineraryHeader extends StatelessWidget {
             ),
           ),
         ),
+        //Displays the blue line in the itinerary header
         Visibility(
           visible: isMiddle,
           child: Positioned(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/api/authenticationController.dart';
+import '../../../common/api/authentication_controller.dart';
 import '../../../widgets/common/auth_form_field.dart';
 
 //A stateless widget for changing password in edit information screen
@@ -17,6 +17,7 @@ class _EditInformationPasswordState extends State<EditInformationPassword> {
   final _formKey = GlobalKey<FormState>();
   var _userOldPassword = '';
   var _userNewPassword = '';
+  // ignore: unused_field
   var _userConfirmNewPassword = '';
   // ignore: prefer_typing_uninitialized_variables
   var _invalidText;

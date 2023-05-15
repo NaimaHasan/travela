@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/widgets/common/pill_button.dart';
 
-import '../../../common/api/homeDestinationController.dart';
-import '../../../common/models/homeDestination.dart';
+import '../../../common/api/home_destination_controller.dart';
+import '../../../common/models/home_destination.dart';
 import '../../../widgets/common/spacing.dart';
 import '../../destination/destination_screen.dart';
 import '../../new_trip/new_trip_screen.dart';

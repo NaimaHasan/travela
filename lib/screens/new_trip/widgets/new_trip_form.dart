@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travela/common/api/tripController.dart';
+import 'package:travela/common/api/trip_controller.dart';
 import 'package:travela/common/models/trip.dart';
 import 'package:travela/screens/account/account_screen.dart';
 import 'package:travela/screens/new_trip/widgets/new_trip_name.dart';

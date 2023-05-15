@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'edit_information_screen_desktop.dart';
+
+//A stateless widget for displaying edit information screen
 class EditInformationScreen extends StatelessWidget {
   //Constructor
   const EditInformationScreen({Key? key}) : super(key: key);

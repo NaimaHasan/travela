@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:travela/common/api/locationController.dart';
+import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/widgets/common/spacing.dart';
 
 class LocationPicker extends StatefulWidget {

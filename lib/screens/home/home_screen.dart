@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/home/home_screen_mobile.dart';
 import 'package:travela/screens/home/home_screen_desktop.dart';
 
+//A stateless widget for displaying Home screen
 class HomeScreen extends StatelessWidget {
   //Constructor
   const HomeScreen({Key? key}) : super(key: key);

@@ -3,8 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:travela/screens/destination/widgets/destination_image_mobile.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby_mobile.dart';
 
-import '../../common/api/destinationController.dart';
-import '../../common/api/locationController.dart';
+import '../../common/api/destination_controller.dart';
+import '../../common/api/location_controller.dart';
 import '../../common/models/destination.dart';
 import '../../widgets/common/bottom_bar.dart';
 import '../../widgets/common/spacing.dart';

@@ -5,6 +5,7 @@ import 'package:travela/widgets/common/bottom_bar.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar.dart';
 
+//A stateless widget for displaying home screen desktop
 class HomeScreenDesktop extends StatelessWidget {
   //Constructor
   const HomeScreenDesktop({
@@ -17,15 +18,19 @@ class HomeScreenDesktop extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls TopNavigationBar widget
         child: const TopNavigationBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //Calls HomeBanner widget
             const HomeBanner(),
             verticalSpaceSmall,
+            //Calls HomeDestinationView widget
             const HomeDestinationView(),
             verticalSpaceMedium,
+            //Calls BottomBar widget
             const BottomBar(),
           ],
         ),

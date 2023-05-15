@@ -4,12 +4,13 @@ import 'package:travela/screens/itinerary/widgets/itinerary_column.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_top_mobile.dart';
 import 'package:travela/screens/itinerary/widgets/itinerary_users.dart';
 
-import '../../common/api/itineraryController.dart';
-import '../../common/api/tripController.dart';
+import '../../common/api/itinerary_controller.dart';
+import '../../common/api/trip_controller.dart';
 import '../../common/models/trip.dart';
 import '../../widgets/common/top_navigation_bar.dart';
 import 'package:latlong2/latlong.dart';
 
+//A stateless widget that displays the itinerary screen mobile
 class ItineraryScreenMobile extends StatelessWidget {
   //Constructor
   const ItineraryScreenMobile({super.key, required this.trip});
@@ -18,19 +19,23 @@ class ItineraryScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls the TopNavigationBar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
       ),
+      //Calls the MainScreen widget
       body: MainScreen(trip: trip),
     );
   }
 }
 
+//A stateful widget to display the itinerary screen mobile
 class MainScreen extends StatefulWidget {
   const MainScreen({
     super.key,
@@ -62,6 +67,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Future builder for itinerary screen data
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: _future,
       builder: (ctx, futureResults) {
@@ -81,10 +88,12 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //Calls the ItineraryTopMobile widget
                     ItineraryTopMobile(
                       trip: data,
                     ),
 
+                    //Displays the itinerary users
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       child: ItineraryUsers(
@@ -100,6 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
 
+                    //Displays the itinerary map using flutter map
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
@@ -155,6 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                     ),
+                    //Displays the itinerary column
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(

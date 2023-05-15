@@ -3,7 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import 'login_screen_desktop.dart';
 
-
+//A stateless widget for displaying log in screen
 class LogInScreen extends StatelessWidget {
   //Constructor
   const LogInScreen({Key? key}) : super(key: key);

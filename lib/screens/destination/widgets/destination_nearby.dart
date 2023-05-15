@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:travela/common/api/destinationController.dart';
+import 'package:travela/common/api/destination_controller.dart';
 
 import '../destination_screen.dart';
 import 'package:latlong2/latlong.dart';

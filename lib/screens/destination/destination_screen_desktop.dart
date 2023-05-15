@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:travela/common/api/destinationController.dart';
-import 'package:travela/common/api/locationController.dart';
+import 'package:travela/common/api/destination_controller.dart';
+import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/screens/destination/widgets/destination_image.dart';
 import 'package:travela/screens/destination/widgets/destination_nearby.dart';
 import 'package:travela/widgets/common/bottom_bar.dart';

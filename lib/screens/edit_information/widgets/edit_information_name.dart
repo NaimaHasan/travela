@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/userController.dart';
+import 'package:travela/common/api/user_controller.dart';
 
 //A stateless widget for edit information name
 class EditInformationName extends StatefulWidget {

@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/destination/destination_screen_desktop.dart';
 import 'package:travela/screens/destination/destination_screen_mobile.dart';
 
+//A stateless widget for displaying destination screen
 class DestinationScreen extends StatelessWidget {
   //Constructor
   const DestinationScreen({Key? key, required this.destinationName}) : super(key: key);

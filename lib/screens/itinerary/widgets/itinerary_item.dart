@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/itineraryController.dart';
-import 'package:travela/common/models/itineraryEntry.dart';
+import 'package:travela/common/api/itinerary_controller.dart';
+import 'package:travela/common/models/itinerary_entry.dart';
 
 import '../../../common/models/trip.dart';
 
+//A stateless widget for displaying the itinerary item
 class ItineraryItem extends StatelessWidget {
   //Constructor
   const ItineraryItem(
@@ -29,12 +30,17 @@ class ItineraryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for tablet width limit
     var tabWidth = 945;
+    //Variable for screen size
     var screenWidth = MediaQuery.of(context).size.width;
+    //Scaling factor for responsiveness
     var factor = (screenWidth / tabWidth) * 0.8;
+
     return Stack(
       alignment: Alignment.center,
       children: [
+        //Displays the itinerary entry time
         Padding(
           padding: EdgeInsets.symmetric(
               vertical: screenWidth > tabWidth ? factor * 4 : 15,
@@ -52,11 +58,13 @@ class ItineraryItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                //Padding
                 SizedBox(
                   width: screenWidth > tabWidth
                       ? factor + 15
                       : screenWidth / 450 * 40,
                 ),
+                //Displays the itinerary entry description
                 SizedBox(
                   width: screenWidth > tabWidth
                       ? factor * 100
@@ -70,6 +78,8 @@ class ItineraryItem extends StatelessWidget {
                   ),
                 ),
                 Expanded(child: Container()),
+
+                //Delete button is displayed for deleting entry for all entries other than start of trip and end of trip
                 Visibility(
                   visible: entry.description != "Start of Trip" &&
                       entry.description != "End of Trip",
@@ -83,6 +93,8 @@ class ItineraryItem extends StatelessWidget {
                     splashRadius: 18,
                   ),
                 ),
+
+                //Edit icon for editing itinerary entry
                 IconButton(
                   onPressed: () async {
                     await ItineraryController.editEntry(context, entry, trip);
@@ -96,6 +108,8 @@ class ItineraryItem extends StatelessWidget {
             ),
           ),
         ),
+
+        //Displays the blue line in the itinerary item
         Positioned(
           left: screenWidth > tabWidth ? factor * 125 : 180,
           top: isStart ? 30 : 0,
@@ -107,6 +121,8 @@ class ItineraryItem extends StatelessWidget {
             ),
           ),
         ),
+
+        //Displays the blue circle in the itinerary item
         Positioned(
           left: screenWidth > tabWidth ? factor * 125 - 6.25 : 180 - 6.25,
           child: CircleAvatar(

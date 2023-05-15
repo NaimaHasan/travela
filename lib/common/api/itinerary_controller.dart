@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../screens/new_trip/widgets/new_trip_location.dart';
 
-import '../models/itineraryEntry.dart';
+import '../models/itinerary_entry.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travela/common/api/destinationController.dart';
+import 'package:travela/common/api/destination_controller.dart';
 import 'package:travela/screens/search/widgets/search_result_card.dart';
 
 import '../../../common/models/destination.dart';

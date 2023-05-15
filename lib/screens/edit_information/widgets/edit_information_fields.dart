@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-import '../../../common/api/userController.dart';
+import '../../../common/api/user_controller.dart';
 import 'edit_information_name.dart';
 import 'edit_information_password.dart';
 

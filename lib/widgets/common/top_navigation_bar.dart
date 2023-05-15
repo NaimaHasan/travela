@@ -8,7 +8,7 @@ import 'package:travela/widgets/common/search_box.dart';
 import 'package:travela/widgets/common/spacing.dart';
 import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 
-import '../../common/api/userController.dart';
+import '../../common/api/user_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TopNavigationBar extends StatelessWidget {
