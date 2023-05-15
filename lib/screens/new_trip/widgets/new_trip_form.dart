@@ -18,7 +18,8 @@ import 'package:http_parser/http_parser.dart';
 //This widget has been also used for edit trip form
 class NewTripForm extends StatefulWidget {
   //Constructor
-  const NewTripForm({Key? key, this.initialName, this.existingTrip, this.initialAddress})
+  const NewTripForm(
+      {Key? key, this.initialName, this.existingTrip, this.initialAddress})
       : super(key: key);
 
   final String? initialName;
@@ -137,7 +138,8 @@ class _NewTripFormState extends State<NewTripForm> {
             ),
           ),
           _image == null
-              ? (widget.existingTrip == null || widget.existingTrip!.tripImageUrl == null
+              ? (widget.existingTrip == null ||
+                      widget.existingTrip!.tripImageUrl == null
                   ? DottedBorder(
                       borderType: BorderType.RRect,
                       radius: const Radius.circular(6),
@@ -158,7 +160,8 @@ class _NewTripFormState extends State<NewTripForm> {
                                     .pickImage(source: ImageSource.gallery);
                                 setState(() {});
                               },
-                              icon: const Icon(Icons.add_photo_alternate_outlined),
+                              icon: const Icon(
+                                  Icons.add_photo_alternate_outlined),
                               color: Colors.black54,
                             ),
                           ),
@@ -178,7 +181,11 @@ class _NewTripFormState extends State<NewTripForm> {
                           elevation: 5,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: CachedNetworkImage(imageUrl: "http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}"),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  "http://127.0.0.1:8000${widget.existingTrip!.tripImageUrl!}",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -189,7 +196,6 @@ class _NewTripFormState extends State<NewTripForm> {
                         .pickImage(source: ImageSource.gallery);
                     setState(() {});
                   },
-
                   child: SizedBox(
                     height: 340,
                     width: 340,
@@ -207,7 +213,10 @@ class _NewTripFormState extends State<NewTripForm> {
                             if (!futureResult.hasData) {
                               return Container();
                             }
-                            return Image.memory(futureResult.data!);
+                            return Image.memory(
+                              futureResult.data!,
+                              fit: BoxFit.cover,
+                            );
                           },
                         ),
                       ),
@@ -225,7 +234,7 @@ class _NewTripFormState extends State<NewTripForm> {
                 _formKey.currentState!.save();
                 final auth = FirebaseAuth.instance;
 
-                if(widget.existingTrip == null){
+                if (widget.existingTrip == null) {
                   await TripController.postTrip(
                     Trip(
                       owner: "${auth.currentUser!.email}",
@@ -239,11 +248,10 @@ class _NewTripFormState extends State<NewTripForm> {
 
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamed(AccountScreen.routeName);
-                }
-                else {
+                } else {
                   if (_image != null) {
-                    var uri = Uri.http(
-                        '127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/');
+                    var uri = Uri.http('127.0.0.1:8000',
+                        'trips/${widget.existingTrip!.tripID}/');
                     var request = http.MultipartRequest('PUT', uri)
                       ..fields['owner'] = widget.existingTrip!.owner
                       ..fields['tripName'] = _name
@@ -251,12 +259,14 @@ class _NewTripFormState extends State<NewTripForm> {
                       ..fields['endDate'] = _endDate
                       ..files.add(http.MultipartFile.fromBytes(
                           'tripImage', await _image!.readAsBytes(),
-                          contentType: MediaType('image', _image!.name.split(".")[1]),
+                          contentType:
+                              MediaType('image', _image!.name.split(".")[1]),
                           filename: _image!.name));
                     await request.send();
                   } else {
                     await http.put(
-                      Uri.http('127.0.0.1:8000', 'trips/${widget.existingTrip!.tripID}/'),
+                      Uri.http('127.0.0.1:8000',
+                          'trips/${widget.existingTrip!.tripID}/'),
                       body: {
                         'owner': widget.existingTrip!.owner,
                         'tripName': _name,

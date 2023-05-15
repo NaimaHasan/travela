@@ -115,8 +115,10 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                           child: IconButton(
                             onPressed: () async {
                               await UserController.setUserImage();
+                              setState(() {});
                             },
-                            icon: const Icon(Icons.add_photo_alternate_outlined),
+                            icon:
+                                const Icon(Icons.add_photo_alternate_outlined),
                             color: Colors.black54,
                           ),
                         ),
@@ -126,17 +128,20 @@ class _EditInformationFieldsState extends State<EditInformationFields> {
                 : InkWell(
                     onTap: () async {
                       await UserController.setUserImage();
+                      setState(() {});
                     },
-                    child: SizedBox(
-                      height: 340,
-                      width: 340,
-                      child: Card(
-                        elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
+                    child: Card(
+                      elevation: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                          height: 330,
+                          width: 330,
                           child: CachedNetworkImage(
-                              imageUrl:
-                                  "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                            imageUrl:
+                                "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

@@ -25,6 +25,8 @@ class _NewTripLocationState extends State<NewTripLocation> {
 
   @override
   void initState() {
+    print(widget.initialAddress);
+    print(widget.initialName);
     locationController.text =
         formattedLatLng(widget.defaultLatLng); //set the initial value of text field
     if(widget.initialName != null){

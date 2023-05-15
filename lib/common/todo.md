@@ -1,0 +1,7 @@
+- Make it so accepting trip immediately updates
+- cache all possible images
+- search for common search terms
+- remove a image if it would give 403 error
+- increase height of destination image
+- increase width of the name thing
+- remove cafe gratitude and central park

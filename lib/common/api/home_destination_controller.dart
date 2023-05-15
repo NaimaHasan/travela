@@ -201,7 +201,7 @@ class HomeDestinationController {
     try {
       //Gets the hotel filtered location of the day from backend
       var response = await http.get(
-        Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDayFiltered/Hotels/'),
+        Uri.http('127.0.0.1:8000', 'destinations/homeLocationOfTheDayFiltered/Hotel/'),
       );
 
       //Stores the response body in data variable

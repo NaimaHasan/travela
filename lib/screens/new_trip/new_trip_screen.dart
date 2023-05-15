@@ -21,7 +21,7 @@ class NewTripScreen extends StatelessWidget {
       mobile: (BuildContext context) => NewTripScreenDesktop(initialName: name, initialAddress: address),
       tablet: (BuildContext context) => NewTripScreenDesktop(initialName: name, initialAddress: address),
       desktop: (BuildContext context) =>
-          NewTripScreenDesktop(initialName: name),
+          NewTripScreenDesktop(initialName: name, initialAddress: address,),
     );
   }
 }

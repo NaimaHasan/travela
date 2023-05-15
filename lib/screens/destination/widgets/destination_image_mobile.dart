@@ -78,7 +78,7 @@ class DestinationImageMobile extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     onPress: () {
                       Navigator.of(context).pushNamed(NewTripScreen.routeName,
-                          arguments: destination.name);
+                          arguments: [destination.name, destination.address]);
                     },
                     child: const Text(
                       "Plan a trip now",
