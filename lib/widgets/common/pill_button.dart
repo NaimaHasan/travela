@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//A stateless widget used for displaying the pill buttons used across the website
 class PillButton extends StatelessWidget {
   //Constructor
   const PillButton({Key? key, required this.child, required this.padding, required this.onPress, this.color}) : super(key: key);
@@ -11,8 +12,10 @@ class PillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Elevated button for the pill button
     return ElevatedButton(
       onPressed: onPress,
+      //Shaping the pill button
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

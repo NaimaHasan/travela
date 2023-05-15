@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../screens/search/search_screen.dart';
 
+//A stateful widget for displaying the search box
 class SearchBox extends StatefulWidget {
   //Constructor
   const SearchBox({
@@ -41,6 +42,7 @@ class _SearchBoxState extends State<SearchBox> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
+      //Text field for the search box
       child: TextField(
         controller: _controller,
         onSubmitted: (_){

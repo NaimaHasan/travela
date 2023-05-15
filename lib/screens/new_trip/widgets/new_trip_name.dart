@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//A stateful widget for the new trio form name field
 class NewTripName extends StatefulWidget {
   //Constructor
   const NewTripName(
@@ -45,6 +46,7 @@ class _NewTripNameState extends State<NewTripName> {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
+          //Text form field for the name field
           child: TextFormField(
             controller: dateController,
             decoration: InputDecoration(

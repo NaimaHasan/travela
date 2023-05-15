@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/search/search_screen_desktop.dart';
 import 'package:travela/screens/search/search_screen_mobile.dart';
 
+//A stateless widget that displays the search screen
 class SearchScreen extends StatelessWidget {
   //Constructor
   const SearchScreen({Key? key, required this.searchTerm}) : super(key: key);

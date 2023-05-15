@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//A file containing spacings used throughout the implementation
 SizedBox get horizontalSpaceSmall => const SizedBox(
   width: 20,
 );

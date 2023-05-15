@@ -11,6 +11,7 @@ import 'package:travela/widgets/common/top_navigation_bar_item.dart';
 import '../../common/api/user_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+//A stateless widget for displaying the top navigation bar
 class TopNavigationBar extends StatelessWidget {
   //Constructor
   const TopNavigationBar(
@@ -26,6 +27,7 @@ class TopNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
@@ -34,6 +36,7 @@ class TopNavigationBar extends StatelessWidget {
           MediaQuery.of(context).size.width < 600
               ? horizontalSpaceMarginMobile
               : horizontalSpaceMargin,
+          //Calls the TopNavigationBarItem widget for website name
           const TopNavigationBarItem(
             text: "Travela",
             size: 28,
@@ -45,6 +48,7 @@ class TopNavigationBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              //Calls the TopNavigationBarItem widget for home
               const TopNavigationBarItem(
                 text: "Home",
                 route: HomeScreen.routeName,
@@ -52,6 +56,7 @@ class TopNavigationBar extends StatelessWidget {
               MediaQuery.of(context).size.width < 600
                   ? horizontalSpaceSmallMobile
                   : horizontalSpaceSmall,
+              //Calls the TopNavigationBarItem widget for near me
               const TopNavigationBarItem(
                 text: "Near Me",
                 route: MapScreen.routeName,
@@ -59,6 +64,7 @@ class TopNavigationBar extends StatelessWidget {
               MediaQuery.of(context).size.width < 600
                   ? horizontalSpaceSmallMobile
                   : horizontalSpaceSmall,
+              //Displays the search box of the top navigation bar
               Visibility(
                 visible: hasSearch,
                 child: SearchBox(
@@ -67,6 +73,9 @@ class TopNavigationBar extends StatelessWidget {
               ),
             ],
           ),
+          //Displays the account logo of the top navigation bar
+          //If the user is logged in and has user image displays the user image, else shows the default account image
+          //If the user is logged in routes to account screen, else routes to log in screen
           SizedBox(
             width: MediaQuery.of(context).size.width < 600
                 ? marginHorizontalMobile
@@ -81,6 +90,8 @@ class TopNavigationBar extends StatelessWidget {
                   }
                   if (userSnapshot.hasData) {
                     return Center(
+                      //Future builder for account data
+                      //Checks the relevant conditions and displays messages on screen accordingly
                       child: FutureBuilder(
                         future: UserController.getUser(),
                         builder: (ctx, futureResult) {
@@ -106,6 +117,7 @@ class TopNavigationBar extends StatelessWidget {
                               ),
                             );
                           }
+                          //Routing for account logo
                           return InkWell(
                             onTap: () {
                               Navigator.of(context)
@@ -124,6 +136,7 @@ class TopNavigationBar extends StatelessWidget {
                   }
                   return IconButton(
                     onPressed: () {
+                      //Routing for account logo
                       Navigator.of(context).pushNamed(LogInScreen.routeName);
                     },
                     visualDensity: VisualDensity.compact,

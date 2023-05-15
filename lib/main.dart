@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+//main function
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -33,8 +34,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
       ),
+
+      //Routing for all of the screens
+      //initial route is set to home screen
       initialRoute: HomeScreen.routeName,
       onGenerateRoute: (settings) {
+
+        //Routing for itinerary screen
         if (settings.name!.startsWith('/itinerary/')) {
           final dynamicValue = int.parse(settings.name!.split('/').last);
           final auth = FirebaseAuth.instance;
@@ -44,6 +50,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for search screen
         if (settings.name!.startsWith('/search/')) {
           final dynamicValue = settings.name!.split('/').last;
           return PageRouteBuilder(
@@ -52,6 +60,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for destination screen
         if (settings.name!.startsWith('/destination/')) {
           final dynamicValue = settings.name!.split('/').last;
           return PageRouteBuilder(
@@ -67,6 +77,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for log in screen
         if (settings.name!.startsWith('/login')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
@@ -75,6 +87,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for register screen
         if (settings.name!.startsWith('/register')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
@@ -83,6 +97,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for account screen
         if (settings.name!.startsWith('/account')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
@@ -91,6 +107,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for edit information screen
         if (settings.name!.startsWith('/edit_information')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
@@ -99,6 +117,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for new trip screen
         if (settings.name!.startsWith('/new_trip')) {
           final auth = FirebaseAuth.instance;
           return PageRouteBuilder(
@@ -107,6 +127,8 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration.zero, // Set the transition duration to zero
           );
         }
+
+        //Routing for home screen
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
           settings: settings,

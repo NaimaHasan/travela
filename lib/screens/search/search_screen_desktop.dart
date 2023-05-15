@@ -12,6 +12,7 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
+//A stateless widget that displays the search screen desktop
 class SearchScreenDesktop extends StatelessWidget {
   //Constructor
   const SearchScreenDesktop({
@@ -26,8 +27,10 @@ class SearchScreenDesktop extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls TopNavigationBar widget
         child: TopNavigationBar(searchString: searchTerm),
       ),
+      //Calls the SearchColumn widget
       body: SearchColumn(
         padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.2),
         cardWidth: screenSize.width * 0.6 - 278,

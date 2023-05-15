@@ -5,6 +5,7 @@ import 'package:travela/widgets/common/auth_form_field.dart';
 
 import '../../login/login_screen.dart';
 
+//A stateful widget for register form
 class RegisterForm extends StatefulWidget {
   //Constructor
   const RegisterForm({Key? key}) : super(key: key);
@@ -40,6 +41,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 60,
           ),
+          //Calls the AuthFormField for name
           AuthFormField(
             text: 'Enter your full name',
             width: 400,
@@ -56,6 +58,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for email
           AuthFormField(
             text: 'Enter your E-mail',
             width: 400,
@@ -72,6 +75,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for password
           AuthFormField(
             text: 'Enter password',
             width: 400,
@@ -90,6 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for confirm password
           AuthFormField(
             text: 'Confirm Password',
             width: 400,
@@ -108,6 +113,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 60,
           ),
+          //Displays the elevated button with "register" written in it
           SizedBox(
             width: 300,
             height: 60,
@@ -157,6 +163,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   fontSize: 14,
                 ),
               ),
+              //Text button that allows routing to the log in screen
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(LogInScreen.routeName);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//A stateful widget for displaying the authentication form field
 class AuthFormField extends StatefulWidget {
   //Constructor
   const AuthFormField(
@@ -36,6 +37,7 @@ class _AuthFormFieldState extends State<AuthFormField> {
 
   @override
   Widget build(BuildContext context) {
+    //Text form field for the auth fields
     return SizedBox(
       width: widget.width,
       child: TextFormField(
@@ -50,6 +52,7 @@ class _AuthFormFieldState extends State<AuthFormField> {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          //if the widget is obscurable, adds the obscuring fuctionality
           suffixIcon: widget.isObscurable
               ? IconButton(
                   onPressed: () {

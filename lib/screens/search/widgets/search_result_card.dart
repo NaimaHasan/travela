@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../common/models/destination.dart';
 import '../../destination/destination_screen.dart';
 
+//A stateless widget for displaying search result card
 class SearchResultCard extends StatelessWidget {
   //Constructor
   const SearchResultCard(
@@ -13,6 +14,7 @@ class SearchResultCard extends StatelessWidget {
   final double cardTextWidth;
   @override
   Widget build(BuildContext context) {
+    //When the search result card is tapped, the screen routes to the corresponding destination screen
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -25,6 +27,7 @@ class SearchResultCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Row(
             children: [
+              //Displays the destination image with a gradient on top so the destination tag is properly visible
               Stack(
                 children: [
                   CachedNetworkImage(
@@ -33,6 +36,7 @@ class SearchResultCard extends StatelessWidget {
                     height: 150.0,
                     width: 210,
                   ),
+                  //Displays the gradient on top of the image
                   Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -45,6 +49,7 @@ class SearchResultCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //Displays the destination tag
                   Positioned(
                     left: 10,
                     bottom: 10,
@@ -67,11 +72,13 @@ class SearchResultCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      //Displays the destination name
                       Text(
                         destination.name,
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
+                      //Displays the destination address
                       Text(
                         destination.address,
                         style: const TextStyle(fontSize: 14),

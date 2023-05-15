@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import 'new_trip_screen_desktop.dart';
 
+//A stateless widget for displaying the new trip screen
 class NewTripScreen extends StatelessWidget {
   //Constructor
   const NewTripScreen({Key? key}) : super(key: key);

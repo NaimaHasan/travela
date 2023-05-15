@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//A stateless widget for displaying top navigation bar items
 class TopNavigationBarItem extends StatelessWidget {
   //Constructor
   const TopNavigationBarItem(
@@ -12,6 +13,7 @@ class TopNavigationBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Text button for top navigation bar items
     return TextButton(
       onPressed: () {
         Navigator.of(context).pushNamed(route);

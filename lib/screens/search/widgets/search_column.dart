@@ -4,6 +4,7 @@ import 'package:travela/screens/search/widgets/search_result_card.dart';
 
 import '../../../common/models/destination.dart';
 
+//A stateful widget for displaying the search column
 class SearchColumn extends StatefulWidget {
   //Constructor
   const SearchColumn({
@@ -32,6 +33,8 @@ class _SearchColumnState extends State<SearchColumn> {
 
   @override
   Widget build(BuildContext context) {
+    //Future builder for search result data
+    //Checks the relevant conditions and displays messages on screen accordingly
     return FutureBuilder(
       future: searchResults,
       builder: (ctx, futureResults) {
@@ -47,6 +50,7 @@ class _SearchColumnState extends State<SearchColumn> {
             child: Text("No results found"),
           );
         }
+        //Listview builder for displaying search result data
         return ListView.builder(
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
@@ -55,6 +59,7 @@ class _SearchColumnState extends State<SearchColumn> {
           itemBuilder: (ctx, index) {
             return Padding(
               padding: widget.padding,
+              //Calls the SearchResultCard widget
               child: SearchResultCard(
                 destination: futureResults.data![index],
                 cardTextWidth: widget.cardWidth,

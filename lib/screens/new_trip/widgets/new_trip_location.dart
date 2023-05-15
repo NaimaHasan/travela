@@ -3,6 +3,7 @@ import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/screens/new_trip/widgets/location_picker.dart';
 import 'package:latlong2/latlong.dart';
 
+//A stateful widget for the new trip form location
 class NewTripLocation extends StatefulWidget {
   //Constructor
   const NewTripLocation({Key? key, required this.setLocation, required this.defaultLatLng, this.initialName, this.initialAddress}) : super(key: key);
@@ -62,6 +63,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
             var result = await showDialog(
               context: context,
               builder: (ctx) {
+                //Calls the LocationPicker widget
                 return LocationPicker(
                   ctx: ctx,
                   initialPos: widget.defaultLatLng,
@@ -75,6 +77,8 @@ class _NewTripLocationState extends State<NewTripLocation> {
             }
           },
         ) :
+        //Future builder for new trip location
+        //Checks the relevant conditions and displays messages on screen accordingly
         FutureBuilder(
           future: _future,
           builder: (ctx, futureResult){
@@ -82,6 +86,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
                 return const CircularProgressIndicator();
               }
               if(!futureResult.hasData || futureResult.data == null){
+                //Displays the text form field for the location picker
                 return TextFormField(
                   controller: locationController,
                   decoration: const InputDecoration(
@@ -96,6 +101,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
                     var result = await showDialog(
                       context: context,
                       builder: (ctx) {
+                        //Calls the LocationPicker widget
                         return LocationPicker(
                           ctx: ctx,
                           initialPos: widget.defaultLatLng,
@@ -110,6 +116,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
                 );
               }
               locationController.text = formattedLatLng(futureResult.data!);
+              //Displays the text form field for the location picker
               return TextFormField(
                 controller: locationController,
                 decoration: const InputDecoration(
@@ -124,6 +131,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
                   var result = await showDialog(
                     context: context,
                     builder: (ctx) {
+                      //Calls the LocationPicker widget
                       return LocationPicker(
                         ctx: ctx,
                         initialPos: futureResult.data!,
@@ -144,6 +152,7 @@ class _NewTripLocationState extends State<NewTripLocation> {
   }
 }
 
+//A function for formatting the longitude and latitude
 String formattedLatLng(LatLng input) {
   return "${convertToDms(input.latitude, false)} ${convertToDms(input.longitude, true)}";
 }

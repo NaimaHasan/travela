@@ -3,7 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travela/screens/register/register_screen_desktop.dart';
 
 
-
+//A stateless widget for displaying the register screen
 class RegisterScreen extends StatelessWidget {
   //Constructor
   const RegisterScreen({Key? key}) : super(key: key);

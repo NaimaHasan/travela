@@ -14,6 +14,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
+//A stateful widget for displaying the new trip form
+//This widget has been also used for edit trip form
 class NewTripForm extends StatefulWidget {
   //Constructor
   const NewTripForm({Key? key, this.initialName, this.existingTrip, this.initialAddress})
@@ -62,6 +64,7 @@ class _NewTripFormState extends State<NewTripForm> {
               fontSize: 24,
             ),
           ),
+          //Calls the NewTripName widget
           NewTripName(
             onSaved: (value) {
               _name = value!;

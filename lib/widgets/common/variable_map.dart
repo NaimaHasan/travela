@@ -6,6 +6,7 @@ import 'package:travela/common/api/location_controller.dart';
 
 import '../../screens/destination/destination_screen.dart';
 
+//A stateful widget for displaying map
 class VariableMap extends StatefulWidget {
   //Constructor
   const VariableMap({Key? key, required this.getCenter}) : super(key: key);
@@ -30,6 +31,7 @@ class VariableMapState extends State<VariableMap> {
           _location = value;
           _controller.move(_location, _controller.zoom);
         });
+        //Gets the nearby places and displays it on the map with marker and name respectively
         LocationController.getNearbyLocations(value.latitude, value.longitude).then((value) {
           setState(() {
             _markers.clear();
@@ -68,6 +70,7 @@ class VariableMapState extends State<VariableMap> {
 
   @override
   Widget build(BuildContext context) {
+    //Displays thr map using flutter map
     return FlutterMap(
       mapController: _controller,
       options: MapOptions(

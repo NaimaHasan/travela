@@ -14,6 +14,7 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
+//A stateless widget that displays the search screen mobile
 class SearchScreenMobile extends StatelessWidget {
   //Constructor
   const SearchScreenMobile({
@@ -29,6 +30,7 @@ class SearchScreenMobile extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calls TopNavigationBar widget
         child: const TopNavigationBar(
           hasSearch: false,
         ),
@@ -36,8 +38,10 @@ class SearchScreenMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //Calls the SearchBox widget
             SearchBox(width: screenSize.width - 2 * marginHorizontalMobile, initialString: searchTerm),
             verticalSpaceSmall,
+            //Calls the SearchColumn widget
             SearchColumn(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               cardWidth: screenSize.width - 288,
