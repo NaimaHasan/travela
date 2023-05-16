@@ -75,6 +75,7 @@ class _NewTripFormState extends State<NewTripForm> {
                 ? widget.initialName
                 : widget.existingTrip!.tripName,
           ),
+          //Calls the NewTripDate widget for start date
           NewTripDate(
             title: 'Start Date',
             onSaved: (value) {
@@ -86,6 +87,7 @@ class _NewTripFormState extends State<NewTripForm> {
                 ? null
                 : widget.existingTrip!.startDate,
           ),
+          //Calls the NewTripDate widget for end date
           NewTripDate(
             title: 'End Date',
             onSaved: (value) {
@@ -115,6 +117,7 @@ class _NewTripFormState extends State<NewTripForm> {
           ),
           Visibility(
             visible: widget.existingTrip == null,
+            //Calls the NewTripLocation widget
             child: NewTripLocation(
               defaultLatLng: _location,
               setLocation: (value) {
@@ -137,6 +140,9 @@ class _NewTripFormState extends State<NewTripForm> {
               ),
             ),
           ),
+          //This check has been added as this widget is also used for edit trip
+          //If there is no previously added image displays the default dotted border
+          //else displays the image
           _image == null
               ? (widget.existingTrip == null ||
                       widget.existingTrip!.tripImageUrl == null
@@ -226,6 +232,7 @@ class _NewTripFormState extends State<NewTripForm> {
           Container(
             height: 40,
           ),
+          //Displays an elevated button with the text "Done"
           SizedBox(
             width: 250,
             height: 50,
