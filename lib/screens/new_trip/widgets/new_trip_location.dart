@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/common/api/location_controller.dart';
 import 'package:travela/screens/new_trip/widgets/location_picker.dart';
@@ -26,12 +25,6 @@ class _NewTripLocationState extends State<NewTripLocation> {
 
   @override
   void initState() {
-    if (kDebugMode) {
-      print(widget.initialAddress);
-    }
-    if (kDebugMode) {
-      print(widget.initialName);
-    }
     locationController.text =
         formattedLatLng(widget.defaultLatLng); //set the initial value of text field
     if(widget.initialName != null){
