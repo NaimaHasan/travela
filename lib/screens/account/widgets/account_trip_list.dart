@@ -11,102 +11,82 @@ import 'package:intl/intl.dart';
 import '../../new_trip/new_trip_screen.dart';
 
 //A stateful widget to display the account trip grid in the browser version
-class AccountTripList extends StatefulWidget {
+class AccountTripList extends StatelessWidget {
   //Constructor
-  const AccountTripList({Key? key, required this.group, required this.name})
+  const AccountTripList(
+      {Key? key,
+      required this.group,
+      required this.name,
+      required this.future,
+      required this.setFutures})
       : super(key: key);
 
   final TripGroup group;
   final String name;
-
-  @override
-  State<AccountTripList> createState() => _AccountTripListState();
-}
-
-class _AccountTripListState extends State<AccountTripList> {
-  late Future<List<Trip>> _getTrips;
-
-  void setFutures() {
-    switch (widget.group) {
-      case TripGroup.pending:
-        _getTrips = TripController.getPendingTrips();
-        break;
-      case TripGroup.personal:
-        _getTrips = TripController.getPersonalTrips();
-        break;
-      case TripGroup.group:
-        _getTrips = TripController.getGroupTrips();
-        break;
-    }
-  }
-
-  @override
-  void initState() {
-    setFutures();
-    super.initState();
-  }
+  final Future<List<Trip>> future;
+  final VoidCallback setFutures;
 
   @override
   Widget build(BuildContext context) {
     //Variable to specify the tablet width
     var tabWidth = 1150;
-    //Future builder to get user trip information
-    return FutureBuilder(
-      future: _getTrips,
-      builder: (context, futureResult) {
-        if (futureResult.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        //Column for the name and "+" icon
-        return Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  top: 40,
-                  bottom:
-                      MediaQuery.of(context).size.width < tabWidth ? 5 : 30),
-              child: Row(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.name,
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width < tabWidth
-                              ? 18
-                              : 24,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  //"+" icon is only visible in case of your trips
-                  Visibility(
-                    visible: widget.name == 'Your Trips',
-                    child: Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(NewTripScreen.routeName);
-                          },
-                          icon: Icon(
-                            Icons.add,
-                            size: MediaQuery.of(context).size.width < tabWidth
-                                ? 22
-                                : 30,
-                          ),
-                          padding: EdgeInsets.zero,
-                          visualDensity: VisualDensity.compact,
-                          splashRadius: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+
+    //Column for the name and "+" icon
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: 40,
+              bottom: MediaQuery.of(context).size.width < tabWidth ? 5 : 30),
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  name,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width < tabWidth
+                          ? 18
+                          : 24,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
+              //"+" icon is only visible in case of your trips
+              Visibility(
+                visible: name == 'Your Trips',
+                child: Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(NewTripScreen.routeName);
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        size: MediaQuery.of(context).size.width < tabWidth
+                            ? 22
+                            : 30,
+                      ),
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      splashRadius: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        //Future builder to get user trip information
+        FutureBuilder(
+          future: future,
+          builder: (context, futureResult) {
+            if (futureResult.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
             //if there are no trips displays No trips yet else displays a listview
-            !futureResult.hasData || futureResult.data!.isEmpty
+            return !futureResult.hasData || futureResult.data!.isEmpty
                 ? const Text("No Trips Yet")
                 : ListView.builder(
                     scrollDirection: Axis.vertical,
@@ -183,7 +163,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                   //if the cross is pressed, the trip is declined
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 25),
-                                    child: widget.group == TripGroup.pending
+                                    child: group == TripGroup.pending
                                         ? Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -192,9 +172,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                                   await TripController
                                                       .acceptTrip(futureResult
                                                           .data![index]);
-                                                  setState(() {
-                                                    setFutures();
-                                                  });
+                                                  setFutures();
                                                 },
                                                 icon: const Icon(Icons.check),
                                                 splashRadius: 18,
@@ -208,9 +186,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                                   await TripController
                                                       .declineTrip(futureResult
                                                           .data![index]);
-                                                  setState(() {
-                                                    setFutures();
-                                                  });
+                                                  setFutures();
                                                 },
                                                 icon: const Text(
                                                   'X',
@@ -240,9 +216,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                                           futureResult
                                                               .data![index],
                                                           context);
-                                                  setState(() {
-                                                    setFutures();
-                                                  });
+                                                  setFutures();
                                                 },
                                                 icon: const Icon(
                                                     Icons.delete_outline),
@@ -260,9 +234,7 @@ class _AccountTripListState extends State<AccountTripList> {
                                                           futureResult
                                                               .data![index],
                                                           context);
-                                                  setState(() {
-                                                    setFutures();
-                                                  });
+                                                  setFutures();
                                                 },
                                                 icon: const Icon(Icons.share),
                                                 iconSize: 17,
@@ -286,10 +258,10 @@ class _AccountTripListState extends State<AccountTripList> {
                         ),
                       );
                     },
-                  ),
-          ],
-        );
-      },
+                  );
+          },
+        ),
+      ],
     );
   }
 }

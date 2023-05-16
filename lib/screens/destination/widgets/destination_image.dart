@@ -34,7 +34,7 @@ class DestinationImage extends StatelessWidget {
                 //Calls DestinationCarousel
                 Expanded(
                   child: SizedBox(
-                    height: 0.6 * screenSize.height,
+                    height: 0.7 * screenSize.height,
                     child: DestinationCarousel(
                       imgList: destination.image,
                       controller: buttonCarouselController,
@@ -52,7 +52,7 @@ class DestinationImage extends StatelessWidget {
           child: Card(
             elevation: 10,
             child: SizedBox(
-              width: 500,
+              width: 700,
               height: 100,
               child: Row(
                 children: [
@@ -68,7 +68,7 @@ class DestinationImage extends StatelessWidget {
                       ),
                       //Displays destination name
                       SizedBox(
-                        width: 250,
+                        width: 350,
                         child: Text(
                           destination.name,
                           style: const TextStyle(

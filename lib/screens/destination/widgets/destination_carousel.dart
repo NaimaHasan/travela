@@ -24,7 +24,7 @@ class DestinationCarousel extends StatelessWidget {
         options: CarouselOptions(
           autoPlay: false,
           viewportFraction: 1,
-          height: 0.6 * screenSize.height,
+          height: 0.7 * screenSize.height,
           initialPage: 5,
         ),
         items: imgList
@@ -35,7 +35,7 @@ class DestinationCarousel extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: item,
                       fit: BoxFit.cover,
-                      height: 0.6 * screenSize.height,
+                      height: 0.7 * screenSize.height,
                     ),
                   ),
                 ],
