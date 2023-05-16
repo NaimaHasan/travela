@@ -127,8 +127,10 @@ class TopNavigationBar extends StatelessWidget {
                               child: CachedNetworkImage(
                                 imageUrl:
                                     "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
-                                width: 35,
-                                height: 35,
+                                width: MediaQuery.of(context).size.width < 600
+                                    ? 25:35,
+                                height: MediaQuery.of(context).size.width < 600
+                                    ? 25:35,
                                 fit: BoxFit.cover,
                               ),
                             ),

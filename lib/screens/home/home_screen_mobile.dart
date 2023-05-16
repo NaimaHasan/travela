@@ -28,9 +28,6 @@ class HomeScreenMobile extends StatelessWidget {
           children: [
             //Calls HomeDestinationViewMobile widget
             const HomeDestinationViewMobile(),
-            verticalSpaceMedium,
-            //Calls BottomBar widget
-            const BottomBar(),
           ],
         ),
       ),
