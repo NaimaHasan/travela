@@ -6,7 +6,6 @@ import '../../../common/api/authentication_controller.dart';
 import '../../../common/models/user.dart';
 import '../../edit_information/edit_information_screen.dart';
 
-
 //A stateful widget for the top part of the account screen in desktop
 //Top part contains the user name, user image, log out and edit information button
 class AccountDashboard extends StatefulWidget {
@@ -57,7 +56,10 @@ class _AccountDashboardState extends State<AccountDashboard> {
                       )
                     : ClipOval(
                         child: CachedNetworkImage(
-                            imageUrl: "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}"),
+                          imageUrl:
+                              "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
+                          fit: BoxFit.cover,
+                        ),
                       ),
               ),
               //A container for padding

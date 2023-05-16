@@ -60,6 +60,7 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                               child: CachedNetworkImage(
                                 imageUrl:
                                     "http://127.0.0.1:8000${futureResult.data!.userImageUrl!}",
+                                fit: BoxFit.cover,
                               ),
                             ),
                     ),
@@ -73,8 +74,8 @@ class _AccountDashboardMobileState extends State<AccountDashboardMobile> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 5, top: 25, right: 5),
+                          padding: const EdgeInsets.only(
+                              bottom: 5, top: 25, right: 5),
                           child: IconButton(
                             visualDensity: VisualDensity.compact,
                             padding: EdgeInsets.zero,
