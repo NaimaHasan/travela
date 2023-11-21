@@ -1,16 +1,6 @@
-# travela
+# Travela
 
-A new Flutter project.
+Travela is a website built with Flutter aiming to help travellers plan their trips and find locations of interest, and coordinate itineraries with fellow travellers. Users could locate nearby hotels, restaurants and destinations, view them on a map and add them to an itinerary. Users could also share itineraries with other users, and coordinate schedules and travel plans.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demonstration
+https://youtu.be/nuXD5x7yEx0?si=sKS4zhnMtUbCaJsx
