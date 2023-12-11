@@ -10,7 +10,7 @@ Watch a quick demonstration of Travela on [YouTube](https://youtu.be/nuXD5x7yEx0
 Follow these instructions to build and run Travela locally:
 
 ### Prerequisites
-Before running the Travela, ensure that you have the [Travela API](https://github.com/imranZMiko/travela-api) hosted. Instructions are available in the repository.
+Before running Travela, ensure that you have the [Travela API](https://github.com/imranZMiko/travela-api) hosted. Instructions are available in the repository.
 
 Make sure you have Flutter installed. If not, follow the [official installation guide](https://flutter.dev/docs/get-started/install).
 
