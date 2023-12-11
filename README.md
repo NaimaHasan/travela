@@ -16,7 +16,7 @@ Make sure you have Flutter installed. If not, follow the [official installation 
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/Travela.git
+git clone https://github.com/NaimaHasan/travela.git
 cd Travela
 ```
 ### Install Dependencies
