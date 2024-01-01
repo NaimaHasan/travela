@@ -1,0 +1,2 @@
+- cache all possible images
+- search for common search terms

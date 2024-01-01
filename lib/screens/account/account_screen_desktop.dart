@@ -1,128 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:travela/screens/account/widgets/account_dashboard.dart';
+import 'package:travela/screens/account/widgets/account_trip.dart';
+import 'package:travela/widgets/common/bottom_bar.dart';
+import 'package:travela/widgets/common/spacing.dart';
+
 
 import '../../widgets/common/top_navigation_bar.dart';
-import '../edit_information/edit_information_screen.dart';
 
+//A stateless widget for account screen desktop
 class AccountScreenDesktop extends StatelessWidget {
+  //Constructor
   const AccountScreenDesktop({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    //variable for screen size
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 80),
+        //Calling the top navigation bar widget
         child: const TopNavigationBar(
           hasSearch: false,
           hasAccount: false,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 500, right: 500, top: 30),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.account_circle,
-                        size: 180,
-                      ),
+      body: LayoutBuilder(
+        builder: (context, constraints){
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: screenSize.width * 0.125,
+                      right: screenSize.width * 0.125,
+                      top: 30),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight - BottomBar.bottomBarHeight - 70, // Set the desired minimum height
                     ),
-                  ),
-                  Container(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(height: 10),
-                      const Text(
-                        'John Doe',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                      Container(
-                        height: 35,
-                      ),
-                      SizedBox(
-                        width: 140,
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(EditInformationScreen.routeName);
-                          },
-                          child: const Text(
-                            'Edit Information',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
-                          '55',
-                          style: TextStyle(fontSize: 35),
-                        ),
+                        //Calls the account dashboard widget
+                        const AccountDashboard(),
+                        Container(height: 20),
                         Container(
-                          height: 15,
+                          height: 1,
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          color: Colors.black45,
                         ),
-                        const Text(
-                          'Trips',
-                          style: TextStyle(fontSize: 15),
-                        ),
+                        //Calls the account trip widget
+                        const AccountTrip(),
                       ],
                     ),
                   ),
-                ],
-              ),
-              Container(height: 20),
-              Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width - 1000,
-                color: Colors.black45,
-              ),
-              const Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 30, left: 10, bottom: 30),
-                  child: Text(
-                    'Trips',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
                 ),
-              ),
-              Container(
-                height: 1000,
-                child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 50,
-                    mainAxisSpacing: 50,
-                  ),
-                  itemCount: 300,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      color: Colors.blueGrey,
-                      child: Center(child: Text('$index')),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
+                verticalSpaceMedium,
+                //Calls the bottom bar widget
+                const BottomBar(),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,89 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
+//A stateful widget for the new trip date field
 class NewTripDate extends StatefulWidget {
-  NewTripDate({required this.title, required this.data, Key? key})
-      : super(key: key);
+  //Constructor
+  const NewTripDate({required this.title, Key? key, required this.onSaved, required this.myController, required this.otherController, this.initialDate}) : super(key: key);
   final String title;
-  final String data;
+  final Function(String?) onSaved;
+  final String? initialDate;
+  final TextEditingController myController;
+  final TextEditingController otherController;
+
   @override
+  // ignore: library_private_types_in_public_api
   _NewTripDateState createState() => _NewTripDateState();
 }
 
 class _NewTripDateState extends State<NewTripDate> {
-  bool isEnabled = false;
-  IconData icon = Icons.edit;
-  TextEditingController fieldData = TextEditingController();
-
   @override
   void initState() {
-    fieldData.text = widget.data;
+    widget.myController.text = widget.initialDate == null ? DateFormat('yyyy-MM-dd')
+        .format(DateTime.now()) : widget.initialDate!; //set the initial value of text field
     super.initState();
   }
 
   @override
-  void dispose() {
-    fieldData.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black12),
-            borderRadius: BorderRadius.all(Radius.circular(6))),
-        width: 350,
-        height: 60,
-        child: Row(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.calendar_today_outlined),
-                  iconSize: 24,
-                  splashRadius: 12,
-                  color: Colors.black54,
-                ),
-              ),
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black12),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+      ),
+      width: 350,
+      height: 60,
+      child: Center(
+        //Text form field for the new trip date
+        child: TextFormField(
+          controller: widget.myController,
+          decoration: InputDecoration(
+            prefixIcon: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.calendar_today),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 25,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10),
-                    child: Text(
-                      widget.title,
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                  width: 250,
-                  child: TextFormField(
-                    controller: fieldData,
-                    enabled: isEnabled,
-                    style: TextStyle(fontSize: 15),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.only(top: 0, left: 10, bottom: 15),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            labelText: widget.title,
+            border: InputBorder.none,
+          ),
+          readOnly: true,
+          onSaved: widget.onSaved,
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: widget.title == 'Start Date' ? DateTime(2000).toLocal() : DateFormat('yyyy-MM-dd').parse(widget.otherController.text).toLocal(),
+              lastDate: widget.title == 'Start Date' ? DateFormat('yyyy-MM-dd').parse(widget.otherController.text).toLocal() : DateTime(2101).toLocal(),
+
+            );
+            if (pickedDate != null) {
+              String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate.toLocal());
+              setState(() {
+                widget.myController.text = formattedDate;
+              });
+            }
+          },
         ),
       ),
     );

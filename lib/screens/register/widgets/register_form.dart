@@ -1,11 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+import 'package:travela/common/api/authentication_controller.dart';
 import 'package:travela/widgets/common/auth_form_field.dart';
 
-import '../../account/account_screen.dart';
 import '../../login/login_screen.dart';
 
+//A stateful widget for register form
 class RegisterForm extends StatefulWidget {
+  //Constructor
   const RegisterForm({Key? key}) : super(key: key);
 
   @override
@@ -15,61 +17,12 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
-  final _auth = FirebaseAuth.instance;
 
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
 
   bool _isLoading = false;
-
-  Future<void> _trySubmit() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-      UserCredential authResult;
-
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-
-        authResult = await _auth.createUserWithEmailAndPassword(
-          email: _userEmail,
-          password: _userPassword,
-        );
-
-        if (context.mounted) {
-          Navigator.of(context).pushNamed(AccountScreen.routeName);
-        }
-      } on FirebaseAuthException catch (err) {
-        var message = 'An error occurred, please check your credentials!';
-
-        if (err.message != null) {
-          message = err.message!;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-          ),
-        );
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      } catch (err) {
-        setState(
-          () {
-            _isLoading = false;
-          },
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +41,10 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 60,
           ),
+          //Calls the AuthFormField for name
           AuthFormField(
             text: 'Enter your full name',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 4) {
                 return 'Please enter at least 4 characters';
@@ -103,8 +58,10 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for email
           AuthFormField(
             text: 'Enter your E-mail',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || !value.contains('@')) {
                 return 'Invalid email!';
@@ -118,8 +75,10 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for password
           AuthFormField(
             text: 'Enter password',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 5) {
                 return 'Password is too short!';
@@ -135,8 +94,10 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 30,
           ),
+          //Calls the AuthFormField for confirm password
           AuthFormField(
             text: 'Confirm Password',
+            width: 400,
             validatorFn: (value) {
               if (value!.isEmpty || value.length < 5) {
                 return 'Password is too short!';
@@ -152,17 +113,41 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             height: 60,
           ),
+          //Displays the elevated button with "register" written in it
           SizedBox(
             width: 300,
             height: 60,
             child: ElevatedButton(
-              onPressed: () {
-                _trySubmit();
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+
+                final isValid = _formKey.currentState!.validate();
+
+                FocusScope.of(context).unfocus();
+
+                if (isValid) {
+                  _formKey.currentState!.save();
+
+                  await Authentication.register(
+                    context,
+                    _userName,
+                    _userEmail,
+                    _userPassword,
+                  );
+                }
+
+                setState(() {
+                  _isLoading = false;
+                });
               },
-              child: const Text(
-                'Register',
-                style: TextStyle(),
-              ),
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : const Text(
+                      'Register',
+                      style: TextStyle(),
+                    ),
             ),
           ),
           Container(
@@ -178,11 +163,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   fontSize: 14,
                 ),
               ),
+              //Text button that allows routing to the log in screen
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(LogInScreen.routeName);
                 },
-                child: Text('Log In'),
+                child: const Text('Log In'),
               )
             ],
           ),

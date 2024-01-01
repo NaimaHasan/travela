@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+//A stateless widget for displaying top navigation bar items
 class TopNavigationBarItem extends StatelessWidget {
+  //Constructor
   const TopNavigationBarItem(
       {Key? key, required this.text, this.size = 18, required this.route})
       : super(key: key);
@@ -11,11 +13,10 @@ class TopNavigationBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Text button for top navigation bar items
     return TextButton(
       onPressed: () {
-        if(!text.contains("Near Me")) {
-          Navigator.of(context).pushNamed(route);
-        }
+        Navigator.of(context).pushNamed(route);
       },
       child: Text(
         text,

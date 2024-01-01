@@ -41,6 +41,14 @@ dependencies:
   dotted_border: ^2.0.0+3
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.2
+  http: ^0.13.5
+  intl: ^0.17.0
+  flutter_osm_plugin: ^0.53.2
+  flutter_map: ^3.1.0
+  image_picker: ^0.8.7+4
+  cached_network_image: ^3.2.3
+  latlong2: ^0.8.1
+  http_parser: ^4.0.2
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +75,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/
+    - lib/assets/github-mark/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

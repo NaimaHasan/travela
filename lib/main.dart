@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travela/screens/account/account_screen.dart';
 import 'package:travela/screens/edit_information/edit_information_screen.dart';
@@ -12,8 +13,8 @@ import 'package:travela/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:travela/screens/trip/trip_screen.dart';
 
+//main function
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -22,28 +23,117 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  //Constructor
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Travela',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
       ),
+
+      //Routing for all of the screens
+      //initial route is set to home screen
       initialRoute: HomeScreen.routeName,
-      routes: {
-        HomeScreen.routeName: (ctx) => const HomeScreen(),
-        SearchScreen.routeName: (ctx) => const SearchScreen(),
-        MapScreen.routeName: (ctx) => const MapScreen(),
-        DestinationScreen.routeName: (ctx) => const DestinationScreen(),
-        LogInScreen.routeName: (ctx) => const LogInScreen(),
-        RegisterScreen.routeName: (ctx) => const RegisterScreen(),
-        AccountScreen.routeName: (ctx) => const AccountScreen(),
-        EditInformationScreen.routeName: (ctx) => const EditInformationScreen(),
-        NewTripScreen.routeName: (ctx) => const NewTripScreen(),
-        ItineraryScreen.routeName: (ctx) => const ItineraryScreen(),
-        TripScreen.routeName: (ctx) => const TripScreen(),
+      onGenerateRoute: (settings) {
+
+        //Routing for itinerary screen
+        if (settings.name!.startsWith('/itinerary/')) {
+          final dynamicValue = int.parse(settings.name!.split('/').last);
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : ItineraryScreen(trip: dynamicValue),
+            settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for search screen
+        if (settings.name!.startsWith('/search/')) {
+          final dynamicValue = settings.name!.split('/').last;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => SearchScreen(searchTerm: dynamicValue),
+            settings: settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for destination screen
+        if (settings.name!.startsWith('/destination/')) {
+          final dynamicValue = settings.name!.split('/').last;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => DestinationScreen(destinationName: dynamicValue),
+            settings: settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+        if (settings.name!.startsWith('/near-me')) {
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const MapScreen(),
+            settings: settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for log in screen
+        if (settings.name!.startsWith('/login')) {
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const AccountScreen(),
+            settings: auth.currentUser == null ? settings : RouteSettings(name: "/account", arguments: settings.arguments),
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for register screen
+        if (settings.name!.startsWith('/register')) {
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const RegisterScreen() : const AccountScreen(),
+            settings: auth.currentUser == null ? settings : RouteSettings(name: "/account", arguments: settings.arguments),
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for account screen
+        if (settings.name!.startsWith('/account')) {
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const AccountScreen(),
+            settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for edit information screen
+        if (settings.name!.startsWith('/edit_information')) {
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const EditInformationScreen(),
+            settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for new trip screen
+        if (settings.name!.startsWith('/new_trip')) {
+          final auth = FirebaseAuth.instance;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => auth.currentUser == null ? const LogInScreen() : const NewTripScreen(),
+            settings: auth.currentUser == null ? RouteSettings(name: "/login", arguments: settings.arguments) : settings,
+            transitionDuration: Duration.zero, // Set the transition duration to zero
+          );
+        }
+
+        //Routing for home screen
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+          settings: settings,
+          transitionDuration: Duration.zero, // Set the transition duration to zero
+        );
       },
     );
   }

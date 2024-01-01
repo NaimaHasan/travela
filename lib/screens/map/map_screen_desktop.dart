@@ -1,41 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:travela/widgets/common/variable_map.dart';
+import '../../common/api/location_controller.dart';
+import '../../widgets/common/top_navigation_bar.dart';
 
+//A stateless widget displaying the map screen desktop
 class MapScreenDesktop extends StatelessWidget {
-  const MapScreenDesktop({
-    super.key,
-  });
+  //Constructor
+  const MapScreenDesktop({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).padding.top,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            child: SizedBox(
-              height: 38,
-              child: TextField(
-                style: const TextStyle(fontSize: 16),
-                // textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  prefixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.search),
-                    iconSize: 24,
-                    splashRadius: 18,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 80),
+        //Calls the TopNavigationBar widget
+        child: const TopNavigationBar(
+          hasSearch: false,
+          hasAccount: true,
+        ),
+      ),
+      body: Center(
+        //Calls the VariableMap widget
+        child: VariableMap(
+          getCenter: LocationController.getCurrentLocation(),
+        ),
       ),
     );
   }
